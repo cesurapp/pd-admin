@@ -1,0 +1,60 @@
+{# Content Body #}
+{% block content_body %}
+    <div class="content-form">
+        {{ form_start(form) }}
+        <div class="form-group">
+            <div class="accordion-menu" role="tablist">
+                {% for item in form %}
+                    {% if ('_token' not in item.vars.name) and ('Submit' not in item.vars.name) %}
+                        {{ lastItemName is defined ? ( lastItemName[0] in item.vars.name ? '' : '<hr>' ) : '' }}
+                        <div class="panel">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent=".accordion-menu" href="#{{ item.vars.name }}">
+                                        {{ (item.vars.name ~ '.title')|trans }}
+                                        <span class="badge badge-primary float-right">{{ item.children|length }}</span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="{{ item.vars.name }}" class="panel-collapse collapse">
+                                <div class="panel-content">
+                                    {% for child in item.children %}
+                                        {{ form_widget(child) }}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                        {% set lastItemName = item.vars.name|split('_') %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        <div class="form-group text-center mt-3">
+            <div>{{ form_widget(form.Submit) }}</div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+      $(function () {
+        $('[name="form[ACL]"]').change(function () {
+          var val = $(this).val();
+          var selector = '.accordion-menu input[name*="ADMIN_"], .accordion-menu input[name*="ACLP"]';
+
+          // Disable Admin Access to ROLE_USER
+          if ((val === 'ROLE_USER') || (val === 'ROLE_SUPER_ADMIN')) {
+            $.each($(selector), function (index, el) {
+              $(el).attr('disabled', true)
+            })
+          } else {
+            $.each($(selector), function (index, el) {
+              $(el).attr('disabled', false)
+            })
+          }
+        });
+        $('[name="form[ACL]"]:checked').trigger('change');
+      })
+    </script>
+{% endblock %}

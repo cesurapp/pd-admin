@@ -1,0 +1,23 @@
+###> symfony/phpunit-bridge ###
+.phpunit
+/phpunit.xml
+###< symfony/phpunit-bridge ###
+
+###> symfony/framework-bundle ###
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+# Public
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# Other
+.env
+src/*/Entity/*~
+src/*/Entity/*/*~
+.idea
+.web-server-pid
+/build/
+.DS_Store
+.php_cs.cache

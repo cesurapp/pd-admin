@@ -1,0 +1,58 @@
+{# Template Parts #}
+{% extends "@Admin/base.html.twig" %}
+
+{# Document #}
+{% block head_title %}{{ title('accouunt_group_list_title'|trans) }}{% endblock %}
+
+{# Content Title #}
+{% block content_head %}
+    <span class="text">{{ 'accouunt_group_list_title'|trans }}</span>
+    <span class="desc">{{ 'accouunt_group_list_desc'|trans({'%s': groups.getTotalItemCount }) }}</span>
+{% endblock %}
+
+{# Content Body #}
+{% block content_body %}
+    <!-- Action Button -->
+    <div id="actions">
+        <div class="btn-group">
+            <a class="btn btn-primary" href="{{ path('admin_account_group_new') }}" data-tooltip title="{{ 'add_new'|trans }}"><i class="material-icons">add</i></a>
+        </div>
+    </div>
+
+    <!-- Table List -->
+    <form id="pageForm" method="post">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="wid-25">{{ knp_pagination_sortable(groups, 'group_name'|trans, 'g.name') }}</th>
+                        <th class="wid-25">{{ 'group_roles'|trans }}</th>
+                        <th class="process"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for group in groups %}
+                    <tr>
+                        <td class="wid-25">{{ group.name }}</td>
+                        <td class="wid-25">{{ group.roles|length }}</td>
+                        <td class="process">
+                            <div class="floating-menu">
+                                <a><i class="material-icons">more_horiz</i></a>
+                                <ul>
+                                    <li><a href="{{ path('admin_account_group_delete', {'group':group.id}) }}" data-modal="confirm"  data-tooltip title="{{ 'delete'|trans }}" class="text-danger"><i class="material-icons">delete</i></a></li>
+                                    <li><a href="{{ path('admin_account_group_roles',{'group':group.id}) }}" data-tooltip title="{{ 'edit_roles'|trans }}"><i class="material-icons">lock</i></a></li>
+                                    <li><a href="{{ path('admin_account_group_edit',{'group':group.id}) }}" data-tooltip title="{{ 'edit'|trans }}"><i class="material-icons">mode_edit</i></a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+    <!-- Pagination -->
+    {{ knp_pagination_render(groups) }}
+{% endblock %}

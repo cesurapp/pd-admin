@@ -1,0 +1,406 @@
+###
+# Security Permission
+###
+access_denied: Erişim engellendi!
+access_denied_not_authorized: Erişim engellendi! Bu işlem için yetkili değilsiniz.
+not_login_own_account: Erişim engellendi! Kendi hesabınıza giriş yapamazsınız.
+not_login_super_admin: Erişim engellendi! Süper Admin hesabına giriş yapamazsınız.
+not_login_already_switched: Erişim engellendi! Zaten mevcut bir kullanıcıya geçiş yaptınız.
+not_login_switch_authorized: Erişim engellendi! Yetkiniz bu işlem için yeterli değil.
+ACL:
+    title: Erişim Kontrol
+ACLProcess:
+    title: Özel İşlemler
+ROLE_USER:
+    title: Kullanıcı
+ROLE_ADMIN:
+    title: Admin
+ROLE_SUPER_ADMIN:
+    title: Süper Admin
+ROLE_ALLOWED_TO_SWITCH:
+    title: Hesap Değiştirme
+ADMIN_DASHBOARD:
+    title: Admin Paneli (Dashboard)
+    PANEL: Panel Listeleme
+ADMIN_ACCOUNT:
+    title: Admin Hesap Yönetimi
+    LIST: Listeleme
+    EDIT: Düzenleme
+    CHANGEPASSWORD: Şifre Değiştirme
+    ROLES: Yetkilendirme
+    ACTIVATE: Etkinleştirme
+    ADDGROUP: Grup Ekle/Çıkar
+    DELETE: Sil
+ADMIN_GROUP:
+    title: Admin Grup İzinleri
+    LIST: Listeleme
+    EDIT: Düzenleme
+    NEW: Yeni Grup
+    DELETE: Sil
+    ROLES: Yetkilendirme
+ADMIN_SETTINGS:
+    title: Admin Ayarlar İzinleri
+    GENERAL: Genel
+    EMAIL: E-posta
+    TEMPLATE: Arayüz
+    USER: Hesap
+    MEDIA: Medya
+    CONTACT: İletişim
+    CORE: Çekirdek
+    ROUTING: Yönlendirme
+ADMIN_MAIL:
+    title: Admin Posta Yöneticisi
+    TEMPLATELIST: Şablon Listeleme
+    TEMPLATEADD: Yeni Şablon
+    TEMPLATEEDIT: Şablon Düzenle
+    TEMPLATEACTIVE: Şablon Etkinleştir
+    TEMPLATEDELETE: Şablon Sil
+    LOGGER: Log Listeleme
+    VIEWLOG: Log Görüntüleme
+    LOGDELETE: Log Sil
+
+###
+# Time Ago
+###
+diff:
+    year:   yıl
+    month:  ay
+    day:    gün
+    hour:   saat
+    minute: dakika
+    second: saniye
+    ago:    önce
+
+###
+# General
+###
+edit: Düzenle
+edit_roles: Yetkilendirme
+delete: Sil
+change_password: Şifre Değiştir
+edit_group: Grup Düzenle
+switch_user: Hesaba Giriş Yap
+activate_deactivate: Etkinleştir / Devre Dışı
+add_new: Yeni Ekle
+close: Kapat
+yes: Evet
+add: Ekle
+refresh: Yenile
+add_widget: Widget Ekle
+search: Ara..
+search_filter: Filtrele
+search_placeholder: Arama...
+active: Etkin
+deactive: Devredışı
+select_all: Tümünü Seç
+select_item: Seçim Yapın
+selected: '{%s} Seçili'
+selected_all: '{%s} Tane Seçildi'
+no_matches: '"{%s}" için eşleşme bulunamadı!'
+delete_message: Silmek istediğinizden emin misiniz?
+save: Kaydet
+homepage: Anasayfa
+upload_image_btn: Resim Yükle
+Default: Varsayılan
+default: Varsayılan
+test: Test
+left: Sol
+right: Sağ
+top: Üst
+bottom: Alt
+middle: Merkez
+center: Merkez
+top_left: Üst Sol
+top_right: Üst Sağ
+bottom_left: Alt Sol
+bottom_right: Alt Sağ
+enable: Etkinleştir
+disable: Kapalı
+enabled: Etkin
+disabled: Devre Dışı
+date: Tarih
+success: Başarılı
+process_completed: İşlem Tamamlandı.
+changes_saved: Değişiklikler kaydedildi.
+remove_complete: Silme işlemi tamamlandı.
+sorry_not_existing: Üzgünüz kayıt mevcut değil.
+test_email_success: Test e-postası gönderildi.
+user_registration_disable: Kullanıcı alımı şuanda kapalıdır, lütfen daha sonra tekrar deneyin.
+copyright_footer: EmlakPRO bir %owner_company% ürünüdür.
+
+###
+# Pages
+###
+nav_dashboard: Panel
+admin_dashboard: Admin Panel
+admin_dashboard_desc: Yönetici Alanı
+admin_widget_modal_title: Widgetler
+nav_profile_edit: Hesabım
+nav_profile_password: Şifre Değiştir
+nav_profile_return_admin: Admin'e Dön
+nav_profile_logout: Çıkış Yap
+
+search_keyword: Anahtar Kelime
+search_keyword_account_placeholder: İsim / E-posta / Telefon
+nav_account: Hesaplar
+nav_account_edit: Profil
+nav_account_change_password: Şifre Değiştir
+nav_account_roles: Yetkilendirme
+nav_account_group: Grup
+account_firstname: İsim
+account_email: E-posta
+account_phone: Telefon
+account_lastlogin: Son Giriş
+account_status: Hesap Durumu
+search_filter_title: Sonuçları Filtrele
+admin_account_list: Hesaplar
+admin_account_desc: Kayıtlı tüm kullanıcılar
+account_edit_title: Hesap Düzenle
+firstname: İsim
+lastname: Soyisim
+phone: Telefon
+website: Website
+company: Şirket
+language: Dil
+created_at: Oluşturma Tarihi
+account_change_password_title: Şifre Değiştir
+account_add_group_title: Grup
+account_groups: Gruplar
+account_roles_title: Özel Yetkilendirme
+
+nav_group: Gruplar
+accouunt_group_list_title: Kullanıcı Grupları
+accouunt_group_list_desc: Üyelerin katıldığı gruplar
+group_name: Grup Adı
+group_roles: Yetkiler
+account_group_edit_title: Grup Düzenle
+account_group_edit_desc: Kullanıcı grup düzenleme
+nav_group_edit: Detaylar
+nav_group_roles: Yetkilendirme
+account_group_new_title: Yeni Grup
+account_group_new_desc: Yeni kullanıcı grubu oluştur
+account_group_role_title: Grup Yetkilendirme
+account_group_role_desc: Kullanıcı grup yetkilendirme
+
+nav_system: Admin Panel
+nav_system_header: Sistem Ayarları
+nav_tools_header: Sistem Araçları
+nav_config: Ayarlar
+settings_general: Genel Ayarlar
+settings_general_desc: Sistem ayarları
+admin_refresh_cache: Önbelleği Yenile
+admin_refresh_cache_desc: Sistem ayarlarında değişiklik yapıldıktan sonra önbelleği yenilemeniz gerekir. Şimdi önbelleği yenilemek ister misiniz?
+nav_config_general: Genel
+head_title: Site Başlığı
+head_title_info: Sitenin adıdır, son ek olarak gösterilir.
+head_title_pattern: Başlık Deseni
+head_title_pattern_info: '%T: Aktif sayfa başlığı, <br>%P: Panel son ek'
+head_description: Site Açıklama
+head_description_info: Panel için meta 'description' etiket alanıdır.
+head_author: Site Yazar
+head_author_info: Site yapımcısını belirler.
+head_keywords: Anahtar Kelimeler
+footer_copyright: Footer Copyright
+default_locale: Varsayılan Dil
+default_country: Varsayılan Ülke
+default_currency: Varsayılan Para Birimi
+site_logo: Site Logo
+default_image: Varsayılan Resim
+site_favicon: Site Favicon
+
+settings_contact: İletişim Ayarlar
+settings_contact_desc: Sistem ve site iletişim ayarları
+nav_config_contact: İletişim
+contact_email: İletişim E-posta
+contact_email_info: Sistem postaları ve iletişim formu bu adrese gönderilir.
+contact_phone: Telefon
+contact_mobile_phone: Mobil Telefon
+contact_fax_number: Fax
+contact_address: Yerel Adres
+contact_facebook: Facebook
+contact_twitter: Twitter
+contact_google: Google+
+contact_youtube: Youtube
+contact_linkedin: LinkedIn
+contact_whatsapp: WhatsApp
+
+settings_email: E-posta Ayarlar
+settings_email_desc: Sistem e-posta ayarları
+nav_config_email: E-Posta
+mail_disable_delivery: E-posta Sistemi
+mail_disable_delivery_info: E-posta sistemini etkinleştirir, kapatılması durumunda sistem e-posta gönderimi yapamaz.
+mail_transport: Protokol
+mail_transport_info: Sistemin e-postaları iletme protokolüdür, varsayılan olarak ayarlıdır.
+mail_host: Host
+mail_port: Port
+mail_port_info: SSL bağlantı için 465 ve 587 numaralı port kullanılmaktadır. SSL olmayan bağlantılar için 25 numaralı port kullanılmaktadır.
+mail_username: Kullanıcı Adı
+mail_username_info: Bağlantı sağlanacak sunucu için kullanıcı adı girin.
+mail_timeout: Zaman Aşımı
+mail_timeout_info: STMP bağlantı için zaman aşımı süresini ayarlar
+mail_password: Şifre
+mail_password_info: Bağlantı sağlanacak sunucu için şifre girin. Şifre gizlidir, kayıt yapıldıktan sonra görünmez.
+mail_encryption: Şifreleme
+mail_encryption_info: Bağlantı için kullanılacak şifreleme türüdür. SSL '465' numaralı port için TLS '587' numaralı port için kullanılmaktadır.
+mail_auth_mode: Kimlik Doğrulama Modu
+mail_auth_mode_info: Kimlik doğrulama mekanizması ve güvenlik seviyesi
+mail_sender_address: Gönderici E-posta
+mail_sender_address_info: Sistem e-postalarının gönderildiği adrestir.
+mail_sender_name: Gönderici Adı
+mail_sender_name_info: Sistem e-postalarının gönderim adıdır.
+mail_test_address: Test E-posta
+mail_test_address_info: Test icin kullanılacak e-posta adresi girin.
+
+settings_template: Şablon Ayarlar
+settings_template_desc: Admin panel şablon ayarları
+nav_config_template: Şablon
+template_admin: Admin Şablon
+template_auth: Login Şablon
+
+settings_user: Hesap Ayarlar
+settings_user_desc: Kullanıcı hesap ayarları
+nav_config_user: Hesap
+user_registration: Üye Kaydı
+user_registration_info: Üye kaydını etkinleştirir.
+user_default_group: Varsayılan Grup
+user_default_group_info: Yeni üyelerin otomatik olarak katıldıkları gruptur.
+user_login_redirect: Giriş Yönlendirmesi
+user_login_redirect_info: Kullanıcının giriş yaptıktan sonra yönlendirileceği sayfadır.
+user_logout_redirect: Çıkış Yönlendirmesi
+user_logout_redirect_info: Kullanıcının çıkış yaptıktan sonra yönlendirileceği sayfadır.
+user_email_confirmation: E-posta Doğrulama
+user_email_confirmation_info: Yeni üyeler için e-posta doğrulamayı etkinleştirir.
+user_welcome_email: Hoşgeldiniz E-postası
+user_welcome_email_info: Yeni üyeler için hoşgeldiniz e-postası gönderir.
+
+settings_media: Medya Ayarlar
+settings_media_desc: Sistem medya ayarları
+nav_config_media: Medya
+media_library: Resim Kütüphanesi
+media_library_info: Resim düzenleme, iyileştirme için kullanılacak php kütüphanesidir.
+media_directory_map: Media Dizin Yapısı
+media_directory_map_info: Media depolaması sırasında Yıl/Ay/Gün klasör yapısı kullanılabilir.
+media_directory_map_day: Yıl / Ay / Gün
+media_directory_map_month: Yıl / Ay
+media_directory_map_year: Yıl
+media_optimize: Resim Optimize
+media_optimize_info: pdAdmin upload sistemi ile yüklenen resimler için optizasyonu etkinleştirir.
+media_max_height: Resim Maximum Yükseklik
+media_max_height_info: Resimler için maximum yükseklik değeridir.
+media_max_width: Resim Maximum Genişlik
+media_max_width_info: Resimler için maximum genişlik değeridir.
+media_quality: Resim Kalitesi
+media_quality_info: 0-100 arasında değer girin, varsayılan 80'dir.
+media_watermark: Fligran (Kaplama)
+media_watermark_info: Resim üzerine fligran(kaplama) uygulanır.
+watermark_text: Yazı
+watermark_image: Resim
+media_wm_image: Fligran Resim
+media_wm_image_info: Fligran için '.png' formatında transparent resim kullanmanız önerilir.
+media_wm_image_position: Fligran Konumu
+media_wm_image_position_info: Fligranın ekleneceği konumun başlangıç noktasını belirler.
+media_wm_image_x: Fligran X
+media_wm_image_x_info: Fligranın X kordinatı üzerinde isteğe bağlı başlangıç pikselidir.
+media_wm_image_y: Fligran Y
+media_wm_image_y_info: Fligranın Y kordinatı üzerinde isteğe bağlı başlangıç pikselidir.
+media_wm_font: Fligran Font
+media_wm_font_info: Fligran için font dosyası seçin. Herhangi bir dosya seçilmediğinde varsayılan font kullanılacaktır.
+upload_font_btn: Font Yükle
+media_wm_font_text: Fligran Yazısı
+media_wm_font_size: Font Boyutu
+media_wm_font_size_info: Font büyüklüğü varsayılan 24 piksel olarak ayarlanmıştır.
+media_wm_font_color: Font Renk
+media_wm_font_color_info: Font için Hex yada RGBA olarak renk kodu girebilirsiniz.
+media_wm_font_align: Font Yatay Hizalama
+media_wm_font_align_info: Yatay font hizalamasıdır.
+media_wm_font_valign: Font Dikey Hizalama
+media_wm_font_valign_info: Dikey font hizalamasıdır.
+media_wm_font_x: X Pozisyon
+media_wm_font_x_info: İlk karakterin yatay taban noktasını tanımlar.
+media_wm_font_y: Y Pozisyon
+media_wm_font_y_info: İlk karakterin dikey taban noktasını tanımlar.
+media_wm_font_angle: Font Dönüş Açısı
+media_wm_font_angle_info: Font için dönüş açısıdır, sadece font yüklemesi yapıldığında çalışır.
+
+settings_core: Çekirdek Ayarlar
+settings_core_desc: Sistem çekirdek ayarları
+nav_config_core: Çekirdek
+active_language: Etkin Diller
+active_language_info: Sisteme yeni dil eklemek için kullanılır.
+list_count: Listeleme Sayısı
+list_count_info: Admin panel için varsayılan listeleme sayıdır.
+remember_time: Beni Hatırla Süresi
+remember_time_info: Kullanıcı giriş sisteminde kullanılan Beni Hatırla özelliğinin saniye cinsinden süresini ayarlar, varsayılan bir (604800sn) haftadır.
+twig_cache: Twig Önbellek
+twig_cache_info: Twig önbelleğini etkinleştirir. Geliştirme için kapatın.
+model_timezone: Model Timezone
+model_timezone_info: Veri girişi için Saat Dilimi
+view_timezone: View Timezone
+view_timezone_info: Veri görüntüleme için Saat Dilimi
+
+settings_routing: Yönlendirme Ayarlar
+settings_routing_desc: Sistem genel yönlendirme ayarları
+nav_config_routing: Yönlendirme
+routing_admin: Admin Panel URL
+routing_admin_info: Admin panele ulaşım için yönlendirme eki.
+routing_login: Kullanıcı Giriş URL
+routing_login_info: Ziyaretçilerin hesaplarına giriş için kullandığı adres.
+routing_logout: Kullanıcı Çıkış URL
+routing_logout_info: Üyelerin çıkış yapması için kullanılan adres.
+routing_register: Kullanıcı Kayıt URL
+routing_register_info: Ziyaretçilerin kayıt olurken kullandığı adres.
+routing_resetting: Kullanıcı Şifre Sıfırlama
+routing_resetting_info: Kullanıcıların şifrelerini sıfırlamaları için kullandığı adres.
+
+nav_mail_manager: Posta Yöneticisi
+mail_manager_list: Posta Yöneticisi
+mail_manager_list_desc: Sistem posta şablonları ve günlük yönetimi
+nav_mail_template: Şablon
+nav_mail_logger: Günlük
+mail_manager_subject: Konu
+mail_contentid: Tanımlayıcı
+mail_contentid_info: Şablon özel tanımlayıcı değeridir, varsayılan olarak ayarlanmıştır.
+mail_language: Dil
+
+mail_manager_logger: Posta Günlüğü
+mail_manager_logger_desc: Sistem üzerinden gönderilen posta kayıtları
+mail_subject: Konu
+mail_to: Gönderilen
+mail_mid: Posta ID
+mail_from: Gönderen
+mail_body: Gövde
+mail_content_type: İçerik Türü
+mail_reply_to: Yanıtlama Adresi
+mail_sender: Gönderen
+mail_header: Posta Başlığı
+mail_status: Durum Kodu
+mail_exception: Hatalar
+RESULT_SUCCESS: Gönderildi
+RESULT_FAILED: Başarısız
+RESULT_SPOOLED: Kuyruğa Eklendi
+RESULT_PENDING: Henüz Gönderilmedi
+RESULT_TENTATIVE: Hatalı Gönderim
+RESULT_DELETED: Silindi
+mail_manager_logview: Posta Detayları
+create_mail_template: Şablon Oluştur
+view_log: Günlüğü Görüntüle
+
+mail_manager_template_add: Şablon Oluştur
+mail_manager_template_edit: Şablon Düzenle
+mail_manager_template_add_desc: '%s için yeni posta şablonu oluştur'
+mail_manager_template_edit_desc: '%s posta şablonu düzenleniyor'
+mail_manager_using_variable: Şablonda Kullanılabilir Değişkenler
+mail_manager_template_preview: Şablon Önizleme
+mail_template_content: Şablon İçeriği
+mail_manager_add_template: Varsayılan Şablonu Ekle
+mail_template_content_info: Şablon İçeriği
+mail_from_name: Gönderen Adı
+mail_from_email: Gönderen E-posta
+
+###
+# Widget
+###
+widget_user_info:
+    name: Kullanıcı Bilgisi
+    description: Kayıtlı üye sayısını gösterir
+    count: Kayıtlı Üye

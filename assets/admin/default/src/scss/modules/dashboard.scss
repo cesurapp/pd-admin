@@ -1,0 +1,63 @@
+/*!
+ * This file is part of the EmlakPRO package.
+ *
+ * @package     EmlakPRO
+ * @author      Ramazan APAYDIN <iletisim@ramazanapaydin.com>
+ * @copyright   Copyright (c) 2017 - 2018, WriteLN Yazılım Hizmetleri San. Tic. A.Ş (http://writeln.net)
+ * @license     LICENSE
+ * @link        http://emlakpro.net
+ */
+
+.dashboard {
+  > [class*=col] {
+    margin-bottom: 1.5rem;
+  }
+  .card {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px -7px rgba(0, 0, 0, .2);
+    border-radius: $border-radius;
+    transition: all .2s linear;
+    .card-header {
+      background: transparent;
+      border: none;
+      font-weight: 300;
+      position: relative;
+      padding: 0 2rem 0 0;
+      margin: 1.25rem 1.25rem 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      .desc {
+        margin-top: 10px;
+        display: block;
+        color: #777;
+        font-size: $font-size-base + .2;
+      }
+      .widget-actions {
+        position: absolute;
+        .close {
+          line-height: 0;
+        }
+      }
+    }
+    .card-body {
+      i {
+        font-size: $font-size-base + .4;
+      }
+      .widget-actions {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+      }
+    }
+    &:hover {
+      box-shadow: 0 0 20px -3px rgba(0, 0, 0, .2);
+    }
+  }
+
+  .widget_user_info {
+    .count {
+      font-size: $font-size-base + 2;
+    }
+  }
+}

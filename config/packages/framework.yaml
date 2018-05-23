@@ -1,0 +1,24 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+    csrf_protection: { enabled: true }
+    http_method_override: false
+    session:
+        #handler_id: ~
+        name: pdAdmin
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    validation: { enable_annotations: true }
+    form: ~
+    fragments: ~
+    php_errors:
+        log: true
+    assets:
+        packages:
+            upload:
+                base_path: "uploads"
+            auth:
+                base_path: "build/auth/%template_auth%"
+            admin:
+                base_path: "build/admin/%template_admin%"
+            web:
+                base_path: "build/web/%template_web%"

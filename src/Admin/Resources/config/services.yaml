@@ -1,0 +1,51 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    # Load Voters
+    App\Admin\Security\:
+        resource: '../../Security/*'
+
+    # Load Widgets
+    App\Admin\Widgets\:
+        resource: '../../Widgets/*'
+        tags:
+            - { name: kernel.event_listener, event: widget.start, method: builder }
+
+    # Exception Listener
+    App\Admin\Listener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+        arguments:
+            $environment: "%kernel.environment%"
+
+    # Switch User Listener
+    security.authentication.switchuser_listener:
+        class: App\Admin\Listener\SwitchUserListener
+        public: false
+        abstract: true
+        arguments: [ "@security.token_storage",
+                     "",
+                     "@security.user_checker",
+                     "",
+                     "@security.access.decision_manager",
+                     "@?logger",
+                     "_switch_user",
+                     "ROLE_ALLOWED_TO_SWITCH",
+                     "@?event_dispatcher",
+                     "ROLE_SWITCHABLE"
+                   ]
+        tags:
+            - { name: monolog.logger, channel: security }
+
+    # Swiftmailer Plugin
+    App\Admin\Mailer\MailPlugin:
+        tags:
+            - { name: swiftmailer.default.plugin }
+
+    # Twig Extension
+    App\Admin\Services\TwigExtension:
+        tags: ['twig.extension']
+

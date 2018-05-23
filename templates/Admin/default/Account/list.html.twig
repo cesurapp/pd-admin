@@ -1,0 +1,84 @@
+{# Template Parts #}
+{% extends "@Admin/base.html.twig" %}
+
+{# Document #}
+{% block head_title %}{{ title('admin_account_list'|trans) }}{% endblock %}
+
+{# Content Title #}
+{% block content_head %}
+    <span class="text">{{ 'admin_account_list'|trans }}</span>
+    <span class="desc">{{ 'admin_account_desc'|trans({'%s' : users.getTotalItemCount }) }}</span>
+{% endblock %}
+
+{# Content Body #}
+{% block content_body %}
+    <!-- Action Button -->
+    <div id="actions">
+        <div class="btn-group">
+            <button class="btn btn-success" data-toggle="modal" data-target="#searchFilter" data-tooltip title="{{ 'search_filter'|trans }}"><i class="material-icons">search</i></button>
+        </div>
+    </div>
+
+    <!-- Search Filter Form -->
+    <div id="searchFilter" class="modal fade" tabindex="-1">
+        <form action="{{ path('admin_account_list') }}" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h4><i class="material-icons">search</i>{{ 'search_filter_title'|trans }}</h4></div>
+                <div class="modal-body">
+                    {{ form_widget(filterForm) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">{{ 'close'|trans }}</button>
+                    <button type="submit" class="btn btn-success">{{ 'search_filter'|trans }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Table List -->
+    <form id="pageForm" action="#" method="post">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="check">#</th>
+                        <th class="wid-25">{{ knp_pagination_sortable(users, 'account_firstname'|trans, 'p.firstname') }}</th>
+                        <th class="wid-25">{{ knp_pagination_sortable(users, 'account_email'|trans, 'u.email') }}</th>
+                        <th class="wid-20">{{ knp_pagination_sortable(users, 'account_phone'|trans, 'p.phone') }}</th>
+                        <th class="wid-20">{{ knp_pagination_sortable(users, 'account_lastlogin'|trans, 'u.lastLogin') }}</th>
+                        <th class="process"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="check"><span class="badge rounded-circle {{ user.enabled ? 'badge-success' : 'badge-danger' }}" data-tooltip title="{{ user.enabled ? 'enabled'|trans : 'disabled'|trans }}">&nbsp;&nbsp;&nbsp;</span></td>
+                        <td class="wid-25">{{ user.profile.firstname ~' '~ user.profile.lastname }}</td>
+                        <td class="wid-25">{{ user.email }}</td>
+                        <td class="wid-20">{{ user.profile.phone|phoneFormat }}</td>
+                        <td class="wid-20">{{ user.lastLogin|timeDiff }}</td>
+                        <td class="process">
+                            <div class="floating-menu">
+                                <a><i class="material-icons">more_horiz</i></a>
+                                <ul>
+                                    <li><a href="{{ path('admin_account_delete', {'user':user.id}) }}" data-tooltip title="{{ 'delete'|trans }}" data-modal="confirm" class="text-danger"><i class="material-icons">delete</i></a></li>
+                                    <li><a href="{{ path('admin_account_activate',{'user':user.id, 'status': user.enabled ? 0 : 1}) }}" data-tooltip title="{{ 'activate_deactivate'|trans }}" class="{{ user.enabled ? 'text-success' }}"><i class="material-icons">check_circle</i></a></li>
+                                    <li><a href="{{ path('admin_dashboard', {'_switch_user': user.email}) }}" data-tooltip title="{{ 'switch_user'|trans }}"><i class="material-icons">account_circle</i></a></li>
+                                    <li><a href="{{ path('admin_account_addgroup',{'user':user.id}) }}" data-tooltip title="{{ 'edit_group'|trans }}"><i class="material-icons">group</i></a></li>
+                                    <li><a href="{{ path('admin_account_roles',{'user':user.id}) }}" data-tooltip title="{{ 'edit_roles'|trans }}"><i class="material-icons">lock</i></a></li>
+                                    <li><a href="{{ path('admin_account_changepassword',{'user':user.id}) }}" data-tooltip title="{{ 'change_password'|trans }}"><i class="material-icons">security</i></a></li>
+                                    <li><a href="{{ path('admin_account_edit',{'user':user.id}) }}" data-tooltip title="{{ 'edit'|trans }}"><i class="material-icons">mode_edit</i></a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+    <!-- Pagination -->
+    {{ knp_pagination_render(users) }}
+{% endblock %}

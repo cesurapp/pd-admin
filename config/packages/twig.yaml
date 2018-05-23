@@ -1,0 +1,9 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates/Admin/%template_admin%': Admin
+        '%kernel.project_dir%/templates/Auth/%template_auth%': Auth
+        '%kernel.project_dir%/templates/Web/%template_web%': Web
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    cache: "%twig_cache%"
+    form_themes: ['blocks/bs4hr.html.twig']

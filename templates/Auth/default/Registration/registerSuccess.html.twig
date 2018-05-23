@@ -1,0 +1,34 @@
+{% extends "@Auth/base.html.twig" %}
+
+{% block head_title %}{{ title('security.register_title'|trans) }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="auth register">
+            <!-- Logo -->
+            {% include '@Auth/logo.html.twig' %}
+
+            <!-- Form -->
+            <form action="{{ path("security_login") }}">
+                <div class="header">
+                    <h2 class="title">{{ 'security.register_title'|trans }}</h2>
+                    <div class="float-icon">
+                        <a href="{{ path('security_login') }}" class="add" title="{{ 'security.login_title'|trans }}"><i class="material-icons">security</i></a>
+                    </div>
+                </div>
+
+                <div class="form-group auth-message">
+                    {% if user.isEnabled %}
+                        {{ 'security.register_success'|trans }}
+                    {% else %}
+                        {{ 'security.register_confirmed'|trans }}
+                    {% endif %}
+                </div>
+
+                <div class="submit">
+                    <button type="submit" class="btn btn-lg btn-primary">{{ 'security.login_btn'|trans }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,13 @@
+# Authorization Routing
+authorization:
+    resource: "../src/Auth/Resources/config/routing.yaml"
+
+# Admin Routing
+admin:
+    resource: "../src/Admin/Resources/config/routing.yaml"
+    prefix: "/%routing_admin%"
+
+# Website Routing
+web:
+    resource: "../src/Web/Resources/config/routing.yaml"
+    prefix: /

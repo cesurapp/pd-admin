@@ -1,0 +1,29 @@
+{% extends '@Web/base.html.twig' %}
+
+{% block body %}
+    <div class="container body-container">
+        <div class="page-header text-center mt-5 mb-5">
+            <h1>Welcome to the <strong>pdAdmin</strong> application</h1>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-sm-6">
+                <div class="jumbotron">
+                    <h4 class="font-weight-light pb-3">Browse the <strong>public section</strong> of the demo application.</h4>
+                    <p>
+                        <a class="btn btn-primary btn-lg text-uppercase p-3" href="{{ path('web_home') }}">Browse applıcatıon</a>
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <div class="jumbotron">
+                    <h4 class="font-weight-light pb-3">Browse the <strong>admin backend</strong> of the demo application.</h4>
+                    <p>
+                        <a class="btn btn-success btn-lg text-uppercase p-3" href="{{ path('admin_dashboard') }}">Browse backend</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

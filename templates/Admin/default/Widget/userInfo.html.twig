@@ -1,0 +1,13 @@
+{% if widget.isActive %}
+    <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+        <div class="card text-center bg-primary text-white widget_user_info">
+            <div class="card-body">
+                {# Action Button #}
+                {% include '@PdWidget/widgetAction.html.twig' %}
+
+                <span class="count">{{ widget.data.userCount }}</span>
+                <h5 class="font-weight-light">{{ 'widget_user_info.count'|trans }}</h5>
+            </div>
+        </div>
+    </div>
+{% endif %}

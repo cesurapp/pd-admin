@@ -1,0 +1,18 @@
+swiftmailer:
+    transport: '%mail_transport%'
+    username: '%mail_username%'
+    password: '%mail_password%'
+    host: '%mail_host%'
+    port:      "%mail_port%"
+    encryption: "%mail_encryption%"
+    auth_mode: "%mail_auth_mode%"
+    spool:
+        type: "%mail_spool_type%"
+        path: "%mail_spool_dir%"
+    sender_address: "%mail_sender_address%"
+    antiflood:
+        threshold: "%mail_antiflood_threshold%"
+        sleep: "%mail_antiflood_sleep%"
+    delivery_addresses: "%mail_delivery_address%"
+    disable_delivery: "%mail_disable_delivery%"
+    timeout: "%mail_timeout%"

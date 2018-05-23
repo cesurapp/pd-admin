@@ -1,0 +1,60 @@
+{# Template Parts #}
+{% extends "@Admin/base.html.twig" %}
+
+{# Document #}
+{% block head_title %}{{ title(page_title|trans) }}{% endblock %}
+
+{# Content Title #}
+{% block content_head %}
+    <span class="text">{{ page_title|trans }}</span>
+    <span class="desc">{{ page_description|trans }}</span>
+    <a href="#" class="addbtn btn-success" data-toggle="modal" data-target="#cacheModal" data-tooltip title="{{ 'admin_refresh_cache'|trans }}"><i class="material-icons">refresh</i></a>
+{% endblock %}
+
+{# Content Navigation #}
+{% block content_nav %}{{ pd_menu_render('App\\Admin\\Menu\\SettingsMenu') }}{% endblock %}
+
+{# Content Body #}
+{% block content_body %}
+    {% include "@Admin/System/Settings/refreshCache.html.twig" %}
+
+    <div class="content-form">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+    {# Preview Container #}
+    <div id="template-preview" class="mt-4">
+        <img class="img-fluid rounded" src="#">
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+      // Select Admin Change
+      $('#form_template_admin').change(function () {
+        var previewURL = '{{ asset("build/admin/default/preview.png") }}';
+
+        // Replace Current Theme Name
+        previewURL = previewURL.replace('default', $(this).val());
+
+        // Preview New URL
+        $('#template-preview img').attr('src', previewURL);
+      });
+
+      // Select Auth Change
+      $('#form_template_auth').change(function () {
+        var previewURL = '{{ asset("build/auth/default/preview.png") }}';
+
+        // Replace Current Theme Name
+        previewURL = previewURL.replace('default', $(this).val());
+
+        // Preview New URL
+        $('#template-preview img').attr('src', previewURL);
+      });
+
+      // Page Load
+      $('#form_template_admin').trigger('change');
+    </script>
+{% endblock %}

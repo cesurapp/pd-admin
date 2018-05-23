@@ -1,0 +1,9 @@
+framework:
+    default_locale: '%default_locale%'
+    translator:
+        paths:
+            - '%kernel.root_dir%/Admin/Resources/translations'
+            - '%kernel.root_dir%/Auth/Resources/translations'
+            - '%kernel.root_dir%/Web/Resources/translations'
+        fallbacks:
+            - 'en'

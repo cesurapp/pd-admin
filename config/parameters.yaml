@@ -1,0 +1,115 @@
+parameters:
+    ##
+    # General Config
+    ##
+    head_title: 'EmlakPRO'
+    head_title_pattern: '%T - %P'
+    head_description: ''
+    head_author: 'EmlakPRO for WriteLN'
+    head_keywords: 'EmlakPRO, WriteLN'
+    footer_copyright: 'EmlakPRO bir WriteLN ürünüdür.'
+    default_locale: 'en'
+    default_country: 'TR'
+    default_currency: 'TRY'
+    site_logo: null
+    default_image: null
+    site_favicon: null
+
+    ##
+    # Email Config
+    ##
+    mail_disable_delivery: false
+    mail_transport: null
+    mail_host: ''
+    mail_port: null
+    mail_username: ''
+    mail_password: ''
+    mail_timeout: 30
+    mail_encryption: null
+    mail_auth_mode: login
+    mail_sender_address: 'noprely@emlakpro.net'
+    mail_sender_name: 'EmlakPRO'
+    mail_test_address: ''
+    # Hidden
+    mail_spool_type: memory
+    mail_spool_dir: '%kernel.cache_dir%/swiftmailer/spool'
+    mail_antiflood_threshold: 99
+    mail_antiflood_sleep: 0
+    mail_delivery_address: []
+
+    ##
+    # Template Config
+    ##
+    template_admin: 'default'
+    template_auth: 'default'
+    template_web: 'default'
+
+    ##
+    # User Config
+    ##
+    user_registration: true
+    user_default_group: null
+    user_login_redirect: admin_dashboard
+    user_logout_redirect: web_home
+    user_email_confirmation: true
+    user_welcome_email: true
+
+    ##
+    # Media Config
+    ##
+    media_library: gd
+    media_directory_map: 'Y-m-d'
+    media_optimize: 1
+    media_max_width: 1028
+    media_max_height: 768
+    media_quality: 75
+    media_watermark: text
+    media_wm_image: null
+    media_wm_image_position: null
+    media_wm_image_x: null
+    media_wm_image_y: null
+    media_wm_font: ''
+    media_wm_font_text: 'EmlakPRO'
+    media_wm_font_size: '36'
+    media_wm_font_color: '#445160'
+    media_wm_font_align: 'center'
+    media_wm_font_valign: 'middle'
+    media_wm_font_x: '0.5'
+    media_wm_font_y: '0.5'
+    media_wm_font_angle: 45
+
+    ##
+    # Contact Config
+    ##
+    contact_email: 'info@emlakpro.net'
+    contact_phone: ''
+    contact_mobile_phone: ''
+    contact_fax_number: ''
+    contact_address: ''
+    contact_facebook: ''
+    contact_twitter: ''
+    contact_google: ''
+    contact_youtube: ''
+    contact_linkedin: ''
+    contact_whatsapp: null
+
+    ##
+    # Core Config
+    ##
+    active_language: [en, tr]
+    list_count: 30
+    remember_time: 604800 # 1 Month -> 2592000
+    twig_cache: '%kernel.cache_dir%/twig'
+    model_timezone: null
+    view_timezone: null
+    # Hidden
+    upload_dir: '%kernel.project_dir%/public/uploads/'
+
+    ##
+    # Routing Config
+    ##
+    routing_admin: admin
+    routing_login: auth/login
+    routing_logout: auth/logout
+    routing_register: auth/register
+    routing_resetting: auth/forgot_password

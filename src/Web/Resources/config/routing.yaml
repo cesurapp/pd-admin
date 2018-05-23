@@ -1,0 +1,9 @@
+# Language Changer
+change_language:
+    path: /language/{lang}
+    controller: App\Web\Controller\LocaleController::changeLanguage
+
+# Home
+web_home:
+    path: /
+    controller: App\Web\Controller\HomeController::index

@@ -1,0 +1,37 @@
+security:
+    encoders:
+        App\Auth\Entity\User:
+            algorithm: bcrypt
+    role_hierarchy:
+        ROLE_ADMIN:       [ROLE_USER]
+    providers:
+        pdadmin_auth:
+            entity:
+                class: App\Auth\Entity\User
+                property: email
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern:    ^/
+            provider: pdadmin_auth
+            anonymous: true
+            switch_user: true
+            http_basic: ~
+            form_login:
+                use_referer: true
+                login_path: security_login
+                check_path: security_login
+                default_target_path: '%user_login_redirect%'
+                csrf_token_generator: security.csrf.token_manager
+            logout:
+                path: security_logout
+                target: '%user_logout_redirect%'
+            remember_me:
+                secret:   '%env(APP_SECRET)%'
+                lifetime: '%remember_time%'
+                path:     /
+    access_control:
+        # Admin Panel
+        - { path: '^/%routing_admin%', role: ROLE_ADMIN }
