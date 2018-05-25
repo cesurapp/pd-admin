@@ -1,6 +1,6 @@
 parameters:
     ##
-    # General Config
+    # General Default Config
     ##
     head_title: 'EmlakPRO'
     head_title_pattern: '%T - %P'
@@ -16,7 +16,7 @@ parameters:
     site_favicon: null
 
     ##
-    # Email Config
+    # Email Default Config
     ##
     mail_disable_delivery: false
     mail_transport: null
@@ -38,14 +38,14 @@ parameters:
     mail_delivery_address: []
 
     ##
-    # Template Config
+    # Template Default Config
     ##
     template_admin: 'default'
     template_auth: 'default'
     template_web: 'default'
 
     ##
-    # User Config
+    # User Default Config
     ##
     user_registration: true
     user_default_group: null
@@ -55,7 +55,7 @@ parameters:
     user_welcome_email: true
 
     ##
-    # Media Config
+    # Media Default Config
     ##
     media_library: gd
     media_directory_map: 'Y-m-d'
@@ -79,7 +79,7 @@ parameters:
     media_wm_font_angle: 45
 
     ##
-    # Contact Config
+    # Contact Default Config
     ##
     contact_email: 'info@emlakpro.net'
     contact_phone: ''
@@ -94,7 +94,7 @@ parameters:
     contact_whatsapp: null
 
     ##
-    # Core Config
+    # Core Default Config
     ##
     active_language: [en, tr]
     list_count: 30
@@ -106,7 +106,7 @@ parameters:
     upload_dir: '%kernel.project_dir%/public/uploads/'
 
     ##
-    # Routing Config
+    # Routing Default Config
     ##
     routing_admin: admin
     routing_login: auth/login

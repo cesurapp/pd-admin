@@ -188,7 +188,7 @@
     {% if 'checkbox-inline' in parent_label_class %}
         {{- form_label(form, null, { widget: parent() }) -}}
     {% else -%}
-        <label class="custom-control custom-checkbox">
+        <div class="custom-control custom-checkbox custom-control-inline">
         {{ parent() }}
         {% if label is not same as(false) -%}
             {% if not compound -%}
@@ -207,13 +207,10 @@
                     {% set label = name|humanize %}
                 {%- endif -%}
             {%- endif -%}
-            <span class="custom-control-indicator"></span>
-            {% if form.parent.vars.multiple is defined and form.parent.vars.multiple %}
-                {% set label_attr = label_attr|merge({class: 'custom-control-description'}) %}
-                <span {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}" {% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
-            {% endif %}
+            {% set label_attr = label_attr|merge({class: 'custom-control-label'}) %}
+            <label {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}" {% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
         {%- endif -%}
-        </label>
+        </div>
     {%- endif %}
 {%- endblock checkbox_widget %}
 
@@ -223,7 +220,7 @@
     {% if 'radio-inline' in parent_label_class %}
         {{- form_label(form, null, { widget: parent() }) -}}
     {% else -%}
-        <label class="custom-control custom-radio">
+        <div class="custom-control custom-radio custom-control-inline">
         {{ parent() }}
         {% if label is not same as(false) -%}
             {% if not compound -%}
@@ -242,11 +239,10 @@
                     {% set label = name|humanize %}
                 {%- endif -%}
             {%- endif -%}
-            <span class="custom-control-indicator"></span>
-            {% set label_attr = label_attr|merge({class: 'custom-control-description'}) %}
-            <span{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
+            {% set label_attr = label_attr|merge({class: 'custom-control-label'}) %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
         {%- endif -%}
-        </label>
+        </div>
     {%- endif %}
 {%- endblock radio_widget %}
 
