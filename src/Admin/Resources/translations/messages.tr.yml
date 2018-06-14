@@ -125,7 +125,7 @@ changes_saved: Değişiklikler kaydedildi.
 remove_complete: Silme işlemi tamamlandı.
 sorry_not_existing: Üzgünüz kayıt mevcut değil.
 test_email_success: Test e-postası gönderildi.
-user_registration_disable: Kullanıcı alımı şuanda kapalıdır, lütfen daha sonra tekrar deneyin.
+
 copyright_footer: EmlakPRO bir %owner_company% ürünüdür.
 
 ###
@@ -351,51 +351,6 @@ routing_register: Kullanıcı Kayıt URL
 routing_register_info: Ziyaretçilerin kayıt olurken kullandığı adres.
 routing_resetting: Kullanıcı Şifre Sıfırlama
 routing_resetting_info: Kullanıcıların şifrelerini sıfırlamaları için kullandığı adres.
-
-nav_mail_manager: Posta Yöneticisi
-mail_manager_list: Posta Yöneticisi
-mail_manager_list_desc: Sistem posta şablonları ve günlük yönetimi
-nav_mail_template: Şablon
-nav_mail_logger: Günlük
-mail_manager_subject: Konu
-mail_contentid: Tanımlayıcı
-mail_contentid_info: Şablon özel tanımlayıcı değeridir, varsayılan olarak ayarlanmıştır.
-mail_language: Dil
-
-mail_manager_logger: Posta Günlüğü
-mail_manager_logger_desc: Sistem üzerinden gönderilen posta kayıtları
-mail_subject: Konu
-mail_to: Gönderilen
-mail_mid: Posta ID
-mail_from: Gönderen
-mail_body: Gövde
-mail_content_type: İçerik Türü
-mail_reply_to: Yanıtlama Adresi
-mail_sender: Gönderen
-mail_header: Posta Başlığı
-mail_status: Durum Kodu
-mail_exception: Hatalar
-RESULT_SUCCESS: Gönderildi
-RESULT_FAILED: Başarısız
-RESULT_SPOOLED: Kuyruğa Eklendi
-RESULT_PENDING: Henüz Gönderilmedi
-RESULT_TENTATIVE: Hatalı Gönderim
-RESULT_DELETED: Silindi
-mail_manager_logview: Posta Detayları
-create_mail_template: Şablon Oluştur
-view_log: Günlüğü Görüntüle
-
-mail_manager_template_add: Şablon Oluştur
-mail_manager_template_edit: Şablon Düzenle
-mail_manager_template_add_desc: '%s için yeni posta şablonu oluştur'
-mail_manager_template_edit_desc: '%s posta şablonu düzenleniyor'
-mail_manager_using_variable: Şablonda Kullanılabilir Değişkenler
-mail_manager_template_preview: Şablon Önizleme
-mail_template_content: Şablon İçeriği
-mail_manager_add_template: Varsayılan Şablonu Ekle
-mail_template_content_info: Şablon İçeriği
-mail_from_name: Gönderen Adı
-mail_from_email: Gönderen E-posta
 
 ###
 # Widget

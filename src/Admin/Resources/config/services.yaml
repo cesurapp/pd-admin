@@ -14,6 +14,10 @@ services:
         tags:
             - { name: kernel.event_listener, event: widget.start, method: builder }
 
+    # Register Menus
+    App\Admin\Menu\MainNav:
+        public: true
+
     # Exception Listener
     App\Admin\Listener\ExceptionListener:
         tags:
@@ -39,11 +43,6 @@ services:
                    ]
         tags:
             - { name: monolog.logger, channel: security }
-
-    # Swiftmailer Plugin
-    App\Admin\Mailer\MailPlugin:
-        tags:
-            - { name: swiftmailer.default.plugin }
 
     # Twig Extension
     App\Admin\Services\TwigExtension:

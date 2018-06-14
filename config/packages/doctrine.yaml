@@ -12,17 +12,8 @@ doctrine:
         auto_mapping: true
         naming_strategy: doctrine.orm.naming_strategy.underscore
         resolve_target_entities:
-            Pd\WidgetBundle\Entity\UserInterface: App\Auth\Entity\User
-        dql:
-            string_functions:
-                field: DoctrineExtensions\Query\Mysql\Field
+            Pd\WidgetBundle\Entity\UserInterface: App\Admin\Entity\Account\User
         mappings:
-            Auth:
-                is_bundle: false
-                type: annotation
-                dir: '%kernel.project_dir%/src/Auth/Entity'
-                prefix: 'App\Auth\Entity'
-                alias: Auth
             Admin:
                 is_bundle: false
                 type: annotation

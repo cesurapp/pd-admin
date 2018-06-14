@@ -31,7 +31,7 @@ class ToolbarNav extends Menu
         $menu = $this->createRoot('action_menu');
 
         // Add Home Item
-        $menu->addChild('nav_home', 5)
+        $menu->addChild('nav_home', 1)
             ->setLabel('nav_home')
             ->setRoute('web_home')
             ->setLinkAttr(['data-tooltip' => '', 'title' => 'homepage'])
@@ -52,7 +52,7 @@ class ToolbarNav extends Menu
      * Add Language Menu.
      *
      * @param ItemInterface $menu
-     * @param array         $options
+     * @param array $options
      */
     private function addLanguage(ItemInterface $menu, array $options = [])
     {
@@ -80,12 +80,12 @@ class ToolbarNav extends Menu
      * Add Profile Menu.
      *
      * @param ItemInterface $menu
-     * @param array         $options
+     * @param array $options
      */
     private function addProfile(ItemInterface $menu, array $options = [])
     {
         // Root Item
-        $menu->addChild('nav_profile', 20)
+        $menu->addChild('nav_profile', 100)
             ->setLabel('nav_profile')
             ->setLink('#')
             ->setLabelAttr(['class' => 'hidden'])

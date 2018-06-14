@@ -14,10 +14,12 @@
 
 namespace App\Admin\Controller\Account;
 
+use App\Admin\Entity\Account\Group;
+use App\Admin\Entity\Account\Profile;
+use App\Admin\Entity\Account\User;
 use App\Admin\Services\Security;
-use App\Auth\Entity\User;
-use App\Auth\Form\ChangePasswordType;
-use App\Auth\Form\ProfileType;
+use Pd\UserBundle\Form\ChangePasswordType;
+use Pd\UserBundle\Form\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -117,7 +119,11 @@ class AccountController extends Controller
     public function edit(User $user, Request $request)
     {
         // Create Form
-        $form = $this->createForm(ProfileType::class, $user, ['container' => $this->container]);
+        $form = $this->createForm(ProfileType::class, $user, [
+            'data_class' => User::class,
+            'profile_class' => Profile::class,
+            'container' => $this->container
+        ]);
 
         // Handle Request
         $form->handleRequest($request);
@@ -156,6 +162,7 @@ class AccountController extends Controller
     {
         // Create Form
         $form = $this->createForm(ChangePasswordType::class, $user, [
+            'data_class' => User::class,
             'disable_current_password' => $this->isGranted(User::ROLE_ALL_ACCESS) || $this->isGranted('ROLE_ALLOWED_TO_SWITCH'),
         ]);
 
@@ -185,12 +192,13 @@ class AccountController extends Controller
     }
 
     /**
-     * Change User Private Roles.
+     * Change User Private Roles
      *
-     * @param User    $user
+     * @param User $user
      * @param Request $request
-     *
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \ReflectionException
      *
      * @IsGranted("ADMIN_ACCOUNT_ROLES")
      */
@@ -303,7 +311,7 @@ class AccountController extends Controller
         /** Create Form */
         $form = $this->createFormBuilder(null)
             ->add('group', EntityType::class, [
-                'class' => 'App\Auth\Entity\Group',
+                'class' => Group::class,
                 'choice_label' => 'name',
                 'choice_attr' => function ($obj) use ($groupName) {
                     return (in_array($obj->getName(), $groupName, true)) ? ['selected' => ''] : [];

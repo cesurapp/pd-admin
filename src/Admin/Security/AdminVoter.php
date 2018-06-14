@@ -14,7 +14,7 @@
 
 namespace App\Admin\Security;
 
-use App\Auth\Entity\User;
+use App\Admin\Entity\Account\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 

@@ -1,7 +1,7 @@
 {
-  "name": "pdadmin/pdadmin",
-  "description": "Symfony Powerful Dashboard & Admin",
-  "homepage": "http://pdadmin.ramazanapaydin.com",
+  "name": "rmznpydn/pd-admin",
+  "description": "Symfony Powerful Admin Dashboard",
+  "homepage": "https://github.com/rmznpydn/pd-admin",
   "license": "MIT",
   "authors": [
     {
@@ -11,10 +11,11 @@
   ],
   "require": {
     "php": "^7.1.3",
-    "beberlei/DoctrineExtensions": "^1.0",
     "intervention/image": "^2.4",
     "knplabs/knp-paginator-bundle": "^2.7",
+    "rmznpydn/pd-mailer": "^1.0",
     "rmznpydn/pd-menu": "^1.0",
+    "rmznpydn/pd-user": "^1.0",
     "rmznpydn/pd-widget": "^1.0",
     "sensio/framework-extra-bundle": "^5.1",
     "symfony/asset": "^4.0",
@@ -31,12 +32,14 @@
     "symfony/yaml": "^4.0"
   },
   "require-dev": {
+    "symfony/dotenv": "^4.0",
     "symfony/browser-kit": "^4.0",
     "symfony/css-selector": "^4.0",
-    "symfony/dotenv": "^4.0",
+    "symfony/debug-bundle": "^4.0",
     "symfony/maker-bundle": "^1.0",
     "symfony/phpunit-bridge": "^4.0",
     "symfony/profiler-pack": "^1.0",
+    "symfony/var-dumper": "^4.0",
     "symfony/web-server-bundle": "^4.0"
   },
   "config": {

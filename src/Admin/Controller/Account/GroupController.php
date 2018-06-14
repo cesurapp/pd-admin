@@ -14,9 +14,9 @@
 
 namespace App\Admin\Controller\Account;
 
+use App\Admin\Entity\Account\Group;
 use App\Admin\Services\Security;
-use App\Auth\Entity\Group;
-use App\Auth\Form\GroupType;
+use Pd\UserBundle\Form\GroupType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -75,7 +75,9 @@ class GroupController extends Controller
     public function edit(Group $group, Request $request)
     {
         // Create Form
-        $form = $this->createForm(GroupType::class, $group);
+        $form = $this->createForm(GroupType::class, $group, [
+            'data_class' => Group::class
+        ]);
 
         // Handle Request
         $form->handleRequest($request);

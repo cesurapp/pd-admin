@@ -14,6 +14,7 @@
 
 namespace App\Admin\Form\System;
 
+use App\Admin\Entity\Account\Group;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
@@ -42,7 +43,7 @@ class UserForm extends AbstractType
                 'label' => 'user_default_group',
                 'label_attr' => ['info' => 'user_default_group_info'],
                 'choice_translation_domain' => false,
-                'class' => 'App\Auth\Entity\Group',
+                'class' => Group::class,
                 'choice_label' => 'name',
                 'placeholder' => false,
                 'required' => false,

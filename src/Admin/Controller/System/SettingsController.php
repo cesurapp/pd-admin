@@ -139,6 +139,7 @@ class SettingsController extends Controller
                     $this->addFlash('error', 'test_email_empty_address');
                 } else {
                     // Test Message
+                    $mailLogger = new \Swift_Plugins_Loggers_EchoLogger();
                     $message = (new \Swift_Message())
                         ->setFrom($form->get('mail_sender_address')->getData())
                         ->setTo($toEmail)
@@ -146,11 +147,15 @@ class SettingsController extends Controller
                         ->setBody('EmlakPRO Test Email!');
 
                     // Send Mail
-                    if ($this->get('mailer')->send($message)) {
+                    $mail = $this->get('mailer');
+                    $mail->registerPlugin(new \Swift_Plugins_LoggerPlugin($mailLogger));
+                    
+                    if ($mail->send($message)) {
                         $this->addFlash('success', 'test_email_success');
                     } else {
                         $this->addFlash('error', 'test_email_error');
                     }
+                    $mailLogger->dump();
                 }
             } else {
                 $cm->save($form);
@@ -265,27 +270,11 @@ class SettingsController extends Controller
         }
         closedir($handle);
 
-        // Get Auth Template List
-        $handle = opendir($this->getParameter('kernel.project_dir').'/templates/Auth');
-        $templatesAuth = [];
-        if ($handle) {
-            while (false !== ($dir = readdir($handle))) {
-                if (!in_array($dir, ['.', '..', '.DS_Store'], true)) {
-                    $templatesAuth[ucfirst($dir)] = $dir;
-                }
-            }
-        }
-        closedir($handle);
-
         // Create Form
         $form = $this->createFormBuilder()
             ->add('template_admin', ChoiceType::class, [
                 'label' => 'template_admin',
                 'choices' => $templatesAdmin,
-            ])
-            ->add('template_auth', ChoiceType::class, [
-                'label' => 'template_auth',
-                'choices' => $templatesAuth,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

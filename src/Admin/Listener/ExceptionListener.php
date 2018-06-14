@@ -46,9 +46,9 @@ class ExceptionListener
     /**
      * ExceptionListener constructor.
      *
-     * @param ContainerInterface  $container
+     * @param ContainerInterface $container
      * @param TranslatorInterface $translator
-     * @param string              $environment
+     * @param string $environment
      */
     public function __construct(ContainerInterface $container, TranslatorInterface $translator, string $environment)
     {

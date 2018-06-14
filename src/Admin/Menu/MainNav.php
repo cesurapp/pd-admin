@@ -16,9 +16,25 @@ namespace App\Admin\Menu;
 
 use Pd\MenuBundle\Builder\ItemInterface;
 use Pd\MenuBundle\Builder\Menu;
+use Pd\MenuBundle\Event\PdMenuEvent;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class MainNav extends Menu
 {
+    /**
+     * @var EventDispatcherInterface
+     */
+    private $eventDispatcher;
+
+    /**
+     * MainNav constructor.
+     * @param EventDispatcherInterface $eventDispatcher
+     */
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+    }
+
     public function createMenu(array $options = []): ItemInterface
     {
         // Create ROOT Menu
@@ -55,7 +71,7 @@ class MainNav extends Menu
          * Create Settings Section
          */
         $menu
-            ->addChild('nav_config', 100)
+            ->addChild('nav_config', 50)
             ->setLabel('nav_config')
             ->setRoute('admin_settings_general')
             ->setExtra('label_icon', 'settings')
@@ -76,20 +92,15 @@ class MainNav extends Menu
             ->setLabel('nav_tools_header')
             ->setListAttr(['class' => 'header'])
             ->setLabelAttr(['class' => 'title'])
-            ->setRoles(['ADMIN_SETTINGS_GENERAL'])
-            // Mail Manager Settings
-            ->addChildParent('nav_mail_manager', 30)
-            ->setLabel('nav_mail_manager')
-            ->setRoute('admin_mail_list')
-            ->setRoles(['ADMIN_MAIL_LIST']);
+            ->setRoles(['ADMIN_SETTINGS_GENERAL']);
 
         /*
          * Event Dispatcher
          */
-        /*$this->container->get('event_dispatcher')->dispatch(
-            MainMenuEvent::MAIN_MENU_CREATED,
-            new MainMenuEvent($this->factory, $menu)
-        );*/
+        $this->eventDispatcher->dispatch(
+            AdminMenuEvents::MAIN_NAVIGATION,
+            new PdMenuEvent($menu)
+        );
 
         return $menu;
     }

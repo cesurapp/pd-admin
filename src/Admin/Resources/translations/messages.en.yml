@@ -352,51 +352,6 @@ routing_register_info: The address that visitors use when registering.
 routing_resetting: User Password Reset URL
 routing_resetting_info: The address used by users to reset their passwords.
 
-nav_mail_manager: Mail Manager
-mail_manager_list: Mail Manager
-mail_manager_list_desc: System mail templates and log management
-nav_mail_template: Template
-nav_mail_logger: Daily
-mail_manager_subject: Subject
-mail_contentid: Identifier
-mail_contentid_info: Template is a custom identifier value, set by default.
-mail_language: Language
-
-mail_manager_logger: Mail Logging
-mail_manager_logger_desc: Mail records sent through the system
-mail_subject: Subject
-mail_to: Sent
-mail_mid: Mail ID
-mail_from: From
-mail_body: Body
-mail_content_type: Content Type
-mail_reply_to: Reply Address
-mail_sender: From
-mail_header: Mail Header
-mail_status: Status Code
-mail_exception: Errors
-RESULT_SUCCESS: Sent
-RESULT_FAILED: Failed
-RESULT_SPOOLED: Added to Queue
-RESULT_PENDING: Not yet sent
-RESULT_TENTATIVE: Incorrect Send
-RESULT_DELETED: Deleted
-mail_manager_logview: Mail Details
-create_mail_template: Create Template
-view_log: View Log
-
-mail_manager_template_add: Create Template
-mail_manager_template_edit: Edit Template
-mail_manager_template_add_desc: 'Create new mail template for %s'
-mail_manager_template_edit_desc: 'Editing mail template %s'
-mail_manager_using_variable: Available Variables in Template
-mail_manager_template_preview: Template Preview
-mail_template_content: Template Content
-mail_manager_add_template: Add Default Template
-mail_template_content_info: Template Content
-mail_from_name: Sender Name
-mail_from_email: Sender Email
-
 ###
 # Widget
 ###

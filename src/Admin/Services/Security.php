@@ -14,7 +14,7 @@
 
 namespace App\Admin\Services;
 
-use App\Auth\Entity\User;
+use App\Admin\Entity\Account\User;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -74,6 +74,9 @@ class Security
         foreach ($routes as $route) {
             // Check Action
             if (isset($route->getDefaults()['_controller']) && (2 === \count($controller = explode('::', $route->getDefaults()['_controller'])))) {
+                if (!class_exists($controller[0]))
+                    Continue;
+
                 // Class Reflection
                 $reflection = new \ReflectionClass($controller[0]);
 

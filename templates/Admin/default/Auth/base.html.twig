@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    {# Meta #}
+    <title>{% block head_title %}{{ parameters('head_title') }}{% endblock %}</title>
+    <meta name="description" content="{{ parameters('head_description') }}"/>
+    <meta name="keywords" content="{{ parameters('head_keywords') }}"/>
+    <meta name="author" content="{{ parameters('head_author') }}"/>
+    <link rel="icon" href="{{ asset(parameters('site_favicon', 0), 'upload') }}">
+
+    {#-- Include Assets --#}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="{{ asset('app.min.css', 'web') }}">
+    <link rel="stylesheet" href="{{ asset('auth.min.css', 'web') }}">
+    <script src="{{ asset('app.min.js', 'web') }}"></script>
+
+    {# Head Block #}
+    {% block head %}{% endblock %}
+</head>
+
+<body>
+    <div id="app-login">
+        {% block body %}{% endblock %}
+    </div>
+</body>
+
+</html>

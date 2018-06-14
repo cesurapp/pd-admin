@@ -1,0 +1,52 @@
+{% extends "@Admin/Auth/base.html.twig" %}
+
+{% block head_title %}{{ title('security.login_title'|trans) }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="auth">
+            <!-- Logo -->
+            {% include '@Admin/Auth/logo.html.twig' %}
+
+            <!-- Login Form -->
+            <form action="{{ path("security_login") }}" method="post">
+                <div class="header">
+                    <h2 class="title">{{ 'security.login_title'|trans }}</h2>
+                    <div class="float-icon">
+                        <a href="{{ path('security_register') }}" class="add" title="{{ 'security.register'|trans }}"><i class="material-icons">add</i></a>
+                        <a href="{{ path('security_resetting') }}" class="forgot" title="{{ 'security.forgot_password'|trans }}"><i class="material-icons">email</i></a>
+                    </div>
+                </div>
+
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                {% for label,message in app.session.flashBag.all %}
+                    {% if label == 'error' %}{% set label = 'danger' %} {% endif %}
+                    {% for msg in message %}
+                        <div class="alert alert-{{ label }}">{{ msg }}</div>
+                    {% endfor %}
+                {% endfor %}
+
+                <div class="form-group"><input name="_username" value="{{ last_username }}" type="email" class="form-control" placeholder="{{ 'security.login_username'|trans }}" required autofocus></div>
+                <div class="form-group"><input name="_password" type="password" class="form-control" placeholder="{{ 'security.login_password'|trans }}" required></div>
+
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="_remember_me" value="on"/>
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">{{ 'security.login_rememberme'|trans }}</span>
+                    </label>
+                </div>
+
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+
+                <div class="submit">
+                    <button type="submit" class="btn btn-lg btn-primary">{{ 'security.login_btn'|trans }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "ace-builds": "^1.3.3",
+    "air-datepicker": "^2.2.3",
+    "bootstrap": "^4.1.1",
+    "hammerjs": "^2.0.8",
+    "html5sortable": "^0.9.3",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.3",
+    "sumoselect": "^3.0.5"
+  },
+  "devDependencies": {
+    "@symfony/webpack-encore": "^0.20.1",
+    "autoprefixer": "^8.6.2",
+    "copy-webpack-plugin": "^4.5.1",
+    "fast-sass-loader": "^1.4.5",
+    "node-sass": "^4.9.0",
+    "postcss-loader": "^2.1.5",
+    "sass-loader": "^7.0.3",
+    "webpack-notifier": "^1.6.0"
+  },
+  "scripts": {
+    "dev-server": "./node_modules/.bin/encore dev-server",
+    "dev": "./node_modules/.bin/encore dev",
+    "watch": "./node_modules/.bin/encore dev --watch",
+    "build": "./node_modules/.bin/encore production"
+  }
+}

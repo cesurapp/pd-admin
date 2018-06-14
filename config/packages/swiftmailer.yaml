@@ -16,3 +16,7 @@ swiftmailer:
     delivery_addresses: "%mail_delivery_address%"
     disable_delivery: "%mail_disable_delivery%"
     timeout: "%mail_timeout%"
+    stream_options:
+        ssl:
+            allow_self_signed:  true
+            verify_peer: false

@@ -14,7 +14,6 @@
 
 namespace App\Admin\Listener;
 
-use App\Auth\Entity\User;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;

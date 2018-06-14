@@ -1,7 +1,4 @@
 {
-    "beberlei/doctrineextensions": {
-        "version": "v1.0.21"
-    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -104,8 +101,14 @@
     "psr/simple-cache": {
         "version": "1.0.0"
     },
+    "rmznpydn/pd-mailer": {
+        "version": "1.0.0"
+    },
     "rmznpydn/pd-menu": {
         "version": "1.0.02"
+    },
+    "rmznpydn/pd-user": {
+        "version": "1.01"
     },
     "rmznpydn/pd-widget": {
         "version": "1.0.02"
@@ -148,6 +151,15 @@
     },
     "symfony/debug": {
         "version": "v4.0.4"
+    },
+    "symfony/debug-bundle": {
+        "version": "4.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "4.1",
+            "ref": "f8863cbad2f2e58c4b65fa1eac892ab189971bea"
+        }
     },
     "symfony/dependency-injection": {
         "version": "v4.0.4"

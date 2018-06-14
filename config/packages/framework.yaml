@@ -16,8 +16,6 @@ framework:
         packages:
             upload:
                 base_path: "uploads"
-            auth:
-                base_path: "build/auth/%template_auth%"
             admin:
                 base_path: "build/admin/%template_admin%"
             web:
