@@ -1,4 +1,4 @@
 imports:
     - { resource: "parameters.yaml" }
-    - { resource: "../src/Web/Resources/config/services.yaml" }
     - { resource: "../src/Admin/Resources/config/services.yaml" }
+    - { resource: "../src/Web/Resources/config/services.yaml" }

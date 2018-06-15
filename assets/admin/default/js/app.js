@@ -14,22 +14,13 @@
 require('../scss/app.scss');
 
 /**==================================
- Dependencies
- ==================================*/
-window.$ = window.jQuery = require('jquery');
-require('popper.js/dist/umd/popper.min');
-require('bootstrap');
-require('sumoselect');
-
-
-/**==================================
  Modules
  ==================================*/
-require('./directive');
-require('./ajax');
-require('./modal');
-require('./content-nav');
-require('./datepicker');
+require('./modules/directive');
+require('./modules/ajax');
+require('./modules/modal');
+require('./modules/content-nav');
+require('./modules/datepicker');
 
 
 /**==================================
@@ -67,5 +58,4 @@ $(document).ready(function () {
     captionFormatAllSelected: lang['select_caption_all'],
     noMatch: lang['select_no_matches']
   });
-
 });

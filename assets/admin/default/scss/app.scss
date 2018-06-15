@@ -10,14 +10,14 @@
 /*======================================================
  Dependencies
 =======================================================*/
-@import "./bootstrap";
-@import "./sumoselect";
-@import "./left-navigation";
-@import "./dashboard";
-@import "./action-menu";
-@import "./content-nav";
-@import "./datepicker";
-@import "./ajaxLoader";
+@import "./variables";
+@import "./modules/sumoselect";
+@import "./modules/left-navigation";
+@import "./modules/dashboard";
+@import "./modules/action-menu";
+@import "./modules/content-nav";
+@import "./modules/datepicker";
+@import "./modules/ajaxLoader";
 
 /*======================================================
  Typography

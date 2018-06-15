@@ -20,7 +20,7 @@ admin_mailer:
     prefix: "/%routing_admin%"
 
 ##
-# Website Routing
+# Website Frontend Routing
 ##
 web:
     resource: "../src/Web/Resources/config/routing.yaml"

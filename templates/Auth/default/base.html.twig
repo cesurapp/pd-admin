@@ -16,9 +16,19 @@
     {#-- Include Assets --#}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    <link rel="stylesheet" href="{{ asset('app.min.css', 'web') }}">
-    <link rel="stylesheet" href="{{ asset('auth.min.css', 'web') }}">
-    <script src="{{ asset('app.min.js', 'web') }}"></script>
+
+    <link rel="stylesheet" href="{{ asset('bootstrap.css', 'admin') }}">
+    <link rel="stylesheet" href="{{ asset('app.css', 'auth') }}">
+    <script src="{{ asset('vendor.js', 'admin') }}"></script>
+
+    <script>
+      /**
+       * Bootstrap Tooltip Activate
+       */
+      $(function () {
+        $('[data-toggle="tooltip"], [data-tooltip]').tooltip();
+      })
+    </script>
 
     {# Head Block #}
     {% block head %}{% endblock %}

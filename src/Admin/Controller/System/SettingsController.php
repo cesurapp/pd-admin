@@ -24,6 +24,7 @@ use App\Admin\Form\System\UserForm;
 use App\Admin\Services\ConfigManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -270,10 +271,26 @@ class SettingsController extends Controller
         }
         closedir($handle);
 
+        // Get Auth Template List
+        $handle = opendir($this->getParameter('kernel.project_dir').'/templates/Auth');
+        $templatesAuth = [];
+        if ($handle) {
+            while (false !== ($dir = readdir($handle))) {
+                if (!in_array($dir, ['.', '..', '.DS_Store'], true)) {
+                    $templatesAuth[ucfirst($dir)] = $dir;
+                }
+            }
+        }
+        closedir($handle);
+
         // Create Form
         $form = $this->createFormBuilder()
             ->add('template_admin', ChoiceType::class, [
                 'label' => 'template_admin',
+                'choices' => $templatesAdmin,
+            ])
+            ->add('template_auth', ChoiceType::class, [
+                'label' => 'template_auth',
                 'choices' => $templatesAdmin,
             ])
             ->add('submit', SubmitType::class, [

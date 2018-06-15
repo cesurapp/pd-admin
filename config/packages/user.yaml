@@ -6,5 +6,5 @@ pd_user:
     login_redirect: 'web_home'
     email_confirmation: true
     welcome_email: true
-    template_path: '@Admin/Auth'
+    template_path: '@Auth'
     resetting_request_time: 7200

@@ -2,5 +2,5 @@
   "build/admin/default/app.js": "/build/admin/default/app.js",
   "build/admin/default/app.css": "/build/admin/default/app.css",
   "build/admin/default/vendor.js": "/build/admin/default/vendor.js",
-  "build/admin/default/manifest.js": "/build/admin/default/manifest.js"
+  "build/admin/default/bootstrap.css": "/build/admin/default/bootstrap.css"
 }

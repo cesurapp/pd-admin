@@ -13,7 +13,6 @@
     "@symfony/webpack-encore": "^0.20.1",
     "autoprefixer": "^8.6.2",
     "copy-webpack-plugin": "^4.5.1",
-    "fast-sass-loader": "^1.4.5",
     "node-sass": "^4.9.0",
     "postcss-loader": "^2.1.5",
     "sass-loader": "^7.0.3",
