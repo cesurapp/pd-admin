@@ -9,7 +9,7 @@
  * @copyright   Copyright (c) 2018 pdAdmin
  * @license     LICENSE
  *
- * @link        http://pdadmin.ramazanapaydin.com
+ * @link        https://github.com/rmznpydn/pd-admin
  */
 
 namespace App\Admin\Controller\Account;
@@ -122,7 +122,7 @@ class AccountController extends Controller
         $form = $this->createForm(ProfileType::class, $user, [
             'data_class' => User::class,
             'profile_class' => Profile::class,
-            'container' => $this->container
+            'container' => $this->container,
         ]);
 
         // Handle Request
@@ -192,13 +192,15 @@ class AccountController extends Controller
     }
 
     /**
-     * Change User Private Roles
+     * Change User Private Roles.
      *
-     * @param User $user
+     * @param User    $user
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @IsGranted("ADMIN_ACCOUNT_ROLES")
      */

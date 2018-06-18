@@ -9,7 +9,7 @@
  * @copyright   Copyright (c) 2018 pdAdmin
  * @license     LICENSE
  *
- * @link        http://pdadmin.ramazanapaydin.com
+ * @link        https://github.com/rmznpydn/pd-admin
  */
 
 namespace App\Admin\Services;
@@ -114,7 +114,7 @@ class TwigExtension extends \Twig_Extension
             if (0 !== $count) {
                 $format .= $count.' '.$val.' ';
 
-                $counter += 1;
+                ++$counter;
                 if ($counter === $length) {
                     break;
                 }

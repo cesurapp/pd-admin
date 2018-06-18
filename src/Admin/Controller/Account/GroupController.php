@@ -9,7 +9,7 @@
  * @copyright   Copyright (c) 2018 pdAdmin
  * @license     LICENSE
  *
- * @link        http://pdadmin.ramazanapaydin.com
+ * @link        https://github.com/rmznpydn/pd-admin
  */
 
 namespace App\Admin\Controller\Account;
@@ -76,7 +76,7 @@ class GroupController extends Controller
     {
         // Create Form
         $form = $this->createForm(GroupType::class, $group, [
-            'data_class' => Group::class
+            'data_class' => Group::class,
         ]);
 
         // Handle Request

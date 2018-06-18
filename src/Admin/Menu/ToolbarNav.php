@@ -9,7 +9,7 @@
  * @copyright   Copyright (c) 2018 pdAdmin
  * @license     LICENSE
  *
- * @link        http://pdadmin.ramazanapaydin.com
+ * @link        https://github.com/rmznpydn/pd-admin
  */
 
 namespace App\Admin\Menu;
@@ -52,7 +52,7 @@ class ToolbarNav extends Menu
      * Add Language Menu.
      *
      * @param ItemInterface $menu
-     * @param array $options
+     * @param array         $options
      */
     private function addLanguage(ItemInterface $menu, array $options = [])
     {
@@ -80,7 +80,7 @@ class ToolbarNav extends Menu
      * Add Profile Menu.
      *
      * @param ItemInterface $menu
-     * @param array $options
+     * @param array         $options
      */
     private function addProfile(ItemInterface $menu, array $options = [])
     {

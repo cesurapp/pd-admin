@@ -9,7 +9,7 @@
  * @copyright   Copyright (c) 2018 pdAdmin
  * @license     LICENSE
  *
- * @link        http://pdadmin.ramazanapaydin.com
+ * @link        https://github.com/rmznpydn/pd-admin
  */
 
 namespace App\Admin\Controller\System;
@@ -150,7 +150,7 @@ class SettingsController extends Controller
                     // Send Mail
                     $mail = $this->get('mailer');
                     $mail->registerPlugin(new \Swift_Plugins_LoggerPlugin($mailLogger));
-                    
+
                     if ($mail->send($message)) {
                         $this->addFlash('success', 'test_email_success');
                     } else {
@@ -390,7 +390,7 @@ class SettingsController extends Controller
     }
 
     /**
-     * Clear Symfony Cache
+     * Clear Symfony Cache.
      *
      * @IsGranted("ADMIN_SETTINGS_ROUTING")
      */

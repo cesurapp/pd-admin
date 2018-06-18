@@ -9,7 +9,7 @@
  * @copyright   Copyright (c) 2018 pdAdmin
  * @license     LICENSE
  *
- * @link        http://pdadmin.ramazanapaydin.com
+ * @link        https://github.com/rmznpydn/pd-admin
  */
 
 namespace App\Admin\Listener;
@@ -46,9 +46,9 @@ class ExceptionListener
     /**
      * ExceptionListener constructor.
      *
-     * @param ContainerInterface $container
+     * @param ContainerInterface  $container
      * @param TranslatorInterface $translator
-     * @param string $environment
+     * @param string              $environment
      */
     public function __construct(ContainerInterface $container, TranslatorInterface $translator, string $environment)
     {

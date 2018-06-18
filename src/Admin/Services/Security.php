@@ -9,7 +9,7 @@
  * @copyright   Copyright (c) 2018 pdAdmin
  * @license     LICENSE
  *
- * @link        http://pdadmin.ramazanapaydin.com
+ * @link        https://github.com/rmznpydn/pd-admin
  */
 
 namespace App\Admin\Services;
@@ -56,9 +56,10 @@ class Security
     /**
      * Get All Method Roles.
      *
-     * @return array
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
+     *
+     * @return array
      */
     public function getRoles(): array
     {
@@ -74,8 +75,9 @@ class Security
         foreach ($routes as $route) {
             // Check Action
             if (isset($route->getDefaults()['_controller']) && (2 === \count($controller = explode('::', $route->getDefaults()['_controller'])))) {
-                if (!class_exists($controller[0]))
-                    Continue;
+                if (!class_exists($controller[0])) {
+                    continue;
+                }
 
                 // Class Reflection
                 $reflection = new \ReflectionClass($controller[0]);
@@ -94,12 +96,12 @@ class Security
                             $roleObject = explode('_', $access->getAttributes());
                             if (3 === \count($roleObject)) {
                                 $access = $roleObject[2];
-                                $roleObject = $roleObject[0] . '_' . $roleObject[1];
+                                $roleObject = $roleObject[0].'_'.$roleObject[1];
 
                                 if (isset($roles[$roleObject])) {
-                                    $roles[$roleObject][$access] = $roleObject . '_' . $access;
+                                    $roles[$roleObject][$access] = $roleObject.'_'.$access;
                                 } else {
-                                    $roles[$roleObject] = [$access => $roleObject . '_' . $access];
+                                    $roles[$roleObject] = [$access => $roleObject.'_'.$access];
                                 }
                             }
                         }
