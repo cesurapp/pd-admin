@@ -20,7 +20,6 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TimezoneType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -66,22 +65,6 @@ class CoreForm extends AbstractType
                 ],
                 'multiple' => false,
                 'expanded' => true,
-            ])
-            ->add('model_timezone', TimezoneType::class, [
-                'label' => 'model_timezone',
-                'label_attr' => ['info' => 'model_timezone_info'],
-                'preferred_choices' => ['UTC', date_default_timezone_get()],
-                'placeholder' => 'Default',
-                'empty_data' => null,
-                'required' => false,
-            ])
-            ->add('view_timezone', TimezoneType::class, [
-                'label' => 'view_timezone',
-                'label_attr' => ['info' => 'view_timezone_info'],
-                'preferred_choices' => ['UTC', date_default_timezone_get()],
-                'placeholder' => 'Default',
-                'empty_data' => null,
-                'required' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

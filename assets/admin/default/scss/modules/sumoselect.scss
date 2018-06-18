@@ -64,6 +64,8 @@
 
 .SumoSelect.open .CaptionCont {
   border-color: $input-focus-border-color;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 /*this is applied on that hidden select. DO NOT USE display:none; or visiblity:hidden; and Do not override any of these properties. */

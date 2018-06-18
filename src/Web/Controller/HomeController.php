@@ -15,11 +15,38 @@
 namespace App\Web\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class HomeController extends Controller
 {
+    /**
+     * Homepage
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function index()
     {
         return $this->render('@Web/index.html.twig');
+    }
+
+    /**
+     * Change Language for Session.
+     *
+     * @param string  $lang
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function changeLanguage($lang, Request $request)
+    {
+        // Set Language for Session
+        $request->getSession()->set('_locale', $lang);
+
+        // Return Back
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
+
+        return $this->redirectToRoute('web_home');
     }
 }

@@ -17,7 +17,7 @@
   $(function () {
     $('#refreshCache').click(function () {
       $.ajax({
-        url: '{{ path('admin_clear_cache') }}',
+        url: '{{ path('admin_settings_clearcache') }}',
         dataType: 'json',
         complete: function (response) {
           $('#cacheModal').modal('hide');

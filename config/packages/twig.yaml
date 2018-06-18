@@ -6,4 +6,4 @@ twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
     cache: "%twig_cache%"
-    form_themes: ['blocks/bs4hr.html.twig']
+    form_themes: ['Admin/%template_admin%/_other/bootstrap-hr-4.html.twig']

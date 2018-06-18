@@ -388,4 +388,22 @@ class SettingsController extends Controller
             'page_description' => 'settings_routing_desc',
         ]);
     }
+
+    /**
+     * Clear Symfony Cache
+     *
+     * @IsGranted("ADMIN_SETTINGS_ROUTING")
+     */
+    public function clearCache()
+    {
+        // Reload Container
+        $fs = new Filesystem();
+        $fs->remove($this->container->getParameter('kernel.cache_dir'));
+
+        // Redirect
+        header('Content-Type: application/json');
+
+        // Exit
+        exit(json_encode(['status' => 'successful']));
+    }
 }

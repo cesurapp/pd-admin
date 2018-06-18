@@ -4,9 +4,9 @@
 admin_dashboard:
     path:       /
     controller: App\Admin\Controller\DashboardController::index
-admin_clear_cache:
-    path:       /refresh/cache
-    controller: App\Admin\Controller\DashboardController::clearCache
+admin_language:
+    path:       /language/{lang}
+    controller: App\Admin\Controller\DashboardController::changeLanguage
 
 # Widget Routing
 widget:
@@ -95,3 +95,6 @@ admin_settings_core:
 admin_settings_routing:
     path:       /settings/routing
     controller: App\Admin\Controller\System\SettingsController::routing
+admin_settings_clearcache:
+    path:       /refresh/cache
+    controller: App\Admin\Controller\System\SettingsController::clearCache

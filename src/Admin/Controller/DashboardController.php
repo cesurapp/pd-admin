@@ -14,9 +14,9 @@
 
 namespace App\Admin\Controller;
 
-use App\Admin\Services\ReloadContainer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Admin Dashboard.
@@ -38,20 +38,23 @@ class DashboardController extends Controller
     }
 
     /**
-     * Clear Symfony Cache.
+     * Change Language for Session.
+     *
+     * @param string  $lang
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function clearCache()
+    public function changeLanguage($lang, Request $request)
     {
-        // Reload Container
-        $rc = new ReloadContainer($this->container);
-        $rc->reloadContainer();
+        // Set Language for Session
+        $request->getSession()->set('_locale', $lang);
 
-        // Redirect
-        header('Content-Type: application/json');
-        echo json_encode([
-            'status' => 'successful',
-        ]);
+        // Return Back
+        if (isset($_SERVER['HTTP_REFERER'])) {
+            return $this->redirect($_SERVER['HTTP_REFERER']);
+        }
 
-        exit();
+        return $this->redirectToRoute('admin_dashboard');
     }
 }

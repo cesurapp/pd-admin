@@ -8,3 +8,4 @@ pd_user:
     welcome_email: true
     template_path: '@Auth'
     resetting_request_time: 7200
+    active_language: "%active_language%"

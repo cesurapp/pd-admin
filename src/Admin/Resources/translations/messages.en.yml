@@ -333,10 +333,6 @@ remember_time: Remember Me Time
 remember_time_info: The default is (604800sn) week, which sets the duration of the Remember Me feature used in the user login system in seconds.
 twig_cache: Twig Cache
 twig_cache_info: Enable Twig cache. Close for development.
-model_timezone: Model Timezone
-model_timezone_info: Time Zone for data entry
-view_timezone: View Timezone
-view_timezone_info: Time Zone for data display
 
 settings_routing: Routing Settings
 settings_routing_desc: System general routing settings

@@ -70,7 +70,7 @@ class ToolbarNav extends Menu
             $languageDropdown
                 ->addChild($label)
                 ->setLabel($label)
-                ->setRoute('change_language', ['lang' => $key])
+                ->setRoute('admin_language', ['lang' => $key])
                 ->setExtra('label_translate', false)
                 ->setLinkAttr(['class' => ($options['locale'] === $key) ? 'dropdown-item active' : 'dropdown-item']);
         }

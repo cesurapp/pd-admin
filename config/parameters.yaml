@@ -41,7 +41,9 @@ parameters:
     # Template Default Config
     ##
     template_admin: 'default'
+    template_admin_form_themes: ''
     template_auth: 'default'
+    template_auth_form_themes: ''
     template_web: 'default'
 
     ##
