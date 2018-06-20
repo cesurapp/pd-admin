@@ -543,7 +543,7 @@ $dropdown-box-shadow:               0 .5rem 1rem rgba($black, .175) !default;
 
 $dropdown-link-color:               $gray-900 !default;
 $dropdown-link-hover-color:         darken($gray-900, 5%) !default;
-$dropdown-link-hover-bg:            $gray-100 !default;
+$dropdown-link-hover-bg:            rgba(0,0,0,.1) !default;
 
 $dropdown-link-active-color:        $component-active-color !default;
 $dropdown-link-active-bg:           $component-active-bg !default;
@@ -915,7 +915,7 @@ $text-color: #47555d;
 $main_nav_background: $blue;
 $main_nav_text: #FFF;
 $main_nav_popup_background: #FFF;
-$main_nav_link_hover_background: rgba(0, 0, 0, 0.1);
+$main_nav_link_hover_background: $dropdown-link-hover-bg;
 
 // Header Navigation Back
 $nav_back: #FFF;

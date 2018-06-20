@@ -28,6 +28,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Controller managing the settings.
@@ -246,6 +247,43 @@ class SettingsController extends Controller
     }
 
     /**
+     * Load Template List
+     *
+     * @param null $path
+     * @return array
+     */
+    private function loadTemplateList($path = null)
+    {
+        $path = $this->getParameter('kernel.project_dir') . '/' . $path;
+
+        if (file_exists($path)) {
+            $handle = opendir($path);
+            $themeList = [];
+            $configList = [];
+            if ($handle) {
+                while (false !== ($name = readdir($handle))) {
+                    if (!in_array($name, ['.', '..', '.DS_Store'], true) && file_exists($config = $path . '/' . $name . '/config.yaml')) {
+                        $themeConfig = (new Yaml())->parseFile($config);
+                        $themeList[$themeConfig['theme']['name']] = $name;
+                        $configList[$name] = $themeConfig;
+                    }
+                }
+            }
+            closedir($handle);
+
+            return [
+                'templates' => $themeList,
+                'config' => $configList
+            ];
+        }
+
+        return [
+            'templates' => [],
+            'config' => []
+        ];
+    }
+
+    /**
      * Settings Template.
      *
      * @param Request $request
@@ -259,39 +297,15 @@ class SettingsController extends Controller
         // Get Config Manager
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_template');
 
-        // Get Admin Template List
-        $handle = opendir($this->getParameter('kernel.project_dir').'/templates/Admin');
-        $templatesAdmin = [];
-        if ($handle) {
-            while (false !== ($dir = readdir($handle))) {
-                if (!in_array($dir, ['.', '..', '.DS_Store'], true)) {
-                    $templatesAdmin[ucfirst($dir)] = $dir;
-                }
-            }
-        }
-        closedir($handle);
-
-        // Get Auth Template List
-        $handle = opendir($this->getParameter('kernel.project_dir').'/templates/Auth');
-        $templatesAuth = [];
-        if ($handle) {
-            while (false !== ($dir = readdir($handle))) {
-                if (!in_array($dir, ['.', '..', '.DS_Store'], true)) {
-                    $templatesAuth[ucfirst($dir)] = $dir;
-                }
-            }
-        }
-        closedir($handle);
-
         // Create Form
         $form = $this->createFormBuilder()
             ->add('template_admin', ChoiceType::class, [
                 'label' => 'template_admin',
-                'choices' => $templatesAdmin,
+                'choices' => $this->loadTemplateList('templates/Admin')['templates'],
             ])
             ->add('template_auth', ChoiceType::class, [
                 'label' => 'template_auth',
-                'choices' => $templatesAdmin,
+                'choices' => $this->loadTemplateList('templates/Auth')['templates'],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

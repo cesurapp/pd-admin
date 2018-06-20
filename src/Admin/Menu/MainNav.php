@@ -16,30 +16,13 @@ namespace App\Admin\Menu;
 
 use Pd\MenuBundle\Builder\ItemInterface;
 use Pd\MenuBundle\Builder\Menu;
-use Pd\MenuBundle\Event\PdMenuEvent;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class MainNav extends Menu
 {
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
-     * MainNav constructor.
-     *
-     * @param EventDispatcherInterface $eventDispatcher
-     */
-    public function __construct(EventDispatcherInterface $eventDispatcher)
-    {
-        $this->eventDispatcher = $eventDispatcher;
-    }
-
     public function createMenu(array $options = []): ItemInterface
     {
         // Create ROOT Menu
-        $menu = $this->createRoot('main_menu');
+        $menu = $this->createRoot('main_menu', true);
 
         // Create Dashboard
         $menu->addChild('nav_dashboard', 1)
@@ -94,14 +77,6 @@ class MainNav extends Menu
             ->setListAttr(['class' => 'header'])
             ->setLabelAttr(['class' => 'title'])
             ->setRoles(['ADMIN_SETTINGS_GENERAL']);
-
-        /*
-         * Event Dispatcher
-         */
-        $this->eventDispatcher->dispatch(
-            AdminMenuEvents::MAIN_NAVIGATION,
-            new PdMenuEvent($menu)
-        );
 
         return $menu;
     }

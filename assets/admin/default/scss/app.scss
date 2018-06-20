@@ -23,7 +23,11 @@
  Typography
 =======================================================*/
 html {
-  font-size: 15px;
+  -webkit-text-size-adjust: 100%;
+  font-variant-ligatures: none;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
 html, body {
@@ -67,16 +71,16 @@ button:focus, a:focus {
   outline: none;
 }
 
-@media only screen and (min-width: 1366px) {
+@media only screen and (min-width: 1440px) {
   .container {
-    max-width: 1366px;
+    max-width: 1440px;
   }
   #wrapper {
     padding-left: 150px;
   }
 }
 
-@media only screen and (max-width: 1366px) {
+@media only screen and (max-width: 1440px) {
   .container {
     width: 100%;
     max-width: 100%;
@@ -505,10 +509,9 @@ header {
     .content-title {
       overflow: hidden;
       .addbtn {
-        right: -2.5rem;
-        top: 1.3rem;
+        top: 1rem;
         i {
-          font-size: 1rem;
+          padding: .6rem;
           color: #FFF;
         }
       }

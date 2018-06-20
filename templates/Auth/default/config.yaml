@@ -1,0 +1,6 @@
+theme:
+    name: pdAdmin Default Theme
+    description: pdAdmin responsive theme
+    preview: preview.png
+config:
+    twig_form_themes: null

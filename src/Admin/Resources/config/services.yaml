@@ -14,10 +14,6 @@ services:
         tags:
             - { name: kernel.event_listener, event: widget.start, method: builder }
 
-    # Register Menus
-    App\Admin\Menu\MainNav:
-        public: true
-
     # Exception Listener
     App\Admin\Listener\ExceptionListener:
         tags:
@@ -47,4 +43,3 @@ services:
     # Twig Extension
     App\Admin\Services\TwigExtension:
         tags: ['twig.extension']
-
