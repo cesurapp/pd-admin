@@ -22,7 +22,10 @@ class GroupsMenu extends Menu
     public function createMenu(array $options = []): ItemInterface
     {
         // Create Root Menu
-        $menu = $this->createRoot('groups_menu')->setChildAttr(['class' => 'nav nav-pills']);
+        $menu = $this->createRoot('groups_menu')->setChildAttr([
+            'class' => 'nav nav-pills',
+            'data-parent' => 'admin_account_group_list'
+        ]);
 
         // Add Menu Items
         $menu

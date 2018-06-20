@@ -22,7 +22,10 @@ class AccountMenu extends Menu
     public function createMenu(array $options = []): ItemInterface
     {
         // Create Root Menu
-        $menu = $this->createRoot('account_menu')->setChildAttr(['class' => 'nav nav-pills']);
+        $menu = $this->createRoot('account_menu')->setChildAttr([
+            'class' => 'nav nav-pills',
+            'data-parent' => 'admin_account_list'
+        ]);
 
         // Add Menu Items
         $menu

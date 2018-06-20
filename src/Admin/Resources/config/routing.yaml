@@ -92,9 +92,6 @@ admin_settings_template:
 admin_settings_core:
     path:       /settings/core
     controller: App\Admin\Controller\System\SettingsController::core
-admin_settings_routing:
-    path:       /settings/routing
-    controller: App\Admin\Controller\System\SettingsController::routing
 admin_settings_clearcache:
     path:       /refresh/cache
     controller: App\Admin\Controller\System\SettingsController::clearCache

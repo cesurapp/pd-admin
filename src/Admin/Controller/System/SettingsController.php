@@ -368,42 +368,6 @@ class SettingsController extends Controller
     }
 
     /**
-     * Settings Core Routing.
-     *
-     * @param Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @IsGranted("ADMIN_SETTINGS_ROUTING")
-     */
-    public function routing(Request $request)
-    {
-        // Get Config Manager
-        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_routing');
-
-        // Create Form
-        $form = $this->createForm(RoutingForm::class);
-        $cm->setFormData($form);
-
-        // Handle Request
-        $form->handleRequest($request);
-
-        // Submit & Valid Form
-        if ($form->isSubmitted() && $form->isValid()) {
-            $cm->save($form);
-
-            $this->addFlash('success', 'changes_saved');
-        }
-
-        // Render
-        return $this->render('@Admin/System/Settings/index.html.twig', [
-            'form' => $form->createView(),
-            'page_title' => 'settings_routing',
-            'page_description' => 'settings_routing_desc',
-        ]);
-    }
-
-    /**
      * Clear Symfony Cache.
      *
      * @IsGranted("ADMIN_SETTINGS_ROUTING")

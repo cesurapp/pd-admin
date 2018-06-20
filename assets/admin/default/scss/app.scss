@@ -788,6 +788,11 @@ header {
   }
 }
 
+.table .custom-control-inline{
+  min-height: 1rem;
+  vertical-align: top;
+}
+
 #actions {
   position: relative;
   margin-bottom: 20px;

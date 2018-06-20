@@ -21,32 +21,13 @@ require('./modules/ajax');
 require('./modules/modal');
 require('./modules/content-nav');
 require('./modules/datepicker');
+require('./modules/menu');
 
 
 /**==================================
  Page Load
  ==================================*/
 $(document).ready(function () {
-  /**
-   * Main Navigation Auto Position
-   */
-  $('#nav_main').find('> ul > li').hover(function () {
-    var list = $(this).find('ul');
-    if (list.length >= 1) {
-      var listHeight = list.outerHeight();
-      var overflow = $(document).height() - this.offsetTop;
-
-      if (overflow < listHeight) {
-        if (this.offsetTop > listHeight) {
-          list.css('top', 'auto');
-          list.css('bottom', '0');
-        } else {
-          list.css('top', '-' + (listHeight - overflow) + 'px');
-        }
-      }
-    }
-  });
-
   /**
    * Custom Select
    */

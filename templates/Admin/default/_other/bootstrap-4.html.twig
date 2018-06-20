@@ -8,7 +8,7 @@
     {% endif %}
 
     {% if type is defined and type in ['file'] %}
-        <div class="custom-upload">
+        <div class="custom-upload" xmlns="http://www.w3.org/1999/html">
             {% if data is not null %}
                 {% for file in data %}
                     {% if '.jpg' in file or '.JPG' in file or '.jpeg' in file or '.JPEG' in file or '.png' in file or '.PNG' in file or '.gif' in file or '.GIF' in file or '.ico' in file or  '.ICO' in file %}
@@ -208,7 +208,9 @@
                 {%- endif -%}
             {%- endif -%}
             {% set label_attr = label_attr|merge({class: 'custom-control-label'}) %}
-            <label {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}" {% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
+            <label {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}" {% endfor %}>
+                {#{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}#}
+            </label>
         {%- endif -%}
         </div>
     {%- endif %}
@@ -240,7 +242,9 @@
                 {%- endif -%}
             {%- endif -%}
             {% set label_attr = label_attr|merge({class: 'custom-control-label'}) %}
-            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</span>
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+            </label>
         {%- endif -%}
         </div>
     {%- endif %}

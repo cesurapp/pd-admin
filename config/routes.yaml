@@ -10,14 +10,14 @@ authorization:
 ##
 admin:
     resource: "../src/Admin/Resources/config/routing.yaml"
-    prefix: "/%routing_admin%"
+    prefix: "admin"
 
 ##
 # PD Mailer Bundle
 ##
 admin_mailer:
     resource: "@PdMailerBundle/Resources/config/routing.yaml"
-    prefix: "/%routing_admin%"
+    prefix: "admin"
 
 ##
 # Website Frontend Routing

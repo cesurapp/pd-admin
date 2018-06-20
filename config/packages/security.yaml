@@ -34,4 +34,4 @@ security:
                 path:     /
     access_control:
         # Admin Panel
-        - { path: '^/%routing_admin%', role: ROLE_ADMIN }
+        - { path: '^/admin', role: ROLE_ADMIN }

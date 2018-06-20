@@ -22,7 +22,10 @@ class SettingsMenu extends Menu
     public function createMenu(array $options = []): ItemInterface
     {
         // Create Root Item
-        $menu = $this->createRoot('settings_menu')->setChildAttr(['class' => 'nav nav-pills']);
+        $menu = $this->createRoot('settings_menu')->setChildAttr([
+            'class' => 'nav nav-pills',
+            'data-parent' => 'admin_settings_general'
+        ]);
 
         // Create Menu Items
         $menu->addChild('nav_config_general')
@@ -65,13 +68,7 @@ class SettingsMenu extends Menu
             ->setLabel('nav_config_core')
             ->setRoute('admin_settings_core')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_CORE'])
-            // Routing
-            ->addChildParent('nav_config_routing')
-            ->setLabel('nav_config_routing')
-            ->setRoute('admin_settings_routing')
-            ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_ROUTING']);
+            ->setRoles(['ADMIN_SETTINGS_CORE']);
 
         return $menu;
     }

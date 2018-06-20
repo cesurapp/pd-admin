@@ -106,12 +106,3 @@ parameters:
     view_timezone: null
     # Hidden
     upload_dir: '%kernel.project_dir%/public/uploads/'
-
-    ##
-    # Routing Default Config
-    ##
-    routing_admin: admin
-    routing_login: auth/login
-    routing_logout: auth/logout
-    routing_register: auth/register
-    routing_resetting: auth/forgot_password
