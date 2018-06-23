@@ -17,7 +17,7 @@ namespace App\Admin\Controller\Account;
 use App\Admin\Entity\Account\Group;
 use App\Admin\Entity\Account\Profile;
 use App\Admin\Entity\Account\User;
-use App\Admin\Services\Security;
+use App\Admin\Manager\SecurityManager;
 use Pd\UserBundle\Form\ChangePasswordType;
 use Pd\UserBundle\Form\ProfileType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -207,7 +207,7 @@ class AccountController extends Controller
     public function roles(User $user, Request $request)
     {
         // All Roles
-        $security = new Security($this->container);
+        $security = new SecurityManager($this->container);
         $roles = $security->getRoles();
 
         // Create Form

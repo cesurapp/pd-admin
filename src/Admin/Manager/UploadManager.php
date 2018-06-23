@@ -14,7 +14,7 @@
 
 namespace App\Admin\Manager;
 
-use App\Admin\Services\Utils;
+use App\Admin\Twig\Tools;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -132,7 +132,7 @@ class UploadManager
     private function uploadProcess(UploadedFile $file, $raw)
     {
         // Create Filename
-        $fileName = (new Utils())->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) .
+        $fileName = (new Tools())->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) .
             uniqid(mt_rand(0, 5)) . '.' . $file->getClientOriginalExtension();
 
         // Enable Image Optimization

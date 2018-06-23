@@ -22,6 +22,7 @@ use App\Admin\Form\System\MediaForm;
 use App\Admin\Form\System\TemplateForm;
 use App\Admin\Form\System\UserForm;
 use App\Admin\Manager\ConfigManager;
+use Pd\MailerBundle\SwiftMailer\PdSwiftMessage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
@@ -144,7 +145,8 @@ class SettingsController extends Controller
                 } else {
                     // Test Message
                     $mailLogger = new \Swift_Plugins_Loggers_EchoLogger();
-                    $message = (new \Swift_Message())
+                    $message = (new PdSwiftMessage())
+                        ->setTemplateId('pd_tester_email')
                         ->setFrom($form->get('mail_sender_address')->getData())
                         ->setTo($toEmail)
                         ->setSubject('EmlakPRO Test Email')
@@ -210,7 +212,7 @@ class SettingsController extends Controller
             $this->addFlash('success', 'changes_saved');
 
             // Refresh Page
-            return $this->redirectToRoute('admin_settings_contact');
+            return $this->redirectToRoute('admin_settings_user');
         }
 
         // Render
@@ -250,7 +252,7 @@ class SettingsController extends Controller
             $this->addFlash('success', 'changes_saved');
 
             // Refresh Page
-            return $this->redirectToRoute('admin_settings_contact');
+            return $this->redirectToRoute('admin_settings_media');
         }
 
         // Render
@@ -290,7 +292,7 @@ class SettingsController extends Controller
             $this->addFlash('success', 'changes_saved');
 
             // Refresh Page
-            return $this->redirectToRoute('admin_settings_contact');
+            return $this->redirectToRoute('admin_settings_template');
         }
 
         // Render
@@ -330,7 +332,7 @@ class SettingsController extends Controller
             $this->addFlash('success', 'changes_saved');
 
             // Refresh Page
-            return $this->redirectToRoute('admin_settings_contact');
+            return $this->redirectToRoute('admin_settings_core');
         }
 
         // Render

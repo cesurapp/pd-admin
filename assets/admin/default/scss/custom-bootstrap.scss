@@ -224,12 +224,10 @@ div[class*="confirm"] {
 
 .modal {
   .modal-content {
-    border-radius: .155rem;
     border: none;
   }
   .modal-header {
     background: $blue;
-    border-radius: .125rem .125rem 0 0;
     margin-bottom: 15px;
   }
   .modal-header, .modal-footer {

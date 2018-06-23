@@ -15,7 +15,7 @@
 namespace App\Admin\Controller\Account;
 
 use App\Admin\Entity\Account\Group;
-use App\Admin\Services\Security;
+use App\Admin\Manager\SecurityManager;
 use Pd\UserBundle\Form\GroupType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -137,17 +137,19 @@ class GroupController extends Controller
     /**
      * Edit Group Roles.
      *
-     * @param Group   $group
+     * @param Group $group
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
+     * @throws \Doctrine\Common\Annotations\AnnotationException
+     * @throws \ReflectionException
      * @IsGranted("ADMIN_GROUP_ROLES")
      */
     public function roles(Group $group, Request $request)
     {
         // All Roles
-        $security = new Security($this->container);
+        $security = new SecurityManager($this->container);
         $roles = $security->getRoles();
 
         // Create Form

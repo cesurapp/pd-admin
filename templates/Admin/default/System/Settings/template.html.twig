@@ -26,14 +26,14 @@
 
     {# Preview Container #}
     <div id="template-preview" class="mt-4">
-        <img class="img-fluid rounded" src="#">
+        <img class="img-fluid rounded" src="{{ asset("build/admin/default/preview.png") }}">
     </div>
 {% endblock %}
 
 {% block scripts %}
     <script>
       // Select Admin Change
-      $('#template_form_template_admin').change(function () {
+      $('#template_admin').change(function () {
         var previewURL = '{{ asset("build/admin/default/preview.png") }}';
         previewURL = previewURL.replace('default', $(this).val());
 
@@ -50,17 +50,17 @@
           type: form.attr('method'),
           data: data,
           success: function (html) {
-            $('#template_form_template_admin_color_css').closest('.form-group').replaceWith(
-              $(html).find('#template_form_template_admin_color_css').closest('.form-group')
+            $('#template_admin_color_css').closest('.form-group').replaceWith(
+              $(html).find('#template_admin_color_css').closest('.form-group')
             );
 
-            $('#template_form_template_admin_color_css').SumoSelect();
+            $('#template_admin_color_css').SumoSelect();
           }
         });
       });
 
       // Select Auth Change
-      $('#template_form_template_auth').change(function () {
+      $('#template_auth').change(function () {
         var previewURL = '{{ asset("build/auth/default/preview.png") }}';
         previewURL = previewURL.replace('default', $(this).val());
 
@@ -77,16 +77,13 @@
           type: form.attr('method'),
           data: data,
           success: function (html) {
-            $('#template_form_template_auth_color_css').closest('.form-group').replaceWith(
-              $(html).find('#template_form_template_auth_color_css').closest('.form-group')
+            $('#template_auth_color_css').closest('.form-group').replaceWith(
+              $(html).find('#template_auth_color_css').closest('.form-group')
             );
 
-            $('#template_form_template_auth_color_css').SumoSelect();
+            $('#template_auth_color_css').SumoSelect();
           }
         });
       });
-
-      // Page Load
-      //$('#template_form_template_admin').trigger('change');
     </script>
 {% endblock %}

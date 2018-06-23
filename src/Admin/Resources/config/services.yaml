@@ -41,5 +41,5 @@ services:
             - { name: monolog.logger, channel: security }
 
     # Twig Extension
-    App\Admin\Services\TwigExtension:
+    App\Admin\Twig\FormatExtension:
         tags: ['twig.extension']

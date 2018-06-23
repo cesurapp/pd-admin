@@ -12,7 +12,7 @@
  * @link        https://github.com/rmznpydn/pd-admin
  */
 
-namespace App\Admin\Services;
+namespace App\Admin\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Translation\TranslatorInterface;
@@ -22,7 +22,7 @@ use Symfony\Component\Translation\TranslatorInterface;
  *
  * @author  Ramazan Apaydın <iletisim@ramazanapaydin.com>
  */
-class TwigExtension extends \Twig_Extension
+class FormatExtension extends \Twig_Extension
 {
     /**
      * Translator.
