@@ -14,7 +14,7 @@
 
 namespace App\Admin\Form\System;
 
-use Symfony\Component\Form\AbstractType;
+use App\Admin\Form\Type\ConfigAbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -28,7 +28,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  *
  * @author  Ramazan Apaydın <iletisim@ramazanapaydin.com>
  */
-class ContactForm extends AbstractType
+class ContactForm extends ConfigAbstractType
 {
     /**
      * Create Form.

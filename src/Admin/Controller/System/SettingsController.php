@@ -19,16 +19,13 @@ use App\Admin\Form\System\CoreForm;
 use App\Admin\Form\System\EmailForm;
 use App\Admin\Form\System\GeneralForm;
 use App\Admin\Form\System\MediaForm;
-use App\Admin\Form\System\RoutingForm;
+use App\Admin\Form\System\TemplateForm;
 use App\Admin\Form\System\UserForm;
-use App\Admin\Services\ConfigManager;
+use App\Admin\Manager\ConfigManager;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Yaml\Yaml;
 
 /**
  * Controller managing the settings.
@@ -52,15 +49,17 @@ class SettingsController extends Controller
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_general');
 
         // Create Form
-        $form = $this->createForm(GeneralForm::class, null, ['container' => $this->container]);
-        $cm->setFormData($form);
+        $form = $this->createForm(GeneralForm::class, $cm->getAll(), ['container' => $this->container]);
 
         // Handle Request
         $form->handleRequest($request);
 
         // Submit & Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
-            $cm->save($form);
+            // Save Config
+            $cm->saveConfig($form);
+
+            // Flash Message
             $this->addFlash('success', 'changes_saved');
 
             // Refresh Page
@@ -89,17 +88,21 @@ class SettingsController extends Controller
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_contact');
 
         // Create Form
-        $form = $this->createForm(ContactForm::class);
-        $cm->setFormData($form);
+        $form = $this->createForm(ContactForm::class, $cm->getAll());
 
         // Handle Request
         $form->handleRequest($request);
 
         // Submit & Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
-            $cm->save($form);
+            // Save Config
+            $cm->saveConfig($form);
 
+            // Flash Message
             $this->addFlash('success', 'changes_saved');
+
+            // Refresh Page
+            return $this->redirectToRoute('admin_settings_contact');
         }
 
         return $this->render('@Admin/System/Settings/index.html.twig', [
@@ -124,8 +127,7 @@ class SettingsController extends Controller
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_email');
 
         // Create Form
-        $form = $this->createForm(EmailForm::class);
-        $cm->setFormData($form);
+        $form = $this->createForm(EmailForm::class, $cm->getAll());
 
         // Handle Request
         $form->handleRequest($request);
@@ -160,9 +162,14 @@ class SettingsController extends Controller
                     $mailLogger->dump();
                 }
             } else {
-                $cm->save($form);
+                // Save Config
+                $cm->saveConfig($form);
 
+                // Flash Message
                 $this->addFlash('success', 'changes_saved');
+
+                // Refresh Page
+                return $this->redirectToRoute('admin_settings_email');
             }
         }
 
@@ -189,17 +196,21 @@ class SettingsController extends Controller
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_user');
 
         // Create Form
-        $form = $this->createForm(UserForm::class, null, ['container' => $this->container]);
-        $cm->setFormData($form);
+        $form = $this->createForm(UserForm::class, $cm->getAll(), ['router' => $this->get('router')]);
 
         // Handle Request
         $form->handleRequest($request);
 
         // Submit & Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
-            $cm->save($form);
+            // Save Config
+            $cm->saveConfig($form);
 
+            // Flash Message
             $this->addFlash('success', 'changes_saved');
+
+            // Refresh Page
+            return $this->redirectToRoute('admin_settings_contact');
         }
 
         // Render
@@ -225,17 +236,21 @@ class SettingsController extends Controller
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_media');
 
         // Create Form
-        $form = $this->createForm(MediaForm::class);
-        $cm->setFormData($form);
+        $form = $this->createForm(MediaForm::class, $cm->getAll());
 
         // Handle Request
         $form->handleRequest($request);
 
         // Submit & Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
-            $cm->save($form);
+            // Save Config
+            $cm->saveConfig($form);
 
+            // Flash Message
             $this->addFlash('success', 'changes_saved');
+
+            // Refresh Page
+            return $this->redirectToRoute('admin_settings_contact');
         }
 
         // Render
@@ -244,43 +259,6 @@ class SettingsController extends Controller
             'page_title' => 'settings_media',
             'page_description' => 'settings_media_desc',
         ]);
-    }
-
-    /**
-     * Load Template List
-     *
-     * @param null $path
-     * @return array
-     */
-    private function loadTemplateList($path = null)
-    {
-        $path = $this->getParameter('kernel.project_dir') . '/' . $path;
-
-        if (file_exists($path)) {
-            $handle = opendir($path);
-            $themeList = [];
-            $configList = [];
-            if ($handle) {
-                while (false !== ($name = readdir($handle))) {
-                    if (!in_array($name, ['.', '..', '.DS_Store'], true) && file_exists($config = $path . '/' . $name . '/config.yaml')) {
-                        $themeConfig = (new Yaml())->parseFile($config);
-                        $themeList[$themeConfig['theme']['name']] = $name;
-                        $configList[$name] = $themeConfig;
-                    }
-                }
-            }
-            closedir($handle);
-
-            return [
-                'templates' => $themeList,
-                'config' => $configList
-            ];
-        }
-
-        return [
-            'templates' => [],
-            'config' => []
-        ];
     }
 
     /**
@@ -298,36 +276,28 @@ class SettingsController extends Controller
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_template');
 
         // Create Form
-        $form = $this->createFormBuilder()
-            ->add('template_admin', ChoiceType::class, [
-                'label' => 'template_admin',
-                'choices' => $this->loadTemplateList('templates/Admin')['templates'],
-            ])
-            ->add('template_auth', ChoiceType::class, [
-                'label' => 'template_auth',
-                'choices' => $this->loadTemplateList('templates/Auth')['templates'],
-            ])
-            ->add('submit', SubmitType::class, [
-                'label' => 'save',
-            ])
-            ->getForm();
-        $cm->setFormData($form);
+        $form = $this->createForm(TemplateForm::class, $cm->getAll(), ['container' => $this->container]);
 
         // Handle Request
         $form->handleRequest($request);
 
         // Submit & Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
-            $cm->save($form);
+            // Save Config
+            $cm->saveConfig($form);
 
+            // Flash Message
             $this->addFlash('success', 'changes_saved');
+
+            // Refresh Page
+            return $this->redirectToRoute('admin_settings_contact');
         }
 
         // Render
         return $this->render('@Admin/System/Settings/template.html.twig', [
             'form' => $form->createView(),
             'page_title' => 'settings_template',
-            'page_description' => 'settings_template_desc',
+            'page_description' => 'settings_template_desc'
         ]);
     }
 
@@ -346,17 +316,21 @@ class SettingsController extends Controller
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_core');
 
         // Create Form
-        $form = $this->createForm(CoreForm::class);
-        $cm->setFormData($form);
+        $form = $this->createForm(CoreForm::class, $cm->getAll());
 
         // Handle Request
         $form->handleRequest($request);
 
         // Submit & Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
-            $cm->save($form);
+            // Save Config
+            $cm->saveConfig($form);
 
+            // Flash Message
             $this->addFlash('success', 'changes_saved');
+
+            // Refresh Page
+            return $this->redirectToRoute('admin_settings_contact');
         }
 
         // Render

@@ -9,8 +9,8 @@
 
     {% if type is defined and type in ['file'] %}
         <div class="custom-upload" xmlns="http://www.w3.org/1999/html">
-            {% if data is not null %}
-                {% for file in data %}
+            {% if file_path is defined %}
+                {% for file in file_path %}
                     {% if '.jpg' in file or '.JPG' in file or '.jpeg' in file or '.JPEG' in file or '.png' in file or '.PNG' in file or '.gif' in file or '.GIF' in file or '.ico' in file or  '.ICO' in file %}
                         <img src="{{ asset(file, 'upload') }}" class="{{ id }} ">
                     {% else %}

@@ -12,8 +12,9 @@
  * @link        https://github.com/rmznpydn/pd-admin
  */
 
-namespace App\Admin\Services;
+namespace App\Admin\Manager;
 
+use App\Admin\Services\Utils;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -51,7 +52,7 @@ class UploadManager
      * Upload constructor.
      *
      * @param ContainerInterface $container
-     * @param bool               $writeMode
+     * @param bool $writeMode
      */
     public function __construct(ContainerInterface $container, $writeMode = true)
     {
@@ -70,7 +71,7 @@ class UploadManager
     {
         // Create Current Directory
         $this->currentDir = date(str_replace('-', '/', $this->cfg('media_directory_map')));
-        $this->currentPath = $this->cfg('upload_dir').$this->currentDir;
+        $this->currentPath = $this->cfg('upload_dir') . $this->currentDir;
 
         // Create Directory
         if (!file_exists($this->currentPath)) {
@@ -131,15 +132,15 @@ class UploadManager
     private function uploadProcess(UploadedFile $file, $raw)
     {
         // Create Filename
-        $fileName = (new Utils())->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)).
-            uniqid(mt_rand(0, 5)).'.'.$file->getClientOriginalExtension();
+        $fileName = (new Utils())->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) .
+            uniqid(mt_rand(0, 5)) . '.' . $file->getClientOriginalExtension();
 
         // Enable Image Optimization
         if (!$raw && $this->cfg('media_optimize')) {
             switch ($file->getClientMimeType()) {
                 case image_type_to_mime_type(IMAGETYPE_JPEG):
                 case image_type_to_mime_type(IMAGETYPE_PNG):
-                    $this::imageManager($file, $this->currentPath.'/'.$fileName);
+                    $this::imageManager($file, $this->currentPath . '/' . $fileName);
                     break;
             }
         } else {
@@ -148,7 +149,7 @@ class UploadManager
         }
 
         // Return Filename
-        return $this->currentDir.'/'.$fileName;
+        return $this->currentDir . '/' . $fileName;
     }
 
     /**
@@ -197,7 +198,7 @@ class UploadManager
         // Add Text Watermark
         $image->text($this->cfg('media_wm_font_text'), $xOrdinate, $yOrdinate, function ($font) {
             // Exist Font File
-            if (!empty($this->cfg('media_wm_font')) && file_exists($fontPath = $this->cfg('upload_dir').$this->cfg('media_wm_font'))) {
+            if (!empty($this->cfg('media_wm_font')) && file_exists($fontPath = $this->cfg('upload_dir') . $this->cfg('media_wm_font'))) {
                 $font->file($fontPath);
             }
 
@@ -216,7 +217,7 @@ class UploadManager
      */
     private function addImageWatermark(&$image)
     {
-        if (file_exists($imagePath = $this->cfg('upload_dir').$this->cfg('media_wm_image'))) {
+        if (file_exists($imagePath = $this->cfg('upload_dir') . $this->cfg('media_wm_image'))) {
             $image->insert(
                 $imagePath,
                 $this->cfg('media_wm_image_position'),

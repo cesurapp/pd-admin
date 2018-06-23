@@ -255,7 +255,9 @@ settings_template: Şablon Ayarlar
 settings_template_desc: Admin panel şablon ayarları
 nav_config_template: Şablon
 template_admin: Admin Şablon
+template_admin_color: Şablon Renk Düzeni
 template_auth: Login Şablon
+template_auth_color: Şablon Renk Düzeni
 
 settings_user: Hesap Ayarlar
 settings_user_desc: Kullanıcı hesap ayarları

@@ -255,7 +255,9 @@ settings_template: Template Settings
 settings_template_desc: Admin panel template settings
 nav_config_template: Template
 template_admin: Admin Template
+template_admin_color: Template Color Schema
 template_auth: Authorization Template
+template_auth_color: Template Color Schema
 
 settings_user: Account Settings
 settings_user_desc: User account settings

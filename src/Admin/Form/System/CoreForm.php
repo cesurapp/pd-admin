@@ -14,7 +14,7 @@
 
 namespace App\Admin\Form\System;
 
-use Symfony\Component\Form\AbstractType;
+use App\Admin\Form\Type\ConfigAbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
@@ -27,7 +27,7 @@ use Symfony\Component\Form\FormBuilderInterface;
  *
  * @author  Ramazan Apaydın <iletisim@ramazanapaydin.com>
  */
-class CoreForm extends AbstractType
+class CoreForm extends ConfigAbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

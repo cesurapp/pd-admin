@@ -14,7 +14,7 @@
 
 namespace App\Admin\Form\System;
 
-use Symfony\Component\Form\AbstractType;
+use App\Admin\Form\Type\ConfigAbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -30,7 +30,7 @@ use Symfony\Component\Validator\Constraints\Image;
  *
  * @author  Ramazan Apaydın <iletisim@ramazanapaydin.com>
  */
-class MediaForm extends AbstractType
+class MediaForm extends ConfigAbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

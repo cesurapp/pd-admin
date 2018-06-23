@@ -12,7 +12,7 @@
  * @link        https://github.com/rmznpydn/pd-admin
  */
 
-namespace App\Admin\Services;
+namespace App\Admin\Manager;
 
 use App\Admin\Entity\Account\User;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -24,7 +24,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @author  Ramazan Apaydın <iletisim@ramazanapaydin.com>
  */
-class Security
+class SecurityManager
 {
     /**
      * @var ContainerInterface

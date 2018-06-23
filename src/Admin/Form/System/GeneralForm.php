@@ -14,7 +14,7 @@
 
 namespace App\Admin\Form\System;
 
-use Symfony\Component\Form\AbstractType;
+use App\Admin\Form\Type\ConfigAbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
@@ -34,13 +34,13 @@ use Symfony\Component\Validator\Constraints\Length;
  *
  * @author  Ramazan Apaydın <iletisim@ramazanapaydin.com>
  */
-class GeneralForm extends AbstractType
+class GeneralForm extends ConfigAbstractType
 {
     /**
      * Create Form.
      *
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -137,7 +137,6 @@ class GeneralForm extends AbstractType
                 ],
                 'required' => false,
                 'data_class' => null,
-                'block_name' => 'raw',
                 'constraints' => [
                     new File([
                         'maxSize' => '30M',
@@ -157,7 +156,6 @@ class GeneralForm extends AbstractType
                 ],
                 'required' => false,
                 'data_class' => null,
-                'block_name' => 'raw',
                 'constraints' => [
                     new File([
                         'maxSize' => '3M',
@@ -177,7 +175,6 @@ class GeneralForm extends AbstractType
                 ],
                 'required' => false,
                 'data_class' => null,
-                'block_name' => 'raw',
                 'constraints' => [
                     new File([
                         'maxSize' => '3M',

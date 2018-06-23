@@ -42,8 +42,9 @@ parameters:
     ##
     template_admin: 'default'
     template_admin_form_themes: ''
+    template_admin_color_css: ''
     template_auth: 'default'
-    template_auth_form_themes: ''
+    template_auth_color_css: ''
     template_web: 'default'
 
     ##
