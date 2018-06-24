@@ -48,7 +48,7 @@
         /**
          * Image Watermark Selection
          */
-        $('input[name="media_form[media_watermark]"]').change(function () {
+        $('input[name="media_watermark"]').change(function () {
           switch ($(this).val()) {
             case 'text':
               changeWatermarkStatus(false, true);
@@ -64,24 +64,24 @@
         /**
          * Image Optimization Selection
          */
-        $('input[name="media_form[media_optimize]"]').change(function () {
+        $('input[name="media_optimize"]').change(function () {
           var items = $('input[name*=media_max_height], input[name*=media_max_width], input[name*=media_quality]');
           var status = $(this).val() == 1 ? false : true;
 
           $.each(items, function (index, elem) {
             $(elem).closest(hideClass).toggleClass('hidden', status);
 
-            $('input[name="media_form[media_watermark]"]').prop('disabled', status);
+            $('input[name="media_watermark"]').prop('disabled', status);
             if (status) {
               changeWatermarkStatus(true, true);
             } else {
-              $('input[name="media_form[media_watermark]"]:checked').trigger('change');
+              $('input[name="media_watermark"]:checked').trigger('change');
             }
           });
         });
 
         // Page Load Trigger
-        $('input[name="media_form[media_optimize]"]:checked').trigger('change');
+        $('input[name="media_optimize"]:checked').trigger('change');
       })
     </script>
 {% endblock %}

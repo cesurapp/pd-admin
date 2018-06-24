@@ -280,11 +280,6 @@ settings_media_desc: Sistem medya ayarları
 nav_config_media: Medya
 media_library: Resim Kütüphanesi
 media_library_info: Resim düzenleme, iyileştirme için kullanılacak php kütüphanesidir.
-media_directory_map: Media Dizin Yapısı
-media_directory_map_info: Media depolaması sırasında Yıl/Ay/Gün klasör yapısı kullanılabilir.
-media_directory_map_day: Yıl / Ay / Gün
-media_directory_map_month: Yıl / Ay
-media_directory_map_year: Yıl
 media_optimize: Resim Optimize
 media_optimize_info: pdAdmin upload sistemi ile yüklenen resimler için optizasyonu etkinleştirir.
 media_max_height: Resim Maximum Yükseklik

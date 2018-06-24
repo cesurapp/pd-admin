@@ -280,11 +280,6 @@ settings_media_desc: System media settings
 nav_config_media: Media
 media_library: Image Library
 media_library_info: Image editing is the php library to be used for improvement.
-media_directory_map: Media Directory Structure
-media_directory_map_info: The Year/Month/Day folder structure is available during media storage.
-media_directory_map_day: Year / Month / Day
-media_directory_map_month: Year / Month
-media_directory_map_year: Year
 media_optimize: Image Optimize
 media_optimize_info: Enable optimization for images uploaded with the pdAdmin upload system.
 media_max_height: Image Max Height

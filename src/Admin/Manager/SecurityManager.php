@@ -96,12 +96,12 @@ class SecurityManager
                             $roleObject = explode('_', $access->getAttributes());
                             if (3 === \count($roleObject)) {
                                 $access = $roleObject[2];
-                                $roleObject = $roleObject[0].'_'.$roleObject[1];
+                                $roleObject = $roleObject[0] . '_' . $roleObject[1];
 
                                 if (isset($roles[$roleObject])) {
-                                    $roles[$roleObject][$access] = $roleObject.'_'.$access;
+                                    $roles[$roleObject][$access] = $roleObject . '_' . $access;
                                 } else {
-                                    $roles[$roleObject] = [$access => $roleObject.'_'.$access];
+                                    $roles[$roleObject] = [$access => $roleObject . '_' . $access];
                                 }
                             }
                         }

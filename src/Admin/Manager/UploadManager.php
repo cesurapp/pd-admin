@@ -14,7 +14,7 @@
 
 namespace App\Admin\Manager;
 
-use App\Admin\Twig\Tools;
+use App\Admin\Library\Tools;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -35,7 +35,6 @@ class UploadManager
 
     /**
      * Current Upload Directory
-     * Y/M/D/Image.
      *
      * @var string
      */
@@ -52,25 +51,159 @@ class UploadManager
      * Upload constructor.
      *
      * @param ContainerInterface $container
-     * @param bool $writeMode
      */
-    public function __construct(ContainerInterface $container, $writeMode = true)
+    public function __construct(ContainerInterface $container)
     {
         $this->container = $container;
+        $this->createDirectory();
+    }
 
-        // Set Directory
-        if ($writeMode) {
-            $this->createDirectory();
+    /**
+     * Upload Files & Encode ImageManager
+     *
+     * @param $files array|UploadedFile
+     * @param bool $rawUpload
+     *
+     * @return array|bool
+     */
+    public function upload($files, $rawUpload = false)
+    {
+        // Uploaded Files
+        $uploadFiles = [];
+
+        // Convert Array
+        if ($files instanceof UploadedFile) {
+            $files = [$files];
+        }
+
+        // Start Upload
+        if (is_array($files)) {
+            foreach ($files as $file) {
+                if ($file instanceof UploadedFile)
+                    $uploadFiles[] = $this->uploadProcess($file, $rawUpload);
+            }
+        }
+
+        // Return Uploaded Files
+        return $uploadFiles ?? false;
+    }
+
+    /**
+     * Start Upload.
+     *
+     * @param UploadedFile $file
+     * @param $rawUpload boolean
+     *
+     * @return string
+     */
+    private function uploadProcess(UploadedFile $file, $rawUpload)
+    {
+        // Create Filename
+        $tools = new Tools();
+        $fileName = $tools->webalize($tools->randomStr(6) . $file->getClientOriginalName(), '.');
+
+        // Upload File and Optimize Images
+        if (!$rawUpload) {
+            switch ($file->getClientMimeType()) {
+                case image_type_to_mime_type(IMAGETYPE_JPEG):
+                case image_type_to_mime_type(IMAGETYPE_PNG):
+                    $this->imageManager($file, $this->currentPath . '/' . $fileName);
+                    break;
+                default:
+                    $file->move($this->currentPath, $fileName);
+            }
+        } else {
+            $file->move($this->currentPath, $fileName);
+        }
+
+        // Return Filename
+        return $this->currentDir . '/' . $fileName;
+    }
+
+    /**
+     * Image Process Manager.
+     *
+     * @param UploadedFile $file
+     * @param $filePath string
+     */
+    private function imageManager(UploadedFile $file, $filePath)
+    {
+        // Create Image Manager
+        $img = new ImageManager(['driver' => $this->cfg('media_library')]);
+        $img = $img->make($file->getRealPath());
+
+        // Image Optimize
+        if ($this->cfg('media_optimize')) {
+            $img->resize($this->cfg('media_max_height'), $this->cfg('media_max_width'), function ($constraint) {
+                $constraint->upsize();
+                $constraint->aspectRatio();
+            });
+        }
+
+        // Image Add Watermark
+        switch ($this->cfg('media_watermark')) {
+            case 'text':
+                $this->addTextWatermark($img);
+                break;
+            case 'image':
+                $this->addImageWatermark($img);
+                break;
+        }
+
+        // Save Image
+        $img->save($filePath, $this->cfg('media_optimize') ? $this->cfg('media_quality') : null)->destroy();
+    }
+
+    /**
+     * Image Add Text Watermark.
+     *
+     * @param Image $img
+     */
+    private function addTextWatermark(&$img)
+    {
+        // Set X-Y Image Ordinate
+        $xOrdinate = $img->getWidth() * $this->cfg('media_wm_font_x');
+        $yOrdinate = $img->getHeight() * $this->cfg('media_wm_font_y');
+
+        // Add Text Watermark
+        $img->text($this->cfg('media_wm_font_text'), $xOrdinate, $yOrdinate, function ($font) {
+            // Exist Font File
+            if (!empty($this->cfg('media_wm_font')) && file_exists($fontPath = $this->cfg('upload_dir') . $this->cfg('media_wm_font'))) {
+                $font->file($fontPath);
+            }
+
+            $font->size($this->cfg('media_wm_font_size'));
+            $font->color($this->cfg('media_wm_font_color'));
+            $font->align($this->cfg('media_wm_font_align'));
+            $font->valign($this->cfg('media_wm_font_valign'));
+            $font->angle($this->cfg('media_wm_font_angle'));
+        });
+    }
+
+    /**
+     * Image Add Image Watermark.
+     *
+     * @param Image $img
+     */
+    private function addImageWatermark(&$img)
+    {
+        if (file_exists($imagePath = $this->cfg('upload_dir') . $this->cfg('media_wm_image'))) {
+            $img->insert(
+                $imagePath,
+                $this->cfg('media_wm_image_position'),
+                $this->cfg('media_wm_image_x'),
+                $this->cfg('media_wm_image_y')
+            );
         }
     }
 
     /**
-     * Create File Upload Directory.
+     * Create Upload Directory.
      */
     private function createDirectory()
     {
         // Create Current Directory
-        $this->currentDir = date(str_replace('-', '/', $this->cfg('media_directory_map')));
+        $this->currentDir = date('Y/m/d');
         $this->currentPath = $this->cfg('upload_dir') . $this->currentDir;
 
         // Create Directory
@@ -93,137 +226,5 @@ class UploadManager
     private function cfg($parameterName)
     {
         return $this->container->getParameter($parameterName);
-    }
-
-    /**
-     * Upload Files & Encode ImageManager.
-     *
-     * @param $files array|UploadedFile
-     * @param bool $raw
-     *
-     * @return array|bool
-     */
-    public function upload($files, $raw = false)
-    {
-        // Uploaded Files
-        $upFiles = [];
-
-        // Start Upload
-        if (is_array($files)) {
-            foreach ($files as $file) {
-                $upFiles[] = $this->uploadProcess($file, $raw);
-            }
-        } elseif ($files instanceof UploadedFile) {
-            $upFiles[] = $this->uploadProcess($files, $raw);
-        }
-
-        // Return Uploaded Files
-        return count($upFiles) > 0 ? $upFiles : false;
-    }
-
-    /**
-     * Start Upload.
-     *
-     * @param UploadedFile $file
-     * @param $raw boolean
-     *
-     * @return string
-     */
-    private function uploadProcess(UploadedFile $file, $raw)
-    {
-        // Create Filename
-        $fileName = (new Tools())->slug(pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)) .
-            uniqid(mt_rand(0, 5)) . '.' . $file->getClientOriginalExtension();
-
-        // Enable Image Optimization
-        if (!$raw && $this->cfg('media_optimize')) {
-            switch ($file->getClientMimeType()) {
-                case image_type_to_mime_type(IMAGETYPE_JPEG):
-                case image_type_to_mime_type(IMAGETYPE_PNG):
-                    $this::imageManager($file, $this->currentPath . '/' . $fileName);
-                    break;
-            }
-        } else {
-            // Move File
-            $file->move($this->currentPath, $fileName);
-        }
-
-        // Return Filename
-        return $this->currentDir . '/' . $fileName;
-    }
-
-    /**
-     * Image Process Manager.
-     *
-     * @param UploadedFile $file
-     * @param $filePath string
-     */
-    private function imageManager(UploadedFile $file, $filePath)
-    {
-        // Create Image Manager
-        $img = new ImageManager(['driver' => $this->cfg('media_library')]);
-
-        // Resize
-        $img = $img
-            ->make($file->getRealPath())
-            ->resize($this->cfg('media_max_height'), $this->cfg('media_max_width'), function ($constraint) {
-                $constraint->upsize();
-                $constraint->aspectRatio();
-            });
-
-        // Add Watermark
-        switch ($this->cfg('media_watermark')) {
-            case 'text':
-                $this->addTextWatermark($img);
-                break;
-            case 'image':
-                $this->addImageWatermark($img);
-                break;
-        }
-
-        $img->save($filePath, $this->cfg('media_quality'))->destroy();
-    }
-
-    /**
-     * Image Add Text Watermark.
-     *
-     * @param Image $image
-     */
-    private function addTextWatermark(&$image)
-    {
-        // Set X-Y Image Ordinate
-        $xOrdinate = $image->getWidth() * $this->cfg('media_wm_font_x');
-        $yOrdinate = $image->getHeight() * $this->cfg('media_wm_font_y');
-
-        // Add Text Watermark
-        $image->text($this->cfg('media_wm_font_text'), $xOrdinate, $yOrdinate, function ($font) {
-            // Exist Font File
-            if (!empty($this->cfg('media_wm_font')) && file_exists($fontPath = $this->cfg('upload_dir') . $this->cfg('media_wm_font'))) {
-                $font->file($fontPath);
-            }
-
-            $font->size($this->cfg('media_wm_font_size'));
-            $font->color($this->cfg('media_wm_font_color'));
-            $font->align($this->cfg('media_wm_font_align'));
-            $font->valign($this->cfg('media_wm_font_valign'));
-            $font->angle($this->cfg('media_wm_font_angle'));
-        });
-    }
-
-    /**
-     * Image Add Image Watermark.
-     *
-     * @param Image $image
-     */
-    private function addImageWatermark(&$image)
-    {
-        if (file_exists($imagePath = $this->cfg('upload_dir') . $this->cfg('media_wm_image'))) {
-            $image->insert(
-                $imagePath,
-                $this->cfg('media_wm_image_position'),
-                $this->cfg('media_wm_image_x'),
-                $this->cfg('media_wm_image_y')
-            );
-        }
     }
 }

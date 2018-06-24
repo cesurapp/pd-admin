@@ -42,17 +42,6 @@ class MediaForm extends ConfigAbstractType
                 'empty_data' => 'gd',
                 'choice_translation_domain' => false,
             ])
-            ->add('media_directory_map', ChoiceType::class, [
-                'label' => 'media_directory_map',
-                'label_attr' => ['info' => 'media_directory_map_info'],
-                'choices' => [
-                    'media_directory_map_year' => 'Y',
-                    'media_directory_map_month' => 'Y-m',
-                    'media_directory_map_day' => 'Y-m-d',
-                ],
-                'multiple' => false,
-                'empty_data' => 'Y-m-d',
-            ])
             ->add('media_optimize', ChoiceType::class, [
                 'label' => 'media_optimize',
                 'label_attr' => ['info' => 'media_optimize_info'],

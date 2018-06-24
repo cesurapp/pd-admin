@@ -89,7 +89,6 @@ class Tools
      * @param int $length
      * @param string $charlist
      * @return string
-     * @throws \Exception
      */
     public function randomStr(int $length = 10, string $charlist = '0-9a-z'): string
     {

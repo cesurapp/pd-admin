@@ -98,6 +98,7 @@ class ConfigManager
      * Save Config Data.
      *
      * @param FormInterface $form
+     * @throws \Exception
      */
     public function saveConfig(FormInterface $form)
     {
