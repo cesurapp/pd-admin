@@ -217,6 +217,7 @@ header {
     height: 40px;
     &:focus {
       background: darken($search-background, 5%);
+      box-shadow: none;
     }
     &::placeholder {
       color: $search-color;
