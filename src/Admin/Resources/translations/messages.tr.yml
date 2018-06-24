@@ -244,6 +244,10 @@ mail_encryption: Şifreleme
 mail_encryption_info: Bağlantı için kullanılacak şifreleme türüdür. SSL '465' numaralı port için TLS '587' numaralı port için kullanılmaktadır.
 mail_auth_mode: Kimlik Doğrulama Modu
 mail_auth_mode_info: Kimlik doğrulama mekanizması ve güvenlik seviyesi
+mail_allow_self_signed: Self-Signed Sertifika
+mail_allow_self_signed_info: Kendinden imzalı sertifikalara izin verilir. SSL doğrulama gerekir.
+mail_verify_peer: SSL Doğrulama
+mail_verify_peer_info: SSL sertifikası kullanımının doğrulanmasını gerektirir.
 mail_sender_address: Gönderici E-posta
 mail_sender_address_info: Sistem e-postalarının gönderildiği adrestir.
 mail_sender_name: Gönderici Adı

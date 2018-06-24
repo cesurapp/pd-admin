@@ -27,6 +27,8 @@ parameters:
     mail_timeout: 30
     mail_encryption: null
     mail_auth_mode: login
+    mail_allow_self_signed: true
+    mail_verify_peer: false
     mail_sender_address: 'noprely@emlakpro.net'
     mail_sender_name: 'EmlakPRO'
     mail_test_address: ''

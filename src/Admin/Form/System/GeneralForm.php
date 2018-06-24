@@ -51,7 +51,7 @@ class GeneralForm extends ConfigAbstractType
         $builder
             ->add('head_title', TextType::class, [
                 'label' => 'head_title',
-                'label_attr' => ['info' => 'head_title_info'],
+                'help' => 'head_title_info',
                 'constraints' => [
                     new Length([
                         'max' => 120,
@@ -60,7 +60,7 @@ class GeneralForm extends ConfigAbstractType
             ])
             ->add('head_title_pattern', TextType::class, [
                 'label' => 'head_title_pattern',
-                'label_attr' => ['info' => 'head_title_pattern_info'],
+                'help' => 'head_title_pattern_info',
                 'constraints' => [
                     new Length([
                         'max' => 120,
@@ -71,7 +71,7 @@ class GeneralForm extends ConfigAbstractType
             ])
             ->add('head_description', TextareaType::class, [
                 'label' => 'head_description',
-                'label_attr' => ['info' => 'head_description_info'],
+                'help' => 'head_description_info',
                 'constraints' => [
                     new Length([
                         'max' => 150,
@@ -81,7 +81,7 @@ class GeneralForm extends ConfigAbstractType
             ])
             ->add('head_author', TextType::class, [
                 'label' => 'head_author',
-                'label_attr' => ['info' => 'head_author_info'],
+                'help' => 'head_author_info',
                 'constraints' => [
                     new Length([
                         'max' => 150,

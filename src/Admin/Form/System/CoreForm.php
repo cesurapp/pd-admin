@@ -34,7 +34,7 @@ class CoreForm extends ConfigAbstractType
         $builder
             ->add('active_language', LanguageType::class, [
                 'label' => 'active_language',
-                'label_attr' => ['info' => 'active_language_info'],
+                'help' => 'active_language_info',
                 'multiple' => true,
                 'preferred_choices' => [
                     'tr', 'en', 'de', 'fr', 'ru', 'ar', 'es', 'sv', 'no', 'ga',
@@ -42,7 +42,7 @@ class CoreForm extends ConfigAbstractType
             ])
             ->add('list_count', RangeType::class, [
                 'label' => 'list_count',
-                'label_attr' => ['info' => 'list_count_info'],
+                'help' => 'list_count_info',
                 'empty_data' => '25',
                 'attr' => [
                     'min' => 1,
@@ -52,13 +52,13 @@ class CoreForm extends ConfigAbstractType
             ])
             ->add('remember_time', IntegerType::class, [
                 'label' => 'remember_time',
-                'label_attr' => ['info' => 'remember_time_info'],
+                'help' => 'remember_time_info',
                 'empty_data' => '604800',
                 'required' => false,
             ])
             ->add('twig_cache', ChoiceType::class, [
                 'label' => 'twig_cache',
-                'label_attr' => ['info' => 'twig_cache_info'],
+                'help' => 'twig_cache_info',
                 'choices' => [
                     'enable' => '%kernel.cache_dir%/twig',
                     'disable' => false,

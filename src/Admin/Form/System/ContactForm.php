@@ -41,7 +41,7 @@ class ContactForm extends ConfigAbstractType
         $builder
             ->add('contact_email', EmailType::class, [
                 'label' => 'contact_email',
-                'label_attr' => ['info' => 'contact_email_info'],
+                'help' => 'contact_email_info',
                 'attr' => ['placeholder-nt' => 'example@emlakpro.net'],
                 'required' => true,
             ])

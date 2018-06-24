@@ -324,9 +324,13 @@
 {# Rows #}
 
 {% block form_row -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
     <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
         {{- form_label(form) -}}
         {{- form_widget(form) -}}
+        {{- form_help(form) -}}
         {{- form_errors(form) -}}
     </div>
 {%- endblock form_row %}
@@ -443,3 +447,13 @@
         {% if form.parent %}</div>{% else %}</div>{% endif %}
     {%- endif %}
 {%- endblock form_errors %}
+
+{# Help #}
+
+{% block form_help -%}
+    {%- if help is not empty -%}
+        <a href="#" tabindex="-1" class="info-text" data-toggle="popover" title="{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}" data-content="{{ help|trans }}">
+            <i class="material-icons infotext">info_outline</i>
+        </a>
+    {%- endif -%}
+{%- endblock form_help %}

@@ -18,5 +18,5 @@ swiftmailer:
     timeout: "%mail_timeout%"
     stream_options:
         ssl:
-            allow_self_signed:  true
-            verify_peer: false
+            allow_self_signed: "%mail_allow_self_signed%"
+            verify_peer: "%mail_verify_peer%"

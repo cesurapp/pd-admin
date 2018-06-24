@@ -244,6 +244,10 @@ mail_encryption: Encryption
 mail_encryption_info: The type of encryption to use for the connection. SSL is used for port '465' and TLS is used for port '587'.
 mail_auth_mode: Authentication Mode
 mail_auth_mode_info: Authentication mechanism and security level
+mail_allow_self_signed: Self-Signed Certificates
+mail_allow_self_signed_info: Allow self-signed certificates. Requires SSL Verification
+mail_verify_peer: SSL Verification
+mail_verify_peer_info: Require verification of SSL certificate used
 mail_sender_address: Sender Email
 mail_sender_address_info: The name of the system to which the emails are sent.
 mail_sender_name: Sender Name

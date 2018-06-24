@@ -26,13 +26,9 @@
                     {% set label = name|humanize %}
                 {%- endif -%}
             {%- endif -%}
-            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
-            {% if label_attr.info is defined %}
-                <a href="#" tabindex="-1" class="info-text" data-toggle="popover" title="{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}"
-                   data-content="{{ label_attr.info|trans }}{{ label_attr.constraints is defined ? '<h6>'~ 'constraints'|trans ~'</h6><ul><li>' ~ label_attr.constraints|trans({}, translation_domain)|replace({';':'</li><li>'}) ~ '</ul>' : '' }}">
-                    <i class="material-icons infotext">info_outline</i>
-                </a>
-            {% endif %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                {{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}
+                {{- form_help(form) -}}
             </label>
         {%- endif -%}
     {% endif %}
@@ -44,6 +40,10 @@
 
 {# Rows #}
 {% block form_row -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+
     {% if (label) -%}
         <div class="form-group row{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
             {{ form_label(form) }}
