@@ -1,0 +1,63 @@
+{% if widget.isActive %}
+    <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
+        <div class="card text-center bg-white text-white widget_user_statistics">
+            <div class="card-body pt-1 pb-2 pl-2 pr-2">
+                {# Action Button #}
+                {% include '@PdWidget/widgetAction.html.twig' %}
+
+                {# Canvas #}
+                <canvas id="canvas"></canvas>
+
+                {# Draw Canvas #}
+                <script>
+                  new Chart(document.getElementById('canvas').getContext('2d'), {
+                    type: 'line',
+                    data: {
+                      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                      datasets: [{
+                        label: 'Login',
+                        fill: true,
+                        backgroundColor: 'rgba(54, 162, 235, .3)',
+                        borderColor: 'rgba(54, 162, 235, 1)',
+                        data: [10, 20, 30, 40, 50, 60, 70],
+                      }, {
+                        label: 'Register',
+                        backgroundColor: 'rgba(255, 99, 132, .3)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        data: [70, 60, 50, 40, 30, 20, 10],
+                        fill: true,
+                      }]
+                    },
+                    options: {
+                      responsive: true,
+                      tooltips: {
+                        mode: 'index',
+                        intersect: false,
+                      },
+                      hover: {
+                        mode: 'nearest',
+                        intersect: true
+                      },
+                      scales: {
+                        xAxes: [{
+                          display: true,
+                          scaleLabel: {
+                            display: false,
+                            labelString: 'Month'
+                          }
+                        }],
+                        yAxes: [{
+                          display: true,
+                          scaleLabel: {
+                            display: false,
+                            labelString: 'Value'
+                          }
+                        }]
+                      }
+                    }
+                  });
+                </script>
+            </div>
+        </div>
+    </div>
+{% endif %}

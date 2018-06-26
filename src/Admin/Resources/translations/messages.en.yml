@@ -356,3 +356,6 @@ widget_user_info:
     name: User Info
     description: Shows number of registered members
     count: Registered Member
+widget_user_statistics:
+    name: User Statistics
+    description: Displays detailed user statistics.

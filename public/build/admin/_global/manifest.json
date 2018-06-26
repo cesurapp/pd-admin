@@ -1,3 +1,4 @@
 {
-  "build/admin/_global/ace.js": "/build/admin/_global/ace.js"
+  "build/admin/_global/ace.js": "/build/admin/_global/ace.js",
+  "build/admin/_global/chartjs.js": "/build/admin/_global/chartjs.js"
 }

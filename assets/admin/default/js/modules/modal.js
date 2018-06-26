@@ -22,10 +22,10 @@ $(document).ready(function () {
         '<div class="fade modal confirm" id="confirmModal" tabindex="-1">' +
           '<div class="modal-dialog {modalWidth}">' +
             '<div class="modal-content">' +
-              '<div class="modal-header"><h4 class="modal-title"><i class="material-icons text-warning">{modalTitle}</i></h4></div>' +
+              '<div class="modal-header"><h4 class="modal-title"><i class="material-icons">{modalTitle}</i></h4></div>' +
               '<div class="modal-body">{modalBody}</div>' +
               '<div class="modal-footer">' +
-                '<button type="button" id="btnNo" class="btn btn-light no" data-dismiss="modal">{btnNo}</button>' +
+                '<button type="button" id="btnNo" class="btn btn-outline-primary no" data-dismiss="modal">{btnNo}</button>' +
                 '<button type="button" id="btnYes" class="btn btn-success yes" >{btnYes}</button>' +
               '</div>' +
             '</div>' +
@@ -62,6 +62,14 @@ $(document).ready(function () {
         form.attr('action', self.attr('href') ? self.attr('href') : self.data('href'));
         form.submit();
       });
+    }
+
+    /**
+     * Info
+     */
+    if (self.data('modal') === 'info') {
+      console.log(mdl);
+      $(mdl).find('#btnYes').remove();
     }
 
     // Show Modal

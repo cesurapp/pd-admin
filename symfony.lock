@@ -1,4 +1,7 @@
 {
+    "beberlei/doctrineextensions": {
+        "version": "v1.0.23"
+    },
     "doctrine/annotations": {
         "version": "1.0",
         "recipe": {
@@ -105,7 +108,7 @@
         "version": "1.0.0"
     },
     "rmznpydn/pd-menu": {
-        "version": "1.0.02"
+        "version": "1.0.03"
     },
     "rmznpydn/pd-user": {
         "version": "1.01"

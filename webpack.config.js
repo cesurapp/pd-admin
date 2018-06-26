@@ -10,6 +10,7 @@ Encore
 
   // Add Entry
   .addEntry('ace', './assets/admin/_global/js/ace.js')
+  .addEntry('chartjs', 'chart.js/dist/Chart.min.js')
 
   // Config
   .cleanupOutputBeforeBuild()

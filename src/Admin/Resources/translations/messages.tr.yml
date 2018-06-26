@@ -354,5 +354,8 @@ routing_resetting_info: Kullanıcıların şifrelerini sıfırlamaları için ku
 ###
 widget_user_info:
     name: Kullanıcı Bilgisi
-    description: Kayıtlı üye sayısını gösterir
+    description: Kayıtlı üye sayısını gösterir.
     count: Kayıtlı Üye
+widget_user_statistics:
+    name: Kullanıcı İstatistikleri
+    description: Detaylı kullanıcı istatistiklerini gösterir.
