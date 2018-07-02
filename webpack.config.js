@@ -38,9 +38,6 @@ Encore
   ]))
 
   // Configs
-  .addLoader({
-    test: /vendor\/.+\.(jsx|js)$/, loader: 'imports-loader?jQuery=jquery,$=jquery,this=>window'
-  })
   .enableSassLoader()
   .enablePostCssLoader()
   .enableSourceMaps(!Encore.isProduction())

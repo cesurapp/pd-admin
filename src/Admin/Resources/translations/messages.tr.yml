@@ -359,3 +359,7 @@ widget_user_info:
 widget_user_statistics:
     name: Kullanıcı İstatistikleri
     description: Detaylı kullanıcı istatistiklerini gösterir.
+widget_quick_action:
+    name: Hızlı Butonlar
+    description: Menülere kolay erişim butonları oluşturur.
+    add_button: Buton Ekle

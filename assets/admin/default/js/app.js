@@ -22,7 +22,7 @@ require('./modules/modal');
 require('./modules/content-nav');
 require('./modules/datepicker');
 require('./modules/menu');
-
+require('./modules/dashboard');
 
 /**==================================
  Page Load

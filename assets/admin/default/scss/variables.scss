@@ -103,7 +103,7 @@ $yiq-text-light: $white !default;
 $enable-caret:              true !default;
 $enable-rounded:            true !default;
 $enable-shadows:            false !default;
-$enable-gradients:          false !default;
+$enable-gradients:          true !default;
 $enable-transitions:        true !default;
 $enable-hover-media-query:  false !default; // Deprecated, no longer affects any compiled CSS
 $enable-grid-classes:       true !default;
@@ -531,27 +531,27 @@ $form-feedback-invalid-color:       theme-color("danger") !default;
 //
 // Dropdown menu container and contents.
 
-$dropdown-min-width:                10rem !default;
+$dropdown-min-width:                12rem !default;
 $dropdown-padding-y:                .5rem !default;
 $dropdown-spacer:                   .125rem !default;
 $dropdown-bg:                       $white !default;
 $dropdown-border-color:             rgba($black, .15) !default;
 $dropdown-border-radius:            $border-radius !default;
-$dropdown-border-width:             $border-width !default;
+$dropdown-border-width:             0 !default;
 $dropdown-divider-bg:               $gray-200 !default;
 $dropdown-box-shadow:               0 .5rem 1rem rgba($black, .175) !default;
 
 $dropdown-link-color:               $gray-900 !default;
 $dropdown-link-hover-color:         darken($gray-900, 5%) !default;
-$dropdown-link-hover-bg:            rgba(0,0,0,.1) !default;
+$dropdown-link-hover-bg:            rgba(17, 81, 138, 0.1) !default;
 
 $dropdown-link-active-color:        $component-active-color !default;
 $dropdown-link-active-bg:           $component-active-bg !default;
 
 $dropdown-link-disabled-color:      $gray-600 !default;
 
-$dropdown-item-padding-y:           .25rem !default;
-$dropdown-item-padding-x:           1.5rem !default;
+$dropdown-item-padding-y:           .50rem !default;
+$dropdown-item-padding-x:           1.2rem !default;
 
 $dropdown-header-color:             $gray-600 !default;
 
@@ -915,7 +915,7 @@ $text-color: #47555d;
 $main_nav_background: $blue;
 $main_nav_text: #FFF;
 $main_nav_popup_background: #FFF;
-$main_nav_link_hover_background: $dropdown-link-hover-bg;
+$main_nav_link_hover_background: rgba(0,0,0,.1);
 
 // Header Navigation Back
 $nav_back: #FFF;

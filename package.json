@@ -8,6 +8,7 @@
     "html5sortable": "^0.9.3",
     "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
+    "sortablejs": "^1.7.0",
     "sumoselect": "^3.0.5"
   },
   "devDependencies": {

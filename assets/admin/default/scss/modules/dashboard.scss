@@ -8,55 +8,245 @@
  * @link        http://emlakpro.net
  */
 
+$widget-box-height: 120px;
+$widget-pad-width: 20px;
+
 .dashboard {
-  > [class*=col] {
-    margin-bottom: 1.5rem;
+  display: block;
+  margin-left: -$widget-pad-width;
+  margin-top: -$widget-pad-width;
+
+  /**
+   * Widget Box
+   */
+  .box-1 {
+    height: $widget-box-height;
   }
-  .card {
-    border: 1px solid rgba(0,0,0,.12);
-    transition: $transition-base;
-    .widget-actions {
-      position: absolute;
-      visibility: hidden;
+  .box-2 {
+    height: ($widget-box-height * 2) + $widget-pad-width;
+  }
+  .box-3 {
+    height: ($widget-box-height * 3) + $widget-pad-width * 2;
+  }
+  .box-4 {
+    height: ($widget-box-height * 4) + $widget-pad-width * 3;
+  }
+  .box-col-1 {
+    width: 20%;
+  }
+  .box-col-2 {
+    width: 40%;
+  }
+  .box-col-3 {
+    width: 60%;
+  }
+  .box-col-4 {
+    width: 80%;
+  }
+  .box-col-half {
+    width: 50%;
+  }
+  .box-full {
+    width: 100%;
+  }
+  @media only screen and (max-width: 1200px) {
+    $widget-box-height: 100px;
+    .box-1 {
+      height: $widget-box-height;
+    }
+    .box-2 {
+      height: ($widget-box-height * 2) + $widget-pad-width;
+    }
+    .box-3 {
+      height: ($widget-box-height * 3) + $widget-pad-width * 2;
+    }
+    .box-4 {
+      height: ($widget-box-height * 4) + $widget-pad-width * 3;
+    }
+  }
+
+  @media only screen and (max-width: 992px) {
+    .box-col-1 {
+      width: 33.3%;
+    }
+    .box-col-2 {
+      width: 60%;
+    }
+    .box-col-3 {
+      width: 100%;
+    }
+    .box-col-4 {
+      width: 100%;
+    }
+    .box-col-half {
+      width: 100%;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    .box-col-1 {
+      width: 50%;
+    }
+    .box-col-2 {
+      width: 100%;
+    }
+    .box-col-3 {
+      width: 100%;
+    }
+  }
+
+  /**
+   * Widget
+   */
+  .widget {
+    display: inline-block !important;
+    float: left;
+    margin-top: $widget-pad-width;
+    .card {
+      border: 1px solid rgba(0, 0, 0, .12);
       transition: $transition-base;
-      opacity: 0;
-      top: 0;
-      right: 0;
-      background: rgba(0, 0, 0, .15);
-      border-radius: 0 0.25rem 0 0.25rem;
-      padding: 2px;
-      a {
-        float: right;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #000;
-        opacity: .5;
-        line-height: 0;
-        text-shadow: 0 0 0 rgba(255, 255, 255, 1);
-        padding: 2px 3px;
-        &:hover {
+      margin-bottom: 0;
+      height: 100%;
+      margin-left: $widget-pad-width;
+      .card-body {
+        padding: 1rem;
+        height: 100%;
+      }
+      &:hover {
+        box-shadow: 0 0 20px -3px rgba(0, 0, 0, .2);
+        .widget-nav {
+          visibility: visible;
           opacity: 1;
         }
-        i {
-          font-size: $font-size-base + .3;
-        }
-      }
-    }
-    &:hover {
-      box-shadow: 0 0 20px -3px rgba(0, 0, 0, .2);
-      .widget-actions {
-        visibility: visible;
-        opacity: 1;
       }
     }
   }
 
-  //
-  // Custom Widget
-  //
-  .widget_user_info {
-    .count {
-      font-size: $font-size-base + 2;
+  /**
+   * Widget Navigation
+   */
+  .widget-nav {
+    position: absolute;
+    visibility: hidden;
+    transition: $transition-base;
+    opacity: 0;
+    top: 0;
+    right: 0;
+    background: rgba(0, 0, 0, .15);
+    border-radius: 0 0.25rem 0 0.25rem;
+    padding: 3px 4px;
+    .nav-link {
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: #000;
+      opacity: .5;
+      line-height: 0;
+      text-shadow: 0 0 0 rgba(255, 255, 255, 1);
+      padding: 2px 3px;
+      &:after {
+        display: none;
+      }
+      &:hover {
+        opacity: 1;
+      }
+      i {
+        font-size: $font-size-base + .3;
+      }
+    }
+    .dropdown-menu {
+      min-width: $dropdown-min-width - 2;
+      box-shadow: 0 0 1rem rgba($black, .175);
     }
   }
 }
+
+.sortable-ghost {
+  opacity: .6;
+}
+
+/*
+ * User Info Widget
+*/
+.widget_user_info {
+  overflow: hidden;
+  .count {
+    font-size: $font-size-base + 1.4;
+    line-height: $font-size-base + 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+}
+
+/*
+ * Quick Action Widget
+*/
+.widget_quick_action {
+  .buttons {
+    display: block;
+    min-height: 50px;
+    margin-left: -$widget-pad-width;
+    margin-top: -$widget-pad-width;
+    li {
+      float: left;
+      width: 12.5%;
+      > span {
+        display: block;
+        margin-top: $widget-pad-width;
+        margin-left: $widget-pad-width;
+      }
+    }
+    a {
+      padding: .4rem .8rem;
+      text-overflow: ellipsis;
+      display: block;
+      i {
+        display: block;
+        margin-bottom: 4px;
+        font-size: $font-size-base + 2.5;
+        line-height: $font-size-base + 2.5;
+      }
+      span {
+        display: block;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        word-wrap: normal;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 1100px) {
+    .buttons li {
+      width: 16.65%;
+    }
+  }
+
+  @media only screen and (max-width: 850px) {
+    .buttons li {
+      width: 20%;
+    }
+  }
+
+  @media only screen and (max-width: 700px) {
+    .buttons li {
+      width: 25%;
+      a i {
+        font-size: $font-size-base + 2;
+        line-height: $font-size-base + 2;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 580px) {
+    .buttons li {
+      width: 33.3%;
+    }
+  }
+  @media only screen and (max-width: 420px) {
+    .buttons li {
+      width: 50% !important;
+    }
+  }
+}
+
+

@@ -1,9 +1,15 @@
 {% if widget.isActive %}
-    <div class="col-lg-6 col-md-12 col-sm-12 col-12 mb-0">
-        <div class="card text-center bg-white text-white widget_user_statistics">
-            <div class="card-body pt-1 pb-2 pl-2 pr-2">
+    <div class="widget box-3 box-col-3 widget_{{ widget.id }}" data-order="{{ path('widget_order', {'widgetId': widget.id, 'order': '0'}) }}">
+        <div class="card">
+            <div class="card-body p-0 m-1">
                 {# Action Button #}
-                {% include '@PdWidget/widgetAction.html.twig' %}
+                {% embed '@PdWidget/widgetAction.html.twig' %}
+                    {% block add_config %}
+                        <a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '1week' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '1week' }) }}">Son 1 Hafta</a>
+                        <a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '1month' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '1month' }) }}">Son 1 Ay</a>
+                        <a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '3month' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '3month'}) }}">Son 3 Ay</a>
+                    {% endblock %}
+                {% endembed %}
 
                 {# Canvas #}
                 <canvas id="canvas"></canvas>
@@ -30,6 +36,7 @@
                     },
                     options: {
                       responsive: true,
+                      maintainAspectRatio: false,
                       tooltips: {
                         mode: 'index',
                         intersect: false,
