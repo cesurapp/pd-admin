@@ -59,7 +59,7 @@ class QuickAction
                 'description' => 'accouunt_group_list_title',
                 'route' => 'admin_account_group_list',
                 'icons' => 'group',
-                'linkClass' => 'btn btn-warning text-white'
+                'linkClass' => 'btn btn-primary'
             ],
             'action_settings' => [
                 'name' => 'settings_general',

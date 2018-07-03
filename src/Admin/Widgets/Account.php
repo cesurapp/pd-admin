@@ -98,14 +98,48 @@ class Account
                     return false;
                 })
                 ->setData(function ($config) {
-                    $data = $this->entityManager->getRepository(User::class)
+                    // Load Records
+                    $createdData = $this->entityManager->getRepository(User::class)
                         ->createQueryBuilder('u')
-                        ->select('count(u.id) as count, DAY(u.createdAt) as day, DAY(u.createdAt) as HIDDEN createdAt')
-                        ->groupBy('createdAt')
+                        ->select('count(u.id) as count, u.createdAt as date, DAY(u.createdAt) as day')
+                        ->groupBy('day')
                         ->getQuery()
-                        ->getResult();
+                        ->getArrayResult();
+                    $loggedData = $this->entityManager->getRepository(User::class)
+                        ->createQueryBuilder('u')
+                        ->select('count(u.id) as count, u.lastLogin as date, DAY(u.lastLogin) as day')
+                        ->groupBy('day')
+                        ->getQuery()
+                        ->getArrayResult();
+                    $createdData = array_column($createdData, 'count', 'day');
+                    $loggedData = array_column($loggedData, 'count', 'day');
 
-                    return ['result' => $data, 'config' => $config];
+
+                    // Create Chart Data
+                    $chart = [
+                        'column' => [],
+                        'created' => [],
+                        'logged' => []
+                    ];
+                    for ($i = 0; $i < 7; $i++) {
+                        $day = explode('/', date('j/m', strtotime("-{$i} days")));
+
+                        // Column
+                        $chart['column'][] = $day[0] .'/'. $day[1];
+
+                        // Created Data
+                        $chart['created'][] = $createdData[$day[0]] ?? 0;
+
+                        // Logged Data
+                        $chart['logged'][] = $loggedData[$day[0]] ?? 0;
+                    }
+
+                    // JSON & Reverse Data
+                    $chart['column'] = json_encode(array_reverse($chart['column']));
+                    $chart['created'] = json_encode(array_reverse($chart['created']));
+                    $chart['logged'] = json_encode(array_reverse($chart['logged']));
+
+                    return $chart;
                 })
             );
     }

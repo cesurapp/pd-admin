@@ -1,7 +1,7 @@
 {% if widget.isActive %}
     <div class="widget box-3 box-col-3 widget_{{ widget.id }}" data-order="{{ path('widget_order', {'widgetId': widget.id, 'order': '0'}) }}">
         <div class="card">
-            <div class="card-body p-0 m-1">
+            <div class="card-body p-0">
                 {# Action Button #}
                 {% embed '@PdWidget/widgetAction.html.twig' %}
                     {% block add_config %}
@@ -14,24 +14,42 @@
                 {# Canvas #}
                 <canvas id="canvas"></canvas>
 
+                {# Load Data #}
+                {% set widgetData = widget.data %}
+
                 {# Draw Canvas #}
                 <script>
-                  new Chart(document.getElementById('canvas').getContext('2d'), {
+                  var ctx = document.getElementById('canvas').getContext("2d");
+
+                  Chart.defaults.global.defaultFontFamily = 'Roboto';
+                  Chart.defaults.global.defaultFontSize = 14;
+
+                  var gradientFillRed = ctx.createLinearGradient(0, 300, 0, 150);
+                  gradientFillRed.addColorStop(0, 'rgba(255, 99, 132, .3)');
+                  gradientFillRed.addColorStop(1, 'rgba(255, 99, 132, .8)');
+
+                  var gradientFillBlue = ctx.createLinearGradient(0, 300, 0, 150);
+                  gradientFillBlue.addColorStop(0, 'rgba(54, 162, 235, .3)');
+                  gradientFillBlue.addColorStop(1, 'rgba(54, 162, 235, .8)');
+
+                  new Chart(ctx, {
                     type: 'line',
                     data: {
-                      labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                      labels: {{ widgetData.column|raw }},
                       datasets: [{
-                        label: 'Login',
-                        fill: true,
-                        backgroundColor: 'rgba(54, 162, 235, .3)',
+                        label: '{{ "security.login_title"|trans }}',
+                        data: {{ widgetData.logged|raw }},
+                        backgroundColor: gradientFillBlue,
                         borderColor: 'rgba(54, 162, 235, 1)',
-                        data: [10, 20, 30, 40, 50, 60, 70],
-                      }, {
-                        label: 'Register',
-                        backgroundColor: 'rgba(255, 99, 132, .3)',
-                        borderColor: 'rgba(255, 99, 132, 1)',
-                        data: [70, 60, 50, 40, 30, 20, 10],
+                        borderWidth: 1,
                         fill: true,
+                      }, {
+                        label: '{{ "security.register_title"|trans }}',
+                        data: {{ widgetData.created|raw }},
+                        backgroundColor: gradientFillRed,
+                        borderColor: 'red',
+                        borderWidth: 1,
+                        fill: true
                       }]
                     },
                     options: {
@@ -40,29 +58,55 @@
                       tooltips: {
                         mode: 'index',
                         intersect: false,
+                        cornerRadius: 3,
+                        backgroundColor: 'rgba(0,0,0,.8)',
+                        titleMarginBottom:10,
+                        bodySpacing: 6,
+                        xPadding: 8,
+                        yPadding: 8,
+                        callbacks: {
+                          title: function(tooltipItem) {
+                            return '{{ "date"|trans }} ' + tooltipItem[0].xLabel;
+                          }
+                        }
                       },
-                      hover: {
-                        mode: 'nearest',
-                        intersect: true
+                      layout: {
+                        padding: {
+                          left: 5,
+                          right: 20,
+                          top: 5,
+                          bottom: 5
+                        }
                       },
-                      scales: {
-                        xAxes: [{
-                          display: true,
-                          scaleLabel: {
+                      scales:{
+                        yAxes: [{
+                          gridLines: {
                             display: false,
-                            labelString: 'Month'
+                            drawTicks: false,
+                          },
+                          ticks: {
+                            fontColor: 'rgba(0,0,0,0.5)',
+                            fontStyle: 'bold',
+                            beginAtZero: true,
+                            maxTicksLimit: 5,
+                            padding: 10
                           }
                         }],
-                        yAxes: [{
-                          display: true,
-                          scaleLabel: {
-                            display: false,
-                            labelString: 'Value'
+                        xAxes: [{
+                          gridLines: {
+                            display: true,
+                            tickMarkLength:0
+                          },
+                          ticks: {
+                            padding: 10,
+                            fontColor: 'rgba(0,0,0,.5)',
+                            fontStyle: 'bold',
                           }
                         }]
                       }
                     }
                   });
+
                 </script>
             </div>
         </div>

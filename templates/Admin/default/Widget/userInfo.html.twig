@@ -1,6 +1,6 @@
 {% if widget.isActive %}
     <div class="box-1 box-col-1 widget widget_{{ widget.id }}" data-order="{{ path('widget_order', {'widgetId': widget.id, 'order': '0'}) }}">
-        <div class="card text-center bg-gradient-primary text-white">
+        <div class="card text-center bg-primary text-white">
             <div class="card-body p-0 d-flex flex-column justify-content-center align-content-center">
                 {# Action Button #}
                 {% embed '@PdWidget/widgetAction.html.twig' %}{% endembed %}

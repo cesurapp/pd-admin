@@ -13,7 +13,11 @@
                 <div id="actionModal" class="modal fade" tabindex="-1">
                     <div class="modal-dialog modal-lg">
                         <div class="modal-content">
-                            <div class="modal-header"><h4 class="modal-title" id="exampleModalLabel"><i class="material-icons">library_add</i>{{ 'widget_quick_action.add_button'|trans }}</h4></div>
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="exampleModalLabel">
+                                    <i class="material-icons">library_add</i>{{ 'widget_quick_action.add_button'|trans }}
+                                </h4>
+                            </div>
                             <div class="modal-body pl-0 pr-0" style="max-height: 500px; overflow: scroll">
                                 <table class="table table-hover table-striped mb-0">
                                     {% for index, item in widget.data.items %}
@@ -22,9 +26,15 @@
                                             <td>{{ item.description|trans }}</td>
                                             <td style="width: 45px">
                                                 {% if widget.config[index] is not defined %}
-                                                    <a href="{{ path('widget_config', { 'widgetId': widget.id, 'id': index }) }}" class="close" data-tooltip title="{{ 'add'|trans }}"><i class="material-icons">add</i></a>
+                                                    <a href="{{ path('widget_config', { 'widgetId': widget.id, 'id': index }) }}" class="close" data-tooltip
+                                                       title="{{ 'add'|trans }}">
+                                                        <i class="material-icons">add</i>
+                                                    </a>
                                                 {% else %}
-                                                    <a href="{{ path('widget_config', { 'widgetId': widget.id, 'id': index, 'remove': true }) }}" class="close" data-tooltip title="{{ 'delete'|trans }}"><i class="material-icons">remove</i></a>
+                                                    <a href="{{ path('widget_config', { 'widgetId': widget.id, 'id': index, 'remove': true }) }}" class="close"
+                                                       data-tooltip title="{{ 'delete'|trans }}">
+                                                        <i class="material-icons">remove</i>
+                                                    </a>
                                                 {% endif %}
                                             </td>
                                         </tr>
@@ -42,7 +52,14 @@
                 <ul class="list list-unstyled mb-0 buttons">
                     {% for index, item in widget.data.items %}
                         {% if widget.config[index] is defined %}
-                            <li><span><a href="{{ path(item.route) }}" class="{{ item.linkClass }}"><i class="material-icons">{{ item.icons }}</i><span class="caption">{{ item.name|trans }}</span></a></span></li>
+                            <li>
+                                <span>
+                                    <a href="{{ path(item.route) }}" class="{{ item.linkClass }}">
+                                        <i class="material-icons">{{ item.icons }}</i>
+                                        <span class="caption">{{ item.name|trans }}</span>
+                                    </a>
+                                </span>
+                            </li>
                         {% endif %}
                     {% endfor %}
                 </ul>
