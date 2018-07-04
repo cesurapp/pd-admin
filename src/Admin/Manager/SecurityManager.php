@@ -72,6 +72,7 @@ class SecurityManager
         // Role Store
         $roles = [];
 
+        // Add Route Roles
         foreach ($routes as $route) {
             // Check Action
             if (isset($route->getDefaults()['_controller']) && (2 === \count($controller = explode('::', $route->getDefaults()['_controller'])))) {
@@ -106,6 +107,24 @@ class SecurityManager
                             }
                         }
                     }
+                }
+            }
+        }
+
+        // Add Widget Roles
+        $widgets = $this->container->get('pd_widget.core')->getWidgets(false);
+        foreach ($widgets as $widget) {
+            if ($widget->getRole()) {
+                foreach ($widget->getRole() as $role) {
+                    $access = explode('_', $role);
+
+                    // Set Main
+                    if (!isset($roles[$access[0] . '_' . $access[1]])) {
+                        $roles[$access[0] . '_' . $access[1]] = [];
+                    }
+
+                    // Add Role Access
+                    $roles[$access[0] . '_' . $access[1]][$access[2]] = $role;
                 }
             }
         }

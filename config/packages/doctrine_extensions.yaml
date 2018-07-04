@@ -18,7 +18,7 @@ doctrine:
 #                 last_day: DoctrineExtensions\Query\Mysql\LastDay
 #                 minute: DoctrineExtensions\Query\Mysql\Minute
 #                 now: DoctrineExtensions\Query\Mysql\Now
-#                 month: DoctrineExtensions\Query\Mysql\Month
+                 month: DoctrineExtensions\Query\Mysql\Month
 #                 monthname: DoctrineExtensions\Query\Mysql\MonthName
 #                 period_diff: DoctrineExtensions\Query\Mysql\PeriodDiff
 #                 second: DoctrineExtensions\Query\Mysql\Second

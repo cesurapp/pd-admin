@@ -53,20 +53,7 @@ class Account
                 ->setName('widget_user_info.name')
                 ->setDescription('widget_user_info.description')
                 ->setTemplate('@Admin/Widget/userInfo.html.twig')
-                ->setRole(['ADMIN_ACCOUNT_LIST'])
-                ->setConfigProcess(function (Request $request) {
-                    if ($type = $request->get('type')) {
-                        switch ($type) {
-                            case "1week":
-                                return ['type2' => '1week'];
-                            case "1month":
-                                return ['type2' => '1month'];
-                            case "3month":
-                                return ['type2' => '3month'];
-                        }
-                    }
-                    return false;
-                })
+                ->setRole(['ADMIN_WIDGET_USERINFO'])
                 ->setData(function ($config) {
                     $userCount = $this->entityManager->getRepository(User::class)
                         ->createQueryBuilder('u')
@@ -83,7 +70,7 @@ class Account
                 ->setName('widget_user_statistics.name')
                 ->setDescription('widget_user_statistics.description')
                 ->setTemplate('@Admin/Widget/userStatistics.html.twig')
-                ->setRole(['ADMIN_ACCOUNT_LIST'])
+                ->setRole(['ADMIN_WIDGET_USERSTATISTICS'])
                 ->setConfigProcess(function (Request $request) {
                     if ($type = $request->get('type')) {
                         switch ($type) {
@@ -98,40 +85,70 @@ class Account
                     return false;
                 })
                 ->setData(function ($config) {
-                    // Load Records
-                    $createdData = $this->entityManager->getRepository(User::class)
-                        ->createQueryBuilder('u')
-                        ->select('count(u.id) as count, u.createdAt as date, DAY(u.createdAt) as day')
-                        ->groupBy('day')
-                        ->getQuery()
-                        ->getArrayResult();
-                    $loggedData = $this->entityManager->getRepository(User::class)
-                        ->createQueryBuilder('u')
-                        ->select('count(u.id) as count, u.lastLogin as date, DAY(u.lastLogin) as day')
-                        ->groupBy('day')
-                        ->getQuery()
-                        ->getArrayResult();
-                    $createdData = array_column($createdData, 'count', 'day');
-                    $loggedData = array_column($loggedData, 'count', 'day');
-
-
                     // Create Chart Data
                     $chart = [
                         'column' => [],
                         'created' => [],
                         'logged' => []
                     ];
-                    for ($i = 0; $i < 7; $i++) {
-                        $day = explode('/', date('j/m', strtotime("-{$i} days")));
 
-                        // Column
-                        $chart['column'][] = $day[0] .'/'. $day[1];
+                    // Create Statistics Data
+                    if ($config['type'] == '3month') {
+                        // Load Records
+                        $createdData = $this->entityManager->getRepository(User::class)
+                            ->createQueryBuilder('u')
+                            ->select('count(u.id) as count, MONTH(u.createdAt) as month')
+                            ->groupBy('month')
+                            ->where('u.createdAt >= :date')
+                            ->setParameter('date', new \DateTime('-3 Month'))
+                            ->getQuery()->getArrayResult();
+                        $loggedData = $this->entityManager->getRepository(User::class)
+                            ->createQueryBuilder('u')
+                            ->select('count(u.id) as count, MONTH(u.lastLogin) as month')
+                            ->groupBy('month')
+                            ->where('u.lastLogin >= :date')
+                            ->setParameter('date', new \DateTime('-3 Month'))
+                            ->getQuery()->getArrayResult();
+                        $createdData = array_column($createdData, 'count', 'month');
+                        $loggedData = array_column($loggedData, 'count', 'month');
 
-                        // Created Data
-                        $chart['created'][] = $createdData[$day[0]] ?? 0;
+                        // Optimize Data
+                        for ($i = 0; $i < 3; $i++) {
+                            $month = explode('/', date('n/Y', strtotime("-{$i} month")));
+                            $chart['column'][] = $month[0] . '/' . $month[1];
+                            $chart['created'][] = $createdData[$month[0]] ?? 0;
+                            $chart['logged'][] = $loggedData[$month[0]] ?? 0;
+                        }
 
-                        // Logged Data
-                        $chart['logged'][] = $loggedData[$day[0]] ?? 0;
+                    } elseif (in_array($config['type'], ['1month', '1week']) || !$config['type']) {
+                        $time = $config['type'] == '1month' ? new \DateTime('-1 Month') : new \DateTime('-6 Day');
+                        $column = $config['type'] == '1month' ? 30 : 7;
+
+                        // Load Records
+                        $createdData = $this->entityManager->getRepository(User::class)
+                            ->createQueryBuilder('u')
+                            ->select('count(u.id) as count, DAY(u.createdAt) as day')
+                            ->groupBy('day')
+                            ->where('u.createdAt >= :date')
+                            ->setParameter('date', $time)
+                            ->getQuery()->getArrayResult();
+                        $loggedData = $this->entityManager->getRepository(User::class)
+                            ->createQueryBuilder('u')
+                            ->select('count(u.id) as count, DAY(u.lastLogin) as day')
+                            ->groupBy('day')
+                            ->where('u.lastLogin >= :date')
+                            ->setParameter('date', $time)
+                            ->getQuery()->getArrayResult();
+                        $createdData = array_column($createdData, 'count', 'day');
+                        $loggedData = array_column($loggedData, 'count', 'day');
+
+                        // Optimize Data
+                        for ($i = 0; $i < $column; $i++) {
+                            $day = explode('/', date('j/m', strtotime("-{$i} day")));
+                            $chart['column'][] = $day[0] . '/' . $day[1];
+                            $chart['created'][] = $createdData[$day[0]] ?? 0;
+                            $chart['logged'][] = $loggedData[$day[0]] ?? 0;
+                        }
                     }
 
                     // JSON & Reverse Data
