@@ -109,7 +109,7 @@ class AccountController extends Controller
     /**
      * Edit the User.
      *
-     * @param User    $user
+     * @param User $user
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -118,6 +118,12 @@ class AccountController extends Controller
      */
     public function edit(User $user, Request $request)
     {
+        // Check Owner or All Access
+        if (!$this->isGranted('ADMIN_ACCOUNT_LIST')) {
+            if ($user->getId() !== $this->getUser()->getId())
+                throw $this->createAccessDeniedException();
+        }
+
         // Create Form
         $form = $this->createForm(ProfileType::class, $user, [
             'data_class' => User::class,
@@ -151,7 +157,7 @@ class AccountController extends Controller
     /**
      * Change User Password.
      *
-     * @param User    $user
+     * @param User $user
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -160,6 +166,12 @@ class AccountController extends Controller
      */
     public function changePassword(User $user, Request $request)
     {
+        // Check Owner or All Access
+        if (!$this->isGranted('ADMIN_ACCOUNT_LIST')) {
+            if ($user->getId() !== $this->getUser()->getId())
+                throw $this->createAccessDeniedException();
+        }
+
         // Create Form
         $form = $this->createForm(ChangePasswordType::class, $user, [
             'data_class' => User::class,
@@ -194,7 +206,7 @@ class AccountController extends Controller
     /**
      * Change User Private Roles.
      *
-     * @param User    $user
+     * @param User $user
      * @param Request $request
      *
      * @throws \Doctrine\Common\Annotations\AnnotationException
@@ -220,7 +232,7 @@ class AccountController extends Controller
                 'expanded' => true,
                 'choices' => $ACL,
                 'choice_label' => function ($value, $key, $index) {
-                    return $key.'.title';
+                    return $key . '.title';
                 },
                 'data' => key(array_intersect($ACL, $user->getRolesUser())),
             ])
@@ -248,7 +260,7 @@ class AccountController extends Controller
                     'expanded' => true,
                     'choices' => $access,
                     'choice_label' => function ($value, $key, $index) use ($roleGroup) {
-                        return $roleGroup.'.'.$key;
+                        return $roleGroup . '.' . $key;
                     },
                     'data' => $user->getRolesUser(),
                 ]);
@@ -298,7 +310,7 @@ class AccountController extends Controller
     /**
      * Account Append Group.
      *
-     * @param User    $user
+     * @param User $user
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -360,7 +372,7 @@ class AccountController extends Controller
     /**
      * Delete Account.
      *
-     * @param User    $user
+     * @param User $user
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -369,6 +381,11 @@ class AccountController extends Controller
      */
     public function delete(User $user, Request $request)
     {
+        // Check Super Admin
+        if ($user->hasRole(User::ROLE_ALL_ACCESS) && !$this->getUser()->hasRole(User::ROLE_ALL_ACCESS)) {
+            throw $this->createAccessDeniedException();
+        }
+
         // Remove
         $em = $this->getDoctrine()->getManager();
         $em->remove($user);
@@ -396,6 +413,34 @@ class AccountController extends Controller
     {
         // Activate / Deactivate
         $user->setEnabled($status);
+
+        // Update
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+        // Flash Message
+        $this->addFlash('success', 'changes_saved');
+
+        // Redirect back
+        return $this->redirect(($r = $request->headers->get('referer')) ? $r : $this->generateUrl('admin_account_list'));
+    }
+
+    /**
+     * Freeze Account.
+     *
+     * @param User $user
+     * @param $status
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @IsGranted("ADMIN_ACCOUNT_FREEZE")
+     */
+    public function freeze(Request $request, User $user, $status)
+    {
+        // Activate / Deactivate
+        $user->setFreeze((bool) $status);
 
         // Update
         $em = $this->getDoctrine()->getManager();

@@ -39,6 +39,10 @@ admin_account_activate:
     path:       /accounts/activate/{user}/{status}
     controller: App\Admin\Controller\Account\AccountController::activate
     methods: [GET, POST]
+admin_account_freeze:
+    path:       /accounts/freeze/{user}/{status}
+    controller: App\Admin\Controller\Account\AccountController::freeze
+    methods: [GET, POST]
 admin_account_delete:
     path:       /accounts/delete/{user}
     controller: App\Admin\Controller\Account\AccountController::delete

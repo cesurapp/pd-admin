@@ -16,6 +16,7 @@ security:
         main:
             pattern:    ^/
             provider: pdadmin_auth
+            user_checker: Pd\UserBundle\Security\UserChecker
             anonymous: true
             switch_user: true
             http_basic: ~

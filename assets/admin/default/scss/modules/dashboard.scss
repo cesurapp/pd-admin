@@ -168,7 +168,9 @@ $widget-pad-width: 20px;
  * User Info Widget
 */
 .widget_user_info {
-  overflow: hidden;
+  .card-body{
+    overflow: hidden;
+  }
   .count {
     font-size: $font-size-base + 1.4;
     line-height: $font-size-base + 1.4;

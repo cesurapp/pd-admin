@@ -92,6 +92,11 @@ class Account
                         'logged' => []
                     ];
 
+                    // Set Default
+                    if (!isset($config['type'])) {
+                        $config['type'] = '1week';
+                    }
+
                     // Create Statistics Data
                     if ($config['type'] == '3month') {
                         // Load Records
