@@ -26,10 +26,17 @@ Encore
   .setOutputPath('public/build/admin/default/')
   .setPublicPath('/build/admin/default')
 
-  // Add Entry
+  // Add JS Entry
   .addEntry('app', './assets/admin/default/js/app.js')
   .addEntry('vendor', './assets/admin/default/js/vendor.js')
-  .addStyleEntry('bootstrap', './assets/admin/default/scss/custom-bootstrap.scss')
+
+  // Add Default Style
+  .addStyleEntry('default/app', './assets/admin/default/scss/themes/default/app.scss')
+  .addStyleEntry('default/bootstrap', './assets/admin/default/scss/themes/default/bootstrap.scss')
+
+  // Add Dark Style
+  .addStyleEntry('dark/app', './assets/admin/default/scss/themes/dark/app.scss')
+  .addStyleEntry('dark/bootstrap', './assets/admin/default/scss/themes/dark/bootstrap.scss')
 
   // Copy Static Files
   .addPlugin(new CopyWebpackPlugin([
@@ -57,8 +64,8 @@ Encore
   .setOutputPath('public/build/auth/default/')
   .setPublicPath('/build/auth/default')
 
-  // Add Entry
-  .addStyleEntry('app', './assets/auth/default/scss/app.scss')
+  // Add Default Style
+  .addStyleEntry('default/app', './assets/auth/default/scss/app.scss')
 
   // Copy Static Files
   .addPlugin(new CopyWebpackPlugin([

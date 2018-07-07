@@ -31,6 +31,7 @@ ADMIN_ACCOUNT:
     ACTIVATE: Activation
     ADDGROUP: Add/Remove Group
     DELETE: Delete
+    FREEZE: Account Freeze
 ADMIN_GROUP:
     title: Admin Group Management
     LIST: Listing
@@ -58,6 +59,11 @@ ADMIN_MAIL:
     LOGGER: Log Listing
     VIEWLOG: Log View
     LOGDELETE: Log Delete
+ADMIN_WIDGET:
+    title: Admin Widget
+    USERINFO: User Information
+    QUICKACTION: Quick Action
+    USERSTATISTICS: User Statistics
 
 ###
 # Time Ago
@@ -81,6 +87,7 @@ change_password: Change Password
 edit_group: Edit Group
 switch_user: Account Login
 activate_deactivate: Enable / Disable
+freeze_unfreeze: Account Suspend / Unsuspend
 add_new: Add New
 close: Close
 yes: Yes
@@ -118,6 +125,7 @@ enable: Enable
 disable: Off
 enabled: Enabled
 disabled: Disabled
+account_frozen: Account Frozen
 date: Date
 success: Successful
 process_completed: Operation completed.

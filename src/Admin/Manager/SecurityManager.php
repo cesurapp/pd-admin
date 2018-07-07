@@ -63,16 +63,9 @@ class SecurityManager
      */
     public function getRoles(): array
     {
-        // Get All Routes
+        // Finds Route Class
         $routes = $this->container->get('router')->getRouteCollection()->all();
-
-        // Annotation Reader
-        $reader = new AnnotationReader();
-
-        // Role Store
-        $roles = [];
-
-        // Add Route Roles
+        $classMethods = [];
         foreach ($routes as $route) {
             // Check Action
             if (isset($route->getDefaults()['_controller']) && (2 === \count($controller = explode('::', $route->getDefaults()['_controller'])))) {
@@ -80,30 +73,51 @@ class SecurityManager
                     continue;
                 }
 
-                // Class Reflection
-                $reflection = new \ReflectionClass($controller[0]);
+                if (!isset($classMethods[$controller[0]]))
+                    $classMethods[$controller[0]] = [];
+                $classMethods[$controller[0]][] = $controller[1];
+            }
+        }
 
-                // Find Class Method
-                if (!$reflection->hasMethod($controller[1])) {
-                    continue;
+        // Find Class Roles
+        $reader = new AnnotationReader();
+        $roles = [];
+        foreach ($classMethods as $class => $methods) {
+            // Class Reflection
+            $reflection = new \ReflectionClass($class);
+
+            // Read Class Annotation
+            if ($customRoles = $reflection->getConstant('CUSTOM_ROLES'))
+                foreach ($customRoles as $role) {
+                    $roleObject = explode('_', $role);
+                    if (3 === \count($roleObject)) {
+                        $access = $roleObject[2];
+                        $roleObject = $roleObject[0] . '_' . $roleObject[1];
+
+                        if (isset($roles[$roleObject])) {
+                            $roles[$roleObject][$access] = $roleObject . '_' . $access;
+                        } else {
+                            $roles[$roleObject] = [$access => $roleObject . '_' . $access];
+                        }
+                    }
                 }
 
-                // Read Method Annotation
-                $annotation = $reader->getMethodAnnotations($reflection->getMethod($controller[1]));
+            // Read Method Annotation
+            foreach ($methods as $method) {
+                if (!$reflection->hasMethod($method))
+                    continue;
 
-                if ($annotation) {
-                    foreach ($annotation as $access) {
-                        if ($access instanceof IsGranted) {
-                            $roleObject = explode('_', $access->getAttributes());
-                            if (3 === \count($roleObject)) {
-                                $access = $roleObject[2];
-                                $roleObject = $roleObject[0] . '_' . $roleObject[1];
+                foreach ($reader->getMethodAnnotations($reflection->getMethod($method)) as $access) {
+                    if ($access instanceof IsGranted) {
+                        $roleObject = explode('_', $access->getAttributes());
+                        if (3 === \count($roleObject)) {
+                            $access = $roleObject[2];
+                            $roleObject = $roleObject[0] . '_' . $roleObject[1];
 
-                                if (isset($roles[$roleObject])) {
-                                    $roles[$roleObject][$access] = $roleObject . '_' . $access;
-                                } else {
-                                    $roles[$roleObject] = [$access => $roleObject . '_' . $access];
-                                }
+                            if (isset($roles[$roleObject])) {
+                                $roles[$roleObject][$access] = $roleObject . '_' . $access;
+                            } else {
+                                $roles[$roleObject] = [$access => $roleObject . '_' . $access];
                             }
                         }
                     }

@@ -1,3 +1,5 @@
 theme:
     name: pdAdmin Default Theme
     description: pdAdmin responsive theme
+color:
+    default: default

@@ -31,6 +31,7 @@ ADMIN_ACCOUNT:
     ACTIVATE: Etkinleştirme
     ADDGROUP: Grup Ekle/Çıkar
     DELETE: Sil
+    FREEZE: Hesap Dondurma
 ADMIN_GROUP:
     title: Admin Grup İzinleri
     LIST: Listeleme
@@ -58,6 +59,11 @@ ADMIN_MAIL:
     LOGGER: Log Listeleme
     VIEWLOG: Log Görüntüleme
     LOGDELETE: Log Sil
+ADMIN_WIDGET:
+    title: Admin Widget
+    USERINFO: Kullanıcı Bilgisi
+    QUICKACTION: Hızlı Menü
+    USERSTATISTICS: Kullanıcı İstatistikleri
 
 ###
 # Time Ago
@@ -81,6 +87,7 @@ change_password: Şifre Değiştir
 edit_group: Grup Düzenle
 switch_user: Hesaba Giriş Yap
 activate_deactivate: Etkinleştir / Devre Dışı
+freeze_unfreeze: Askıya Al / Kapat
 add_new: Yeni Ekle
 close: Kapat
 yes: Evet
@@ -118,6 +125,7 @@ enable: Etkinleştir
 disable: Kapalı
 enabled: Etkin
 disabled: Devre Dışı
+account_frozen: Hesap Dondurulmuş
 date: Tarih
 success: Başarılı
 process_completed: İşlem Tamamlandı.

@@ -39,6 +39,14 @@ use Symfony\Component\HttpFoundation\Request;
 class AccountController extends Controller
 {
     /**
+     * Security Manager Add Custom Roles
+     */
+    const CUSTOM_ROLES = [
+        'ADMIN_ACCOUNT_ALLREAD',
+        'ADMIN_ACCOUNT_ALLWRITE'
+    ];
+
+    /**
      * Show all Account.
      *
      * @param Request $request
@@ -116,7 +124,7 @@ class AccountController extends Controller
      *
      * @IsGranted("ADMIN_ACCOUNT_EDIT")
      */
-    public function edit(User $user, Request $request)
+    public function edit(Request $request, User $user)
     {
         // Check Owner or All Access
         if (!$this->isGranted('ADMIN_ACCOUNT_LIST')) {
@@ -164,7 +172,7 @@ class AccountController extends Controller
      *
      * @IsGranted("ADMIN_ACCOUNT_CHANGEPASSWORD")
      */
-    public function changePassword(User $user, Request $request)
+    public function changePassword(Request $request, User $user)
     {
         // Check Owner or All Access
         if (!$this->isGranted('ADMIN_ACCOUNT_LIST')) {
@@ -216,7 +224,7 @@ class AccountController extends Controller
      *
      * @IsGranted("ADMIN_ACCOUNT_ROLES")
      */
-    public function roles(User $user, Request $request)
+    public function roles(Request $request, User $user)
     {
         // All Roles
         $security = new SecurityManager($this->container);
@@ -317,7 +325,7 @@ class AccountController extends Controller
      *
      * @IsGranted("ADMIN_ACCOUNT_ADDGROUP")
      */
-    public function addGroup(User $user, Request $request)
+    public function addGroup(Request $request, User $user)
     {
         /** Get User Group Name */
         $groupName = $user->getGroupNames();
@@ -379,7 +387,7 @@ class AccountController extends Controller
      *
      * @IsGranted("ADMIN_ACCOUNT_DELETE")
      */
-    public function delete(User $user, Request $request)
+    public function delete(Request $request, User $user)
     {
         // Check Super Admin
         if ($user->hasRole(User::ROLE_ALL_ACCESS) && !$this->getUser()->hasRole(User::ROLE_ALL_ACCESS)) {
@@ -440,7 +448,7 @@ class AccountController extends Controller
     public function freeze(Request $request, User $user, $status)
     {
         // Activate / Deactivate
-        $user->setFreeze((bool) $status);
+        $user->setFreeze((bool)$status);
 
         // Update
         $em = $this->getDoctrine()->getManager();

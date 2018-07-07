@@ -8,11 +8,6 @@
  * @link        http://emlakpro.net
  */
 
-/**
- * Load SCSS Dependencies
- */
-require('../scss/app.scss');
-
 /**==================================
  Modules
  ==================================*/

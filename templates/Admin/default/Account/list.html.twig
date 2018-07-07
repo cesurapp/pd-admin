@@ -53,7 +53,7 @@
                 <tbody>
                 {% for user in users %}
                     <tr>
-                        <td class="check"><span class="badge rounded-circle {{ user.freeze ? 'badge-danger' : (user.enabled ? 'badge-success' : 'badge-warning') }}" data-tooltip title="{{ user.enabled ? 'enabled'|trans : 'disabled'|trans }}">&nbsp;&nbsp;&nbsp;</span></td>
+                        <td class="check"><span class="badge rounded-circle {{ user.freeze ? 'badge-danger' : (user.enabled ? 'badge-success' : 'badge-warning') }}" data-tooltip title="{{ user.freeze ? 'account_frozen'|trans : (user.enabled ? 'enabled'|trans : 'disabled'|trans ) }}">&nbsp;&nbsp;&nbsp;</span></td>
                         <td class="wid-25">{{ user.profile.firstname ~' '~ user.profile.lastname }}</td>
                         <td class="wid-25">{{ user.email }}</td>
                         <td class="wid-20">{{ user.profile.phone|phoneFormat }}</td>
@@ -64,7 +64,7 @@
                                 <ul>
                                     <li><a href="{{ path('admin_account_delete', {'user':user.id}) }}" data-tooltip title="{{ 'delete'|trans }}" data-modal="confirm" class="text-danger"><i class="material-icons">delete</i></a></li>
                                     <li><a href="{{ path('admin_account_activate',{'user':user.id, 'status': user.enabled ? 0 : 1}) }}" data-tooltip title="{{ 'activate_deactivate'|trans }}" class="{{ user.enabled ? 'text-success' }}"><i class="material-icons">check_circle</i></a></li>
-                                    <li><a href="{{ path('admin_account_freeze',{'user':user.id, 'status': user.freeze ? 0 : 1}) }}" data-tooltip title="{{ 'activate_deactivate'|trans }}" class="{{ user.freeze ? 'text-danger' }}"><i class="material-icons">check_circle</i></a></li>
+                                    <li><a href="{{ path('admin_account_freeze',{'user':user.id, 'status': user.freeze ? 0 : 1}) }}" data-tooltip title="{{ 'freeze_unfreeze'|trans }}" class="{{ user.freeze ? 'text-danger' }}"><i class="material-icons">check_circle</i></a></li>
                                     <li><a href="{{ path('admin_dashboard', {'_switch_user': user.email}) }}" data-tooltip title="{{ 'switch_user'|trans }}"><i class="material-icons">account_circle</i></a></li>
                                     <li><a href="{{ path('admin_account_addgroup',{'user':user.id}) }}" data-tooltip title="{{ 'edit_group'|trans }}"><i class="material-icons">group</i></a></li>
                                     <li><a href="{{ path('admin_account_roles',{'user':user.id}) }}" data-tooltip title="{{ 'edit_roles'|trans }}"><i class="material-icons">lock</i></a></li>

@@ -4,5 +4,5 @@ theme:
 config:
     twig_form_themes: null
 color:
-    red: colors\red.css
-    blue: colors\blue.css
+    default: default
+    dark: dark
