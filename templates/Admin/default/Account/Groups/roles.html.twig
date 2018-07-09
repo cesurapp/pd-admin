@@ -8,7 +8,7 @@
 {% block content_head %}
     <a href="{{ app.session.get('backUrl') }}" class="back-icon"><i class="material-icons">arrow_back</i></a>
     <span class="text">{{ 'account_group_role_title'|trans }}</span>
-    <span class="desc">{{ 'account_group_role_desc'|trans({'name': group.name}) }}</span>
+    <span class="desc">{{ group.name }}</span>
 {% endblock %}
 
 {# Content Navigation #}

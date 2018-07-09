@@ -24,7 +24,7 @@ class SettingsMenu extends Menu
         // Create Root Item
         $menu = $this->createRoot('settings_menu')->setChildAttr([
             'class' => 'nav nav-pills',
-            'data-parent' => 'admin_settings_general'
+            'data-parent' => 'admin_settings_general',
         ]);
 
         // Create Menu Items

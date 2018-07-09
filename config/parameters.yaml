@@ -2,12 +2,12 @@ parameters:
     ##
     # General Default Config
     ##
-    head_title: 'EmlakPRO'
+    head_title: 'pdAdmin'
     head_title_pattern: '%T - %P'
     head_description: ''
-    head_author: 'EmlakPRO for WriteLN'
-    head_keywords: 'EmlakPRO, WriteLN'
-    footer_copyright: 'EmlakPRO bir WriteLN ürünüdür.'
+    head_author: 'pdAdmin for WriteLN'
+    head_keywords: 'pdAdmin, WriteLN'
+    footer_copyright: 'pdAdmin bir WriteLN ürünüdür.'
     default_locale: 'en'
     default_country: 'TR'
     default_currency: 'TRY'
@@ -29,8 +29,8 @@ parameters:
     mail_auth_mode: login
     mail_allow_self_signed: true
     mail_verify_peer: false
-    mail_sender_address: 'noprely@emlakpro.net'
-    mail_sender_name: 'EmlakPRO'
+    mail_sender_address: 'noprely@example.net'
+    mail_sender_name: 'pdAdmin'
     mail_test_address: ''
     # Hidden
     mail_spool_type: memory
@@ -63,7 +63,6 @@ parameters:
     # Media Default Config
     ##
     media_library: gd
-    media_directory_map: 'Y-m-d'
     media_optimize: 1
     media_max_width: 1028
     media_max_height: 768
@@ -74,7 +73,7 @@ parameters:
     media_wm_image_x: null
     media_wm_image_y: null
     media_wm_font: ''
-    media_wm_font_text: 'EmlakPRO'
+    media_wm_font_text: 'pdAdmin'
     media_wm_font_size: '36'
     media_wm_font_color: '#445160'
     media_wm_font_align: 'center'
@@ -86,7 +85,7 @@ parameters:
     ##
     # Contact Default Config
     ##
-    contact_email: 'info@emlakpro.net'
+    contact_email: 'info@example.com'
     contact_phone: ''
     contact_mobile_phone: ''
     contact_fax_number: ''
@@ -105,7 +104,5 @@ parameters:
     list_count: 30
     remember_time: 604800 # 1 Month -> 2592000
     twig_cache: '%kernel.cache_dir%/twig'
-    model_timezone: null
-    view_timezone: null
     # Hidden
     upload_dir: '%kernel.project_dir%/public/uploads/'

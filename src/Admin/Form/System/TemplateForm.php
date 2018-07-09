@@ -36,7 +36,7 @@ class TemplateForm extends ConfigAbstractType
      * Create Form.
      *
      * @param FormBuilderInterface $builder
-     * @param array $options
+     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -49,20 +49,20 @@ class TemplateForm extends ConfigAbstractType
             ->add('template_admin', ChoiceType::class, [
                 'label' => 'template_admin',
                 'choices' => $templateAdmin['templates'],
-                'choice_translation_domain' => false
+                'choice_translation_domain' => false,
             ])
             ->add('template_admin_color_css', ChoiceType::class, [
                 'label' => 'template_admin_color',
-                'choice_translation_domain' => false
+                'choice_translation_domain' => false,
             ])
             ->add('template_admin_form_themes', HiddenType::class, [
-                'label' => false
+                'label' => false,
             ])
             // Template Auth
             ->add('template_auth', ChoiceType::class, [
                 'label' => 'template_auth',
                 'choices' => $templateAuth['templates'],
-                'choice_translation_domain' => false
+                'choice_translation_domain' => false,
             ])
             ->add('template_auth_color_css', ChoiceType::class, [
                 'label' => 'template_auth_color',
@@ -79,12 +79,12 @@ class TemplateForm extends ConfigAbstractType
                 ->add('template_admin_color_css', ChoiceType::class, [
                     'label' => 'template_auth_color',
                     'choices' => $templateAdmin['config'][$form->get('template_auth')->getData()]['color'] ?? [],
-                    'choice_translation_domain' => false
+                    'choice_translation_domain' => false,
                 ])
                 ->add('template_auth_color_css', ChoiceType::class, [
                     'label' => 'template_auth_color',
                     'choices' => $templateAuth['config'][$form->get('template_auth')->getData()]['color'] ?? [],
-                    'choice_translation_domain' => false
+                    'choice_translation_domain' => false,
                 ]);
         });
     }
@@ -98,15 +98,16 @@ class TemplateForm extends ConfigAbstractType
     }
 
     /**
-     * Load Template List
+     * Load Template List.
      *
      * @param ContainerInterface $container
-     * @param null $path
+     * @param null               $path
+     *
      * @return array
      */
     private function loadTemplateList(ContainerInterface $container, $path = null)
     {
-        $path = $container->getParameter('kernel.project_dir') . '/' . $path;
+        $path = $container->getParameter('kernel.project_dir').'/'.$path;
 
         if (file_exists($path)) {
             $handle = opendir($path);
@@ -114,7 +115,7 @@ class TemplateForm extends ConfigAbstractType
             $configList = [];
             if ($handle) {
                 while (false !== ($name = readdir($handle))) {
-                    if (!in_array($name, ['.', '..', '.DS_Store'], true) && file_exists($config = $path . '/' . $name . '/config.yaml')) {
+                    if (!in_array($name, ['.', '..', '.DS_Store'], true) && file_exists($config = $path.'/'.$name.'/config.yaml')) {
                         $themeConfig = (new Yaml())->parseFile($config);
                         $themeList[$themeConfig['theme']['name']] = $name;
                         $configList[$name] = $themeConfig;
@@ -125,13 +126,13 @@ class TemplateForm extends ConfigAbstractType
 
             return [
                 'templates' => $themeList,
-                'config' => $configList
+                'config' => $configList,
             ];
         }
 
         return [
             'templates' => [],
-            'config' => []
+            'config' => [],
         ];
     }
 }

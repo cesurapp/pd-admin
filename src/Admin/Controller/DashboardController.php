@@ -34,6 +34,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        // Set Back URL
+        $this->get('session')->set('backUrl', $this->get('router')->generate('admin_dashboard'));
+
         return $this->render('@Admin/Home/dashboard.html.twig');
     }
 

@@ -1,17 +1,29 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pdAdmin
+ *
+ * @author      Ramazan APAYDIN <iletisim@ramazanapaydin.com>
+ * @copyright   Copyright (c) 2018 pdAdmin
+ * @license     LICENSE
+ *
+ * @link        https://github.com/rmznpydn/pd-admin
+ */
+
 namespace App\Admin\Form\Type;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
- * Class AbstractType
- * @package App\Admin\Form\Type
+ * Class AbstractType.
+ *
  * @author  Ramazan Apaydın <iletisim@ramazanapaydin.com>
  */
 abstract class ConfigAbstractType implements FormTypeInterface
@@ -30,7 +42,7 @@ abstract class ConfigAbstractType implements FormTypeInterface
     {
         // Entity Type Load Default Choices
         foreach ($form->all() as $key => $formInterface) {
-            if ($formInterface->getConfig()->getType()->getBlockPrefix() === 'entity') {
+            if ('entity' === $formInterface->getConfig()->getType()->getBlockPrefix()) {
                 if (!is_object($formInterface->getNormData())) {
                     $entityColumn = (is_string($obj = $formInterface->getConfig()->getOption('choice_value'))) ? $obj : $obj[0]->getIdField();
 
@@ -41,8 +53,9 @@ abstract class ConfigAbstractType implements FormTypeInterface
                             ->findOneBy([$entityColumn => $formInterface->getData()]);
 
                         // Set Data
-                        if (null !== $data)
+                        if (null !== $data) {
                             $formInterface->setData($data);
+                        }
                     }
                 }
             }
@@ -56,10 +69,10 @@ abstract class ConfigAbstractType implements FormTypeInterface
     {
         // Create File Type File Path
         foreach ($form->all() as $key => $formInterface) {
-            if ($formInterface->getConfig()->getType()->getBlockPrefix() === 'file') {
+            if ('file' === $formInterface->getConfig()->getType()->getBlockPrefix()) {
                 if (is_array($formInterface->getViewData())) {
                     $view->children[$key]->vars['file_path'] = $formInterface->getViewData();
-                } else if (!$formInterface->getViewData() && isset($options['data'][$key])) {
+                } elseif (!$formInterface->getViewData() && isset($options['data'][$key])) {
                     $view->children[$key]->vars['file_path'] = $options['data'][$key];
                 }
             }

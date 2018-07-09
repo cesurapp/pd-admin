@@ -20,6 +20,7 @@ use App\Admin\Entity\Account\User;
 use App\Admin\Manager\SecurityManager;
 use Pd\UserBundle\Form\ChangePasswordType;
 use Pd\UserBundle\Form\ProfileType;
+use Pd\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -39,11 +40,11 @@ use Symfony\Component\HttpFoundation\Request;
 class AccountController extends Controller
 {
     /**
-     * Security Manager Add Custom Roles
+     * Security Manager Add Custom Roles.
      */
     const CUSTOM_ROLES = [
         'ADMIN_ACCOUNT_ALLREAD',
-        'ADMIN_ACCOUNT_ALLWRITE'
+        'ADMIN_ACCOUNT_ALLWRITE',
     ];
 
     /**
@@ -57,18 +58,31 @@ class AccountController extends Controller
      */
     public function list(Request $request)
     {
-        // Filter Query
-        $filterForm = $this->createUserFilterForm()->handleRequest($request);
+        // Query
+        $query = $this->getDoctrine()->getRepository(User::class)->createQueryBuilder('u')
+            ->leftJoin('u.profile', 'p')
+            ->addSelect('p');
 
-        // Get Query
-        $query = $this->getDoctrine()
-            ->getRepository(User::class)
-            ->filterUser($filterForm->getData());
+        // Check Owner or All Access
+        if (!$this->isGranted('ADMIN_ACCOUNT_ALLREAD')) {
+            $query->andWhere('u.id = :id')
+                ->setParameter('id', $this->getUser()->getId());
+        }
+
+        // Add Filter
+        if ($request->get('filter')) {
+            $query->where('(u.email LIKE :filter) or (p.firstname LIKE :filter) or (p.lastname LIKE :filter) or (p.phone LIKE :filter) or (p.company LIKE :filter)')
+                ->setParameter('filter', "%{$request->get('filter')}%");
+        }
+        if ($request->get('status')) {
+            $query->andWhere('u.isActive = :status')
+                ->setParameter('status', $request->get('filter'));
+        }
 
         // Get Result
         $pagination = $this->get('knp_paginator');
         $pagination = $pagination->paginate(
-            $query,
+            $query->getQuery(),
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', $this->getParameter('list_count'))
         );
@@ -79,7 +93,7 @@ class AccountController extends Controller
         // Render
         return $this->render('@Admin/Account/list.html.twig', [
             'users' => $pagination,
-            'filterForm' => $filterForm->createView(),
+            'filterForm' => $this->createUserFilterForm()->createView(),
         ]);
     }
 
@@ -117,7 +131,7 @@ class AccountController extends Controller
     /**
      * Edit the User.
      *
-     * @param User $user
+     * @param User    $user
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -126,11 +140,8 @@ class AccountController extends Controller
      */
     public function edit(Request $request, User $user)
     {
-        // Check Owner or All Access
-        if (!$this->isGranted('ADMIN_ACCOUNT_LIST')) {
-            if ($user->getId() !== $this->getUser()->getId())
-                throw $this->createAccessDeniedException();
-        }
+        // Check Read Only
+        $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
 
         // Create Form
         $form = $this->createForm(ProfileType::class, $user, [
@@ -144,6 +155,11 @@ class AccountController extends Controller
 
         // Form Check
         if ($form->isSubmitted() && $form->isValid()) {
+            // Check Super Admin
+            // Check All Write
+            $this->checkAllAccess($user);
+            $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLWRITE');
+
             // Save
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -165,7 +181,7 @@ class AccountController extends Controller
     /**
      * Change User Password.
      *
-     * @param User $user
+     * @param User    $user
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -174,16 +190,14 @@ class AccountController extends Controller
      */
     public function changePassword(Request $request, User $user)
     {
-        // Check Owner or All Access
-        if (!$this->isGranted('ADMIN_ACCOUNT_LIST')) {
-            if ($user->getId() !== $this->getUser()->getId())
-                throw $this->createAccessDeniedException();
-        }
+        // Check Read Only
+        $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
 
         // Create Form
         $form = $this->createForm(ChangePasswordType::class, $user, [
             'data_class' => User::class,
-            'disable_current_password' => $this->isGranted(User::ROLE_ALL_ACCESS) || $this->isGranted('ROLE_ALLOWED_TO_SWITCH'),
+            'disable_current_password' => $this->isGranted(User::ROLE_ALL_ACCESS) ||
+                $this->isGranted('ADMIN_ACCOUNT_ALLWRITE'),
         ]);
 
         // Handle Request
@@ -191,6 +205,11 @@ class AccountController extends Controller
 
         // Form Submit & Valid
         if ($form->isSubmitted() && $form->isValid()) {
+            // Check Super Admin
+            // Check All Write
+            $this->checkAllAccess($user);
+            $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLWRITE');
+
             // Encode Password
             $encoder = $this->get('security.password_encoder');
             $password = $encoder->encodePassword($user, $form->get('plainPassword')->getData());
@@ -214,7 +233,7 @@ class AccountController extends Controller
     /**
      * Change User Private Roles.
      *
-     * @param User $user
+     * @param User    $user
      * @param Request $request
      *
      * @throws \Doctrine\Common\Annotations\AnnotationException
@@ -232,7 +251,6 @@ class AccountController extends Controller
 
         // Create Form
         $ACL = $security->getACL();
-
         $form = $this->createFormBuilder([])
             ->add('ACL', ChoiceType::class, [
                 'label' => false,
@@ -240,7 +258,7 @@ class AccountController extends Controller
                 'expanded' => true,
                 'choices' => $ACL,
                 'choice_label' => function ($value, $key, $index) {
-                    return $key . '.title';
+                    return $key.'.title';
                 },
                 'data' => key(array_intersect($ACL, $user->getRolesUser())),
             ])
@@ -268,7 +286,7 @@ class AccountController extends Controller
                     'expanded' => true,
                     'choices' => $access,
                     'choice_label' => function ($value, $key, $index) use ($roleGroup) {
-                        return $roleGroup . '.' . $key;
+                        return $roleGroup.'.'.$key;
                     },
                     'data' => $user->getRolesUser(),
                 ]);
@@ -281,6 +299,11 @@ class AccountController extends Controller
 
         // Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
+            // Check Super Admin
+            if ($user->hasRole(User::ROLE_ALL_ACCESS) && !$this->getUser()->hasRole(User::ROLE_ALL_ACCESS)) {
+                throw $this->createAccessDeniedException();
+            }
+
             // User Add Roles
             $addRoles = [];
             foreach ($form->getData() as $roleName => $roles) {
@@ -318,7 +341,7 @@ class AccountController extends Controller
     /**
      * Account Append Group.
      *
-     * @param User $user
+     * @param User    $user
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -380,7 +403,7 @@ class AccountController extends Controller
     /**
      * Delete Account.
      *
-     * @param User $user
+     * @param User    $user
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -389,10 +412,8 @@ class AccountController extends Controller
      */
     public function delete(Request $request, User $user)
     {
-        // Check Super Admin
-        if ($user->hasRole(User::ROLE_ALL_ACCESS) && !$this->getUser()->hasRole(User::ROLE_ALL_ACCESS)) {
-            throw $this->createAccessDeniedException();
-        }
+        // Check All Access
+        $this->checkAllAccess($user);
 
         // Remove
         $em = $this->getDoctrine()->getManager();
@@ -419,6 +440,9 @@ class AccountController extends Controller
      */
     public function activate(Request $request, User $user, $status)
     {
+        // Check All Access
+        $this->checkAllAccess($user);
+
         // Activate / Deactivate
         $user->setEnabled($status);
 
@@ -447,8 +471,11 @@ class AccountController extends Controller
      */
     public function freeze(Request $request, User $user, $status)
     {
+        // Check All Access
+        $this->checkAllAccess($user);
+
         // Activate / Deactivate
-        $user->setFreeze((bool)$status);
+        $user->setFreeze((bool) $status);
 
         // Update
         $em = $this->getDoctrine()->getManager();
@@ -460,5 +487,29 @@ class AccountController extends Controller
 
         // Redirect back
         return $this->redirect(($r = $request->headers->get('referer')) ? $r : $this->generateUrl('admin_account_list'));
+    }
+
+    /**
+     * Check Current User All Access.
+     *
+     * @param UserInterface $user
+     */
+    private function checkAllAccess(UserInterface $user)
+    {
+        if ($user->hasRole(User::ROLE_ALL_ACCESS) && !$this->getUser()->hasRole(User::ROLE_ALL_ACCESS)) {
+            throw $this->createAccessDeniedException();
+        }
+    }
+
+    /**
+     * Check Current User Read Only.
+     */
+    private function checkOwner(UserInterface $user, $access)
+    {
+        if (!$this->isGranted($access)) {
+            if ($user->getId() !== $this->getUser()->getId()) {
+                throw $this->createAccessDeniedException();
+            }
+        }
     }
 }

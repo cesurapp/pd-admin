@@ -73,8 +73,9 @@ class SecurityManager
                     continue;
                 }
 
-                if (!isset($classMethods[$controller[0]]))
+                if (!isset($classMethods[$controller[0]])) {
                     $classMethods[$controller[0]] = [];
+                }
                 $classMethods[$controller[0]][] = $controller[1];
             }
         }
@@ -87,37 +88,39 @@ class SecurityManager
             $reflection = new \ReflectionClass($class);
 
             // Read Class Annotation
-            if ($customRoles = $reflection->getConstant('CUSTOM_ROLES'))
+            if ($customRoles = $reflection->getConstant('CUSTOM_ROLES')) {
                 foreach ($customRoles as $role) {
                     $roleObject = explode('_', $role);
                     if (3 === \count($roleObject)) {
                         $access = $roleObject[2];
-                        $roleObject = $roleObject[0] . '_' . $roleObject[1];
+                        $roleObject = $roleObject[0].'_'.$roleObject[1];
 
                         if (isset($roles[$roleObject])) {
-                            $roles[$roleObject][$access] = $roleObject . '_' . $access;
+                            $roles[$roleObject][$access] = $roleObject.'_'.$access;
                         } else {
-                            $roles[$roleObject] = [$access => $roleObject . '_' . $access];
+                            $roles[$roleObject] = [$access => $roleObject.'_'.$access];
                         }
                     }
                 }
+            }
 
             // Read Method Annotation
             foreach ($methods as $method) {
-                if (!$reflection->hasMethod($method))
+                if (!$reflection->hasMethod($method)) {
                     continue;
+                }
 
                 foreach ($reader->getMethodAnnotations($reflection->getMethod($method)) as $access) {
                     if ($access instanceof IsGranted) {
                         $roleObject = explode('_', $access->getAttributes());
                         if (3 === \count($roleObject)) {
                             $access = $roleObject[2];
-                            $roleObject = $roleObject[0] . '_' . $roleObject[1];
+                            $roleObject = $roleObject[0].'_'.$roleObject[1];
 
                             if (isset($roles[$roleObject])) {
-                                $roles[$roleObject][$access] = $roleObject . '_' . $access;
+                                $roles[$roleObject][$access] = $roleObject.'_'.$access;
                             } else {
-                                $roles[$roleObject] = [$access => $roleObject . '_' . $access];
+                                $roles[$roleObject] = [$access => $roleObject.'_'.$access];
                             }
                         }
                     }
@@ -133,12 +136,12 @@ class SecurityManager
                     $access = explode('_', $role);
 
                     // Set Main
-                    if (!isset($roles[$access[0] . '_' . $access[1]])) {
-                        $roles[$access[0] . '_' . $access[1]] = [];
+                    if (!isset($roles[$access[0].'_'.$access[1]])) {
+                        $roles[$access[0].'_'.$access[1]] = [];
                     }
 
                     // Add Role Access
-                    $roles[$access[0] . '_' . $access[1]][$access[2]] = $role;
+                    $roles[$access[0].'_'.$access[1]][$access[2]] = $role;
                 }
             }
         }

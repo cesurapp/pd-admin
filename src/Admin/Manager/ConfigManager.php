@@ -57,7 +57,7 @@ class ConfigManager
     /**
      * ConfigManager constructor.
      *
-     * @param ObjectManager $em
+     * @param ObjectManager      $em
      * @param ContainerInterface $container
      * @param $configName string
      */
@@ -69,14 +69,16 @@ class ConfigManager
 
         // Load Configuration
         $this->configObject = $em->getRepository(Config::class)->findOneBy(['name' => $configName]);
-        if (null !== $this->configObject)
+        if (null !== $this->configObject) {
             $this->realConfig = @unserialize($this->configObject->getValue());
+        }
     }
 
     /**
-     * Get Custom Configuration
+     * Get Custom Configuration.
      *
      * @param string $name
+     *
      * @return array|null
      */
     public function get(string $name)
@@ -85,7 +87,7 @@ class ConfigManager
     }
 
     /**
-     * Get All Configuration
+     * Get All Configuration.
      *
      * @return array
      */
@@ -98,7 +100,6 @@ class ConfigManager
      * Save Config Data.
      *
      * @param FormInterface $form
-     * @throws \Exception
      */
     public function saveConfig(FormInterface $form)
     {
@@ -119,7 +120,7 @@ class ConfigManager
     }
 
     /**
-     * Form Normalizer
+     * Form Normalizer.
      *
      * @param $form
      *
@@ -132,51 +133,54 @@ class ConfigManager
 
         // Normalize Form Data
         foreach ($formData as $itemName => $itemData) {
-            switch ($form->get($itemName)->getConfig()->getType()->getBlockPrefix()) {
-                case 'password':
-                    if (null === $itemData || empty($itemData)) {
-                        $formData[$itemName] = $this->realConfig[$itemName];
-                    }
-                    break;
-                case 'entity':
-                    if (is_object($itemData)) {
-                        // Get Entity Function
-                        $choiceValue = $form->get($itemName)->getConfig()->getOption('choice_value');
-                        $entityGetter = is_string($choiceValue) ? 'get' . ucfirst($choiceValue) : 'getId';
+            if ($form->has($itemName)) {
+                switch ($form->get($itemName)->getConfig()->getType()->getBlockPrefix()) {
+                    case 'password':
+                        if (null === $itemData || empty($itemData)) {
+                            $formData[$itemName] = $this->realConfig[$itemName];
+                        }
+                        break;
+                    case 'entity':
+                        if (is_object($itemData)) {
+                            // Get Entity Function
+                            $choiceValue = $form->get($itemName)->getConfig()->getOption('choice_value');
+                            $entityGetter = is_string($choiceValue) ? 'get'.ucfirst($choiceValue) : 'getId';
 
-                        if (is_array($itemData) || $itemData instanceof ArrayCollection) {
-                            $data = [];
-                            foreach ($itemData as $item) {
-                                $data[] = $item->{$entityGetter}();
+                            if (is_array($itemData) || $itemData instanceof ArrayCollection) {
+                                $data = [];
+                                foreach ($itemData as $item) {
+                                    $data[] = $item->{$entityGetter}();
+                                }
+                                $formData[$itemName] = $data;
+                            } else {
+                                $formData[$itemName] = $itemData->{$entityGetter}();
                             }
-                            $formData[$itemName] = $data;
                         } else {
-                            $formData[$itemName] = $itemData->{$entityGetter}();
+                            $formData[$itemName] = '';
                         }
-                    } else {
-                        $formData[$itemName] = '';
-                    }
-                    break;
-                case 'file':
-                    if ($itemData instanceof UploadedFile || is_array($itemData)) {
-                        // Delete Old File
-                        $oldFile = $this->realConfig[$itemName] ?? false;
-                        if (is_array($oldFile)) {
-                            $fs = new Filesystem();
-                            foreach ($oldFile as $file) {
-                                $file = $this->container->getParameter('upload_dir') . $file;
-                                if ($fs->exists($file))
-                                    $fs->remove($file);
+                        break;
+                    case 'file':
+                        if ($itemData instanceof UploadedFile || is_array($itemData)) {
+                            // Delete Old File
+                            $oldFile = $this->realConfig[$itemName] ?? false;
+                            if (is_array($oldFile)) {
+                                $fs = new Filesystem();
+                                foreach ($oldFile as $file) {
+                                    $file = $this->container->getParameter('upload_dir').$file;
+                                    if ($fs->exists($file)) {
+                                        $fs->remove($file);
+                                    }
+                                }
                             }
-                        }
 
-                        // Upload New File
-                        $uploadManager = new UploadManager($this->container);
-                        $formData[$itemName] = $uploadManager->upload($itemData, true);
-                    } else {
-                        $formData[$itemName] = $this->realConfig[$itemName] ?? null;
-                    }
-                    break;
+                            // Upload New File
+                            $uploadManager = new UploadManager($this->container);
+                            $formData[$itemName] = $uploadManager->upload($itemData, true);
+                        } else {
+                            $formData[$itemName] = $this->realConfig[$itemName] ?? null;
+                        }
+                        break;
+                }
             }
         }
 

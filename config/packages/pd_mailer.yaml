@@ -1,0 +1,7 @@
+pd_mailer:
+    logger_active: true
+    template_active: true
+    sender_address: "%mail_sender_address%"
+    sender_name: "%mail_sender_name%"
+    list_count: "%list_count%"
+    active_language: "%active_language%"

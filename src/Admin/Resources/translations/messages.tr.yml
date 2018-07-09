@@ -32,6 +32,8 @@ ADMIN_ACCOUNT:
     ADDGROUP: Grup Ekle/Çıkar
     DELETE: Sil
     FREEZE: Hesap Dondurma
+    ALLREAD: Tüm Hesapları Okuma
+    ALLWRITE: Tüm Hesapları Yazma
 ADMIN_GROUP:
     title: Admin Grup İzinleri
     LIST: Listeleme

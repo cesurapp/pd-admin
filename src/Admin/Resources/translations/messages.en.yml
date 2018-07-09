@@ -32,6 +32,8 @@ ADMIN_ACCOUNT:
     ADDGROUP: Add/Remove Group
     DELETE: Delete
     FREEZE: Account Freeze
+    ALLREAD: All Read
+    ALLWRITE: All Write
 ADMIN_GROUP:
     title: Admin Group Management
     LIST: Listing

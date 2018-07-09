@@ -46,7 +46,7 @@ class UserForm extends ConfigAbstractType
                 'choice_label' => 'name',
                 'placeholder' => false,
                 'choice_translation_domain' => false,
-                'required' => false
+                'required' => false,
             ])
             ->add('user_login_redirect', ChoiceType::class, [
                 'label' => 'user_login_redirect',

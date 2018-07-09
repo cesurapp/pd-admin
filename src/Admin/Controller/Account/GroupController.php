@@ -137,13 +137,14 @@ class GroupController extends Controller
     /**
      * Edit Group Roles.
      *
-     * @param Group $group
+     * @param Group   $group
      * @param Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @IsGranted("ADMIN_GROUP_ROLES")
      */
     public function roles(Group $group, Request $request)
@@ -253,7 +254,7 @@ class GroupController extends Controller
         $em->flush();
 
         // Add Flash
-        $this->addFlash('success', 'group_deleted');
+        $this->addFlash('success', 'changes_saved');
 
         // Redirect back
         return $this->redirect(($r = $request->headers->get('referer')) ? $r : $this->generateUrl('admin_account_group_list'));

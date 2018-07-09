@@ -24,7 +24,7 @@ class AccountMenu extends Menu
         // Create Root Menu
         $menu = $this->createRoot('account_menu')->setChildAttr([
             'class' => 'nav nav-pills',
-            'data-parent' => 'admin_account_list'
+            'data-parent' => 'admin_account_list',
         ]);
 
         // Add Menu Items

@@ -120,7 +120,7 @@ class EmailForm extends ConfigAbstractType
                     'disable' => 0,
                 ],
                 'multiple' => false,
-                'expanded' => true
+                'expanded' => true,
             ])
             ->add('mail_verify_peer', ChoiceType::class, [
                 'label' => 'mail_verify_peer',
@@ -130,7 +130,7 @@ class EmailForm extends ConfigAbstractType
                     'disable' => 0,
                 ],
                 'multiple' => false,
-                'expanded' => true
+                'expanded' => true,
             ])
             ->add('mail_sender_address', EmailType::class, [
                 'label' => 'mail_sender_address',

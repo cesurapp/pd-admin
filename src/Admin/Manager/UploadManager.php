@@ -34,7 +34,7 @@ class UploadManager
     private $container;
 
     /**
-     * Current Upload Directory
+     * Current Upload Directory.
      *
      * @var string
      */
@@ -59,7 +59,7 @@ class UploadManager
     }
 
     /**
-     * Upload Files & Encode ImageManager
+     * Upload Files & Encode ImageManager.
      *
      * @param $files array|UploadedFile
      * @param bool $rawUpload
@@ -79,8 +79,9 @@ class UploadManager
         // Start Upload
         if (is_array($files)) {
             foreach ($files as $file) {
-                if ($file instanceof UploadedFile)
+                if ($file instanceof UploadedFile) {
                     $uploadFiles[] = $this->uploadProcess($file, $rawUpload);
+                }
             }
         }
 
@@ -100,14 +101,14 @@ class UploadManager
     {
         // Create Filename
         $tools = new Tools();
-        $fileName = $tools->webalize($tools->randomStr(6) . $file->getClientOriginalName(), '.');
+        $fileName = $tools->webalize($tools->randomStr(6).$file->getClientOriginalName(), '.');
 
         // Upload File and Optimize Images
         if (!$rawUpload) {
             switch ($file->getClientMimeType()) {
                 case image_type_to_mime_type(IMAGETYPE_JPEG):
                 case image_type_to_mime_type(IMAGETYPE_PNG):
-                    $this->imageManager($file, $this->currentPath . '/' . $fileName);
+                    $this->imageManager($file, $this->currentPath.'/'.$fileName);
                     break;
                 default:
                     $file->move($this->currentPath, $fileName);
@@ -117,7 +118,7 @@ class UploadManager
         }
 
         // Return Filename
-        return $this->currentDir . '/' . $fileName;
+        return $this->currentDir.'/'.$fileName;
     }
 
     /**
@@ -168,7 +169,7 @@ class UploadManager
         // Add Text Watermark
         $img->text($this->cfg('media_wm_font_text'), $xOrdinate, $yOrdinate, function ($font) {
             // Exist Font File
-            if (!empty($this->cfg('media_wm_font')) && file_exists($fontPath = $this->cfg('upload_dir') . $this->cfg('media_wm_font'))) {
+            if (!empty($this->cfg('media_wm_font')) && file_exists($fontPath = $this->cfg('upload_dir').$this->cfg('media_wm_font'))) {
                 $font->file($fontPath);
             }
 
@@ -187,7 +188,7 @@ class UploadManager
      */
     private function addImageWatermark(&$img)
     {
-        if (file_exists($imagePath = $this->cfg('upload_dir') . $this->cfg('media_wm_image'))) {
+        if (file_exists($imagePath = $this->cfg('upload_dir').$this->cfg('media_wm_image'))) {
             $img->insert(
                 $imagePath,
                 $this->cfg('media_wm_image_position'),
@@ -204,7 +205,7 @@ class UploadManager
     {
         // Create Current Directory
         $this->currentDir = date('Y/m/d');
-        $this->currentPath = $this->cfg('upload_dir') . $this->currentDir;
+        $this->currentPath = $this->cfg('upload_dir').$this->currentDir;
 
         // Create Directory
         if (!file_exists($this->currentPath)) {

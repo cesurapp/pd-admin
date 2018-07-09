@@ -1,15 +1,3 @@
-/*
- * This file is part of the EmlakPRO package.
- *
- * @package     EmlakPRO
- * @author      Ramazan APAYDIN <iletisim@ramazanapaydin.com>
- * @copyright   Copyright (c) 2013 - 2016, OTTOSISTEM (http://ottosistem.com)
- * @copyright   Copyright (c) 2016 - 2017, WriteLN Yazılım Hizmetleri San. Tic. A.Ş (http://writeln.net)
- * @license     LICENSE
- * @link        http://emlakpro.net
- *
- */
-
 var timer;
 
 /**

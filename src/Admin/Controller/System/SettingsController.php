@@ -299,7 +299,7 @@ class SettingsController extends Controller
         return $this->render('@Admin/System/Settings/template.html.twig', [
             'form' => $form->createView(),
             'page_title' => 'settings_template',
-            'page_description' => 'settings_template_desc'
+            'page_description' => 'settings_template_desc',
         ]);
     }
 

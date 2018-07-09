@@ -28,7 +28,8 @@ class Account
     private $entityManager;
 
     /**
-     * Account Constructor
+     * Account Constructor.
+     *
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
@@ -37,7 +38,7 @@ class Account
     }
 
     /**
-     * Build Widgets
+     * Build Widgets.
      *
      * @param WidgetEvent $event
      */
@@ -74,14 +75,15 @@ class Account
                 ->setConfigProcess(function (Request $request) {
                     if ($type = $request->get('type')) {
                         switch ($type) {
-                            case "1week":
+                            case '1week':
                                 return ['type' => '1week'];
-                            case "1month":
+                            case '1month':
                                 return ['type' => '1month'];
-                            case "3month":
+                            case '3month':
                                 return ['type' => '3month'];
                         }
                     }
+
                     return false;
                 })
                 ->setData(function ($config) {
@@ -89,7 +91,7 @@ class Account
                     $chart = [
                         'column' => [],
                         'created' => [],
-                        'logged' => []
+                        'logged' => [],
                     ];
 
                     // Set Default
@@ -98,7 +100,7 @@ class Account
                     }
 
                     // Create Statistics Data
-                    if ($config['type'] == '3month') {
+                    if ('3month' === $config['type']) {
                         // Load Records
                         $createdData = $this->entityManager->getRepository(User::class)
                             ->createQueryBuilder('u')
@@ -118,16 +120,15 @@ class Account
                         $loggedData = array_column($loggedData, 'count', 'month');
 
                         // Optimize Data
-                        for ($i = 0; $i < 3; $i++) {
+                        for ($i = 0; $i < 3; ++$i) {
                             $month = explode('/', date('n/Y', strtotime("-{$i} month")));
-                            $chart['column'][] = $month[0] . '/' . $month[1];
+                            $chart['column'][] = $month[0].'/'.$month[1];
                             $chart['created'][] = $createdData[$month[0]] ?? 0;
                             $chart['logged'][] = $loggedData[$month[0]] ?? 0;
                         }
-
-                    } elseif (in_array($config['type'], ['1month', '1week']) || !$config['type']) {
-                        $time = $config['type'] == '1month' ? new \DateTime('-1 Month') : new \DateTime('-6 Day');
-                        $column = $config['type'] == '1month' ? 30 : 7;
+                    } elseif (in_array($config['type'], ['1month', '1week'], true) || !$config['type']) {
+                        $time = '1month' === $config['type'] ? new \DateTime('-1 Month') : new \DateTime('-6 Day');
+                        $column = '1month' === $config['type'] ? 30 : 7;
 
                         // Load Records
                         $createdData = $this->entityManager->getRepository(User::class)
@@ -148,9 +149,9 @@ class Account
                         $loggedData = array_column($loggedData, 'count', 'day');
 
                         // Optimize Data
-                        for ($i = 0; $i < $column; $i++) {
+                        for ($i = 0; $i < $column; ++$i) {
                             $day = explode('/', date('j/m', strtotime("-{$i} day")));
-                            $chart['column'][] = $day[0] . '/' . $day[1];
+                            $chart['column'][] = $day[0].'/'.$day[1];
                             $chart['created'][] = $createdData[$day[0]] ?? 0;
                             $chart['logged'][] = $loggedData[$day[0]] ?? 0;
                         }
