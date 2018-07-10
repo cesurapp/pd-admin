@@ -1798,16 +1798,16 @@
         },
         {
             "name": "rmznpydn/pd-mailer",
-            "version": "1.0.1",
+            "version": "1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rmznpydn/pd-mailer.git",
-                "reference": "46bb5a89c0e5b8007329957656e6f113a1471a0a"
+                "reference": "dad7805ae6d99fb9143742e239b8aa770cc37fcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rmznpydn/pd-mailer/zipball/46bb5a89c0e5b8007329957656e6f113a1471a0a",
-                "reference": "46bb5a89c0e5b8007329957656e6f113a1471a0a",
+                "url": "https://api.github.com/repos/rmznpydn/pd-mailer/zipball/dad7805ae6d99fb9143742e239b8aa770cc37fcc",
+                "reference": "dad7805ae6d99fb9143742e239b8aa770cc37fcc",
                 "shasum": ""
             },
             "require": {
@@ -1838,7 +1838,7 @@
                 "pdmailer",
                 "symfony-mailer"
             ],
-            "time": "2018-07-07T23:26:05+00:00"
+            "time": "2018-07-09T09:40:49+00:00"
         },
         {
             "name": "rmznpydn/pd-menu",

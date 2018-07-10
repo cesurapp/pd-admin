@@ -49,29 +49,36 @@ class MediaForm extends ConfigAbstractType
                     'enable' => 1,
                     'disable' => 0,
                 ],
+                'empty_data' => '1',
                 'multiple' => false,
                 'expanded' => true,
-                'empty_data' => '1',
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('media_max_height', IntegerType::class, [
                 'label' => 'media_max_height',
                 'help' => 'media_max_height_info',
                 'empty_data' => '1024',
+                'attr' => ['placeholder-nt' => '1024'],
+                'required' => false
             ])
             ->add('media_max_width', IntegerType::class, [
                 'label' => 'media_max_width',
                 'help' => 'media_max_width_info',
                 'empty_data' => '768',
+                'attr' => ['placeholder-nt' => '768'],
+                'required' => false
             ])
             ->add('media_quality', RangeType::class, [
                 'label' => 'media_quality',
                 'help' => 'media_quality_info',
-                'empty_data' => '80',
                 'attr' => [
                     'min' => 1,
                     'max' => 100,
                     'step' => 1,
                 ],
+                'empty_data' => '80',
+                'required' => false
             ])
             ->add('media_watermark', ChoiceType::class, [
                 'label' => 'media_watermark',
@@ -81,9 +88,11 @@ class MediaForm extends ConfigAbstractType
                     'watermark_image' => 'image',
                     'disable' => 0,
                 ],
+                'empty_data' => '0',
                 'multiple' => false,
                 'expanded' => true,
-                'empty_data' => '0',
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('media_wm_image', FileType::class, [
                 'label' => 'media_wm_image',
@@ -92,7 +101,6 @@ class MediaForm extends ConfigAbstractType
                     'label' => 'upload_image_btn',
                     'label_class' => 'btn btn-success',
                 ],
-                'required' => false,
                 'data_class' => null,
                 'constraints' => [
                     new File([
@@ -104,6 +112,7 @@ class MediaForm extends ConfigAbstractType
                         ],
                     ]),
                 ],
+                'required' => false
             ])
             ->add('media_wm_image_position', ChoiceType::class, [
                 'label' => 'media_wm_image_position',
@@ -119,9 +128,9 @@ class MediaForm extends ConfigAbstractType
                     'right' => 'right',
                     'center' => 'center',
                 ],
-                'placeholder' => false,
                 'empty_data' => 'top-left',
                 'required' => false,
+                'placeholder' => false
             ])
             ->add('media_wm_image_x', RangeType::class, [
                 'label' => 'media_wm_image_x',
@@ -132,18 +141,18 @@ class MediaForm extends ConfigAbstractType
                     'step' => 0.01,
                 ],
                 'empty_data' => '0',
-                'required' => false,
+                'required' => false
             ])
             ->add('media_wm_image_y', RangeType::class, [
                 'label' => 'media_wm_image_y',
-                'help' => 'media_wm_image_y',
-                'empty_data' => '0',
+                'help' => 'media_wm_image_y_info',
                 'attr' => [
                     'min' => 0,
                     'max' => 1,
                     'step' => 0.01,
                 ],
-                'required' => false,
+                'empty_data' => '0',
+                'required' => false
             ])
             ->add('media_wm_font', FileType::class, [
                 'label' => 'media_wm_font',
@@ -152,7 +161,6 @@ class MediaForm extends ConfigAbstractType
                     'label' => 'upload_font_btn',
                     'label_class' => 'btn btn-success',
                 ],
-                'required' => false,
                 'data_class' => null,
                 'constraints' => [
                     new File([
@@ -162,23 +170,27 @@ class MediaForm extends ConfigAbstractType
                         ],
                     ]),
                 ],
+                'required' => false
             ])
             ->add('media_wm_font_text', TextType::class, [
                 'label' => 'media_wm_font_text',
-                'empty_data' => 'http://pdadmin.net',
-                'required' => false,
+                'empty_data' => 'pdAdmin',
+                'attr' => ['placeholder-nt' => 'pdAdmin'],
+                'required' => false
             ])
             ->add('media_wm_font_size', IntegerType::class, [
                 'label' => 'media_wm_font_size',
                 'help' => 'media_wm_font_size_info',
                 'empty_data' => '36',
-                'required' => false,
+                'attr' => ['placeholder-nt' => '36'],
+                'required' => false
             ])
             ->add('media_wm_font_color', TextType::class, [
                 'label' => 'media_wm_font_color',
                 'help' => 'media_wm_font_color_info',
                 'empty_data' => '#445160',
-                'required' => false,
+                'attr' => ['placeholder-nt' => '#445160'],
+                'required' => false
             ])
             ->add('media_wm_font_align', ChoiceType::class, [
                 'label' => 'media_wm_font_align',
@@ -190,6 +202,8 @@ class MediaForm extends ConfigAbstractType
                 ],
                 'empty_data' => 'left',
                 'expanded' => true,
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('media_wm_font_valign', ChoiceType::class, [
                 'label' => 'media_wm_font_valign',
@@ -201,6 +215,8 @@ class MediaForm extends ConfigAbstractType
                 ],
                 'empty_data' => 'bottom',
                 'expanded' => true,
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('media_wm_font_x', RangeType::class, [
                 'label' => 'media_wm_font_x',
@@ -211,7 +227,7 @@ class MediaForm extends ConfigAbstractType
                     'step' => 0.01,
                 ],
                 'empty_data' => '0.5',
-                'required' => false,
+                'required' => false
             ])
             ->add('media_wm_font_y', RangeType::class, [
                 'label' => 'media_wm_font_y',
@@ -222,7 +238,7 @@ class MediaForm extends ConfigAbstractType
                     'step' => 0.01,
                 ],
                 'empty_data' => '0.5',
-                'required' => false,
+                'required' => false
             ])
             ->add('media_wm_font_angle', RangeType::class, [
                 'label' => 'media_wm_font_angle',
@@ -233,7 +249,7 @@ class MediaForm extends ConfigAbstractType
                     'step' => 1,
                 ],
                 'empty_data' => '45',
-                'required' => false,
+                'required' => false
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

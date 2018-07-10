@@ -204,7 +204,7 @@ nav_config_general: General
 head_title: Site Title
 head_title_info: The name of your site, shown as a suffix.
 head_title_pattern: Title Design
-head_title_pattern_info: '%T: Active page header, <br>%P: Panel header'
+head_title_pattern_info: '&T: Active page header, <br>&P: Panel header'
 head_description: Site Description
 head_description_info: The metadata for the panel is the 'description' tag field.
 head_author: Site Author
@@ -213,7 +213,6 @@ head_keywords: Keyword
 footer_copyright: Footer Copyright
 default_locale: Default Language
 default_country: Default Country
-default_currency: Default Currency
 site_logo: Site Logo
 default_image: Default Image
 site_favicon: Site Favicon

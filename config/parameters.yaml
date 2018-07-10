@@ -10,7 +10,6 @@ parameters:
     footer_copyright: 'pdAdmin bir WriteLN ürünüdür.'
     default_locale: 'en'
     default_country: 'TR'
-    default_currency: 'TRY'
     site_logo: null
     default_image: null
     site_favicon: null

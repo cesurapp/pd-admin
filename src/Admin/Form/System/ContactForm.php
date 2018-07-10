@@ -47,17 +47,17 @@ class ContactForm extends ConfigAbstractType
             ])
             ->add('contact_phone', TextType::class, [
                 'label' => 'contact_phone',
-                'attr' => ['placeholder-nt' => '+0850 209 6399'],
+                'attr' => ['placeholder-nt' => '+0850 111 1111'],
                 'required' => false,
             ])
             ->add('contact_mobile_phone', TextType::class, [
                 'label' => 'contact_mobile_phone',
-                'attr' => ['placeholder-nt' => '+0850 209 6399'],
+                'attr' => ['placeholder-nt' => '+0850 111 1111'],
                 'required' => false,
             ])
             ->add('contact_fax_number', TextType::class, [
                 'label' => 'contact_fax_number',
-                'attr' => ['placeholder-nt' => '+0850 209 6399'],
+                'attr' => ['placeholder-nt' => '+0850 111 1111'],
                 'required' => false,
             ])
             ->add('contact_address', TextareaType::class, [
@@ -66,12 +66,12 @@ class ContactForm extends ConfigAbstractType
             ])
             ->add('contact_facebook', UrlType::class, [
                 'label' => 'contact_facebook',
-                'attr' => ['placeholder-nt' => 'https://www.facebook.com/writelnas'],
+                'attr' => ['placeholder-nt' => 'https://www.facebook.com/examplepage'],
                 'required' => false,
             ])
             ->add('contact_twitter', UrlType::class, [
                 'label' => 'contact_twitter',
-                'attr' => ['placeholder-nt' => 'https://www.twitter.com/writelnas'],
+                'attr' => ['placeholder-nt' => 'https://www.twitter.com/examplepage'],
                 'required' => false,
             ])
             ->add('contact_google', UrlType::class, [

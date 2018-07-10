@@ -17,7 +17,6 @@ namespace App\Admin\Form\System;
 use App\Admin\Form\Type\ConfigAbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
-use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -40,7 +39,7 @@ class GeneralForm extends ConfigAbstractType
      * Create Form.
      *
      * @param FormBuilderInterface $builder
-     * @param array                $options
+     * @param array $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -57,6 +56,9 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 120,
                     ]),
                 ],
+                'empty_data' => 'pdAdmin',
+                'attr' => ['placeholder-nt' => 'pdAdmin'],
+                'required' => false
             ])
             ->add('head_title_pattern', TextType::class, [
                 'label' => 'head_title_pattern',
@@ -66,8 +68,9 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 120,
                     ]),
                 ],
-                'empty_data' => '%T - %P',
-                'required' => false,
+                'empty_data' => '&T - &P',
+                'attr' => ['placeholder-nt' => '&T - &P'],
+                'required' => false
             ])
             ->add('head_description', TextareaType::class, [
                 'label' => 'head_description',
@@ -77,7 +80,9 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 150,
                     ]),
                 ],
-                'required' => false,
+                'empty_data' => 'pdAdmin Head Description',
+                'attr' => ['placeholder-nt' => 'pdAdmin Head Description'],
+                'required' => false
             ])
             ->add('head_author', TextType::class, [
                 'label' => 'head_author',
@@ -87,7 +92,9 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 150,
                     ]),
                 ],
-                'required' => false,
+                'empty_data' => 'Ramazan APAYDIN',
+                'attr' => ['placeholder-nt' => 'Ramazan APAYDIN'],
+                'required' => false
             ])
             ->add('head_keywords', TextareaType::class, [
                 'label' => 'head_keywords',
@@ -96,7 +103,8 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 200,
                     ]),
                 ],
-                'required' => false,
+                'attr' => ['placeholder-nt' => 'pdAdmin, Symfony, Dashboard'],
+                'required' => false
             ])
             ->add('footer_copyright', TextareaType::class, [
                 'label' => 'footer_copyright',
@@ -105,7 +113,9 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 200,
                     ]),
                 ],
-                'required' => false,
+                'empty_data' => 'pdAdmin Developed by Symfony 4',
+                'attr' => ['placeholder-nt' => 'pdAdmin Developed by Symfony 4'],
+                'required' => false
             ])
             ->add('default_locale', ChoiceType::class, [
                 'label' => 'default_locale',
@@ -122,13 +132,6 @@ class GeneralForm extends ConfigAbstractType
                 'placeholder' => false,
                 'required' => false,
             ])
-            ->add('default_currency', CurrencyType::class, [
-                'label' => 'default_currency',
-                'choice_translation_domain' => false,
-                'empty_data' => 'TRY',
-                'placeholder' => false,
-                'required' => false,
-            ])
             ->add('site_logo', FileType::class, [
                 'label' => 'site_logo',
                 'attr' => [
@@ -139,30 +142,11 @@ class GeneralForm extends ConfigAbstractType
                 'data_class' => null,
                 'constraints' => [
                     new File([
-                        'maxSize' => '30M',
+                        'maxSize' => '10M',
                     ]),
                     new Image([
                         'mimeTypes' => [
                             'image/jpeg', 'image/jpg', 'image/png', 'image/gif',
-                        ],
-                    ]),
-                ],
-            ])
-            ->add('default_image', FileType::class, [
-                'label' => 'default_image',
-                'attr' => [
-                    'label' => 'upload_image_btn',
-                    'label_class' => 'btn btn-success',
-                ],
-                'required' => false,
-                'data_class' => null,
-                'constraints' => [
-                    new File([
-                        'maxSize' => '3M',
-                    ]),
-                    new Image([
-                        'mimeTypes' => [
-                            'image/jpeg', 'image/jpg', 'image/png',
                         ],
                     ]),
                 ],

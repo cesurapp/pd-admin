@@ -78,12 +78,12 @@ class TemplateForm extends ConfigAbstractType
             $form
                 ->add('template_admin_color_css', ChoiceType::class, [
                     'label' => 'template_auth_color',
-                    'choices' => $templateAdmin['config'][$form->get('template_auth')->getData()]['color'] ?? [],
+                    'choices' => $templateAdmin['config'][$form->get('template_auth')->getData() ?? 'default']['color'] ?? [],
                     'choice_translation_domain' => false,
                 ])
                 ->add('template_auth_color_css', ChoiceType::class, [
                     'label' => 'template_auth_color',
-                    'choices' => $templateAuth['config'][$form->get('template_auth')->getData()]['color'] ?? [],
+                    'choices' => $templateAuth['config'][$form->get('template_auth')->getData() ?? 'default']['color'] ?? [],
                     'choice_translation_domain' => false,
                 ]);
         });

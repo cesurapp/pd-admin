@@ -93,7 +93,7 @@ class ConfigManager
      */
     public function getAll()
     {
-        return $this->realConfig;
+        return $this->realConfig ?? [];
     }
 
     /**

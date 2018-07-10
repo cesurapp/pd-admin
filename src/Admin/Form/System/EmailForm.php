@@ -41,7 +41,10 @@ class EmailForm extends ConfigAbstractType
                     'enable' => 0,
                     'disable' => 1,
                 ],
+                'empty_data' => '0',
                 'expanded' => true,
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('mail_transport', ChoiceType::class, [
                 'label' => 'mail_transport',
@@ -51,11 +54,12 @@ class EmailForm extends ConfigAbstractType
                     'SendMail' => 'sendmail',
                     'Gmail' => 'gmail',
                 ],
+                'empty_data' => 'smtp',
+                'choice_translation_domain' => false,
                 'multiple' => false,
                 'expanded' => true,
-                'choice_translation_domain' => false,
                 'required' => false,
-                'empty_data' => null,
+                'placeholder' => false
             ])
             ->add('mail_host', TextType::class, [
                 'label' => 'mail_host',
@@ -84,8 +88,8 @@ class EmailForm extends ConfigAbstractType
                 'label' => 'mail_timeout',
                 'help' => 'mail_timeout_info',
                 'attr' => ['placeholder-nt' => '30'],
-                'empty_data' => 30,
-                'required' => false,
+                'empty_data' => '30',
+                'required' => false
             ])
             ->add('mail_encryption', ChoiceType::class, [
                 'label' => 'mail_encryption',
@@ -94,10 +98,10 @@ class EmailForm extends ConfigAbstractType
                     'TLS' => 'tls',
                     'SSL' => 'ssl',
                 ],
+                'choice_translation_domain' => false,
                 'multiple' => false,
                 'expanded' => true,
-                'required' => false,
-                'choice_translation_domain' => false,
+                'required' => false
             ])
             ->add('mail_auth_mode', ChoiceType::class, [
                 'label' => 'mail_auth_mode',
@@ -107,10 +111,12 @@ class EmailForm extends ConfigAbstractType
                     'Login' => 'login',
                     'Cram-Md5' => 'cram-md5',
                 ],
+                'empty_data' => 'login',
+                'choice_translation_domain' => false,
                 'multiple' => false,
                 'expanded' => true,
-                'choice_translation_domain' => false,
-                'empty_data' => 'login',
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('mail_allow_self_signed', ChoiceType::class, [
                 'label' => 'mail_allow_self_signed',
@@ -119,8 +125,11 @@ class EmailForm extends ConfigAbstractType
                     'enable' => 1,
                     'disable' => 0,
                 ],
+                'empty_data' => '0',
                 'multiple' => false,
                 'expanded' => true,
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('mail_verify_peer', ChoiceType::class, [
                 'label' => 'mail_verify_peer',
@@ -129,24 +138,32 @@ class EmailForm extends ConfigAbstractType
                     'enable' => 1,
                     'disable' => 0,
                 ],
+                'empty_data' => '1',
                 'multiple' => false,
                 'expanded' => true,
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('mail_sender_address', EmailType::class, [
                 'label' => 'mail_sender_address',
                 'help' => 'mail_sender_address_info',
                 'attr' => ['placeholder-nt' => 'mail@example.com'],
+                'empty_data' => 'mail@example.com',
+                'required' => false
             ])
             ->add('mail_sender_name', TextType::class, [
                 'label' => 'mail_sender_name',
                 'help' => 'mail_sender_name_info',
-                'attr' => ['placeholder-nt' => 'EmlakPRO'],
+                'attr' => ['placeholder-nt' => 'pdAdmin'],
+                'empty_data' => 'pdAdmin',
+                'required' => false
             ])
             ->add('mail_test_address', EmailType::class, [
                 'label' => 'mail_test_address',
                 'help' => 'mail_test_address_info',
-                'attr' => ['placeholder-nt' => 'test@emlakpro.net'],
-                'required' => false,
+                'attr' => ['placeholder-nt' => 'mail@example.com'],
+                'empty_data' => 'mail@example.com',
+                'required' => false
             ])
             ->add($builder
                 ->create('submit_group', FormType::class, [

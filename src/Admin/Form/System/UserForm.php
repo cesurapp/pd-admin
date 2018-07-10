@@ -37,44 +37,44 @@ class UserForm extends ConfigAbstractType
             ->add('user_registration', CheckboxType::class, [
                 'label' => 'user_registration',
                 'help' => 'user_registration_info',
-                'required' => false,
+                'required' => false
             ])
             ->add('user_default_group', EntityType::class, [
                 'label' => 'user_default_group',
                 'help' => 'user_default_group_info',
                 'class' => Group::class,
                 'choice_label' => 'name',
-                'placeholder' => false,
                 'choice_translation_domain' => false,
-                'required' => false,
+                'placeholder' => false,
+                'required' => false
             ])
             ->add('user_login_redirect', ChoiceType::class, [
                 'label' => 'user_login_redirect',
                 'help' => 'user_login_redirect_info',
                 'choices' => $this->getAllRouter($options['router']),
-                'choice_translation_domain' => false,
                 'empty_data' => 'admin_dashboard',
+                'choice_translation_domain' => false,
                 'placeholder' => false,
-                'required' => false,
+                'required' => false
             ])
             ->add('user_logout_redirect', ChoiceType::class, [
                 'label' => 'user_logout_redirect',
                 'help' => 'user_logout_redirect_info',
                 'choices' => $this->getAllRouter($options['router']),
-                'choice_translation_domain' => false,
                 'empty_data' => 'fos_user_security_login',
+                'choice_translation_domain' => false,
                 'placeholder' => false,
-                'required' => false,
+                'required' => false
             ])
             ->add('user_email_confirmation', CheckboxType::class, [
                 'label' => 'user_email_confirmation',
                 'help' => 'user_email_confirmation_info',
-                'required' => false,
+                'required' => false
             ])
             ->add('user_welcome_email', CheckboxType::class, [
                 'label' => 'user_welcome_email',
                 'help' => 'user_welcome_email_info',
-                'required' => false,
+                'required' => false
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

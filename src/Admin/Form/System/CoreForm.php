@@ -39,22 +39,26 @@ class CoreForm extends ConfigAbstractType
                 'preferred_choices' => [
                     'tr', 'en', 'de', 'fr', 'ru', 'ar', 'es', 'sv', 'no', 'ga',
                 ],
+                'empty_data' => ['tr', 'en'],
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('list_count', RangeType::class, [
                 'label' => 'list_count',
                 'help' => 'list_count_info',
-                'empty_data' => '25',
                 'attr' => [
                     'min' => 1,
                     'max' => 100,
                     'step' => 1,
                 ],
+                'empty_data' => '30',
+                'required' => false
             ])
             ->add('remember_time', IntegerType::class, [
                 'label' => 'remember_time',
                 'help' => 'remember_time_info',
                 'empty_data' => '604800',
-                'required' => false,
+                'required' => false
             ])
             ->add('twig_cache', ChoiceType::class, [
                 'label' => 'twig_cache',
@@ -63,8 +67,11 @@ class CoreForm extends ConfigAbstractType
                     'enable' => '%kernel.cache_dir%/twig',
                     'disable' => false,
                 ],
+                'empty_data' => '%kernel.cache_dir%/twig',
                 'multiple' => false,
                 'expanded' => true,
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

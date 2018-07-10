@@ -226,8 +226,8 @@ class FormatExtension extends \Twig_Extension
             return $title;
         }
 
-        $getTitle = str_replace('%T', $title, $this->container->getParameter('head_title_pattern'));
-        $getTitle = str_replace('%P', $this->container->getParameter('head_title'), $getTitle);
+        $getTitle = str_replace('&T', $title, $this->container->getParameter('head_title_pattern'));
+        $getTitle = str_replace('&P', $this->container->getParameter('head_title'), $getTitle);
 
         return $getTitle;
     }

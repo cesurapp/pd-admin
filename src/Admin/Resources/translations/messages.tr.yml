@@ -204,7 +204,7 @@ nav_config_general: Genel
 head_title: Site Başlığı
 head_title_info: Sitenin adıdır, son ek olarak gösterilir.
 head_title_pattern: Başlık Deseni
-head_title_pattern_info: '%T: Aktif sayfa başlığı, <br>%P: Panel son ek'
+head_title_pattern_info: '&T: Aktif sayfa başlığı, <br>&P: Panel son ek'
 head_description: Site Açıklama
 head_description_info: Panel için meta 'description' etiket alanıdır.
 head_author: Site Yazar
@@ -213,7 +213,6 @@ head_keywords: Anahtar Kelimeler
 footer_copyright: Footer Copyright
 default_locale: Varsayılan Dil
 default_country: Varsayılan Ülke
-default_currency: Varsayılan Para Birimi
 site_logo: Site Logo
 default_image: Varsayılan Resim
 site_favicon: Site Favicon

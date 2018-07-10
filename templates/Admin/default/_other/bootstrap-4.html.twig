@@ -25,8 +25,8 @@
             </label>
         </div>
     {% elseif type is defined and type == 'range' %}
-        {%- set attr = attr|merge({'data-range': '' }) -%}
-        <div class="custom-range row">
+        {%- set attr = attr|merge({'data-range': '', 'class': 'custom-range' }) -%}
+        <div class="row">
             <div class="col-10">
                 {{- parent() -}}
             </div>
