@@ -35,4 +35,4 @@ security:
                 path:     /
     access_control:
         # Admin Panel
-        - { path: '^/admin', role: ROLE_ADMIN }
+        - { path: '^/admin', role: [ROLE_USER, ROLE_ADMIN] }

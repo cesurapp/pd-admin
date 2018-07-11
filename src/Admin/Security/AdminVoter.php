@@ -22,7 +22,19 @@ class AdminVoter extends Voter
 {
     protected function supports($attribute, $subject): bool
     {
-        return \is_string($attribute) && false !== mb_strpos($attribute, 'ADMIN_');
+        $excluded = [
+            'IS_AUTHENTICATED_ANONYMOUSLY',
+            'IS_AUTHENTICATED_FULLY',
+            'IS_AUTHENTICATED_REMEMBERED',
+            'ISGRANTED_VOTER',
+            'ROLE_PREVIOUS_ADMIN',
+        ];
+
+        if (\in_array($attribute, $excluded, true)) {
+            return false;
+        }
+
+        return true;
     }
 
     protected function voteOnAttribute($attribute, $subject, TokenInterface $token): bool

@@ -22,25 +22,26 @@ Installation
 Documentation
 --------------------
 
-* [User Management](User Management)
-* [Multilingual System](Multilingual System)
-* [Delegation]()
-* [System Settings]()
-* [Mail Manager]()
-* [Create New Widget]()
-* [Create New Menu]()
-* [Additional Packages]()
+* [User Management](#user-management)
+* [Multilingual System](#multilingual-system)
+* [Delegation](#delegation)
+* [System Settings](#system-settings)
+* [Mail Manager](#mail-manager)
+* [Create New Widget](#create-new-widget)
+* [Create New Menu](#create-new-menu)
 
 #### User Management
-Create User:
+Kullanıcı yönetimi için [pd-user](https://github.com/rmznpydn/pd-user) kullanılmıştır. Tüm ayarlar __config/packages/pd_user.yaml__ dosyasında bulunmaktadır.
+
+__Create User:__
 ````
 bin/console user:create
 ````
-Change User Password:
+__Change User Password:__
 ````
 bin/console user:changepassword
 ````
-Change User Roles:
+__Change User Roles:__
 ````
 bin/console user:role
 ````
@@ -50,8 +51,44 @@ bin/console user:role
 Giriş yaptığında otomatik olarak yönlendirme yapılır. 
 
 #### Delegation
+Symfony güvenlik bileşeni ile birlikte [SensioFrameworkExtraBundle](https://symfony.com/doc/master/bundles/SensioFrameworkExtraBundle/annotations/security.html) kullanılmaktadır.
+Varsayılan üç farklı kullanıcı rolü (ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN) bulunur. ROLE_SUPER_ADMIN tüm yetkilere sahiptir. ROLE_ADMIN ve ROLE_USER yetkileri sınırlandırılabilir
+ve panele erişimi security.yaml dosyasından kapatılabilir.
+
 #### System Settings
+Sistem ayarları veritabanında tutulmaktadır. Tüm ayarlar container derleme sonrası parametre olarak kullanılabilir. Tüm ayarlar container ile birlikte derlendiğinden
+sisteme ek yük oluşturmamaktadır. Symfony Forms kullanılarak ayarlar yapılandırılabilir ve "Menü Event" sistemi ile ayarlar menüsüne dışarıdan ekleme yapılabilir. 
+Sistem ayarlarında yapılan değişikliklerden sonra mutlaka önbelleği temizleyin, akti durumda yeni ayarlar etkinleştirilmeyecektir.  
+
+Example:
+```
+Coming SOON
+```
+
 #### Mail Manager
+Posta yöneticisi Swiftmailer eklentisi olarak geliştirilmiştir. Swiftmailer ile gönderilen tüm postaların günlüğünü veritabanında depolar. Ek olarak şablon yöneticisidir. 
+Posyalarınız için özel şablonlar (Email Template) oluşturup gönderim sırasında derlenmesini sağlayabilirsiniz. Paket ayarları __config/packages/pd_mailer.yaml__ dosyasında bulunmaktadır.
+Detaylı bilgi için [pd-mailer](https://github.com/rmznpydn/pd-mailer) ziyaret edin
+
+Example:
+```
+Coming SOON
+```
+
 #### Create New Widget
+Widget sistemi Symfony "EventDispatcher Component" ile oluşturulmuştur. Her kullanıcı için ayarlanabilir bir yapıya sahip olup "Twig Template" motoru ile özel tasarım yapılabilir.
+Detaylı bilgi için [pd-widget](https://github.com/rmznpydn/pd-widget) ziyaret edin. 
+
+Example:
+```
+Coming SOON
+```
+
 #### Create New Menu
-#### Additional Packages
+Menü sistemi Symfony "EventDispatcher Component" ile oluşturulmuştur. Oluşturulan her menü için varsayılan olarak Event oluşturulur, menü yapılandırması ile kapatılabilir. Detaylı bilgi için
+[pd-menu](https://github.com/rmznpydn/pd-menu) ziyaret edin.
+
+Example:
+```
+Coming SOON
+```

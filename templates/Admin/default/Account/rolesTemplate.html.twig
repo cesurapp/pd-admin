@@ -41,10 +41,10 @@
       $(function () {
         $('[name="form[ACL]"]').change(function () {
           var val = $(this).val();
-          var selector = '.accordion-menu input[name*="ADMIN_"], .accordion-menu input[name*="ACLP"]';
+          var selector = '.accordion-menu input[type*=checkbox], .accordion-menu input[name*="ACLP"]';
 
           // Disable Admin Access to ROLE_USER
-          if ((val === 'ROLE_USER') || (val === 'ROLE_SUPER_ADMIN')) {
+          if (val === 'ROLE_SUPER_ADMIN') {
             $.each($(selector), function (index, el) {
               $(el).attr('disabled', true)
             })
