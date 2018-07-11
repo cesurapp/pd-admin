@@ -43,21 +43,25 @@ class DashboardController extends Controller
     /**
      * Change Language for Session.
      *
-     * @param string  $lang
+     * @param string $lang
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @throws \Psr\Cache\InvalidArgumentException
      */
     public function changeLanguage($lang, Request $request)
     {
         // Set Language for Session
         $request->getSession()->set('_locale', $lang);
 
-        // Return Back
-        if (isset($_SERVER['HTTP_REFERER'])) {
-            return $this->redirect($_SERVER['HTTP_REFERER']);
+        // Flush Widget Cache
+        $widgetCore = $this->get('pd_widget.core')->getWidgets();
+        $cacheApp = $this->get('cache.app');
+        foreach ($widgetCore as $widget) {
+            $cacheApp->deleteItem($widget->getId() . $this->getUser()->getId());
         }
 
-        return $this->redirectToRoute('admin_dashboard');
+        // Return Back
+        return isset($_SERVER['HTTP_REFERER']) ? $this->redirect($_SERVER['HTTP_REFERER']) : $this->redirectToRoute('admin_dashboard');
     }
 }

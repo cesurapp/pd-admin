@@ -1,44 +1,57 @@
 pdAdmin 
 =========
-
 Symfony Powerful Dashboard & Admin. Developed with **Symfony 4 Flex** framework.
 
-## Installation
+Installation
+--------------------
 1. Download pdAdmin
-2. Install composer dependency `$ composer install`
-3. Create and configure the `.env` file. Details are available in `.env.dist` file.
-4. Create database schemas `$ bin/console doctrine:schema:create --force`
+    ```
+    composer create-project rmznpydn/pd-admin pdadmin 
+    ```
+2. Create and configure the `.env` file. Details are available in `.env.dist` file.
 
-## User Management
+3. Create database schemas
+    ```
+    bin/console doctrine:schema:create --force
+    ```
+4. Run built-in web server
+     ```
+     bin/console server:start
+     ```
+
+Documentation
+--------------------
+
+* [User Management](User Management)
+* [Multilingual System](Multilingual System)
+* [Delegation]()
+* [System Settings]()
+* [Mail Manager]()
+* [Create New Widget]()
+* [Create New Menu]()
+* [Additional Packages]()
+
+#### User Management
 Create User:
 ````
-$ bin/console user:create
+bin/console user:create
 ````
 Change User Password:
 ````
-$ bin/console user:changepassword
+bin/console user:changepassword
 ````
 Change User Roles:
 ````
-$ bin/console user:role
+bin/console user:role
 ````
 
-## PHPUnit Test
-Set the database connection to the `phpunit.xml.dist` file:
-````xml
-<env name="DATABASE_URL" value="mysql://root:root@127.0.0.1:3306/dbname"/>
-````
-Run all test:
-````
-$ bin/phpunit
-````
+#### Multilingual System
+Çoklu dil için kullanıcı oturumu kullanılmıştır. Her kullanıcı kendine özel dil seçimi yapabilir. 
+Giriş yaptığında otomatik olarak yönlendirme yapılır. 
 
-## Change Settings
-Clear the cache after making changes to the system settings. 
-````
-$ bin/console cache:clear
-````
-or request this url:
-````
-example.com/admin/refresh/cache
-````
+#### Delegation
+#### System Settings
+#### Mail Manager
+#### Create New Widget
+#### Create New Menu
+#### Additional Packages
