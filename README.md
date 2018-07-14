@@ -6,6 +6,10 @@ pdAdmin
 =========
 Symfony Powerful Dashboard & Admin. Developed with **Symfony 4 Flex** framework.
 
+No changes were made to the symfony structure, the current directory structure is used. A custom namespace for Admin has been created. This field is used for all administrator operations. 
+
+The interface is designed to be responsive using Twitter Bootstrap. The least possible dependency was tried to be used. 
+
 Installation
 --------------------
 1. Download pdAdmin
@@ -57,11 +61,7 @@ When you log in, you are automatically redirected.
 New languages can be added from the kernel settings. You need to translate manually for the new language.
 
 ### Delegation
-Symfony güvenlik bileşeni ile birlikte [SensioFrameworkExtraBundle](https://symfony.com/doc/master/bundles/SensioFrameworkExtraBundle/annotations/security.html) kullanılmaktadır.
-Varsayılan üç farklı kullanıcı rolü (ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN) bulunur. ROLE_SUPER_ADMIN tüm yetkilere sahiptir. ROLE_ADMIN ve ROLE_USER yetkileri sınırlandırılabilir
-ve panele erişimi security.yaml dosyasından kapatılabilir.
-
-SensioFrameworkExtraBundle is used with Symfony security component. There are three default user roles.
+[SensioFrameworkExtraBundle](https://symfony.com/doc/master/bundles/SensioFrameworkExtraBundle/annotations/security.html) is used with Symfony security component. There are three default user roles.
 
 * ROLE_USER
 * ROLE_ADMIN
@@ -70,13 +70,55 @@ SensioFrameworkExtraBundle is used with Symfony security component. There are th
 ROLE_SUPER_ADMIN has full authority. ROLE_ADMIN and ROLE_USER authorities can be restricted and panel access can be turned off in the security.yaml file.
 
 ### System Settings
-Sistem ayarları veritabanında tutulmaktadır. Tüm ayarlar container derleme sonrası parametre olarak kullanılabilir. Tüm ayarlar container ile birlikte derlendiğinden
-sisteme ek yük oluşturmamaktadır. Symfony Forms kullanılarak ayarlar yapılandırılabilir ve "Menü Event" sistemi ile ayarlar menüsüne dışarıdan ekleme yapılabilir. 
-Sistem ayarlarında yapılan değişikliklerden sonra mutlaka önbelleği temizleyin, akti durumda yeni ayarlar etkinleştirilmeyecektir.  
+System settings are stored in the database. All settings can be used as parameters after container assembly. Since all settings are compiled with the container
+it does not create any additional load on the system. Settings can be configured using Symfony Forms and added to the Settings menu from the outside via the "Menu Event" system.
+Clear the cache after changes to system settings, otherwise the new settings will not be enabled.
 
-Example:
+For general settings, you can add it to __src/Admin/Forms/System/GeneralForm__
+
+__Add New Menu to Settings__:
 ```
-Coming SOON
+src/Admin/Menu/SettingsMenu.php
+    
+<?php
+
+namespace App\Admin\Menu;
+
+use Pd\MenuBundle\Builder\ItemInterface;
+use Pd\MenuBundle\Builder\Menu;
+
+class SettingsMenu extends Menu
+{
+    public function createMenu(array $options = []): ItemInterface
+    {
+        // Create Root Item
+        $menu = $this->createRoot('settings_menu')->setChildAttr([
+            'class' => 'nav nav-pills',
+            'data-parent' => 'admin_settings_general',
+        ]);
+
+        // Create Menu Items
+        $menu->addChild('nav_config_general')
+            ->setLabel('nav_config_general')
+            ->setRoute('admin_settings_general')
+            ->setLinkAttr(['class' => 'nav-item'])
+            ->setRoles(['ADMIN_SETTINGS_GENERAL'])
+            // Contact
+            ->addChildParent('nav_config_contact')
+            ->setLabel('nav_config_contact')
+            ->setRoute('admin_settings_contact')
+            ->setLinkAttr(['class' => 'nav-item'])
+            ->setRoles(['ADMIN_SETTINGS_CONTACT'])
+            // Email
+            ->addChildParent('nav_config_email')
+            ->setLabel('nav_config_email')
+            ->setRoute('admin_settings_email')
+            ->setLinkAttr(['class' => 'nav-item'])
+            ->setRoles(['ADMIN_SETTINGS_EMAIL']);
+            
+        return $menu;
+    }
+}    
 ```
 
 ### Mail Manager
