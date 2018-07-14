@@ -35,29 +35,39 @@ Documentation
 * [Create New Menu](#create-new-menu)
 
 ### User Management
-Kullanıcı yönetimi için [pd-user](https://github.com/rmznpydn/pd-user) kullanılmıştır. Tüm ayarlar __config/packages/pd_user.yaml__ dosyasında bulunmaktadır.
+There is [pd-user](https://github.com/rmznpydn/pd-user) for user management. All settings are in __config/packages/pd_user.yaml__ file.
 
-__Create User:__
-````
-bin/console user:create
-````
-__Change User Password:__
-````
-bin/console user:changepassword
-````
-__Change User Roles:__
-````
-bin/console user:role
-````
+* __Create User:__
+    ````
+    bin/console user:create
+    ````
+* __Change User Password:__
+    ````
+    bin/console user:changepassword
+    ````
+* __Change User Roles:__
+    ````
+    bin/console user:role
+    ````
 
 ### Multilingual System
-Çoklu dil için kullanıcı oturumu kullanılmıştır. Her kullanıcı kendine özel dil seçimi yapabilir. 
-Giriş yaptığında otomatik olarak yönlendirme yapılır. 
+User logon for multi language is used. Each user can choose his / her own language.
+When you log in, you are automatically redirected.
+
+New languages can be added from the kernel settings. You need to translate manually for the new language.
 
 ### Delegation
 Symfony güvenlik bileşeni ile birlikte [SensioFrameworkExtraBundle](https://symfony.com/doc/master/bundles/SensioFrameworkExtraBundle/annotations/security.html) kullanılmaktadır.
 Varsayılan üç farklı kullanıcı rolü (ROLE_USER, ROLE_ADMIN, ROLE_SUPER_ADMIN) bulunur. ROLE_SUPER_ADMIN tüm yetkilere sahiptir. ROLE_ADMIN ve ROLE_USER yetkileri sınırlandırılabilir
 ve panele erişimi security.yaml dosyasından kapatılabilir.
+
+SensioFrameworkExtraBundle is used with Symfony security component. There are three default user roles.
+
+* ROLE_USER
+* ROLE_ADMIN
+* ROLE_SUPER_ADMIN
+
+ROLE_SUPER_ADMIN has full authority. ROLE_ADMIN and ROLE_USER authorities can be restricted and panel access can be turned off in the security.yaml file.
 
 ### System Settings
 Sistem ayarları veritabanında tutulmaktadır. Tüm ayarlar container derleme sonrası parametre olarak kullanılabilir. Tüm ayarlar container ile birlikte derlendiğinden
