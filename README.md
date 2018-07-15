@@ -67,7 +67,7 @@ New languages can be added from the kernel settings. You need to translate manua
 * ROLE_ADMIN
 * ROLE_SUPER_ADMIN
 
-ROLE_SUPER_ADMIN has full authority. ROLE_ADMIN and ROLE_USER authorities can be restricted and panel access can be turned off in the security.yaml file.
+ROLE_SUPER_ADMIN has full authority. ROLE_ADMIN and ROLE_USER authorities can be restricted and panel access can be turned off in the __security.yaml__ file.
 
 ### System Settings
 System settings are stored in the database. All settings can be used as parameters after container assembly. Since all settings are compiled with the container
@@ -77,10 +77,9 @@ Clear the cache after changes to system settings, otherwise the new settings wil
 For general settings, you can add it to __src/Admin/Forms/System/GeneralForm__
 
 __Add New Menu to Settings__:
-```
-src/Admin/Menu/SettingsMenu.php
-    
+```php    
 <?php
+//src/Admin/Menu/SettingsMenu.php
 
 namespace App\Admin\Menu;
 
@@ -122,13 +121,30 @@ class SettingsMenu extends Menu
 ```
 
 ### Mail Manager
-Posta yöneticisi Swiftmailer eklentisi olarak geliştirilmiştir. Swiftmailer ile gönderilen tüm postaların günlüğünü veritabanında depolar. Ek olarak şablon yöneticisidir. 
-Posyalarınız için özel şablonlar (Email Template) oluşturup gönderim sırasında derlenmesini sağlayabilirsiniz. Paket ayarları __config/packages/pd_mailer.yaml__ dosyasında bulunmaktadır.
-Detaylı bilgi için [pd-mailer](https://github.com/rmznpydn/pd-mailer) ziyaret edin
+Mail Manager is made as Swiftmailer plugin. With Swiftmailer, the log of all mail is stored. 
+In addition, it is a template manager. You can create custom templates (Email Template) for your posts and provide a compilation that includes submissions. 
+The Mail Template is multi-language supported. You can create templates for different languages. 
+Package installation __packages/pd_mailer.yaml__ located in the file. 
+For further information please contact [pd-mailer](https://github.com/rmznpydn/pd-mailer)
 
-Example:
-```
-Coming SOON
+Send Email:
+```php 
+<?php
+
+// Create Message
+$message = (new PdSwiftMessage())
+    ->setTemplateId('tester_template') // Unique id for the Mail Template
+    ->setFrom('example@example.com', 'pdAdmin')
+    ->setTo('client@example.com')
+    ->setSubject('pdAdmin Test Mail')
+    ->setBody(serialize([
+        'name' => 'pdAdmin',
+        'age' => '25',
+        'company' => 'WriteLN'
+    ]), 'text/html'); // Twig variables for Mail Template
+
+// Send Message
+$this->get('mailer')->send($message);
 ```
 
 ### Create New Widget
