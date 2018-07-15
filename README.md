@@ -42,17 +42,17 @@ Documentation
 There is [pd-user](https://github.com/rmznpydn/pd-user) for user management. All settings are in __config/packages/pd_user.yaml__ file.
 
 * __Create User:__
-    ````
+    ```
     bin/console user:create
-    ````
+    ```
 * __Change User Password:__
-    ````
+    ```
     bin/console user:changepassword
-    ````
+    ```
 * __Change User Roles:__
-    ````
+    ```
     bin/console user:role
-    ````
+    ```
 
 ### Multilingual System
 User logon for multi language is used. Each user can choose his / her own language.
@@ -129,8 +129,6 @@ For further information please contact [pd-mailer](https://github.com/rmznpydn/p
 
 Send Email:
 ```php 
-<?php
-
 // Create Message
 $message = (new PdSwiftMessage())
     ->setTemplateId('tester_template') // Unique id for the Mail Template
@@ -148,12 +146,93 @@ $this->get('mailer')->send($message);
 ```
 
 ### Create New Widget
-Widget sistemi Symfony "EventDispatcher Component" ile oluşturulmuştur. Her kullanıcı için ayarlanabilir bir yapıya sahip olup "Twig Template" motoru ile özel tasarım yapılabilir.
-Detaylı bilgi için [pd-widget](https://github.com/rmznpydn/pd-widget) ziyaret edin. 
+Widget system was created with Symfony "EventDispatcher Component". 
+It has an adjustable structure for each user and it can be specially designed with "Twig Template" engine. 
+For more information visit [pd-widget](https://github.com/rmznpydn/pd-widget)
 
-Example:
-```
-Coming SOON
+Create New Admin Widget:
+```php
+<?php
+//src/Admin/Widgets/AccountWidget.php
+
+namespace App\Admin\Widgets;
+
+use Pd\WidgetBundle\Builder\Item;
+use Pd\WidgetBundle\Event\WidgetEvent;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
+
+class AccountWidget
+{
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
+
+    /**
+     * Build Widgets.
+     *
+     * @param WidgetEvent $event
+     */
+    public function builder(WidgetEvent $event)
+    {
+        // Get Widget Container
+        $widgets = $event->getWidgetContainer();
+
+        // Add Widgets
+        $widgets
+            ->addWidget((new Item('user_statistics', 3600))
+                ->setGroup('admin') // Widget Adds to "Admin" Group
+                ->setName('widget_user_statistics.name')
+                ->setDescription('widget_user_statistics.description')
+                ->setTemplate('@Admin/Widget/userStatistics.html.twig')
+                ->setRole(['ADMIN_WIDGET_USERSTATISTICS'])
+                ->setConfigProcess(function (Request $request) {
+                    /**
+                     * Controller for Widget Settings
+                     * The return value is stored in the user specific database
+                     */
+                    if ($type = $request->get('type')) {
+                        switch ($type) {
+                            case '1week':
+                                return ['type' => '1week'];
+                            case '1month':
+                                return ['type' => '1month'];
+                            case '3month':
+                                return ['type' => '3month'];
+                        }
+                    }
+
+                    return false;
+                })
+                ->setData(function ($config) {
+                    /**
+                     * The return value can be used in the twig template.
+                     * The function will not execute unless you call it in the template.
+                     * You can use the database operations here.
+                     */
+                    // Set Default Config
+                    if (!isset($config['type'])) {
+                        $config['type'] = '1week';
+                    }
+
+                    // Create Statistics Data
+                    if ($config['type'] === '1month') {
+                        $data = ['chartDay' => '7'];
+                        // Create Data
+                    } else if ($config['type'] === '1month') {
+                        $data = ['chartDay' => '30'];
+                    } else {
+                        $data = ['chartDay' => '90'];
+                    }
+
+                    return $data;
+                })
+            );
+    }
+}
 ```
 
 ### Create New Menu
