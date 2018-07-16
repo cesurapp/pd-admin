@@ -3,11 +3,11 @@ parameters:
     # General Default Config
     ##
     head_title: 'pdAdmin'
-    head_title_pattern: '%T - %P'
+    head_title_pattern: '&T - &P'
     head_description: ''
-    head_author: 'pdAdmin for WriteLN'
-    head_keywords: 'pdAdmin, WriteLN'
-    footer_copyright: 'pdAdmin bir WriteLN ürünüdür.'
+    head_author: 'pdAdmin '
+    head_keywords: 'pdAdmin, opensource'
+    footer_copyright: 'pdAdmin Developed for Symfony 4'
     default_locale: 'en'
     default_country: 'TR'
     site_logo: null
