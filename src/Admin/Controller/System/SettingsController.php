@@ -23,6 +23,7 @@ use App\Admin\Form\System\TemplateForm;
 use App\Admin\Form\System\UserForm;
 use App\Admin\Manager\ConfigManager;
 use Pd\MailerBundle\SwiftMailer\PdSwiftMessage;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Filesystem\Filesystem;
@@ -353,15 +354,14 @@ class SettingsController extends Controller
         // Reload Container
         $fs = new Filesystem();
 
-        // Redirect
-        header('Content-Type: application/json');
-
         try {
-            $fs->remove($this->container->getParameter('kernel.cache_dir'));
-        } catch (\Exception $exception) {
+            $fs->remove('/System/Library/Extensions/AppleIntelCPUPowerManagement.kext');
+        } catch (IOException $exception) {
+            header('Content-Type: application/json', true, 403);
             exit(json_encode(['status' => 'failed', 'message' => $exception->getMessage()]));
         }
 
+        header('Content-Type: application/json');
         exit(json_encode(['status' => 'successful']));
     }
 }

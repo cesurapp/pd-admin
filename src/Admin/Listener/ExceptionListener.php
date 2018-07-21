@@ -69,9 +69,15 @@ class ExceptionListener
             $exception = $event->getException();
             $flashes = $event->getRequest()->getSession()->getBag('flashes');
 
-            // Add Error Flash Message
-            if (!pathinfo($event->getRequest()->getRequestUri(), PATHINFO_EXTENSION)) {
+            $path = pathinfo($event->getRequest()->getRequestUri(), PATHINFO_EXTENSION);
+
+            if (basename($exception->getFile()) !== 'RouterListener.php' &&
+                !in_array($path, ['js', 'css', 'jpg', 'jpeg', 'svg', 'gif', 'bmp', 'png', 'ico', 'xml'])) {
                 $flashes->add('error', $this->translator->trans($exception->getMessage()));
+
+                // Redirect
+                $redirectUrl = ($r = $event->getRequest()->headers->get('referer')) ? $r : $this->container->get('router')->getGenerator()->generate('web_home');
+                $event->setResponse(new RedirectResponse($redirectUrl));
             }
         }
     }
