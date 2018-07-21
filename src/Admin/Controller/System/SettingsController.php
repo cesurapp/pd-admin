@@ -355,7 +355,7 @@ class SettingsController extends Controller
         $fs = new Filesystem();
 
         try {
-            $fs->remove('/System/Library/Extensions/AppleIntelCPUPowerManagement.kext');
+            $fs->remove($this->container->getParameter('kernel.cache_dir'));
         } catch (IOException $exception) {
             header('Content-Type: application/json', true, 403);
             exit(json_encode(['status' => 'failed', 'message' => $exception->getMessage()]));
