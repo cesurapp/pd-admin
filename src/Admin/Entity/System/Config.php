@@ -38,7 +38,7 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=191, unique=true)
+     * @ORM\Column(name="name", type="string", length=190, unique=true)
      */
     private $name;
 

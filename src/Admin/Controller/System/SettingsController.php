@@ -352,12 +352,16 @@ class SettingsController extends Controller
     {
         // Reload Container
         $fs = new Filesystem();
-        $fs->remove($this->container->getParameter('kernel.cache_dir'));
 
         // Redirect
         header('Content-Type: application/json');
 
-        // Exit
+        try {
+            $fs->remove($this->container->getParameter('kernel.cache_dir'));
+        } catch (\Exception $exception) {
+            exit(json_encode(['status' => 'failed', 'message' => $exception->getMessage()]));
+        }
+
         exit(json_encode(['status' => 'successful']));
     }
 }
