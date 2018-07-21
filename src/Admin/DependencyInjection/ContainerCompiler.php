@@ -84,7 +84,7 @@ class ContainerCompiler
             $mergedConfig = array_merge($mergedConfig, $config);
         }
         $mergedConfig = $this->containerBuilder->getParameterBag()->resolveValue($mergedConfig);
-        $mergedConfig['dbal']['url'] = $_ENV['DATABASE_URL'];
+        $mergedConfig['dbal']['url'] = $_SERVER['DATABASE_URL'] ?? null;
 
         // Connect Database
         $connection_factory = new ConnectionFactory([]);
