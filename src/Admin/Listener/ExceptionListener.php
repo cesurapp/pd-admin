@@ -70,11 +70,9 @@ class ExceptionListener
             $flashes = $event->getRequest()->getSession()->getBag('flashes');
 
             // Add Error Flash Message
-            $flashes->add('error', $this->translator->trans($exception->getMessage()));
-
-            // Redirect
-            $redirectUrl = ($r = $event->getRequest()->headers->get('referer')) ? $r : $this->container->get('router')->getGenerator()->generate('web_home');
-            $event->setResponse(new RedirectResponse($redirectUrl));
+            if (!pathinfo($event->getRequest()->getRequestUri(), PATHINFO_EXTENSION)) {
+                $flashes->add('error', $this->translator->trans($exception->getMessage()));
+            }
         }
     }
 }
