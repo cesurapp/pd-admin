@@ -1,7 +1,7 @@
 {
-  "name": "rmznpydn/pd-admin",
+  "name": "appaydin/pd-admin",
   "description": "Symfony Powerful Admin Dashboard",
-  "homepage": "https://github.com/rmznpydn/pd-admin",
+  "homepage": "https://github.com/appaydin/pd-admin",
   "type": "project",
   "license": "MIT",
   "require": {
