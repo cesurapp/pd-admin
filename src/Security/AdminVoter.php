@@ -46,7 +46,7 @@ class AdminVoter extends Voter
         // Get User
         $user = $token->getUser();
 
-        // Check Login
+        // Check User Login
         if (!$user instanceof User) {
             return false;
         }

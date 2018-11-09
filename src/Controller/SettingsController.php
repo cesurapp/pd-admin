@@ -273,47 +273,6 @@ class SettingsController extends Controller
     }
 
     /**
-     * Template Settings.
-     *
-     * @param Request $request
-     *
-     * @IsGranted("ADMIN_SETTINGS_TEMPLATE")
-     * @Route(name="settings_template", path="/settings/template")
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     */
-    public function template(Request $request)
-    {
-        // Get Config Manager
-        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_template');
-
-        // Create Form
-        $form = $this->createForm(TemplateForm::class, $cm->getAll(), ['container' => $this->container]);
-
-        // Handle Request
-        $form->handleRequest($request);
-
-        // Submit & Valid Form
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Save Config
-            $cm->saveConfig($form);
-
-            // Flash Message
-            $this->addFlash('success', 'changes_saved');
-
-            // Refresh Page
-            return $this->redirectToRoute('admin_settings_template');
-        }
-
-        // Render Page
-        return $this->render('Admin/Settings/template.html.twig', [
-            'form' => $form->createView(),
-            'page_title' => 'settings_template',
-            'page_description' => 'settings_template_desc',
-        ]);
-    }
-
-    /**
      * Core Settings.
      *
      * @param Request $request

@@ -39,16 +39,6 @@ parameters:
     mail_delivery_address: []
 
     ##
-    # Template Default Config
-    ##
-    template_admin: 'default'
-    template_admin_color_css: 'default'
-    template_admin_form_themes: ''
-    template_auth: 'default'
-    template_auth_color_css: 'default'
-    template_web: 'default'
-
-    ##
     # User Default Config
     ##
     user_registration: true

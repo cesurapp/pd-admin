@@ -45,7 +45,6 @@ ADMIN_SETTINGS:
     title: Admin Ayarlar İzinleri
     GENERAL: Genel
     EMAIL: E-posta
-    TEMPLATE: Arayüz
     USER: Hesap
     MEDIA: Medya
     CONTACT: İletişim
@@ -263,14 +262,6 @@ mail_sender_name: Gönderici Adı
 mail_sender_name_info: Sistem e-postalarının gönderim adıdır.
 mail_test_address: Test E-posta
 mail_test_address_info: Test icin kullanılacak e-posta adresi girin.
-
-settings_template: Şablon Ayarlar
-settings_template_desc: Admin panel şablon ayarları
-nav_config_template: Şablon
-template_admin: Admin Şablon
-template_admin_color: Şablon Renk Düzeni
-template_auth: Login Şablon
-template_auth_color: Şablon Renk Düzeni
 
 settings_user: Hesap Ayarlar
 settings_user_desc: Kullanıcı hesap ayarları

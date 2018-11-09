@@ -49,12 +49,6 @@ class SettingsMenu extends Menu
             ->setRoute('admin_settings_email')
             ->setLinkAttr(['class' => 'nav-item'])
             ->setRoles(['ADMIN_SETTINGS_EMAIL'])
-            // Template
-            ->addChildParent('nav_config_template')
-            ->setLabel('nav_config_template')
-            ->setRoute('admin_settings_template')
-            ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_TEMPLATE'])
             // Account
             ->addChildParent('nav_config_user')
             ->setLabel('nav_config_user')

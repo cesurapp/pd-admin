@@ -1,0 +1,20 @@
+{# Template Parts #}
+{% extends "Admin/base.html.twig" %}
+
+{# Document #}
+{% block head_title %}{{ title('admin_dashboard') }}{% endblock %}
+
+{# Content Title #}
+{% block content_head %}
+    <span class="text">{{ 'admin_dashboard'|trans }}</span>
+    <span class="desc">{{ 'admin_dashboard_desc'|trans }}</span>
+{% endblock %}
+
+{# Content Body #}
+{% block content_body %}
+    <div class="dashboard ">
+        <p class="d-flex justify-content-center">
+            Üzgünüz aradığınız sayfa bulunamadı veya kullanımdan kaldırılmış olabilir.
+        </p>
+    </div>
+{% endblock %}

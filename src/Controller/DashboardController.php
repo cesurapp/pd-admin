@@ -16,6 +16,7 @@ namespace App\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -40,6 +41,19 @@ class DashboardController extends Controller
 
         // Render Page
         return $this->render('Admin/dashboard.html.twig');
+    }
+
+    /**
+     * 404 Not Found Pages
+     *
+     * @Route(name="not_found", path="/404")
+     *
+     * @return Response
+     */
+    public function notFound()
+    {
+        // Render Page
+        return $this->render('Admin/_other/notFound.twig', [], new Response('', 404));
     }
 
     /**

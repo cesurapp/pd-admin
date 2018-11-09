@@ -45,7 +45,6 @@ ADMIN_SETTINGS:
     title: Admin Settings Management
     GENERAL: General
     EMAIL: Email
-    TEMPLATE: Template
     USER: Account
     MEDIA: Media
     CONTACT: Contact
@@ -263,14 +262,6 @@ mail_sender_name: Sender Name
 mail_sender_name_info: This is the sender name of the system emails.
 mail_test_address: Test Email
 mail_test_address_info: Enter the e-mail address to be used for the test.
-
-settings_template: Template Settings
-settings_template_desc: Admin panel template settings
-nav_config_template: Template
-template_admin: Admin Template
-template_admin_color: Template Color Schema
-template_auth: Authorization Template
-template_auth_color: Template Color Schema
 
 settings_user: Account Settings
 settings_user_desc: User account settings
