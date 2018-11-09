@@ -33,7 +33,7 @@ class AccountAction extends Menu
             ->addChild('admin_account_delete', 1)
             ->setLabel('delete')
             ->setRoute('admin_account_delete', ['user' => $options['user']->getId()])
-            ->setRoles(['ADMIN_ACCOUNT_DELETE'])
+            ->setRoles(['ROLE_ACCOUNT_DELETE'])
             ->setExtra('label_icon', 'delete')
             ->setLinkAttr([
                 'class' => 'text-danger',
@@ -46,7 +46,7 @@ class AccountAction extends Menu
             ->addChildParent('admin_account_activate', 1)
             ->setLabel('activate_deactivate')
             ->setRoute('admin_account_activate', ['user' => $options['user']->getId(), 'status' => $options['user']->isEnabled() ? 0 : 1])
-            ->setRoles(['ADMIN_ACCOUNT_ACTIVATE'])
+            ->setRoles(['ROLE_ACCOUNT_ACTIVATE'])
             ->setExtra('label_icon', 'check_circle')
             ->setLinkAttr([
                 'class' => $options['user']->isEnabled() ? 'text-success' : '',
@@ -58,7 +58,7 @@ class AccountAction extends Menu
             ->addChildParent('admin_account_freeze', 1)
             ->setLabel('freeze_unfreeze')
             ->setRoute('admin_account_freeze', ['user' => $options['user']->getId(), 'status' => $options['user']->isFreeze() ? 0 : 1])
-            ->setRoles(['ADMIN_ACCOUNT_FREEZE'])
+            ->setRoles(['ROLE_ACCOUNT_FREEZE'])
             ->setExtra('label_icon', 'check_circle')
             ->setLinkAttr([
                 'class' => $options['user']->isFreeze() ? 'text-danger' : '',
@@ -81,7 +81,7 @@ class AccountAction extends Menu
             ->addChildParent('admin_account_addgroup', 1)
             ->setLabel('edit_group')
             ->setRoute('admin_account_addgroup', ['user' => $options['user']->getId()])
-            ->setRoles(['ADMIN_ACCOUNT_ADDGROUP'])
+            ->setRoles(['ROLE_ACCOUNT_ADDGROUP'])
             ->setExtra('label_icon', 'group')
             ->setLinkAttr([
                 'data-tooltip' => '',
@@ -92,7 +92,7 @@ class AccountAction extends Menu
             ->addChildParent('admin_account_roles', 1)
             ->setLabel('edit_roles')
             ->setRoute('admin_account_roles', ['user' => $options['user']->getId()])
-            ->setRoles(['ADMIN_ACCOUNT_ROLES'])
+            ->setRoles(['ROLE_ACCOUNT_ROLES'])
             ->setExtra('label_icon', 'lock')
             ->setLinkAttr([
                 'data-tooltip' => '',
@@ -103,7 +103,7 @@ class AccountAction extends Menu
             ->addChildParent('admin_account_changepassword', 1)
             ->setLabel('change_password')
             ->setRoute('admin_account_changepassword', ['user' => $options['user']->getId()])
-            ->setRoles(['ADMIN_ACCOUNT_CHANGEPASSWORD'])
+            ->setRoles(['ROLE_ACCOUNT_CHANGEPASSWORD'])
             ->setExtra('label_icon', 'security')
             ->setLinkAttr([
                 'data-tooltip' => '',
@@ -114,7 +114,7 @@ class AccountAction extends Menu
             ->addChildParent('admin_account_edit', 1)
             ->setLabel('edit')
             ->setRoute('admin_account_edit', ['user' => $options['user']->getId()])
-            ->setRoles(['ADMIN_ACCOUNT_EDIT'])
+            ->setRoles(['ROLE_ACCOUNT_EDIT'])
             ->setExtra('label_icon', 'mode_edit')
             ->setLinkAttr([
                 'data-tooltip' => '',

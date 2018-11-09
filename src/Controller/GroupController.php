@@ -35,7 +35,7 @@ class GroupController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ADMIN_GROUP_LIST")
+     * @IsGranted("ROLE_GROUP_LIST")
      * @Route(name="account_group_list", path="/account/group")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -71,7 +71,7 @@ class GroupController extends Controller
      * @param Group   $group
      * @param Request $request
      *
-     * @IsGranted("ADMIN_GROUP_EDIT")
+     * @IsGranted("ROLE_GROUP_EDIT")
      * @Route(name="account_group_edit", path="/account/group/edit/{group}")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -107,7 +107,7 @@ class GroupController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ADMIN_GROUP_NEW")
+     * @IsGranted("ROLE_GROUP_NEW")
      * @Route(name="account_group_new", path="/account/group/new")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -145,7 +145,7 @@ class GroupController extends Controller
      * @param Group   $group
      * @param Request $request
      *
-     * @IsGranted("ADMIN_GROUP_ROLES")
+     * @IsGranted("ROLE_GROUP_ROLES")
      * @Route(name="account_group_roles", path="/account/group/roles/{group}")
      *
      * @throws \Doctrine\Common\Annotations\AnnotationException
@@ -248,7 +248,7 @@ class GroupController extends Controller
      * @param Group   $group
      * @param Request $request
      *
-     * @IsGranted("ADMIN_GROUP_DELETE")
+     * @IsGranted("ROLE_GROUP_DELETE")
      * @Route(name="account_group_delete", path="/account/group/delete/{group}")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

@@ -41,8 +41,8 @@ class AccountController extends Controller
      * Security Manager Add Custom Roles.
      */
     const CUSTOM_ROLES = [
-        'ADMIN_ACCOUNT_ALLREAD',
-        'ADMIN_ACCOUNT_ALLWRITE',
+        'ROLE_ACCOUNT_ALLREAD',
+        'ROLE_ACCOUNT_ALLWRITE',
     ];
 
     /**
@@ -50,7 +50,7 @@ class AccountController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ADMIN_ACCOUNT_LIST")
+     * @IsGranted("ROLE_ACCOUNT_LIST")
      * @Route(name="account_list", path="/account")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -139,7 +139,7 @@ class AccountController extends Controller
      * @param Request $request
      * @param User    $user
      *
-     * @IsGranted("ADMIN_ACCOUNT_EDIT")
+     * @IsGranted("ROLE_ACCOUNT_EDIT")
      * @Route(name="account_edit", path="/account/edit/{user}")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -192,7 +192,7 @@ class AccountController extends Controller
      * @param Request $request
      * @param User    $user
      *
-     * @IsGranted("ADMIN_ACCOUNT_CHANGEPASSWORD")
+     * @IsGranted("ROLE_ACCOUNT_CHANGEPASSWORD")
      * @Route(name="account_changepassword", path="/account/changepassword/{user}")
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -245,7 +245,7 @@ class AccountController extends Controller
      * @param Request $request
      * @param User    $user
      *
-     * @IsGranted("ADMIN_ACCOUNT_ROLES")
+     * @IsGranted("ROLE_ACCOUNT_ROLES")
      * @Route(name="account_roles", path="/account/role/{user}")
      *
      * @throws \Doctrine\Common\Annotations\AnnotationException
@@ -353,7 +353,7 @@ class AccountController extends Controller
      * @param Request $request
      * @param User    $user
      *
-     * @IsGranted("ADMIN_ACCOUNT_ADDGROUP")
+     * @IsGranted("ROLE_ACCOUNT_ADDGROUP")
      * @Route(name="account_addgroup", path="/account/addGroup/{user}")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -416,7 +416,7 @@ class AccountController extends Controller
      * @param Request $request
      * @param User    $user
      *
-     * @IsGranted("ADMIN_ACCOUNT_DELETE")
+     * @IsGranted("ROLE_ACCOUNT_DELETE")
      * @Route(name="account_delete", path="/accounts/delete/{user}")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -445,7 +445,7 @@ class AccountController extends Controller
      * @param User    $user
      * @param $status
      *
-     * @IsGranted("ADMIN_ACCOUNT_ACTIVATE")
+     * @IsGranted("ROLE_ACCOUNT_ACTIVATE")
      * @Route(name="account_activate", path="/account/activate/{user}/{status}")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
@@ -477,7 +477,7 @@ class AccountController extends Controller
      * @param User    $user
      * @param $status
      *
-     * @IsGranted("ADMIN_ACCOUNT_FREEZE")
+     * @IsGranted("ROLE_ACCOUNT_FREEZE")
      * @Route(name="account_freeze", path="/account/freeze/{user}/{status}")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

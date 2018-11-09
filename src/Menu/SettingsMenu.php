@@ -36,37 +36,37 @@ class SettingsMenu extends Menu
             ->setLabel('nav_config_general')
             ->setRoute('admin_settings_general')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_GENERAL'])
+            ->setRoles(['ROLE_SETTINGS_GENERAL'])
             // Contact
             ->addChildParent('nav_config_contact')
             ->setLabel('nav_config_contact')
             ->setRoute('admin_settings_contact')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_CONTACT'])
+            ->setRoles(['ROLE_SETTINGS_CONTACT'])
             // Email
             ->addChildParent('nav_config_email')
             ->setLabel('nav_config_email')
             ->setRoute('admin_settings_email')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_EMAIL'])
+            ->setRoles(['ROLE_SETTINGS_EMAIL'])
             // Account
             ->addChildParent('nav_config_user')
             ->setLabel('nav_config_user')
             ->setRoute('admin_settings_user')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_USER'])
+            ->setRoles(['ROLE_SETTINGS_USER'])
             // Media
             ->addChildParent('nav_config_media')
             ->setLabel('nav_config_media')
             ->setRoute('admin_settings_media')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_MEDIA'])
+            ->setRoles(['ROLE_SETTINGS_MEDIA'])
             // Core
             ->addChildParent('nav_config_core')
             ->setLabel('nav_config_core')
             ->setRoute('admin_settings_core')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_CORE']);
+            ->setRoles(['ROLE_SETTINGS_CORE']);
 
         return $menu;
     }

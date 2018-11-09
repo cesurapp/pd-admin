@@ -103,14 +103,14 @@ class ToolbarNav extends Menu
             ->setRoute('admin_account_edit', ['user' => $options['user']->getId()])
             ->setLinkAttr(['class' => 'dropdown-item'])
             ->setExtra('label_icon', 'person')
-            ->setRoles(['ADMIN_ACCOUNT_EDIT'])
+            ->setRoles(['ROLE_ACCOUNT_EDIT'])
             // Change Password
             ->addChildParent('nav_profile_password')
             ->setLabel('nav_profile_password')
             ->setRoute('admin_account_changepassword', ['user' => $options['user']->getId()])
             ->setLinkAttr(['class' => 'dropdown-item'])
             ->setExtra('label_icon', 'security')
-            ->setRoles(['ADMIN_ACCOUNT_CHANGEPASSWORD'])
+            ->setRoles(['ROLE_ACCOUNT_CHANGEPASSWORD'])
             // Add Divider
             ->addChildParent('divider')
             ->setExtra('label_translate', false)

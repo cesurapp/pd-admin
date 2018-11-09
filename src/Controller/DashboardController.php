@@ -30,7 +30,7 @@ class DashboardController extends Controller
      * Dashboard Index.
      *
      * @Route(name="dashboard", path="/")
-     * @IsGranted("ADMIN_DASHBOARD_PANEL")
+     * @IsGranted("ROLE_DASHBOARD_PANEL")
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */

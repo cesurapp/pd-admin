@@ -36,22 +36,22 @@ class AccountMenu extends Menu
             ->addChild('nav_account_edit', 1)
             ->setLabel('nav_account_edit')
             ->setRoute('admin_account_edit', ['user' => $options['user'] ?? 0])
-            ->setRoles(['ADMIN_ACCOUNT_EDIT'])
+            ->setRoles(['ROLE_ACCOUNT_EDIT'])
 
             ->addChildParent('nav_account_change_password', 5)
             ->setLabel('nav_account_change_password')
             ->setRoute('admin_account_changepassword', ['user' => $options['user'] ?? 0])
-            ->setRoles(['ADMIN_ACCOUNT_CHANGEPASSWORD'])
+            ->setRoles(['ROLE_ACCOUNT_CHANGEPASSWORD'])
 
             ->addChildParent('nav_account_roles', 10)
             ->setLabel('nav_account_roles')
             ->setRoute('admin_account_roles', ['user' => $options['user'] ?? 0])
-            ->setRoles(['ADMIN_ACCOUNT_EDITROLES'])
+            ->setRoles(['ROLE_ACCOUNT_EDITROLES'])
 
             ->addChildParent('nav_account_group', 15)
             ->setLabel('nav_account_group')
             ->setRoute('admin_account_addgroup', ['user' => $options['user'] ?? 0])
-            ->setRoles(['ADMIN_ACCOUNT_ADDGROUP']);
+            ->setRoles(['ROLE_ACCOUNT_ADDGROUP']);
 
         return $menu;
     }

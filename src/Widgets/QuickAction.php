@@ -97,7 +97,7 @@ class QuickAction
                 ->setName('widget_quick_action.name')
                 ->setDescription('widget_quick_action.description')
                 ->setTemplate('Admin/Widget/quickAction.html.twig')
-                ->setRole(['ADMIN_WIDGET_QUICKACTION'])
+                ->setRole(['ROLE_WIDGET_QUICKACTION'])
                 ->setConfigProcess(function (Request $request) use ($items) {
                     if ($id = $request->get('id')) {
                         if (isset($items[$id])) {

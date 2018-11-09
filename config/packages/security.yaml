@@ -17,6 +17,7 @@ security:
             pattern:    ^/
             provider: pdadmin_auth
             user_checker: Pd\UserBundle\Security\UserChecker
+            access_denied_handler: App\Security\AccessDeniedHandler
             anonymous: true
             switch_user: true
             http_basic: ~

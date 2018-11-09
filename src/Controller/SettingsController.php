@@ -40,7 +40,7 @@ class SettingsController extends Controller
      * General Settings.
      *
      * @param Request $request
-     * @IsGranted("ADMIN_SETTINGS_GENERAL")
+     * @IsGranted("ROLE_SETTINGS_GENERAL")
      * @Route(name="settings_general", path="/settings")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -81,7 +81,7 @@ class SettingsController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ADMIN_SETTINGS_CONTACT")
+     * @IsGranted("ROLE_SETTINGS_CONTACT")
      * @Route(name="settings_contact", path="/settings/contact")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -122,7 +122,7 @@ class SettingsController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ADMIN_SETTINGS_EMAIL")
+     * @IsGranted("ROLE_SETTINGS_EMAIL")
      * @Route(name="settings_email", path="/settings/email")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -195,7 +195,7 @@ class SettingsController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ADMIN_SETTINGS_USER")
+     * @IsGranted("ROLE_SETTINGS_USER")
      * @Route(name="settings_user", path="/settings/user")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -236,7 +236,7 @@ class SettingsController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ADMIN_SETTINGS_MEDIA")
+     * @IsGranted("ROLE_SETTINGS_MEDIA")
      * @Route(name="settings_media", path="/settings/media")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -277,7 +277,7 @@ class SettingsController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ADMIN_SETTINGS_CORE")
+     * @IsGranted("ROLE_SETTINGS_CORE")
      * @Route(name="settings_core", path="/settings/core")
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
@@ -316,7 +316,7 @@ class SettingsController extends Controller
     /**
      * Clear Symfony Cache.
      *
-     * @IsGranted("ADMIN_SETTINGS_ROUTING")
+     * @IsGranted("ROLE_SETTINGS_ROUTING")
      * @Route(name="settings_clearcache", path="/refresh/cache")
      */
     public function clearCache()

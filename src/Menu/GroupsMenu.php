@@ -36,12 +36,12 @@ class GroupsMenu extends Menu
             ->addChild('nav_group_edit', 1)
             ->setLabel('nav_group_edit')
             ->setRoute('admin_account_group_edit', ['group' => $options['group'] ?? 0])
-            ->setRoles(['ADMIN_GROUP_EDIT'])
+            ->setRoles(['ROLE_GROUP_EDIT'])
 
             ->addChildParent('nav_group_roles', 5)
             ->setLabel('nav_group_roles')
             ->setRoute('admin_account_group_roles', ['group' => $options['group'] ?? 0])
-            ->setRoles(['ADMIN_GROUP_ROLES']);
+            ->setRoles(['ROLE_GROUP_ROLES']);
 
         return $menu;
     }

@@ -13,13 +13,10 @@
 
 namespace App\Listener;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Exception Listener.
@@ -29,34 +26,18 @@ use Symfony\Component\Translation\TranslatorInterface;
 class ExceptionListener
 {
     /**
-     * @var ContainerInterface
+     * @var RouterInterface
      */
-    private $container;
-
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * Kernel Environment.
-     *
-     * @var string
-     */
-    private $environment;
+    private $router;
 
     /**
      * ExceptionListener constructor.
      *
-     * @param ContainerInterface $container
-     * @param TranslatorInterface $translator
-     * @param string $environment
+     * @param RouterInterface $router
      */
-    public function __construct(ContainerInterface $container, TranslatorInterface $translator, string $environment)
+    public function __construct(RouterInterface $router)
     {
-        $this->container = $container;
-        $this->translator = $translator;
-        $this->environment = $environment;
+        $this->router = $router;
     }
 
     /**
@@ -71,38 +52,8 @@ class ExceptionListener
 
         switch (get_class($exception)) {
             case NotFoundHttpException::class:
-                $event->setResponse(new RedirectResponse(
-                    $this->container->get('router')->getGenerator()->generate('admin_not_found')
-                ));
-                break;
-            case AccessDeniedHttpException::class:
-                $event->setResponse(
-                    $this->setAccessDeniedMessage($event, $exception->getMessage())
-                );
+                $event->setResponse(new RedirectResponse($this->router->generate('admin_not_found')));
                 break;
         }
-    }
-
-    /**
-     * Set Access Denied Message for Flashes
-     *
-     * @param GetResponseForExceptionEvent $event
-     * @param string $message
-     *
-     * @return Response
-     */
-    private function setAccessDeniedMessage(GetResponseForExceptionEvent $event, string $message): Response
-    {
-        // Set Flash Message
-        $event
-            ->getRequest()
-            ->getSession()
-            ->getBag('flashes')
-            ->add('error', $this->translator->trans($message));
-
-        // Return Response
-        return new RedirectResponse(
-            $event->getRequest()->headers->get('referer') ?? $this->container->get('router')->getGenerator()->generate('admin_dashboard')
-        );
     }
 }

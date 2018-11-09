@@ -7,9 +7,13 @@ services:
         autoconfigure: true
         public: false
 
-    # Load Voters
-    App\Security\:
-        resource: '../src/Security/*'
+    App\:
+        resource: '../src/*'
+        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Widgets,Kernel.php}'
+
+    App\Controller\:
+        resource: '../src/Controller'
+        tags: ['controller.service_arguments']
 
     # Load Widgets
     App\Widgets\:
@@ -21,8 +25,6 @@ services:
     App\Listener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
-        arguments:
-            $environment: "%kernel.environment%"
 
     # Switch User Listener
     security.authentication.switchuser_listener:
@@ -41,17 +43,3 @@ services:
                      "ROLE_SWITCHABLE" ]
         tags:
             - { name: monolog.logger, channel: security }
-
-    # Twig Extension
-    App\Twig\FormatExtension:
-        tags: ['twig.extension']
-
-    #    App\:
-    #        resource: '../src/*'
-    #        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
-
-    # controllers are imported separately to make sure services can be injected
-    # as action arguments even if you don't extend any base controller class
-#    App\Controller\:
-#        resource: '../src/Controller'
-#        tags: ['controller.service_arguments']
