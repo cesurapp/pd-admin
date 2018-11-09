@@ -3,7 +3,6 @@ framework:
     csrf_protection: { enabled: true }
     http_method_override: false
     session:
-        #handler_id: ~
         name: pdAdmin
         handler_id: session.handler.native_file
         save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
@@ -17,12 +16,4 @@ framework:
             upload:
                 base_path: "uploads"
             admin:
-                base_path: "build/admin/%template_admin%"
-            admincolor:
-                base_path: "build/admin/%template_admin%/%template_admin_color_css%"
-            auth:
-                base_path: "build/auth/%template_auth%"
-            authcolor:
-                base_path: "build/auth/%template_auth%/%template_auth_color_css%"
-            web:
-                base_path: "build/web/%template_web%"
+                base_path: "build/admin"

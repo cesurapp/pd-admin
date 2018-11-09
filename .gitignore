@@ -5,9 +5,10 @@
 
 ###> Symfony ###
 .env
-.web-server-pid
+/public/bundles/
 /var/
 /vendor/
+.web-server-pid
 src/Entity/*~
 src/*/Entity/*~
 src/*/Entity/*/*~
@@ -23,4 +24,3 @@ node_modules
 .idea
 /build/
 .DS_Store
-.php_cs.cache

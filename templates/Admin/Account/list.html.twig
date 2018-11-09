@@ -1,0 +1,76 @@
+{# Template Parts #}
+{% extends "Admin/base.html.twig" %}
+
+{# Document #}
+{% block head_title %}{{ title('admin_account_list'|trans) }}{% endblock %}
+
+{# Content Title #}
+{% block content_head %}
+    <span class="text">{{ 'admin_account_list'|trans }}</span>
+    <span class="desc">{{ 'admin_account_desc'|trans({'%s' : users.getTotalItemCount }) }}</span>
+{% endblock %}
+
+{# Content Body #}
+{% block content_body %}
+    <!-- Action Button -->
+    <div id="actions">
+        <div class="btn-group">
+            <button class="btn btn-success" data-toggle="modal" data-target="#searchFilter" data-tooltip title="{{ 'search_filter'|trans }}"><i class="material-icons">search</i></button>
+        </div>
+    </div>
+
+    <!-- Search Filter Form -->
+    <div id="searchFilter" class="modal fade" tabindex="-1">
+        <form action="{{ path('admin_account_list') }}" class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header"><h4><i class="material-icons">search</i>{{ 'search_filter_title'|trans }}</h4></div>
+                <div class="modal-body">
+                    {{ form_widget(filterForm) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">{{ 'close'|trans }}</button>
+                    <button type="submit" class="btn btn-success">{{ 'search_filter'|trans }}</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Table List -->
+    <form id="pageForm" action="#" method="post">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th class="check">#</th>
+                        <th class="wid-25">{{ knp_pagination_sortable(users, 'account_firstname'|trans, 'p.firstname') }}</th>
+                        <th class="wid-25">{{ knp_pagination_sortable(users, 'account_email'|trans, 'u.email') }}</th>
+                        <th class="wid-20">{{ knp_pagination_sortable(users, 'account_phone'|trans, 'p.phone') }}</th>
+                        <th class="wid-20">{{ knp_pagination_sortable(users, 'account_lastlogin'|trans, 'u.lastLogin') }}</th>
+                        <th class="process"></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td class="check"><span class="badge rounded-circle {{ user.freeze ? 'badge-danger' : (user.enabled ? 'badge-success' : 'badge-warning') }}" data-tooltip title="{{ user.freeze ? 'account_frozen'|trans : (user.enabled ? 'enabled'|trans : 'disabled'|trans ) }}">&nbsp;&nbsp;&nbsp;</span></td>
+                        <td class="wid-25">{{ user.profile.firstname ~' '~ user.profile.lastname }}</td>
+                        <td class="wid-25">{{ user.email }}</td>
+                        <td class="wid-20">{{ user.profile.phone|phoneFormat }}</td>
+                        <td class="wid-20">{{ user.lastLogin|timeDiff }}</td>
+                        <td class="process">
+                            <div class="floating-menu">
+                                <a><i class="material-icons">more_horiz</i></a>
+                                {{ pd_menu_render('App\\Menu\\Action\\AccountAction', {'user': user}) }}
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </form>
+
+    <!-- Pagination -->
+    {{ knp_pagination_render(users) }}
+{% endblock %}

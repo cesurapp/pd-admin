@@ -12,13 +12,12 @@
     "sumoselect": "^3.0.5"
   },
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.20.1",
-    "autoprefixer": "^8.6.2",
-    "copy-webpack-plugin": "^4.5.1",
-    "node-sass": "^4.9.0",
-    "postcss-loader": "^2.1.5",
-    "sass-loader": "^7.0.3",
-    "webpack-notifier": "^1.6.0"
+    "@symfony/webpack-encore": "^0.21.0",
+    "autoprefixer": "^9.3.1",
+    "node-sass": "^4.10.0",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
+    "webpack-notifier": "^1.7.0"
   },
   "scripts": {
     "dev-server": "./node_modules/.bin/encore dev-server",

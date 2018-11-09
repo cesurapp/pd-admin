@@ -3,25 +3,26 @@
 ##
 authorization:
     resource: "@PdUserBundle/Resources/config/routing.yaml"
-    prefix: 'auth'
 
 ##
-# Admin Routing
-##
-admin:
-    resource: "../src/Admin/Resources/config/routing.yaml"
-    prefix: "admin"
-
-##
-# PD Mailer Bundle
+# Admin Mailer Routing
 ##
 admin_mailer:
     resource: "@PdMailerBundle/Resources/config/routing.yaml"
-    prefix: "admin"
+    prefix: 'admin'
 
 ##
-# Website Frontend Routing
+# Admin Widget Routing
 ##
-web:
-    resource: "../src/Web/Resources/config/routing.yaml"
-    prefix: /
+admin_widget:
+    resource: "@PdWidgetBundle/Resources/config/routing.yml"
+    prefix: 'admin'
+
+##
+# Admin Controller Routing
+##
+admin:
+    resource: ../src/Controller/
+    type: annotation
+    prefix: 'admin'
+    name_prefix: 'admin_'

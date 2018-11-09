@@ -1,13 +1,13 @@
 security:
     encoders:
-        App\Admin\Entity\Account\User:
+        App\Entity\Account\User:
             algorithm: argon2i
     role_hierarchy:
         ROLE_ADMIN:       [ROLE_USER]
     providers:
         pdadmin_auth:
             entity:
-                class: App\Admin\Entity\Account\User
+                class: App\Entity\Account\User
                 property: email
     firewalls:
         dev:

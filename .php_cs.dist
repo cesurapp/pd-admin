@@ -3,11 +3,10 @@
 $fileHeaderComment = <<<COMMENT
 This file is part of the pdAdmin package.
 
-@package     pdAdmin
-@author      Ramazan APAYDIN <iletisim@ramazanapaydin.com>
-@copyright   Copyright (c) 2018 pdAdmin
+@package     pd-admin
 @license     LICENSE
-@link        https://github.com/rmznpydn/pd-admin
+@author      Kerem APAYDIN <kerem@apaydin.me>
+@link        https://github.com/appaydin/pd-admin
 COMMENT;
 
 $finder = PhpCsFixer\Finder::create()
@@ -17,7 +16,6 @@ $finder = PhpCsFixer\Finder::create()
     ->exclude('public')
     ->exclude('assets')
     ->exclude('templates')
-    ->exclude('Pd')
 ;
 
 return PhpCsFixer\Config::create()
@@ -25,6 +23,7 @@ return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        'psr4' => true,
         'array_syntax' => ['syntax' => 'short'],
         'header_comment' => ['header' => $fileHeaderComment, 'separate' => 'both', 'commentType' => 'PHPDoc'],
         'linebreak_after_opening_tag' => true,
@@ -36,8 +35,13 @@ return PhpCsFixer\Config::create()
         'php_unit_strict' => true,
         'phpdoc_order' => true,
         'semicolon_after_instruction' => true,
-        'strict_comparison' => true,
-        'strict_param' => true,
+        'blank_line_after_namespace' => true,
+        'class_definition' => true,
+        'multiline_comment_opening_closing' => true,
+        'single_line_comment_style' => true,
+        'single_blank_line_before_namespace' => true,
+        'phpdoc_trim' => true,
+        'no_extra_consecutive_blank_lines' => true
     ])
     ->setFinder($finder)
     ->setCacheFile(__DIR__.'/var/cache/.php_cs.cache')

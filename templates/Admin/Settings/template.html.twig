@@ -1,0 +1,89 @@
+{# Template Parts #}
+{% extends "Admin/base.html.twig" %}
+
+{# Document #}
+{% block head_title %}{{ title(page_title|trans) }}{% endblock %}
+
+{# Content Title #}
+{% block content_head %}
+    <span class="text">{{ page_title|trans }}</span>
+    <span class="desc">{{ page_description|trans }}</span>
+    <a href="#" class="addbtn btn-success" data-toggle="modal" data-target="#cacheModal" data-tooltip title="{{ 'admin_refresh_cache'|trans }}"><i class="material-icons">refresh</i></a>
+{% endblock %}
+
+{# Content Navigation #}
+{% block content_nav %}{{ pd_menu_render('App\\Menu\\SettingsMenu') }}{% endblock %}
+
+{# Content Body #}
+{% block content_body %}
+    {% include "Admin/Settings/refreshCache.html.twig" %}
+
+    <div class="content-form">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+    {# Preview Container #}
+    <div id="template-preview" class="mt-4">
+        <img class="img-fluid rounded" src="{{ asset("build/admin/default/preview.png") }}">
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+      // Select Admin Change
+      $('#template_admin').change(function () {
+        var previewURL = '{{ asset("build/admin/default/preview.png") }}';
+        previewURL = previewURL.replace('default', $(this).val());
+
+        // Preview New URL
+        $('#template-preview img').attr('src', previewURL);
+
+        var form = $(this).closest('form');
+        var data = {};
+        data[$(this).attr('name')] = $(this).val();
+
+        // Send Ajax
+        $.ajax({
+          url: form.attr('action'),
+          type: form.attr('method'),
+          data: data,
+          success: function (html) {
+            $('#template_admin_color_css').closest('.form-group').replaceWith(
+              $(html).find('#template_admin_color_css').closest('.form-group')
+            );
+
+            $('#template_admin_color_css').SumoSelect();
+          }
+        });
+      });
+
+      // Select Auth Change
+      $('#template_auth').change(function () {
+        var previewURL = '{{ asset("build/auth/default/preview.png") }}';
+        previewURL = previewURL.replace('default', $(this).val());
+
+        // Preview New URL
+        $('#template-preview img').attr('src', previewURL);
+
+        var form = $(this).closest('form');
+        var data = {};
+        data[$(this).attr('name')] = $(this).val();
+
+        // Send Ajax
+        $.ajax({
+          url: form.attr('action'),
+          type: form.attr('method'),
+          data: data,
+          success: function (html) {
+            $('#template_auth_color_css').closest('.form-group').replaceWith(
+              $(html).find('#template_auth_color_css').closest('.form-group')
+            );
+
+            $('#template_auth_color_css').SumoSelect();
+          }
+        });
+      });
+    </script>
+{% endblock %}

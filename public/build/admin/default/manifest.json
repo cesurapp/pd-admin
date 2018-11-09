@@ -1,8 +1,0 @@
-{
-  "build/admin/default/app.js": "/build/admin/default/app.js",
-  "build/admin/default/vendor.js": "/build/admin/default/vendor.js",
-  "build/admin/default/default/bootstrap.css": "/build/admin/default/default/bootstrap.css",
-  "build/admin/default/default/app.css": "/build/admin/default/default/app.css",
-  "build/admin/default/dark/bootstrap.css": "/build/admin/default/dark/bootstrap.css",
-  "build/admin/default/dark/app.css": "/build/admin/default/dark/app.css"
-}

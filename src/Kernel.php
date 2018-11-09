@@ -3,18 +3,17 @@
 /**
  * This file is part of the pdAdmin package.
  *
- * @package     pdAdmin
+ * @package     pd-admin
  *
- * @author      Ramazan APAYDIN <iletisim@ramazanapaydin.com>
- * @copyright   Copyright (c) 2018 pdAdmin
  * @license     LICENSE
+ * @author      Kerem APAYDIN <kerem@apaydin.me>
  *
- * @link        https://github.com/rmznpydn/pd-admin
+ * @link        https://github.com/appaydin/pd-admin
  */
 
 namespace App;
 
-use App\Admin\DependencyInjection\ContainerCompiler;
+use App\DependencyInjection\ContainerCompiler;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\Config\Resource\FileResource;
@@ -60,7 +59,7 @@ class Kernel extends BaseKernel
         $loader->load($confDir.'/{services}_'.$this->environment.self::CONFIG_EXTS, 'glob');
 
         // Render Database Config
-        if (!in_array($this->environment, ['test'], true)) {
+        if (!\in_array($this->environment, ['test'], true)) {
             new ContainerCompiler($container);
         }
     }

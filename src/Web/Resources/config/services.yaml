@@ -1,9 +1,0 @@
-services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
-
-    # Load Services Automatic
-    App\Web\:
-        resource: '../../*'

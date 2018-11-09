@@ -1,8 +1,0 @@
-theme:
-    name: pdAdmin Default Theme
-    description: pdAdmin responsive theme
-config:
-    twig_form_themes: null
-color:
-    default: default
-    dark: dark
