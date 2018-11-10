@@ -101,19 +101,19 @@ class SettingsMenu extends Menu
             ->setLabel('nav_config_general')
             ->setRoute('admin_settings_general')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_GENERAL'])
+            ->setRoles(['ROLE_SETTINGS_GENERAL'])
             // Contact
             ->addChildParent('nav_config_contact')
             ->setLabel('nav_config_contact')
             ->setRoute('admin_settings_contact')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_CONTACT'])
+            ->setRoles(['ROLE_SETTINGS_CONTACT'])
             // Email
             ->addChildParent('nav_config_email')
             ->setLabel('nav_config_email')
             ->setRoute('admin_settings_email')
             ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ADMIN_SETTINGS_EMAIL']);
+            ->setRoles(['ROLE_SETTINGS_EMAIL']);
             
         return $menu;
     }
@@ -188,7 +188,7 @@ class AccountWidget
                 ->setName('widget_user_statistics.name')
                 ->setDescription('widget_user_statistics.description')
                 ->setTemplate('@Admin/Widget/userStatistics.html.twig')
-                ->setRole(['ADMIN_WIDGET_USERSTATISTICS'])
+                ->setRole(['ROLE_WIDGET_USERSTATISTICS'])
                 ->setConfigProcess(function (Request $request) {
                     /**
                      * Controller for Widget Settings
@@ -261,7 +261,7 @@ class MainNav extends Menu
         $menu->addChild('nav_dashboard', 1)
             ->setLabel('nav_dashboard')
             ->setRoute('admin_dashboard')
-            ->setRoles(['ADMIN_DASHBOARD'])
+            ->setRoles(['ROLE_DASHBOARD'])
             ->setExtra('label_icon', 'dashboard');
 
         /*
@@ -271,18 +271,18 @@ class MainNav extends Menu
             ->addChild('nav_account', 5)
             ->setLabel('nav_account')
             ->setRoute('admin_account_list')
-            ->setRoles(['ADMIN_ACCOUNT_LIST'])
+            ->setRoles(['ROLE_ACCOUNT_LIST'])
             ->setExtra('label_icon', 'people')
                 // Account List
                 ->addChild('nav_account', 1)
                 ->setLabel('nav_account')
                 ->setRoute('admin_account_list')
-                ->setRoles(['ADMIN_ACCOUNT_LIST'])
+                ->setRoles(['ROLE_ACCOUNT_LIST'])
                 // Group List
                 ->addChildParent('nav_group', 2)
                 ->setLabel('nav_group')
                 ->setRoute('admin_account_group_list')
-                ->setRoles(['ADMIN_GROUP_LIST']);
+                ->setRoles(['ROLE_GROUP_LIST']);
 
         return $menu;
     }
