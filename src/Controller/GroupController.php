@@ -264,6 +264,6 @@ class GroupController extends Controller
         $this->addFlash('success', 'changes_saved');
 
         // Redirect back
-        return $this->redirect(($r = $request->headers->get('referer')) ? $r : $this->generateUrl('admin_account_group_list'));
+        return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('admin_account_group_list'));
     }
 }

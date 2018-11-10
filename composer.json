@@ -4,6 +4,12 @@
   "homepage": "https://github.com/appaydin/pd-admin",
   "type": "project",
   "license": "MIT",
+  "authors": [
+    {
+      "name": "Kerem APAYDIN",
+      "homepage": "http://apaydin.me"
+    }
+  ],
   "require": {
     "php": "^7.1.3",
     "ext-ctype": "*",
@@ -11,7 +17,7 @@
     "ext-json": "*",
     "appaydin/pd-mailer": "^1.0",
     "appaydin/pd-menu": "^1.0",
-    "appaydin/pd-user": "^1.01",
+    "appaydin/pd-user": "^1.02",
     "appaydin/pd-widget": "^1.0",
     "beberlei/DoctrineExtensions": "^1.0",
     "intervention/image": "^2.4",

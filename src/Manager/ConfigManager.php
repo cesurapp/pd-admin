@@ -119,9 +119,9 @@ class ConfigManager
     }
 
     /**
-     * Form Normalizer.
+     * Form Normalizer
      *
-     * @param $form
+     * @param FormInterface $form
      *
      * @return mixed
      */

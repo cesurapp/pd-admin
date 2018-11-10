@@ -48,7 +48,7 @@
             </div>
 
             <div id="nav_main">
-                {% block nav_main %}{{ pd_menu_render('App\\Menu\\MainNav') }}{% endblock %}
+                {% block nav_main %}{{ pd_menu_render('App\\Menu\\Navigation\\Main') }}{% endblock %}
             </div>
         </nav>
 
@@ -65,7 +65,7 @@
 
                     {# Profile Navigation #}
                     <nav id="nav_action" class="float-right">
-                        {{ pd_menu_render('App\\Menu\\ToolbarNav', {
+                        {{ pd_menu_render('App\\Menu\\Navigation\\Toolbar', {
                             'user': app.getUser,
                             'locale': app.request.locale,
                             'active_language': parameters('active_language', 'false')

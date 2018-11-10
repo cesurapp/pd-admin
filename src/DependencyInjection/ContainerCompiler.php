@@ -33,6 +33,11 @@ class ContainerCompiler
      */
     private $db;
 
+    /**
+     * ContainerCompiler constructor.
+     *
+     * @param ContainerBuilder $containerBuilder
+     */
     public function __construct(ContainerBuilder $containerBuilder)
     {
         $this->containerBuilder = $containerBuilder;
@@ -60,7 +65,7 @@ class ContainerCompiler
                     // Convert Bool
                     if (1 === $val || '1' === $val) {
                         $val = true;
-                    } elseif (0 === $val || '0' === $val) {
+                    } else if (0 === $val || '0' === $val) {
                         $val = false;
                     }
 

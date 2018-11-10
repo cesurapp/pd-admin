@@ -7,7 +7,7 @@
 {# Content Title #}
 {% block content_head %}
     <span class="text">{{ 'accouunt_group_list_title'|trans }}</span>
-    <span class="desc">{{ 'accouunt_group_list_desc'|trans({'%s': groups.getTotalItemCount }) }}</span>
+    <span class="desc">{{ 'accouunt_group_list_desc'|trans }}</span>
 {% endblock %}
 
 {# Content Body #}
@@ -39,7 +39,7 @@
                         <td class="process">
                             <div class="floating-menu">
                                 <a><i class="material-icons">more_horiz</i></a>
-                                {{ pd_menu_render('App\\Menu\\Action\\GroupAction', {'group': group}) }}
+                                {{ pd_menu_render('App\\Menu\\Action\\Group', {'group': group}) }}
                             </div>
                         </td>
                     </tr>

@@ -11,7 +11,7 @@
  * @link        https://github.com/appaydin/pd-admin
  */
 
-namespace App\Menu;
+namespace App\Menu\Navigation;
 
 use Pd\MenuBundle\Builder\ItemInterface;
 use Pd\MenuBundle\Builder\Menu;
@@ -22,7 +22,7 @@ use Symfony\Component\Intl\Intl;
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class ToolbarNav extends Menu
+class Toolbar extends Menu
 {
     public function createMenu(array $options = []): ItemInterface
     {

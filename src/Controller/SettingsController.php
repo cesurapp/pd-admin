@@ -18,7 +18,6 @@ use App\Form\Config\CoreForm;
 use App\Form\Config\EmailForm;
 use App\Form\Config\GeneralForm;
 use App\Form\Config\MediaForm;
-use App\Form\Config\TemplateForm;
 use App\Form\Config\UserForm;
 use App\Manager\ConfigManager;
 use Pd\MailerBundle\SwiftMailer\PdSwiftMessage;

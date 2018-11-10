@@ -11,7 +11,7 @@
  * @link        https://github.com/appaydin/pd-admin
  */
 
-namespace App\Menu;
+namespace App\Menu\Navigation;
 
 use Pd\MenuBundle\Builder\ItemInterface;
 use Pd\MenuBundle\Builder\Menu;
@@ -21,7 +21,7 @@ use Pd\MenuBundle\Builder\Menu;
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class MainNav extends Menu
+class Main extends Menu
 {
     public function createMenu(array $options = []): ItemInterface
     {

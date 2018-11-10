@@ -55,7 +55,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
             ->add('error', $message);
 
         // Send Response
-        return new RedirectResponse(($r = $request->headers->get('referer')) ? $r : $this->router->generate('admin_dashboard'));
+        return new RedirectResponse($request->headers->get('referer') ?? $this->router->generate('admin_dashboard'));
     }
 }
 

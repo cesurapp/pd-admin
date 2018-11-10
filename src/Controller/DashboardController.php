@@ -73,13 +73,9 @@ class DashboardController extends Controller
         $request->getSession()->set('_locale', $lang);
 
         // Flush Widget Cache
-        $widgetCore = $this->get('pd_widget.core')->getWidgets();
-        $cacheApp = $this->get('cache.app');
-        foreach ($widgetCore as $widget) {
-            $cacheApp->deleteItem($widget->getId().$this->getUser()->getId());
-        }
+        $this->get('pd_widget.core')->clearWidgetCache();
 
         // Return Back
-        return isset($_SERVER['HTTP_REFERER']) ? $this->redirect($_SERVER['HTTP_REFERER']) : $this->redirectToRoute('admin_dashboard');
+        return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('admin_dashboard'));
     }
 }

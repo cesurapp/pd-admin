@@ -7,7 +7,7 @@
 {# Content Title #}
 {% block content_head %}
     <span class="text">{{ 'admin_account_list'|trans }}</span>
-    <span class="desc">{{ 'admin_account_desc'|trans({'%s' : users.getTotalItemCount }) }}</span>
+    <span class="desc">{{ 'admin_account_desc'|trans }}</span>
 {% endblock %}
 
 {# Content Body #}
@@ -61,7 +61,7 @@
                         <td class="process">
                             <div class="floating-menu">
                                 <a><i class="material-icons">more_horiz</i></a>
-                                {{ pd_menu_render('App\\Menu\\Action\\AccountAction', {'user': user}) }}
+                                {{ pd_menu_render('App\\Menu\\Action\\Account', {'user': user}) }}
                             </div>
                         </td>
                     </tr>

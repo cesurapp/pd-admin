@@ -21,7 +21,7 @@ use Pd\MenuBundle\Builder\Menu;
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class AccountAction extends Menu
+class Account extends Menu
 {
     public function createMenu(array $options = []): ItemInterface
     {
