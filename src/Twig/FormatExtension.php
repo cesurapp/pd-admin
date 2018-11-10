@@ -41,7 +41,7 @@ class FormatExtension extends \Twig_Extension
      * Constructor.
      *
      * @param TranslatorInterface $translator
-     * @param ContainerInterface  $container
+     * @param ContainerInterface $container
      */
     public function __construct(TranslatorInterface $translator, ContainerInterface $container)
     {
@@ -74,6 +74,8 @@ class FormatExtension extends \Twig_Extension
         return [
             new \Twig_SimpleFunction('parameters', [$this, 'parametersFunction']),
             new \Twig_SimpleFunction('title', [$this, 'titleFunction']),
+            new \Twig_SimpleFunction('inArray', [$this, 'inArrayFunction']),
+            new \Twig_SimpleFunction('pathInfo', [$this, 'pathInfoFunction']),
         ];
     }
 
@@ -83,7 +85,7 @@ class FormatExtension extends \Twig_Extension
      * @param \Twig_Environment $env
      * @param $date
      * @param null $now
-     * @param int  $length
+     * @param int $length
      *
      * @return string
      */
@@ -111,7 +113,7 @@ class FormatExtension extends \Twig_Extension
             $count = $diff->$key;
 
             if (0 !== $count) {
-                $format .= $count.' '.$val.' ';
+                $format .= $count . ' ' . $val . ' ';
 
                 ++$counter;
                 if ($counter === $length) {
@@ -120,7 +122,7 @@ class FormatExtension extends \Twig_Extension
             }
         }
 
-        return ($format) ? $format.$this->translator->trans('diff.ago') : '';
+        return ($format) ? $format . $this->translator->trans('diff.ago') : '';
     }
 
     /**
@@ -137,7 +139,7 @@ class FormatExtension extends \Twig_Extension
             return '';
         }
 
-        return mb_substr($phone, 0, 3).'-'.mb_substr($phone, 3, 3).'-'.mb_substr($phone, 6);
+        return mb_substr($phone, 0, 3) . '-' . mb_substr($phone, 3, 3) . '-' . mb_substr($phone, 6);
     }
 
     /**
@@ -229,5 +231,31 @@ class FormatExtension extends \Twig_Extension
         $getTitle = str_replace('&P', $this->container->getParameter('head_title'), $getTitle);
 
         return $getTitle;
+    }
+
+    /**
+     * Checks if a value exists in an array
+     *
+     * @param $needle
+     * @param array $haystack
+     *
+     * @return bool
+     */
+    public function inArrayFunction($needle, array $haystack): bool
+    {
+        return in_array(strtolower($needle), $haystack);
+    }
+
+    /**
+     * Information about a file path
+     *
+     * @param string $path
+     * @param string $options
+     *
+     * @return string
+     */
+    public function pathInfoFunction(string $path, $options = 'extension'): string
+    {
+        return pathinfo($path)[strtolower($options)];
     }
 }

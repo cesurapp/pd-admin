@@ -534,13 +534,13 @@ header {
         display: none;
       }
       > img {
-        border: 1px solid $input-border-color;
+        background: lighten($input-border-color, 10%);
         border-radius: $border-radius;
-        padding: .4rem;
-        max-height: 6rem;
+        padding: .4rem .8rem;
+        max-height: 5rem;
+        max-width: 100%;
         & + label {
           opacity: 0;
-          //padding: 0.7rem 1.1rem;
         }
       }
       > span {

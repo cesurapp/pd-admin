@@ -11,7 +11,7 @@
         <div class="custom-upload" xmlns="http://www.w3.org/1999/html">
             {% if file_path is defined %}
                 {% for file in file_path %}
-                    {% if '.jpg' in file or '.JPG' in file or '.jpeg' in file or '.JPEG' in file or '.png' in file or '.PNG' in file or '.gif' in file or '.GIF' in file or '.ico' in file or  '.ICO' in file %}
+                    {% if inArray(pathInfo(file), ['jpg', 'jpeg', 'png', 'gif', 'ico', 'svg']) %}
                         <img src="{{ asset(file, 'upload') }}" class="{{ id }} ">
                     {% else %}
                         <span class="form-control" data-title="{{ file }}">{{ file }}</span>
