@@ -19,10 +19,10 @@ ROLE_SUPER_ADMIN:
     title: Süper Admin
 ROLE_ALLOWED_TO_SWITCH:
     title: Hesap Değiştirme
-ADMIN_DASHBOARD:
+ROLE_DASHBOARD:
     title: Admin Paneli (Dashboard)
     PANEL: Panel Listeleme
-ADMIN_ACCOUNT:
+ROLE_ACCOUNT:
     title: Admin Hesap Yönetimi
     LIST: Listeleme
     EDIT: Düzenleme
@@ -34,14 +34,14 @@ ADMIN_ACCOUNT:
     FREEZE: Hesap Dondurma
     ALLREAD: Tüm Hesapları Okuma
     ALLWRITE: Tüm Hesapları Yazma
-ADMIN_GROUP:
+ROLE_GROUP:
     title: Admin Grup İzinleri
     LIST: Listeleme
     EDIT: Düzenleme
     NEW: Yeni Grup
     DELETE: Sil
     ROLES: Yetkilendirme
-ADMIN_SETTINGS:
+ROLE_SETTINGS:
     title: Admin Ayarlar İzinleri
     GENERAL: Genel
     EMAIL: E-posta
@@ -50,7 +50,7 @@ ADMIN_SETTINGS:
     CONTACT: İletişim
     CORE: Çekirdek
     ROUTING: Yönlendirme
-ADMIN_MAIL:
+ROLE_MAIL:
     title: Admin Posta Yöneticisi
     TEMPLATELIST: Şablon Listeleme
     TEMPLATEADD: Yeni Şablon
@@ -60,7 +60,7 @@ ADMIN_MAIL:
     LOGGER: Log Listeleme
     VIEWLOG: Log Görüntüleme
     LOGDELETE: Log Sil
-ADMIN_WIDGET:
+ROLE_WIDGET:
     title: Admin Widget
     USERINFO: Kullanıcı Bilgisi
     QUICKACTION: Hızlı Menü
@@ -134,8 +134,8 @@ changes_saved: Değişiklikler kaydedildi.
 remove_complete: Silme işlemi tamamlandı.
 sorry_not_existing: Üzgünüz kayıt mevcut değil.
 test_email_success: Test e-postası gönderildi.
-
-copyright_footer: EmlakPRO bir %owner_company% ürünüdür.
+440_not_found: Sayfa Bulunamadı!
+440_not_found_description: Üzgünüz aradığınız sayfa bulunamadı veya kullanımdan kaldırılmış olabilir.
 
 ###
 # Pages

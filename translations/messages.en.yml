@@ -19,10 +19,10 @@ ROLE_SUPER_ADMIN:
     title: Super Admin
 ROLE_ALLOWED_TO_SWITCH:
     title: Account Switch
-ADMIN_DASHBOARD:
+ROLE_DASHBOARD:
     title: Admin Panel (Dashboard)
     PANEL: Panel Listing
-ADMIN_ACCOUNT:
+ROLE_ACCOUNT:
     title: Admin Account Management
     LIST: Listing
     EDIT: Editing
@@ -34,14 +34,14 @@ ADMIN_ACCOUNT:
     FREEZE: Account Freeze
     ALLREAD: All Read
     ALLWRITE: All Write
-ADMIN_GROUP:
+ROLE_GROUP:
     title: Admin Group Management
     LIST: Listing
     EDIT: Editing
     NEW: New Group
     DELETE: Delete
     ROLES: Authorization
-ADMIN_SETTINGS:
+ROLE_SETTINGS:
     title: Admin Settings Management
     GENERAL: General
     EMAIL: Email
@@ -50,7 +50,7 @@ ADMIN_SETTINGS:
     CONTACT: Contact
     CORE: Core
     ROUTING: Routing
-ADMIN_MAIL:
+ROLE_MAIL:
     title: Admin Mail Manager
     TEMPLATELIST: Template Listing
     TEMPLATEADD: New Template
@@ -60,7 +60,7 @@ ADMIN_MAIL:
     LOGGER: Log Listing
     VIEWLOG: Log View
     LOGDELETE: Log Delete
-ADMIN_WIDGET:
+ROLE_WIDGET:
     title: Admin Widget
     USERINFO: User Information
     QUICKACTION: Quick Action
@@ -135,7 +135,8 @@ remove_complete: Deletion completed.
 sorry_not_existing: Sorry no registration is available.
 test_email_success: Test email sent.
 user_registration_disable: User registration is currently closed, please try again later.
-copyright_footer: EmlakPRO is a %owner_company% product.
+440_not_found: 404 Page Not Found!
+440_not_found_description: Sorry, the page you were looking for could not be found or may be removed.
 
 ###
 # Pages
