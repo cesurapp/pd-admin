@@ -144,7 +144,7 @@ class GeneralForm extends ConfigAbstractType
                     ]),
                     new Image([
                         'mimeTypes' => [
-                            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml'
+                            'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml',
                         ],
                     ]),
                 ],

@@ -1,5 +1,16 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ *
+ * @license     LICENSE
+ * @author      Kerem APAYDIN <kerem@apaydin.me>
+ *
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\Security;
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -25,7 +36,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
      * AccessDeniedHandler constructor.
      *
      * @param TranslatorInterface $translator
-     * @param RouterInterface $router
+     * @param RouterInterface     $router
      */
     public function __construct(TranslatorInterface $translator, RouterInterface $router)
     {
@@ -38,10 +49,10 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         // Create Message
         $message = $accessDeniedException->getMessage();
         switch ($message) {
-            case stristr($message, '@IsGranted') !== false:
+            case false !== mb_stristr($message, '@IsGranted'):
                 $message = $this->translator->trans('access_denied_not_authorized');
                 break;
-            case stristr($message, 'Access Denied.') !== false:
+            case false !== mb_stristr($message, 'Access Denied.'):
                 $message = $this->translator->trans('access_denied');
                 break;
             default:
@@ -58,4 +69,3 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         return new RedirectResponse($request->headers->get('referer') ?? $this->router->generate('admin_dashboard'));
     }
 }
-

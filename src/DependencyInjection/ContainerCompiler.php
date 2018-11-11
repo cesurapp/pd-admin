@@ -65,7 +65,7 @@ class ContainerCompiler
                     // Convert Bool
                     if (1 === $val || '1' === $val) {
                         $val = true;
-                    } else if (0 === $val || '0' === $val) {
+                    } elseif (0 === $val || '0' === $val) {
                         $val = false;
                     }
 

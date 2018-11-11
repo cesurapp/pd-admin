@@ -128,11 +128,11 @@ class Account
                             // Optimize Data
                             for ($i = 0; $i < 3; ++$i) {
                                 $month = explode('/', date('n/Y', strtotime("-{$i} month")));
-                                $chart['column'][] = $month[0] . '/' . $month[1];
+                                $chart['column'][] = $month[0].'/'.$month[1];
                                 $chart['created'][] = $createdData[$month[0]] ?? 0;
                                 $chart['logged'][] = $loggedData[$month[0]] ?? 0;
                             }
-                        } else if (\in_array($config['type'], ['1month', '1week'], true) || !$config['type']) {
+                        } elseif (\in_array($config['type'], ['1month', '1week'], true) || !$config['type']) {
                             $time = '1month' === $config['type'] ? new \DateTime('-1 Month') : new \DateTime('-6 Day');
                             $column = '1month' === $config['type'] ? 30 : 7;
 
@@ -157,7 +157,7 @@ class Account
                             // Optimize Data
                             for ($i = 0; $i < $column; ++$i) {
                                 $day = explode('/', date('j/m', strtotime("-{$i} day")));
-                                $chart['column'][] = $day[0] . '/' . $day[1];
+                                $chart['column'][] = $day[0].'/'.$day[1];
                                 $chart['created'][] = $createdData[$day[0]] ?? 0;
                                 $chart['logged'][] = $loggedData[$day[0]] ?? 0;
                             }

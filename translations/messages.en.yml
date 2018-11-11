@@ -335,6 +335,10 @@ remember_time: Remember Me Time
 remember_time_info: The default is (604800sn) week, which sets the duration of the Remember Me feature used in the user login system in seconds.
 twig_cache: Twig Cache
 twig_cache_info: Enable Twig cache. Close for development.
+admin_allow_ips: Admin IP Access
+admin_allow_ips_info: Enables IP access to the Admin panel, allowing only entered IP addresses. Enter the IP addresses below.
+auth_allow_ips: Authorization IP Access
+auth_allow_ips_info: Enables IP access for Authorization, only the entered IP addresses are allowed. Enter the IP addresses below.
 
 settings_routing: Routing Settings
 settings_routing_desc: System general routing settings

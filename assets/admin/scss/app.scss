@@ -537,8 +537,9 @@ header {
         background: lighten($input-border-color, 10%);
         border-radius: $border-radius;
         padding: .4rem .8rem;
-        max-height: 5rem;
         max-width: 100%;
+        max-height: 60px;
+        height: 100%;
         & + label {
           opacity: 0;
         }

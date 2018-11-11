@@ -334,6 +334,10 @@ remember_time: Beni Hatırla Süresi
 remember_time_info: Kullanıcı giriş sisteminde kullanılan Beni Hatırla özelliğinin saniye cinsinden süresini ayarlar, varsayılan bir (604800sn) haftadır.
 twig_cache: Twig Önbellek
 twig_cache_info: Twig önbelleğini etkinleştirir. Geliştirme için kapatın.
+admin_allow_ips: Admin IP Erişimi
+admin_allow_ips_info: Admin panel için IP erişimini etkinleştirir, sadece girilen IP adreslerine izin verilir. Alt alta IP adreslerini giriniz.
+auth_allow_ips: Giriş IP Erişimi
+auth_allow_ips_info: Yetkilendirme için IP erişimini etkinleştirir, sadece girilen IP adreslerine izin verilir. Alt alta IP adreslerini giriniz.
 
 settings_routing: Yönlendirme Ayarlar
 settings_routing_desc: Sistem genel yönlendirme ayarları

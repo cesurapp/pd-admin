@@ -119,7 +119,7 @@ class ConfigManager
     }
 
     /**
-     * Form Normalizer
+     * Form Normalizer.
      *
      * @param FormInterface $form
      *

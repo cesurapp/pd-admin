@@ -41,7 +41,7 @@ class FormatExtension extends \Twig_Extension
      * Constructor.
      *
      * @param TranslatorInterface $translator
-     * @param ContainerInterface $container
+     * @param ContainerInterface  $container
      */
     public function __construct(TranslatorInterface $translator, ContainerInterface $container)
     {
@@ -85,7 +85,7 @@ class FormatExtension extends \Twig_Extension
      * @param \Twig_Environment $env
      * @param $date
      * @param null $now
-     * @param int $length
+     * @param int  $length
      *
      * @return string
      */
@@ -113,7 +113,7 @@ class FormatExtension extends \Twig_Extension
             $count = $diff->$key;
 
             if (0 !== $count) {
-                $format .= $count . ' ' . $val . ' ';
+                $format .= $count.' '.$val.' ';
 
                 ++$counter;
                 if ($counter === $length) {
@@ -122,7 +122,7 @@ class FormatExtension extends \Twig_Extension
             }
         }
 
-        return ($format) ? $format . $this->translator->trans('diff.ago') : '';
+        return ($format) ? $format.$this->translator->trans('diff.ago') : '';
     }
 
     /**
@@ -139,7 +139,7 @@ class FormatExtension extends \Twig_Extension
             return '';
         }
 
-        return mb_substr($phone, 0, 3) . '-' . mb_substr($phone, 3, 3) . '-' . mb_substr($phone, 6);
+        return mb_substr($phone, 0, 3).'-'.mb_substr($phone, 3, 3).'-'.mb_substr($phone, 6);
     }
 
     /**
@@ -234,7 +234,7 @@ class FormatExtension extends \Twig_Extension
     }
 
     /**
-     * Checks if a value exists in an array
+     * Checks if a value exists in an array.
      *
      * @param $needle
      * @param array $haystack
@@ -243,11 +243,11 @@ class FormatExtension extends \Twig_Extension
      */
     public function inArrayFunction($needle, array $haystack): bool
     {
-        return in_array(strtolower($needle), $haystack);
+        return \in_array(mb_strtolower($needle), $haystack);
     }
 
     /**
-     * Information about a file path
+     * Information about a file path.
      *
      * @param string $path
      * @param string $options
@@ -256,6 +256,6 @@ class FormatExtension extends \Twig_Extension
      */
     public function pathInfoFunction(string $path, $options = 'extension'): string
     {
-        return pathinfo($path)[strtolower($options)];
+        return pathinfo($path)[mb_strtolower($options)];
     }
 }

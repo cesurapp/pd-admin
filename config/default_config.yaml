@@ -91,7 +91,9 @@ parameters:
     ##
     active_language: [en, tr]
     list_count: 30
-    remember_time: 604800 # 1 Month -> 2592000
+    remember_time: 604800 # 1 Week - 1 Month -> 2592000
     twig_cache: '%kernel.cache_dir%/twig'
+    admin_allow_ips: "['']"
+    auth_allow_ips: "['']"
     # Hidden
     upload_dir: '%kernel.project_dir%/public/uploads/'

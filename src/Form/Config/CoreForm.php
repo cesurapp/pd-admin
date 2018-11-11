@@ -13,7 +13,9 @@
 
 namespace App\Form\Config;
 
+use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
@@ -71,8 +73,39 @@ class CoreForm extends ConfigAbstractType
                 'required' => false,
                 'placeholder' => false,
             ])
+            ->add('admin_allow_ips', TextareaType::class, [
+                'label' => 'admin_allow_ips',
+                'help' => 'admin_allow_ips_info',
+                'required' => false
+            ])
+            ->add('auth_allow_ips', TextareaType::class, [
+                'label' => 'auth_allow_ips',
+                'help' => 'auth_allow_ips_info',
+                'required' => false
+            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',
             ]);
+
+        // IPS Data Transformer
+        $builder
+            ->get('admin_allow_ips')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($ips) {
+                    return implode(PHP_EOL, json_decode($ips, true) ?? []);
+                },
+                function ($ips) {
+                    return json_encode(array_map('trim', explode(PHP_EOL, $ips)));
+                }
+            ));
+        $builder->get('auth_allow_ips')
+            ->addModelTransformer(new CallbackTransformer(
+                function ($ips) {
+                    return implode(PHP_EOL, json_decode($ips, true) ?? []);
+                },
+                function ($ips) {
+                    return json_encode(array_map('trim', explode(PHP_EOL, $ips)));
+                }
+            ));
     }
 }

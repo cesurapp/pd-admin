@@ -3,20 +3,8 @@
 ##
 authorization:
     resource: "@PdUserBundle/Resources/config/routing.yaml"
-
-##
-# Admin Mailer Routing
-##
-admin_mailer:
-    resource: "@PdMailerBundle/Resources/config/routing.yaml"
-    prefix: 'admin'
-
-##
-# Admin Widget Routing
-##
-admin_widget:
-    resource: "@PdWidgetBundle/Resources/config/routing.yml"
-    prefix: 'admin'
+    prefix: 'auth'
+    condition:  "%auth_allow_ips% == [''] ?: (request.getClientIp() in %auth_allow_ips%)"
 
 ##
 # Admin Controller Routing
@@ -26,3 +14,13 @@ admin:
     type: annotation
     prefix: 'admin'
     name_prefix: 'admin_'
+    condition:  "%admin_allow_ips% == [''] ?: (request.getClientIp() in %admin_allow_ips%)"
+admin_mailer:
+    resource: "@PdMailerBundle/Resources/config/routing.yaml"
+    prefix: 'admin'
+    condition:  "%admin_allow_ips% == [''] ?: (request.getClientIp() in %admin_allow_ips%)"
+admin_widget:
+    resource: "@PdWidgetBundle/Resources/config/routing.yml"
+    prefix: 'admin'
+    condition:  "%admin_allow_ips% == [''] ?: (request.getClientIp() in %admin_allow_ips%)"
+

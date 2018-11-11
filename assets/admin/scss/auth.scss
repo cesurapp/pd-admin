@@ -20,18 +20,24 @@ body {
   z-index: 1;
   min-height: 100%;
   height: auto !important;
+  display: flex;
   .container {
     max-width: 350px;
     padding: 0;
+    align-self: center;
   }
   .auth {
     padding: 40px 0;
     .logo {
-      display: block;
       text-align: center;
       width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 50px;
       img {
         max-height: 100px;
+        max-width: 200px;
       }
     }
     form {

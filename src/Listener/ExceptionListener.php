@@ -50,7 +50,7 @@ class ExceptionListener
         // Get Exception
         $exception = $event->getException();
 
-        switch (get_class($exception)) {
+        switch (\get_class($exception)) {
             case NotFoundHttpException::class:
                 $event->setResponse(new RedirectResponse($this->router->generate('admin_not_found')));
                 break;

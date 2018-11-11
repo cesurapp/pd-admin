@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2add0c85a2f117a6f11d1d1765c1b4a9",
+    "content-hash": "8f75cd9c2701f9a0ca89bb9ed43ba22e",
     "packages": [
         {
             "name": "appaydin/pd-mailer",
-            "version": "1.0.2",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-mailer.git",
-                "reference": "dad7805ae6d99fb9143742e239b8aa770cc37fcc"
+                "reference": "b455646242a947b4a2c2b400e1a2c7c2dda331d3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-mailer/zipball/dad7805ae6d99fb9143742e239b8aa770cc37fcc",
-                "reference": "dad7805ae6d99fb9143742e239b8aa770cc37fcc",
+                "url": "https://api.github.com/repos/appaydin/pd-mailer/zipball/b455646242a947b4a2c2b400e1a2c7c2dda331d3",
+                "reference": "b455646242a947b4a2c2b400e1a2c7c2dda331d3",
                 "shasum": ""
             },
             "require": {
@@ -35,12 +35,12 @@
             ],
             "authors": [
                 {
-                    "name": "Ramazan APAYDIN",
-                    "homepage": "http://ramazanapaydin.com"
+                    "name": "Kerem APAYDIN",
+                    "homepage": "http://apaydin.me"
                 }
             ],
             "description": "Symfony Mailer Queue & Templating Bundle",
-            "homepage": "https://github.com/rmznpydn/pd-mailer",
+            "homepage": "https://github.com/appaydin/pd-mailer",
             "keywords": [
                 "mail",
                 "mail-templating",
@@ -48,20 +48,20 @@
                 "pdmailer",
                 "symfony-mailer"
             ],
-            "time": "2018-07-09T09:40:49+00:00"
+            "time": "2018-11-10T16:27:55+00:00"
         },
         {
             "name": "appaydin/pd-menu",
-            "version": "1.0.04",
+            "version": "1.0.05",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-menu.git",
-                "reference": "05181fb378d5a89d84abf7dc2f2355d13305da86"
+                "reference": "636bc168d805dcb85fd6c187c8fd594d7c0aa4e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-menu/zipball/05181fb378d5a89d84abf7dc2f2355d13305da86",
-                "reference": "05181fb378d5a89d84abf7dc2f2355d13305da86",
+                "url": "https://api.github.com/repos/appaydin/pd-menu/zipball/636bc168d805dcb85fd6c187c8fd594d7c0aa4e8",
+                "reference": "636bc168d805dcb85fd6c187c8fd594d7c0aa4e8",
                 "shasum": ""
             },
             "require": {
@@ -80,32 +80,32 @@
             ],
             "authors": [
                 {
-                    "name": "Ramazan APAYDIN",
-                    "homepage": "http://ramazanapaydin.com"
+                    "name": "Kerem APAYDIN",
+                    "homepage": "http://apaydin.me"
                 }
             ],
             "description": "Symfony Simple Menu Bundle",
-            "homepage": "https://github.com/rmznpydn/pd-menu",
+            "homepage": "https://github.com/appaydin/pd-menu",
             "keywords": [
                 "menu",
-                "pdadmin",
-                "pdmenu",
+                "pd-admin",
+                "pd-menu",
                 "symfony-menu"
             ],
-            "time": "2018-07-07T23:30:36+00:00"
+            "time": "2018-11-10T19:16:12+00:00"
         },
         {
             "name": "appaydin/pd-user",
-            "version": "1.02",
+            "version": "1.03",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-user.git",
-                "reference": "29e1f885fc67f29a74d1f125414c2e1513f362e0"
+                "reference": "9ae40e1caa5d9584be945dca615ff53aadd4fe16"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-user/zipball/29e1f885fc67f29a74d1f125414c2e1513f362e0",
-                "reference": "29e1f885fc67f29a74d1f125414c2e1513f362e0",
+                "url": "https://api.github.com/repos/appaydin/pd-user/zipball/9ae40e1caa5d9584be945dca615ff53aadd4fe16",
+                "reference": "9ae40e1caa5d9584be945dca615ff53aadd4fe16",
                 "shasum": ""
             },
             "require": {
@@ -124,33 +124,33 @@
             ],
             "authors": [
                 {
-                    "name": "Ramazan APAYDIN",
-                    "homepage": "http://ramazanapaydin.com"
+                    "name": "Kerem APAYDIN",
+                    "homepage": "http://apaydin.me"
                 }
             ],
             "description": "Symfony Simple User Bundle",
-            "homepage": "https://github.com/rmznpydn/pd-user",
+            "homepage": "https://github.com/appaydin/pd-user",
             "keywords": [
                 "account",
-                "pdadmin",
-                "pduser",
+                "pd-admin",
+                "pd-user",
                 "symfony-user",
                 "user-management"
             ],
-            "time": "2018-07-07T23:35:05+00:00"
+            "time": "2018-11-10T18:09:07+00:00"
         },
         {
             "name": "appaydin/pd-widget",
-            "version": "1.0.04",
+            "version": "1.0.05",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-widget.git",
-                "reference": "248c5f47a5afbc747fae4192e415fa4ff187b267"
+                "reference": "cfd84fc0f9e0bb9ba0dc7b2ef79555fc00513294"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-widget/zipball/248c5f47a5afbc747fae4192e415fa4ff187b267",
-                "reference": "248c5f47a5afbc747fae4192e415fa4ff187b267",
+                "url": "https://api.github.com/repos/appaydin/pd-widget/zipball/cfd84fc0f9e0bb9ba0dc7b2ef79555fc00513294",
+                "reference": "cfd84fc0f9e0bb9ba0dc7b2ef79555fc00513294",
                 "shasum": ""
             },
             "require": {
@@ -169,20 +169,20 @@
             ],
             "authors": [
                 {
-                    "name": "Ramazan APAYDIN",
-                    "homepage": "http://ramazanapaydin.com"
+                    "name": "Kerem APAYDIN",
+                    "homepage": "http://apaydin.me"
                 }
             ],
             "description": "Symfony Simple Widget Bundle",
-            "homepage": "https://github.com/rmznpydn/pd-widget",
+            "homepage": "https://github.com/appaydin/pd-widget",
             "keywords": [
                 "admin-widget",
-                "pdadmin",
-                "pdwidget",
+                "pd-admin",
+                "pd-widget",
                 "symfony-widget",
                 "widget"
             ],
-            "time": "2018-07-07T23:37:32+00:00"
+            "time": "2018-11-10T19:04:02+00:00"
         },
         {
             "name": "beberlei/DoctrineExtensions",
@@ -2926,6 +2926,56 @@
             "time": "2018-10-10T13:52:42+00:00"
         },
         {
+            "name": "symfony/expression-language",
+            "version": "v4.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/expression-language.git",
+                "reference": "065bba63c61c96fd2d4fbd01b28de058e6f8779a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/expression-language/zipball/065bba63c61c96fd2d4fbd01b28de058e6f8779a",
+                "reference": "065bba63c61c96fd2d4fbd01b28de058e6f8779a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/cache": "~3.4|~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\ExpressionLanguage\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony ExpressionLanguage Component",
+            "homepage": "https://symfony.com",
+            "time": "2018-07-26T09:10:45+00:00"
+        },
+        {
             "name": "symfony/filesystem",
             "version": "v4.1.7",
             "source": {
@@ -3026,16 +3076,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v1.1.1",
+            "version": "v1.1.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "9fb60f232af0764d58002e7872acb43a74506d25"
+                "reference": "27473c8bdf817b462dd26e9e4581795aa095d445"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/9fb60f232af0764d58002e7872acb43a74506d25",
-                "reference": "9fb60f232af0764d58002e7872acb43a74506d25",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/27473c8bdf817b462dd26e9e4581795aa095d445",
+                "reference": "27473c8bdf817b462dd26e9e4581795aa095d445",
                 "shasum": ""
             },
             "require": {
@@ -3069,7 +3119,7 @@
                 }
             ],
             "description": "Composer plugin for Symfony",
-            "time": "2018-09-03T08:17:12+00:00"
+            "time": "2018-11-10T12:25:57+00:00"
         },
         {
             "name": "symfony/form",

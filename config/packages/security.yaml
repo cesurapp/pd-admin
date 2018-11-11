@@ -35,5 +35,8 @@ security:
                 lifetime: '%remember_time%'
                 path:     /
     access_control:
+        # Force HTTPS
+        #- { path: '^/', requires_channel: https }
+
         # Admin Panel
         - { path: '^/admin', role: [ROLE_USER, ROLE_ADMIN] }

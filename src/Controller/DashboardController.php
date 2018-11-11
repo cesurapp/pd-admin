@@ -44,7 +44,7 @@ class DashboardController extends Controller
     }
 
     /**
-     * 404 Not Found Pages
+     * 404 Not Found Pages.
      *
      * @Route(name="not_found", path="/404")
      *
