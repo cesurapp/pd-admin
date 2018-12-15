@@ -15,11 +15,11 @@ namespace App\Form\Config;
 
 use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\LanguageType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
@@ -76,12 +76,12 @@ class CoreForm extends ConfigAbstractType
             ->add('admin_allow_ips', TextareaType::class, [
                 'label' => 'admin_allow_ips',
                 'help' => 'admin_allow_ips_info',
-                'required' => false
+                'required' => false,
             ])
             ->add('auth_allow_ips', TextareaType::class, [
                 'label' => 'auth_allow_ips',
                 'help' => 'auth_allow_ips_info',
-                'required' => false
+                'required' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'save',

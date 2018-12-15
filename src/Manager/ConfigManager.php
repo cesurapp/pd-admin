@@ -16,7 +16,6 @@ namespace App\Manager;
 use App\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
-use Psr\Container\ContainerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormInterface;
@@ -57,7 +56,7 @@ class ConfigManager
     /**
      * ConfigManager constructor.
      *
-     * @param ObjectManager $em
+     * @param ObjectManager         $em
      * @param ParameterBagInterface $parameterBag
      * @param $configName string
      */

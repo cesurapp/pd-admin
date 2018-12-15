@@ -144,15 +144,15 @@ class GroupController extends AbstractController
     /**
      * Edit Group Roles.
      *
-     * @param Group $group
-     * @param Request $request
-     *
+     * @param Group           $group
+     * @param Request         $request
      * @param RouterInterface $router
      * @param WidgetInterface $widget
      *
-     * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @IsGranted("ROLE_GROUP_ROLES")
      * @Route(name="account_group_roles", path="/account/group/roles/{group}")

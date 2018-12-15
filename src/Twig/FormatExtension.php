@@ -38,7 +38,7 @@ class FormatExtension extends \Twig_Extension
     /**
      * Constructor.
      *
-     * @param TranslatorInterface $translator
+     * @param TranslatorInterface   $translator
      * @param ParameterBagInterface $bag
      */
     public function __construct(TranslatorInterface $translator, ParameterBagInterface $bag)

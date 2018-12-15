@@ -52,8 +52,7 @@ class AccountController extends AbstractController
     /**
      * Show all Account.
      *
-     * @param Request $request
-     *
+     * @param Request            $request
      * @param PaginatorInterface $paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -194,9 +193,8 @@ class AccountController extends AbstractController
     /**
      * Change User Password.
      *
-     * @param Request $request
-     * @param User $user
-     *
+     * @param Request                      $request
+     * @param User                         $user
      * @param UserPasswordEncoderInterface $encoder
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -248,15 +246,15 @@ class AccountController extends AbstractController
     /**
      * Change User Private Roles.
      *
-     * @param Request $request
-     * @param User $user
-     *
+     * @param Request         $request
+     * @param User            $user
      * @param RouterInterface $router
      * @param WidgetInterface $widget
      *
-     * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @IsGranted("ROLE_ACCOUNT_ROLES")
      * @Route(name="account_roles", path="/account/role/{user}")

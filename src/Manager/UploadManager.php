@@ -14,9 +14,9 @@
 namespace App\Manager;
 
 use App\Library\Tools;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
