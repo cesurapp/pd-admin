@@ -1,14 +1,31 @@
-{# Document #}
-{% block head_title %}{{ title('440_not_found'|trans) }}{% endblock %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-{# Content Title #}
-{% block content_head %}
-    <span class="text text-center">{{ '440_not_found'|trans }}</span>
-{% endblock %}
+    {# Meta #}
+    <title>{{ title('440_not_found'|trans) }}</title>
+    <meta name="description" content="{{ parameters('head_description') }}"/>
+    <meta name="keywords" content="{{ parameters('head_keywords') }}"/>
+    <meta name="author" content="{{ parameters('head_author') }}"/>
+    <link rel="icon" href="{{ asset(parameters('site_favicon'), 'upload') }}">
 
-{# Content Body #}
-{% block content_body %}
-        <p class="alert alert-danger text-center">
-            {{ '440_not_found_description'|trans }}
-        </p>
-{% endblock %}
+    {# Assets #}
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="{{ asset('vendor.css', 'admin') }}">
+    <link rel="stylesheet" href="{{ asset('app.css', 'admin') }}">
+</head>
+<body class="d-flex">
+{# Wrapper #}
+<section class="container align-self-center">
+    <div class="d-flex flex-column text-center justify-content-center align-items-center">
+        <h2 class="mb-4">{{ '440_not_found'|trans }}</h2>
+        <p class="alert alert-danger border-0 mb-4">{{ '440_not_found_description'|trans }}</p>
+        <p><a href="{{ path('admin_dashboard') }}">Go Home</a></p>
+    </div>
+</section>
+</body>
+</html>
