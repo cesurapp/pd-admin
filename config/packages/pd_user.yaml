@@ -3,7 +3,7 @@ pd_user:
     profile_class: App\Entity\Account\Profile
     group_class: App\Entity\Account\Group
     default_group: "%user_default_group%"
-    login_redirect: 'admin_dashboard'
+    login_redirect: '%user_login_redirect%'
     email_confirmation: "%user_email_confirmation%"
     welcome_email: "%user_welcome_email%"
     user_registration: "%user_registration%"

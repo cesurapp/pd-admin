@@ -1,15 +1,15 @@
 {
     "appaydin/pd-mailer": {
-        "version": "1.0.2"
+        "version": "1.0.3"
     },
     "appaydin/pd-menu": {
-        "version": "1.0.04"
+        "version": "1.0.06"
     },
     "appaydin/pd-user": {
-        "version": "1.02"
+        "version": "1.03"
     },
     "appaydin/pd-widget": {
-        "version": "1.0.04"
+        "version": "1.0.05"
     },
     "beberlei/doctrineextensions": {
         "version": "v1.0.23"
@@ -137,6 +137,9 @@
     "psr/simple-cache": {
         "version": "1.0.0"
     },
+    "ralouphie/getallheaders": {
+        "version": "2.0.5"
+    },
     "rmznpydn/pd-mailer": {
         "version": "1.0.0"
     },
@@ -181,6 +184,9 @@
             "version": "3.3",
             "ref": "9f94d3ea453cd8a3b95db7f82592d7344fe3a76a"
         }
+    },
+    "symfony/contracts": {
+        "version": "v1.0.2"
     },
     "symfony/css-selector": {
         "version": "v4.1.7"
@@ -323,9 +329,6 @@
             "ref": "cda8b550123383d25827705d05a42acf6819fe4e"
         }
     },
-    "symfony/security": {
-        "version": "v4.0.4"
-    },
     "symfony/security-bundle": {
         "version": "3.3",
         "recipe": {
@@ -334,6 +337,18 @@
             "version": "3.3",
             "ref": "03f21d01e3f41a095a43e0e7b2f7fbd9dbd33cf8"
         }
+    },
+    "symfony/security-core": {
+        "version": "v4.2.1"
+    },
+    "symfony/security-csrf": {
+        "version": "v4.2.1"
+    },
+    "symfony/security-guard": {
+        "version": "v4.2.1"
+    },
+    "symfony/security-http": {
+        "version": "v4.2.1"
     },
     "symfony/stopwatch": {
         "version": "v4.1.7"
@@ -382,6 +397,9 @@
     },
     "symfony/var-dumper": {
         "version": "v4.1.7"
+    },
+    "symfony/var-exporter": {
+        "version": "v4.2.1"
     },
     "symfony/web-profiler-bundle": {
         "version": "3.3",

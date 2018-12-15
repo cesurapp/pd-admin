@@ -43,7 +43,7 @@ class GeneralForm extends ConfigAbstractType
     {
         // Get Language List
         $allLanguages = Intl::getLanguageBundle()->getLanguageNames();
-        $languageList = array_flip(array_intersect_key($allLanguages, array_flip($options['container']->getParameter('active_language'))));
+        $languageList = array_flip(array_intersect_key($allLanguages, array_flip($options['container']->get('parameter_bag')->get('active_language'))));
 
         $builder
             ->add('head_title', TextType::class, [
@@ -51,7 +51,7 @@ class GeneralForm extends ConfigAbstractType
                 'help' => 'head_title_info',
                 'constraints' => [
                     new Length([
-                        'max' => 120,
+                        'max' => 150,
                     ]),
                 ],
                 'empty_data' => 'pdAdmin',
@@ -63,7 +63,7 @@ class GeneralForm extends ConfigAbstractType
                 'help' => 'head_title_pattern_info',
                 'constraints' => [
                     new Length([
-                        'max' => 120,
+                        'max' => 150,
                     ]),
                 ],
                 'empty_data' => '&T - &P',
@@ -75,7 +75,7 @@ class GeneralForm extends ConfigAbstractType
                 'help' => 'head_description_info',
                 'constraints' => [
                     new Length([
-                        'max' => 150,
+                        'max' => 200,
                     ]),
                 ],
                 'empty_data' => 'pdAdmin Head Description',
@@ -90,8 +90,8 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 150,
                     ]),
                 ],
-                'empty_data' => 'Ramazan APAYDIN',
-                'attr' => ['placeholder-nt' => 'Ramazan APAYDIN'],
+                'empty_data' => 'Kerem APAYDIN',
+                'attr' => ['placeholder-nt' => 'Kerem APAYDIN'],
                 'required' => false,
             ])
             ->add('head_keywords', TextareaType::class, [

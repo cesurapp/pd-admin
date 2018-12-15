@@ -25,7 +25,7 @@ security:
                 use_referer: true
                 login_path: security_login
                 check_path: security_login
-                default_target_path: '%user_login_redirect%'
+                default_target_path: "%user_login_redirect%"
                 csrf_token_generator: security.csrf.token_manager
             logout:
                 path: security_logout

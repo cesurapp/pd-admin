@@ -15,8 +15,9 @@ namespace App\Manager;
 
 use App\Entity\Account\User;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Find All Method Permissions.
@@ -26,13 +27,19 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class SecurityManager
 {
     /**
-     * @var ContainerInterface
+     * @var RouterInterface
      */
-    private $container;
+    private $router;
 
-    public function __construct(ContainerInterface $container)
+    /**
+     * @var WidgetInterface
+     */
+    private $widget;
+
+    public function __construct(RouterInterface $router, WidgetInterface $widget)
     {
-        $this->container = $container;
+        $this->router = $router;
+        $this->widget = $widget;
     }
 
     /**
@@ -63,7 +70,7 @@ class SecurityManager
     public function getRoles(): array
     {
         // Finds Route Class
-        $routes = $this->container->get('router')->getRouteCollection()->all();
+        $routes = $this->router->getRouteCollection()->all();
         $classMethods = [];
         foreach ($routes as $route) {
             // Check Action
@@ -128,7 +135,7 @@ class SecurityManager
         }
 
         // Add Widget Roles
-        $widgets = $this->container->get('pd_widget.core')->getWidgets(false);
+        $widgets = $this->widget->getWidgets(false);
         foreach ($widgets as $widget) {
             if ($widget->getRole()) {
                 foreach ($widget->getRole() as $role) {

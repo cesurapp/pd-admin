@@ -17,25 +17,29 @@ use App\Entity\Account\Group;
 use App\Entity\Account\Profile;
 use App\Entity\Account\User;
 use App\Manager\SecurityManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Pd\UserBundle\Form\ChangePasswordType;
 use Pd\UserBundle\Form\ProfileType;
 use Pd\UserBundle\Model\UserInterface;
+use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Controller managing the user profile.
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class AccountController extends Controller
+class AccountController extends AbstractController
 {
     /**
      * Security Manager Add Custom Roles.
@@ -50,12 +54,14 @@ class AccountController extends Controller
      *
      * @param Request $request
      *
-     * @IsGranted("ROLE_ACCOUNT_LIST")
-     * @Route(name="account_list", path="/account")
+     * @param PaginatorInterface $paginator
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @IsGranted("ROLE_ACCOUNT_LIST")
+     * @Route(name="account_list", path="/account")
      */
-    public function list(Request $request)
+    public function list(Request $request, PaginatorInterface $paginator)
     {
         // Query
         $query = $this
@@ -85,8 +91,7 @@ class AccountController extends Controller
         }
 
         // Get Result
-        $pagination = $this->get('knp_paginator');
-        $pagination = $pagination->paginate(
+        $pagination = $paginator->paginate(
             $query->getQuery(),
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', $this->getParameter('list_count'))
@@ -190,14 +195,16 @@ class AccountController extends Controller
      * Change User Password.
      *
      * @param Request $request
-     * @param User    $user
+     * @param User $user
+     *
+     * @param UserPasswordEncoderInterface $encoder
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @IsGranted("ROLE_ACCOUNT_CHANGEPASSWORD")
      * @Route(name="account_changepassword", path="/account/changepassword/{user}")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function changePassword(Request $request, User $user)
+    public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $encoder)
     {
         // Check Read Only
         $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
@@ -219,7 +226,6 @@ class AccountController extends Controller
             $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLWRITE');
 
             // Encode Password
-            $encoder = $this->get('security.password_encoder');
             $password = $encoder->encodePassword($user, $form->get('plainPassword')->getData());
             $user->setPassword($password);
 
@@ -243,20 +249,22 @@ class AccountController extends Controller
      * Change User Private Roles.
      *
      * @param Request $request
-     * @param User    $user
+     * @param User $user
      *
-     * @IsGranted("ROLE_ACCOUNT_ROLES")
-     * @Route(name="account_roles", path="/account/role/{user}")
+     * @param RouterInterface $router
+     * @param WidgetInterface $widget
      *
+     * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @IsGranted("ROLE_ACCOUNT_ROLES")
+     * @Route(name="account_roles", path="/account/role/{user}")
      */
-    public function roles(Request $request, User $user)
+    public function roles(Request $request, User $user, RouterInterface $router, WidgetInterface $widget)
     {
         // Find All Roles
-        $security = new SecurityManager($this->container);
+        $security = new SecurityManager($router, $widget);
         $roles = $security->getRoles();
 
         // Create Form

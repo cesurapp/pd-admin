@@ -13,10 +13,9 @@
 
 namespace App\Listener;
 
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Exception Listener.
@@ -26,34 +25,39 @@ use Symfony\Component\Routing\RouterInterface;
 class ExceptionListener
 {
     /**
-     * @var RouterInterface
+     * @var \Twig_Environment
      */
-    private $router;
+    private $engine;
 
     /**
      * ExceptionListener constructor.
      *
-     * @param RouterInterface $router
+     * @param \Twig_Environment $engine
      */
-    public function __construct(RouterInterface $router)
+    public function __construct(\Twig_Environment $engine)
     {
-        $this->router = $router;
+        $this->engine = $engine;
     }
 
     /**
      * Exception Handler.
      *
      * @param GetResponseForExceptionEvent $event
+     *
+     * @throws \Twig_Error_Loader
+     * @throws \Twig_Error_Runtime
+     * @throws \Twig_Error_Syntax
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
         // Get Exception
         $exception = $event->getException();
 
-        switch (\get_class($exception)) {
-            case NotFoundHttpException::class:
-                $event->setResponse(new RedirectResponse($this->router->generate('admin_not_found')));
-                break;
+        if ($exception instanceof NotFoundHttpException) {
+            $event->setResponse(new Response(
+                $this->engine->render('Admin/_other/notFound.html.twig', []),
+                404
+            ));
         }
     }
 }

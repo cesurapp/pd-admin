@@ -4,7 +4,8 @@
 ###< PhpUnit ###
 
 ###> Symfony ###
-.env
+/.env.local
+/.env.*.local
 /public/bundles/
 /var/
 /vendor/

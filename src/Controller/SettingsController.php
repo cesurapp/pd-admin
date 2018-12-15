@@ -22,7 +22,7 @@ use App\Form\Config\UserForm;
 use App\Manager\ConfigManager;
 use Pd\MailerBundle\SwiftMailer\PdSwiftMessage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\Request;
@@ -33,7 +33,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class SettingsController extends Controller
+class SettingsController extends AbstractController
 {
     /**
      * General Settings.
@@ -47,7 +47,7 @@ class SettingsController extends Controller
     public function general(Request $request)
     {
         // Get Config Manager
-        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_general');
+        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->get('parameter_bag'), 'settings_general');
 
         // Create Form
         $form = $this->createForm(GeneralForm::class, $cm->getAll(), ['container' => $this->container]);
@@ -88,7 +88,7 @@ class SettingsController extends Controller
     public function contact(Request $request)
     {
         // Get Config Manager
-        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_contact');
+        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->get('parameter_bag'), 'settings_contact');
 
         // Create Form
         $form = $this->createForm(ContactForm::class, $cm->getAll());
@@ -129,7 +129,7 @@ class SettingsController extends Controller
     public function email(Request $request)
     {
         // Get Config Manager
-        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_email');
+        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->get('parameter_bag'), 'settings_email');
 
         // Create Form
         $form = $this->createForm(EmailForm::class, $cm->getAll());
@@ -202,7 +202,7 @@ class SettingsController extends Controller
     public function user(Request $request)
     {
         // Get Config Manager
-        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_user');
+        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->get('parameter_bag'), 'settings_user');
 
         // Create Form
         $form = $this->createForm(UserForm::class, $cm->getAll(), ['router' => $this->get('router')]);
@@ -243,7 +243,7 @@ class SettingsController extends Controller
     public function media(Request $request)
     {
         // Get Config Manager
-        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_media');
+        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->get('parameter_bag'), 'settings_media');
 
         // Create Form
         $form = $this->createForm(MediaForm::class, $cm->getAll());
@@ -284,7 +284,7 @@ class SettingsController extends Controller
     public function core(Request $request)
     {
         // Get Config Manager
-        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->container, 'settings_core');
+        $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->get('parameter_bag'), 'settings_core');
 
         // Create Form
         $form = $this->createForm(CoreForm::class, $cm->getAll());
@@ -324,7 +324,7 @@ class SettingsController extends Controller
         $fs = new Filesystem();
 
         try {
-            $fs->remove($this->container->getParameter('kernel.cache_dir'));
+            $fs->remove($this->getParameter('kernel.cache_dir'));
         } catch (IOException $exception) {
             header('Content-Type: application/json', true, 403);
             exit(json_encode(['status' => 'failed', 'message' => $exception->getMessage()]));

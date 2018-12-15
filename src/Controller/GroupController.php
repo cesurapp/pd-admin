@@ -15,20 +15,23 @@ namespace App\Controller;
 
 use App\Entity\Account\Group;
 use App\Manager\SecurityManager;
+use Knp\Component\Pager\PaginatorInterface;
 use Pd\UserBundle\Form\GroupType;
+use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\RouterInterface;
 
 /**
  * Controller managing the groups.
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class GroupController extends Controller
+class GroupController extends AbstractController
 {
     /**
      * List Groups.
@@ -40,7 +43,7 @@ class GroupController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function list(Request $request)
+    public function list(Request $request, PaginatorInterface $paginator)
     {
         // Get Groups
         $query = $this
@@ -49,8 +52,7 @@ class GroupController extends Controller
             ->createQueryBuilder('g');
 
         // Get Result
-        $pagination = $this->get('knp_paginator');
-        $pagination = $pagination->paginate(
+        $pagination = $paginator->paginate(
             $query,
             $request->query->getInt('page', 1),
             $request->query->getInt('limit', $this->getParameter('list_count'))
@@ -142,21 +144,23 @@ class GroupController extends Controller
     /**
      * Edit Group Roles.
      *
-     * @param Group   $group
+     * @param Group $group
      * @param Request $request
      *
-     * @IsGranted("ROLE_GROUP_ROLES")
-     * @Route(name="account_group_roles", path="/account/group/roles/{group}")
+     * @param RouterInterface $router
+     * @param WidgetInterface $widget
      *
+     * @return \Symfony\Component\HttpFoundation\Response
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @IsGranted("ROLE_GROUP_ROLES")
+     * @Route(name="account_group_roles", path="/account/group/roles/{group}")
      */
-    public function roles(Group $group, Request $request)
+    public function roles(Group $group, Request $request, RouterInterface $router, WidgetInterface $widget)
     {
         // All Roles
-        $security = new SecurityManager($this->container);
+        $security = new SecurityManager($router, $widget);
         $roles = $security->getRoles();
 
         // Create Form

@@ -13,8 +13,8 @@
 
 namespace App\Twig;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Twig Extension.
@@ -31,22 +31,20 @@ class FormatExtension extends \Twig_Extension
     private $translator;
 
     /**
-     * Container.
-     *
-     * @var ContainerInterface
+     * @var ParameterBagInterface
      */
-    private $container;
+    private $bag;
 
     /**
      * Constructor.
      *
      * @param TranslatorInterface $translator
-     * @param ContainerInterface  $container
+     * @param ParameterBagInterface $bag
      */
-    public function __construct(TranslatorInterface $translator, ContainerInterface $container)
+    public function __construct(TranslatorInterface $translator, ParameterBagInterface $bag)
     {
         $this->translator = $translator;
-        $this->container = $container;
+        $this->bag = $bag;
     }
 
     /**
@@ -200,7 +198,7 @@ class FormatExtension extends \Twig_Extension
      */
     public function parametersFunction($name, $index = 0)
     {
-        $params = $this->container->getParameter($name);
+        $params = $this->bag->get($name);
 
         if ('false' === $index) {
             return $params;
@@ -227,8 +225,8 @@ class FormatExtension extends \Twig_Extension
             return $title;
         }
 
-        $getTitle = str_replace('&T', $title, $this->container->getParameter('head_title_pattern'));
-        $getTitle = str_replace('&P', $this->container->getParameter('head_title'), $getTitle);
+        $getTitle = str_replace('&T', $title, $this->bag->get('head_title_pattern'));
+        $getTitle = str_replace('&P', $this->bag->get('head_title'), $getTitle);
 
         return $getTitle;
     }

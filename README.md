@@ -16,7 +16,7 @@ Installation
     ```
     composer create-project appaydin/pd-admin pdadmin 
     ```
-2. Create and configure the `.env` file. Details are available in `.env.dist` file.
+2. Create and configure the `.env` file.
 
 3. Create database schemas
     ```
@@ -25,6 +25,11 @@ Installation
 4. Run built-in web server
      ```
      bin/console server:start
+     ```
+5. Install & Build assets
+     ```
+     yarn install
+     yarn run build
      ```
 
 Documentation

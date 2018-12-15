@@ -16,7 +16,8 @@ namespace App\Manager;
 use App\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Psr\Container\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -34,9 +35,9 @@ class ConfigManager
     private $em;
 
     /**
-     * @var ContainerInterface
+     * @var ParameterBagInterface
      */
-    private $container;
+    private $parameterBag;
 
     /**
      * @var array
@@ -56,14 +57,14 @@ class ConfigManager
     /**
      * ConfigManager constructor.
      *
-     * @param ObjectManager      $em
-     * @param ContainerInterface $container
+     * @param ObjectManager $em
+     * @param ParameterBagInterface $parameterBag
      * @param $configName string
      */
-    public function __construct(ObjectManager $em, ContainerInterface $container, string $configName)
+    public function __construct(ObjectManager $em, ParameterBagInterface $parameterBag, string $configName)
     {
         $this->em = $em;
-        $this->container = $container;
+        $this->parameterBag = $parameterBag;
         $this->configName = $configName;
 
         // Load Configuration
@@ -165,7 +166,7 @@ class ConfigManager
                             if (\is_array($oldFile)) {
                                 $fs = new Filesystem();
                                 foreach ($oldFile as $file) {
-                                    $file = $this->container->getParameter('upload_dir').$file;
+                                    $file = $this->parameterBag->get('upload_dir').$file;
                                     if ($fs->exists($file)) {
                                         $fs->remove($file);
                                     }
@@ -173,7 +174,7 @@ class ConfigManager
                             }
 
                             // Upload New File
-                            $uploadManager = new UploadManager($this->container);
+                            $uploadManager = new UploadManager($this->parameterBag);
                             $formData[$itemName] = $uploadManager->upload($itemData, true);
                         } else {
                             $formData[$itemName] = $this->realConfig[$itemName] ?? null;

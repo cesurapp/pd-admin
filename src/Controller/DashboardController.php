@@ -13,8 +13,9 @@
 
 namespace App\Controller;
 
+use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -24,7 +25,7 @@ use Symfony\Component\Routing\Annotation\Route;
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class DashboardController extends Controller
+class DashboardController extends AbstractController
 {
     /**
      * Dashboard Index.
@@ -59,21 +60,20 @@ class DashboardController extends Controller
     /**
      * Change Language for Session.
      *
-     * @param string  $lang
      * @param Request $request
-     * @Route(name="language", path="/language/{lang}")
-     *
-     * @throws \Psr\Cache\InvalidArgumentException
+     * @param WidgetInterface $widget
+     * @param string $lang
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route(name="language", path="/language/{lang}")
      */
-    public function changeLanguage($lang, Request $request)
+    public function changeLanguage(Request $request, WidgetInterface $widget, $lang)
     {
         // Set Language for Session
         $request->getSession()->set('_locale', $lang);
 
         // Flush Widget Cache
-        $this->get('pd_widget.core')->clearWidgetCache();
+        $widget->clearWidgetCache();
 
         // Return Back
         return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('admin_dashboard'));

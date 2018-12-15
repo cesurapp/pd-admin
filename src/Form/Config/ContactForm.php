@@ -40,7 +40,7 @@ class ContactForm extends ConfigAbstractType
             ->add('contact_email', EmailType::class, [
                 'label' => 'contact_email',
                 'help' => 'contact_email_info',
-                'attr' => ['placeholder-nt' => 'example@emlakpro.net'],
+                'attr' => ['placeholder-nt' => 'pdadmin@example.net'],
                 'required' => true,
             ])
             ->add('contact_phone', TextType::class, [

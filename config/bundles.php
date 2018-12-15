@@ -15,8 +15,8 @@ return [
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Symfony\Bundle\WebProfilerBundle\WebProfilerBundle::class => ['dev' => true, 'test' => true],
     Symfony\Bundle\DebugBundle\DebugBundle::class => ['dev' => true, 'test' => true],
+    Pd\MenuBundle\PdMenuBundle::class => ['all' => true],
+    Pd\WidgetBundle\PdWidgetBundle::class => ['all' => true],
     Pd\MailerBundle\PdMailerBundle::class => ['all' => true],
     Pd\UserBundle\PdUserBundle::class => ['all' => true],
-    Pd\WidgetBundle\PdWidgetBundle::class => ['all' => true],
-    Pd\MenuBundle\PdMenuBundle::class => ['all' => true],
 ];

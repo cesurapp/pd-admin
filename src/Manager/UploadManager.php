@@ -14,9 +14,9 @@
 namespace App\Manager;
 
 use App\Library\Tools;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -28,9 +28,9 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class UploadManager
 {
     /**
-     * @var ContainerInterface
+     * @var ParameterBagInterface
      */
-    private $container;
+    private $parameterBag;
 
     /**
      * Current Upload Directory.
@@ -49,11 +49,11 @@ class UploadManager
     /**
      * Upload constructor.
      *
-     * @param ContainerInterface $container
+     * @param ParameterBagInterface $parameterBag
      */
-    public function __construct(ContainerInterface $container)
+    public function __construct(ParameterBagInterface $parameterBag)
     {
-        $this->container = $container;
+        $this->parameterBag = $parameterBag;
         $this->createDirectory();
     }
 
@@ -225,6 +225,6 @@ class UploadManager
      */
     private function cfg($parameterName)
     {
-        return $this->container->getParameter($parameterName);
+        return $this->parameterBag->get($parameterName);
     }
 }
