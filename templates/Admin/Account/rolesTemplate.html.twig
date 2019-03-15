@@ -1,60 +1,77 @@
-{# Content Body #}
-{% block content_body %}
-    <div class="content-form">
-        {{ form_start(form) }}
-        <div class="form-group">
-            <div class="accordion-menu" role="tablist">
-                {% for item in form %}
-                    {% if ('_token' not in item.vars.name) and ('Submit' not in item.vars.name) %}
-                        {{ lastItemName is defined ? ( lastItemName[0] in item.vars.name ? '' : '<hr>' ) : '' }}
-                        <div class="panel">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a data-toggle="collapse" data-parent=".accordion-menu" href="#{{ item.vars.name }}">
-                                        {{ (item.vars.name ~ '.title')|trans }}
-                                        <span class="badge badge-primary float-right">{{ item.children|length }}</span>
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="{{ item.vars.name }}" class="panel-collapse collapse">
-                                <div class="panel-content">
-                                    {% for child in item.children %}
-                                        {{ form_widget(child) }}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        {% set lastItemName = item.vars.name|split('_') %}
-                    {% endif %}
-                {% endfor %}
+{{ form_start(form) }}
+<div id="accordion" class="accordion accordion-menu mb-3" role="tablist">
+    {% if form.acl is defined %}
+        <div class="panel">
+            <div class="panel-heading">
+                <h4 class="panel-title"><a data-toggle="collapse" data-target="#acl" href="#">{{ 'ACL.title'|trans }}</a></h4>
+            </div>
+            <div id="acl" data-parent="#accordion" class="panel-collapse collapse">
+                <div class="panel-content">
+                    {% for acl in form.acl.children %}
+                        {{ form_widget(acl) }}
+                    {% endfor %}
+                </div>
             </div>
         </div>
-        <div class="form-group text-center mt-3">
-            <div>{{ form_widget(form.Submit) }}</div>
+    {% endif %}
+    {% if form.aclprocess is defined %}
+        {% for item in form.aclprocess.vars.choices %}
+            <div class="panel">
+                <div class="panel-heading">
+                    <h4 class="panel-title"><a data-toggle="collapse" data-target="#aclprocess" href="#">{{ 'ACLProcess.title'|trans }}</a>
+                    </h4>
+                </div>
+                <div id="aclprocess" data-parent="#accordion" class="panel-collapse collapse">
+                    <div class="panel-content">
+                        {% for aclprocess in form.aclprocess.children %}
+                            {{ form_widget(aclprocess) }}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        <hr>
+    {% endif %}
+    {% for item in form.roles.vars.choices %}
+        <div class="panel">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a data-toggle="collapse" data-target="#{{ item.label }}" href="#">
+                        {{ (item.label ~ '.title')|trans }}
+                        <span class="badge badge-primary float-right text-white">{{ item.choices|length }}</span>
+                    </a>
+                </h4>
+            </div>
+            <div id="{{ item.label }}" data-parent="#accordion" class="panel-collapse collapse">
+                <div class="panel-content">
+                    {% for child in item.choices %}
+                        {{ form_widget(form.roles.children[child.value]) }}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-        {{ form_end(form) }}
-    </div>
-{% endblock %}
+    {% endfor %}
+</div>
+{{ form_row(form.submit) }}
+{{ form_end(form) }}
 
-{% block scripts %}
-    <script>
-      $(function () {
-        $('[name="form[ACL]"]').change(function () {
-          var val = $(this).val();
-          var selector = '.accordion-menu input[type*=checkbox], .accordion-menu input[name*="ACLP"]';
+<script>
+  $(function () {
+    $('[name="roles[acl]"]').change(function () {
+      var val = $(this).val();
+      var selector = '.accordion-menu input[type*=checkbox], .accordion-menu input[name*="aclprocess"]';
 
-          // Disable Admin Access to ROLE_USER
-          if (val === 'ROLE_SUPER_ADMIN') {
-            $.each($(selector), function (index, el) {
-              $(el).attr('disabled', true)
-            })
-          } else {
-            $.each($(selector), function (index, el) {
-              $(el).attr('disabled', false)
-            })
-          }
-        });
-        $('[name="form[ACL]"]:checked').trigger('change');
-      })
-    </script>
-{% endblock %}
+      // Disable Admin Access to ROLE_USER
+      if (val === 'ROLE_SUPER_ADMIN') {
+        $.each($(selector), function (index, el) {
+          $(el).attr('disabled', true)
+        })
+      } else {
+        $.each($(selector), function (index, el) {
+          $(el).attr('disabled', false)
+        })
+      }
+    });
+    $('[name="roles[acl]"]:checked').trigger('change');
+  })
+</script>

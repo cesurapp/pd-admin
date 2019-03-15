@@ -1,12 +1,12 @@
 {
     "appaydin/pd-mailer": {
-        "version": "1.0.3"
+        "version": "1.1.1"
     },
     "appaydin/pd-menu": {
         "version": "1.0.06"
     },
     "appaydin/pd-user": {
-        "version": "1.03"
+        "version": "1.11.0"
     },
     "appaydin/pd-widget": {
         "version": "1.0.05"
@@ -151,6 +151,9 @@
     },
     "rmznpydn/pd-widget": {
         "version": "1.0.02"
+    },
+    "roave/security-advisories": {
+        "version": "dev-master"
     },
     "sensio/framework-extra-bundle": {
         "version": "4.0",
@@ -304,6 +307,9 @@
     },
     "symfony/polyfill-intl-icu": {
         "version": "v1.7.0"
+    },
+    "symfony/polyfill-intl-idn": {
+        "version": "v1.10.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.7.0"

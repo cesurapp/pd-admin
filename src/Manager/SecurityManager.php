@@ -36,6 +36,12 @@ class SecurityManager
      */
     private $widget;
 
+    /**
+     * SecurityManager constructor.
+     *
+     * @param RouterInterface $router
+     * @param WidgetInterface $widget
+     */
     public function __construct(RouterInterface $router, WidgetInterface $widget)
     {
         $this->router = $router;

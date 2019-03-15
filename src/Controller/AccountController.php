@@ -14,24 +14,23 @@
 namespace App\Controller;
 
 use App\Entity\Account\Group;
-use App\Entity\Account\Profile;
 use App\Entity\Account\User;
+use App\Form\Account\RolesType;
 use App\Manager\SecurityManager;
 use Knp\Component\Pager\PaginatorInterface;
 use Pd\UserBundle\Form\ChangePasswordType;
 use Pd\UserBundle\Form\ProfileType;
 use Pd\UserBundle\Model\UserInterface;
-use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -44,7 +43,7 @@ class AccountController extends AbstractController
     /**
      * Security Manager Add Custom Roles.
      */
-    const CUSTOM_ROLES = [
+    public const CUSTOM_ROLES = [
         'ROLE_ACCOUNT_ALLREAD',
         'ROLE_ACCOUNT_ALLWRITE',
     ];
@@ -140,24 +139,23 @@ class AccountController extends AbstractController
     /**
      * Edit the User.
      *
-     * @param Request $request
-     * @param User    $user
+     * @param Request               $request
+     * @param User                  $user
+     * @param ParameterBagInterface $bag
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      *
      * @IsGranted("ROLE_ACCOUNT_EDIT")
      * @Route(name="account_edit", path="/account/edit/{user}")
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function edit(Request $request, User $user)
+    public function edit(Request $request, User $user, ParameterBagInterface $bag)
     {
         // Check Read Only
         $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
 
         // Create Form
         $form = $this->createForm(ProfileType::class, $user, [
-            'data_class' => User::class,
-            'profile_class' => Profile::class,
-            'container' => $this->container,
+            'parameter_bag' => $bag,
         ]);
 
         // Handle Request
@@ -185,8 +183,11 @@ class AccountController extends AbstractController
 
         // Render Page
         return $this->render('Admin/Account/edit.html.twig', [
+            'page_title' => 'account_edit_title',
+            'page_description' => sprintf('%s %s - %s', $user->getProfile()->getFirstname(), $user->getProfile()->getLastname(), $user->getEmail()),
+            'page_menu' => 'App\\Menu\\AccountMenu',
             'form' => $form->createView(),
-            'user' => $user,
+            'item' => $user,
         ]);
     }
 
@@ -209,7 +210,6 @@ class AccountController extends AbstractController
 
         // Create Form
         $form = $this->createForm(ChangePasswordType::class, $user, [
-            'data_class' => User::class,
             'disable_current_password' => $this->isGranted(User::ROLE_ALL_ACCESS) ||
                 $this->isGranted('ADMIN_ACCOUNT_ALLWRITE'),
         ]);
@@ -237,9 +237,12 @@ class AccountController extends AbstractController
         }
 
         // Render Page
-        return $this->render('Admin/Account/changePassword.html.twig', [
+        return $this->render('Admin/Account/edit.html.twig', [
+            'page_title' => 'account_change_password_title',
+            'page_description' => sprintf('%s %s - %s', $user->getProfile()->getFirstname(), $user->getProfile()->getLastname(), $user->getEmail()),
+            'page_menu' => 'App\\Menu\\AccountMenu',
             'form' => $form->createView(),
-            'user' => $user,
+            'item' => $user,
         ]);
     }
 
@@ -248,69 +251,25 @@ class AccountController extends AbstractController
      *
      * @param Request         $request
      * @param User            $user
-     * @param RouterInterface $router
-     * @param WidgetInterface $widget
+     * @param SecurityManager $security
      *
      * @throws \Doctrine\Common\Annotations\AnnotationException
      * @throws \ReflectionException
      *
      * @return \Symfony\Component\HttpFoundation\Response
      *
+     *
      * @IsGranted("ROLE_ACCOUNT_ROLES")
      * @Route(name="account_roles", path="/account/role/{user}")
      */
-    public function roles(Request $request, User $user, RouterInterface $router, WidgetInterface $widget)
+    public function roles(Request $request, User $user, SecurityManager $security)
     {
-        // Find All Roles
-        $security = new SecurityManager($router, $widget);
-        $roles = $security->getRoles();
-
-        // Create Form
-        $ACL = $security->getACL();
-        $form = $this->createFormBuilder([])
-            ->add('ACL', ChoiceType::class, [
-                'label' => false,
-                'multiple' => false,
-                'expanded' => true,
-                'choices' => $ACL,
-                'choice_label' => function ($val, $key, $index) {
-                    return $key.'.title';
-                },
-                'data' => key(array_intersect($ACL, $user->getRolesUser())),
-            ])
-            ->add('ACLProcess', ChoiceType::class, [
-                'label' => false,
-                'multiple' => true,
-                'expanded' => true,
-                'choices' => [
-                    'ROLE_ALLOWED_TO_SWITCH.title' => 'ROLE_ALLOWED_TO_SWITCH',
-                ],
-                'data' => $user->getRolesUser(),
-                'required' => false,
-            ])
-            ->add('Submit', SubmitType::class, [
-                'label' => 'save',
-                'attr' => ['class' => 'btn-primary'],
-            ]);
-
-        // Add Form Items
-        if (\count($roles)) {
-            foreach ($roles as $roleGroup => $access) {
-                $form->add($roleGroup, ChoiceType::class, [
-                    'label' => false,
-                    'multiple' => true,
-                    'expanded' => true,
-                    'choices' => $access,
-                    'choice_label' => function ($val, $key, $index) use ($roleGroup) {
-                        return $roleGroup.'.'.$key;
-                    },
-                    'data' => $user->getRolesUser(),
-                ]);
-            }
-        }
-
         // Set Form & Request
-        $form = $form->getForm();
+        $form = $this->createForm(RolesType::class, null, [
+            'roles' => $security->getRoles(),
+            'acl' => $security->getACL(),
+            'userRoles' => $user->getRolesUser(),
+        ]);
         $form->handleRequest($request);
 
         // Valid Form
@@ -319,22 +278,14 @@ class AccountController extends AbstractController
             $this->checkAllAccess($user);
 
             // User Add Roles
-            $addRoles = [];
-            foreach ($form->getData() as $roleName => $roles) {
-                if ($roles) {
-                    if (!\is_array($roles)) {
-                        $roles = [$roles];
-                    }
-
-                    // Add Role Group
-                    if ('ACL' !== $roleName && 'ACLProcess' !== $roleName) {
-                        array_push($roles, $roleName);
-                    }
-
-                    $addRoles = array_merge($addRoles, $roles);
-                }
+            $roles = $form->get('roles')->getData();
+            if ($form->has('acl')) {
+                $roles = array_merge($roles, [$form->get('acl')->getData()]);
+                $roles = array_merge($roles, $form->get('aclprocess')->getData());
             }
-            $user->setRoles($addRoles);
+            if ($roles) {
+                $user->setRoles($roles);
+            }
 
             // Save
             $em = $this->getDoctrine()->getManager();
@@ -346,10 +297,12 @@ class AccountController extends AbstractController
         }
 
         // Render Page
-        return $this->render('Admin/Account/roles.html.twig', [
+        return $this->render('Admin/Account/edit.html.twig', [
+            'page_title' => 'account_roles_title',
+            'page_description' => sprintf('%s %s - %s', $user->getProfile()->getFirstname(), $user->getProfile()->getLastname(), $user->getEmail()),
+            'page_menu' => 'App\\Menu\\AccountMenu',
             'form' => $form->createView(),
-            'roles' => $roles,
-            'user' => $user,
+            'item' => $user,
         ]);
     }
 
@@ -375,7 +328,7 @@ class AccountController extends AbstractController
                 'class' => Group::class,
                 'choice_label' => 'name',
                 'choice_attr' => function ($obj) use ($groupName) {
-                    return (\in_array($obj->getName(), $groupName, true)) ? ['selected' => ''] : [];
+                    return \in_array($obj->getName(), $groupName, true) ? ['selected' => ''] : [];
                 },
                 'label' => 'account_groups',
                 'multiple' => true,
@@ -410,9 +363,12 @@ class AccountController extends AbstractController
         }
 
         // Render
-        return $this->render('Admin/Account/addGroup.html.twig', [
+        return $this->render('Admin/Account/edit.html.twig', [
+            'page_title' => 'account_add_group_title',
+            'page_description' => sprintf('%s %s - %s', $user->getProfile()->getFirstname(), $user->getProfile()->getLastname(), $user->getEmail()),
+            'page_menu' => 'App\\Menu\\AccountMenu',
             'form' => $form->createView(),
-            'user' => $user,
+            'item' => $user,
         ]);
     }
 
