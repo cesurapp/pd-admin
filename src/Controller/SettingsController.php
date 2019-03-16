@@ -264,7 +264,7 @@ class SettingsController extends AbstractController
         }
 
         // Render Page
-        return $this->render('Admin/Settings/media.html.twig', [
+        return $this->render('Admin/Settings/index.html.twig', [
             'form' => $form->createView(),
             'page_title' => 'settings_media',
             'page_description' => 'settings_media_desc',

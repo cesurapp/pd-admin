@@ -21,11 +21,6 @@ services:
         tags:
             - { name: kernel.event_listener, event: widget.start, method: builder }
 
-    # Exception Listener
-    App\Listener\ExceptionListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.exception }
-
     # Switch User Listener
     security.authentication.switchuser_listener:
         class: App\Listener\SwitchUserListener

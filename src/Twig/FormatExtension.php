@@ -15,13 +15,17 @@ namespace App\Twig;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Twig\Environment;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
+use Twig\TwigFunction;
 
 /**
  * Twig Extension.
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class FormatExtension extends \Twig_Extension
+class FormatExtension extends AbstractExtension
 {
     /**
      * Translator.
@@ -55,10 +59,10 @@ class FormatExtension extends \Twig_Extension
     public function getFilters()
     {
         return [
-            new \Twig_SimpleFilter('timeDiff', [$this, 'timeDiffFilter'], ['needs_environment' => true]),
-            new \Twig_SimpleFilter('phoneFormat', [$this, 'phoneFormatFilter']),
-            new \Twig_SimpleFilter('basename', [$this, 'baseNameFilter']),
-            new \Twig_SimpleFilter('swiftEvent', [$this, 'swiftEventFilter']),
+            new TwigFilter('timeDiff', [$this, 'timeDiffFilter'], ['needs_environment' => true]),
+            new TwigFilter('phoneFormat', [$this, 'phoneFormatFilter']),
+            new TwigFilter('basename', [$this, 'baseNameFilter']),
+            new TwigFilter('swiftEvent', [$this, 'swiftEventFilter']),
         ];
     }
 
@@ -70,32 +74,34 @@ class FormatExtension extends \Twig_Extension
     public function getFunctions()
     {
         return [
-            new \Twig_SimpleFunction('parameters', [$this, 'parametersFunction']),
-            new \Twig_SimpleFunction('title', [$this, 'titleFunction']),
-            new \Twig_SimpleFunction('inArray', [$this, 'inArrayFunction']),
-            new \Twig_SimpleFunction('pathInfo', [$this, 'pathInfoFunction']),
+            new TwigFunction('parameters', [$this, 'parametersFunction']),
+            new TwigFunction('title', [$this, 'titleFunction']),
+            new TwigFunction('inArray', [$this, 'inArrayFunction']),
+            new TwigFunction('pathInfo', [$this, 'pathInfoFunction']),
         ];
     }
 
     /**
      * Time Ago.
      *
-     * @param \Twig_Environment $env
+     * @param Environment $env
      * @param $date
-     * @param null $now
-     * @param int  $length
+     * @param null   $now
+     * @param string $text
+     * @param int    $length
+     * @param string $domain
      *
      * @return string
      */
-    public function timeDiffFilter(\Twig_Environment $env, $date, $now = null, $length = 1)
+    public function timeDiffFilter(Environment $env, $date, $now = null, $text = 'diff.ago', $domain = 'messages', $length = 1)
     {
         $units = [
-            'y' => $this->translator->trans('diff.year'),
-            'm' => $this->translator->trans('diff.month'),
-            'd' => $this->translator->trans('diff.day'),
-            'h' => $this->translator->trans('diff.hour'),
-            'i' => $this->translator->trans('diff.minute'),
-            's' => $this->translator->trans('diff.second'),
+            'y' => $this->translator->trans('diff.year', [], $domain),
+            'm' => $this->translator->trans('diff.month', [], $domain),
+            'd' => $this->translator->trans('diff.day', [], $domain),
+            'h' => $this->translator->trans('diff.hour', [], $domain),
+            'i' => $this->translator->trans('diff.minute', [], $domain),
+            's' => $this->translator->trans('diff.second', [], $domain),
         ];
 
         // Date Time
@@ -120,7 +126,7 @@ class FormatExtension extends \Twig_Extension
             }
         }
 
-        return ($format) ? $format.$this->translator->trans('diff.ago') : '';
+        return ($format) ? $format.$this->translator->trans($text, [], $domain) : '';
     }
 
     /**

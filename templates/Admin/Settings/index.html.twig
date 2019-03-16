@@ -16,11 +16,100 @@
 
 {# Content Body #}
 {% block content_body %}
-    {% include "Admin/Settings/refreshCache.html.twig" %}
+    <div id="cacheModal" class="modal fade confirm" tabindex="-1">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header"><h4><i class="material-icons">refresh</i></h4></div>
+                <div class="modal-body">
+                    {{ 'admin_refresh_cache_desc'|trans }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">{{ 'close'|trans }}</button>
+                    <button type="submit" id="refreshCache" class="btn btn-success">{{ 'refresh'|trans }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(function () {
+            $('#refreshCache').click(function () {
+                $.ajax({
+                    url: '{{ path('admin_settings_clearcache') }}',
+                    dataType: 'json',
+                    complete: function (response) {
+                        $('#cacheModal').modal('hide');
+                    }
+                });
+            });
+        })
+    </script>
 
     <div class="content-form">
         {{ form_start(form) }}
         {{ form_widget(form) }}
         {{ form_end(form) }}
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {% if form.media_library is defined %}
+        <script>
+            var hideClass = '.form-group.row';
+            var textItems = $('input[name*=media_wm_font], input[name*=media_wm_font_text],' +
+                'input[name*=media_wm_font_size], input[name*=media_wm_font_color], input[name*=media_wm_font_align],' +
+                'input[name*=media_wm_font_valign], input[name*=media_wm_font_x], input[name*=media_wm_font_y], input[name*=media_wm_font_angle]');
+            var imageItems = $('input[name*=media_wm_image], select[name*=media_wm_image_position],' +
+                'input[name*=media_wm_image_x], input[name*=media_wm_image_y]');
+
+            function changeWatermarkStatus(textStatus, imageStatus) {
+                $.each(textItems, function (index, elem) {
+                    $(elem).closest(hideClass).toggleClass('hidden', textStatus);
+                });
+
+                $.each(imageItems, function (index, elem) {
+                    $(elem).closest(hideClass).toggleClass('hidden', imageStatus);
+                });
+            }
+
+            $(function () {
+                /**
+                 * Image Watermark Selection
+                 */
+                $('input[name="media_watermark"]').change(function () {
+                    switch ($(this).val()) {
+                        case 'text':
+                            changeWatermarkStatus(false, true);
+                            break;
+                        case 'image':
+                            changeWatermarkStatus(true, false);
+                            break;
+                        default:
+                            changeWatermarkStatus(true, true);
+                    }
+                });
+
+                /**
+                 * Image Optimization Selection
+                 */
+                $('input[name="media_optimize"]').change(function () {
+                    var items = $('input[name*=media_max_height], input[name*=media_max_width], input[name*=media_quality]');
+                    var status = $(this).val() == 1 ? false : true;
+
+                    $.each(items, function (index, elem) {
+                        $(elem).closest(hideClass).toggleClass('hidden', status);
+
+                        $('input[name="media_watermark"]').prop('disabled', status);
+                        if (status) {
+                            changeWatermarkStatus(true, true);
+                        } else {
+                            $('input[name="media_watermark"]:checked').trigger('change');
+                        }
+                    });
+                });
+
+                // Page Load Trigger
+                $('input[name="media_optimize"]:checked').trigger('change');
+            })
+        </script>
+    {% endif %}
 {% endblock %}
