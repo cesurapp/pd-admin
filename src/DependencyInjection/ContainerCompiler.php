@@ -57,7 +57,7 @@ class ContainerCompiler
 
         while (false !== $result = $query->fetchObject()) {
             // Fetch Form Data
-            if ($value = @unserialize($result->value, null)) {
+            if ($value = @unserialize($result->value)) {
                 foreach ($value as $name => $val) {
                     // Convert Bool
                     if (1 === $val || '1' === $val) {

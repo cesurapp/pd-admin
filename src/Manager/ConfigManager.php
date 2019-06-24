@@ -67,7 +67,7 @@ class ConfigManager
         // Load Configuration
         $this->configObject = $em->getRepository(Config::class)->findOneBy(['name' => $configName]);
         if (null !== $this->configObject) {
-            $this->realConfig = @unserialize($this->configObject->getValue(), null);
+            $this->realConfig = @unserialize($this->configObject->getValue());
         }
     }
 
