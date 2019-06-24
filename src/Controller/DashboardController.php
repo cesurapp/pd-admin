@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -16,7 +14,9 @@ namespace App\Controller;
 use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -32,9 +32,9 @@ class DashboardController extends AbstractController
      * @Route(name="dashboard", path="/")
      * @IsGranted("ROLE_DASHBOARD_PANEL")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function index()
+    public function index(): Response
     {
         // Set Back URL
         $this->get('session')->set('backUrl', $this->get('router')->generate('admin_dashboard'));
@@ -50,10 +50,11 @@ class DashboardController extends AbstractController
      * @param WidgetInterface $widget
      * @param string          $lang
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route(name="language", path="/language/{lang}")
+     *
+     * @return RedirectResponse
      */
-    public function changeLanguage(Request $request, WidgetInterface $widget, $lang)
+    public function changeLanguage(Request $request, WidgetInterface $widget, $lang): RedirectResponse
     {
         // Set Language for Session
         $request->getSession()->set('_locale', $lang);
@@ -62,6 +63,6 @@ class DashboardController extends AbstractController
         $widget->clearWidgetCache();
 
         // Return Back
-        return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('admin_dashboard'));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_dashboard')));
     }
 }

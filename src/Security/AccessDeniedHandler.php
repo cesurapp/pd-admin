@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -65,7 +63,14 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
             ->getBag('flashes')
             ->add('error', $message);
 
+        // Check Login Page
+        if (null !== $request->headers->get('referer')) {
+            if (parse_url($request->headers->get('referer'), PHP_URL_PATH) === $this->router->generate('security_login')) {
+                return new RedirectResponse('/');
+            }
+        }
+
         // Send Response
-        return new RedirectResponse($request->headers->get('referer') ?? $this->router->generate('admin_dashboard'));
+        return new RedirectResponse($request->headers->get('referer', $this->router->generate('admin_dashboard')));
     }
 }

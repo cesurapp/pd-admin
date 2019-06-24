@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -33,7 +31,7 @@ class RolesType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
                 'choices' => $options['acl'],
-                'choice_label' => function ($val, $key, $index) {
+                'choice_label' => static function ($val, $key, $index) {
                     return $key.'.title';
                 },
                 'mapped' => false,
@@ -55,12 +53,12 @@ class RolesType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'choices' => $options['roles'],
-                'choice_label' => function ($val, $key, $index) {
+                'choice_label' => static function ($val, $key, $index) {
                     $s = explode('_', $val);
 
                     return 3 === \count($s) ? $s[0].'_'.$s[1].'.'.$key : $val;
                 },
-                'choice_name' => function ($val) {
+                'choice_name' => static function ($val) {
                     return $val;
                 },
                 'data' => $options['userRoles'],

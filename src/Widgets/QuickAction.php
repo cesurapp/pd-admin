@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -98,7 +96,7 @@ class QuickAction
                 ->setDescription('widget_quick_action.description')
                 ->setTemplate('Admin/Widget/quickAction.html.twig')
                 ->setRole(['ROLE_WIDGET_QUICKACTION'])
-                ->setConfigProcess(function (Request $request) use ($items) {
+                ->setConfigProcess(static function (Request $request) use ($items) {
                     if ($id = $request->get('id')) {
                         if (isset($items[$id])) {
                             return [$id => $items[$id]];
@@ -107,7 +105,7 @@ class QuickAction
 
                     return false;
                 })
-                ->setData(function ($config) use ($items) {
+                ->setData(static function ($config) use ($items) {
                     return ['items' => $items];
                 })
                 ->setOrder(0)

@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -63,9 +61,9 @@ class UploadManager
      * @param $files array|UploadedFile
      * @param bool $rawUpload
      *
-     * @return array|bool
+     * @return array
      */
-    public function upload($files, $rawUpload = false)
+    public function upload($files, $rawUpload = false): array
     {
         // Uploaded Files
         $uploadFiles = [];
@@ -85,7 +83,29 @@ class UploadManager
         }
 
         // Return Uploaded Files
-        return $uploadFiles ?? false;
+        return $uploadFiles;
+    }
+
+    /**
+     * Remove Files.
+     *
+     * @param string|array|null $files
+     */
+    public function removeFiles($files)
+    {
+        if ($files) {
+            // Convert Array
+            if (!\is_array($files)) {
+                $files = [$files];
+            }
+
+            foreach ($files as $file) {
+                $file = $this->cfg('upload_dir').$file;
+                if (file_exists($file)) {
+                    unlink($file);
+                }
+            }
+        }
     }
 
     /**
@@ -96,11 +116,11 @@ class UploadManager
      *
      * @return string
      */
-    private function uploadProcess(UploadedFile $file, $rawUpload)
+    private function uploadProcess(UploadedFile $file, $rawUpload): string
     {
         // Create Filename
         $tools = new Tools();
-        $fileName = $tools->webalize($tools->randomStr(6).$file->getClientOriginalName(), '.');
+        $fileName = $tools::webalize($tools::randomStr(6).$file->getClientOriginalName(), '.');
 
         // Upload File and Optimize Images
         if (!$rawUpload) {

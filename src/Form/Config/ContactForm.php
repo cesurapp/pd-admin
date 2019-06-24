@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -89,7 +87,7 @@ class ContactForm extends ConfigAbstractType
             ])
             ->add('contact_whatsapp', NumberType::class, [
                 'label' => 'contact_whatsapp',
-                'attr' => ['placeholder-nt' => '+0850 209 6399'],
+                'attr' => ['placeholder-nt' => '+0850 000 0000'],
                 'required' => false,
             ])
             ->add('submit', SubmitType::class, [

@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -15,7 +13,7 @@ namespace App\Menu\Navigation;
 
 use Pd\MenuBundle\Builder\ItemInterface;
 use Pd\MenuBundle\Builder\Menu;
-use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Languages;
 
 /**
  * Toolbar Navigation.
@@ -64,7 +62,7 @@ class Toolbar extends Menu
             ->setExtra('label_translate', false)
             ->setExtra('label_icon', 'flag');
 
-        $activeLang = array_intersect_key(Intl::getLanguageBundle()->getLanguageNames(), array_flip($options['active_language']));
+        $activeLang = array_intersect_key(Languages::getNames(), array_flip($options['active_language']));
         foreach ($activeLang as $key => $label) {
             $languageDropdown
                 ->addChild($label)

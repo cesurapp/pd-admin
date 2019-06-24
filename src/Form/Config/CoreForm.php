@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -91,19 +89,19 @@ class CoreForm extends ConfigAbstractType
         $builder
             ->get('admin_allow_ips')
             ->addModelTransformer(new CallbackTransformer(
-                function ($ips) {
+                static function ($ips) {
                     return implode(PHP_EOL, json_decode($ips, true) ?? []);
                 },
-                function ($ips) {
+                static function ($ips) {
                     return json_encode(array_map('trim', explode(PHP_EOL, $ips)));
                 }
             ));
         $builder->get('auth_allow_ips')
             ->addModelTransformer(new CallbackTransformer(
-                function ($ips) {
+                static function ($ips) {
                     return implode(PHP_EOL, json_decode($ips, true) ?? []);
                 },
-                function ($ips) {
+                static function ($ips) {
                     return json_encode(array_map('trim', explode(PHP_EOL, $ips)));
                 }
             ));

@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -29,7 +27,7 @@ class Tools
      *
      * @return string
      */
-    public function toAscii(string $s): string
+    public static function toAscii(string $s): string
     {
         static $transliterator = null;
         if (null === $transliterator && class_exists('Transliterator', false)) {
@@ -81,9 +79,9 @@ class Tools
      *
      * @return string
      */
-    public function webalize(string $s, string $charlist = null, bool $lower = true): string
+    public static function webalize(string $s, string $charlist = null, bool $lower = true): string
     {
-        $s = $this->toAscii($s);
+        $s = self::toAscii($s);
         if ($lower) {
             $s = mb_strtolower($s);
         }
@@ -101,7 +99,7 @@ class Tools
      *
      * @return string
      */
-    public function randomStr(int $length = 10, string $charlist = '0-9a-z'): string
+    public static function randomStr(int $length = 10, string $charlist = '0-9A-Z'): string
     {
         $charlist = count_chars(preg_replace_callback('#.-.#', function (array $m) {
             return implode('', range($m[0][0], $m[0][2]));
@@ -117,7 +115,7 @@ class Tools
             }
         } catch (\Exception $e) {
             for ($i = 0; $i < $length; ++$i) {
-                $res .= $charlist[rand(0, $chLen - 1)];
+                $res .= $charlist[random_int(0, $chLen - 1)];
             }
         }
 
@@ -132,7 +130,7 @@ class Tools
      *
      * @return array
      */
-    public function implodeKeyValue(array $array, $glue = ' - ')
+    public static function implodeKeyValue(array $array, $glue = ' - '): array
     {
         $imloded = [];
 

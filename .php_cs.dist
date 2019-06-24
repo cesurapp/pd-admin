@@ -23,25 +23,15 @@ return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
-        'psr4' => true,
+        '@PHPUnit48Migration:risky' => true,
+        'php_unit_no_expectation_annotation' => false,
         'array_syntax' => ['syntax' => 'short'],
-        'header_comment' => ['header' => $fileHeaderComment, 'separate' => 'both', 'commentType' => 'PHPDoc'],
-        'linebreak_after_opening_tag' => true,
-        'mb_str_functions' => true,
-        'no_php4_constructor' => true,
-        'no_useless_else' => true,
-        'no_useless_return' => true,
+        'fopen_flags' => false,
         'ordered_imports' => true,
-        'php_unit_strict' => true,
-        'phpdoc_order' => true,
-        'semicolon_after_instruction' => true,
-        'blank_line_after_namespace' => true,
-        'class_definition' => true,
-        'multiline_comment_opening_closing' => true,
-        'single_line_comment_style' => true,
-        'single_blank_line_before_namespace' => true,
-        'phpdoc_trim' => true,
-        'no_extra_consecutive_blank_lines' => true
+        'protected_to_private' => false,
+        'native_function_invocation' => ['include' => ['@compiler_optimized'], 'scope' => 'namespaced'],
+        'phpdoc_types_order' => ['null_adjustment' => 'always_last', 'sort_algorithm' => 'none'],
+        'header_comment' => ['header' => $fileHeaderComment, 'separate' => 'both', 'commentType' => 'PHPDoc'],
     ])
     ->setFinder($finder)
     ->setCacheFile(__DIR__.'/var/cache/.php_cs.cache')

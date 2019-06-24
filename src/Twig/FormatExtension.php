@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -126,7 +124,7 @@ class FormatExtension extends AbstractExtension
             }
         }
 
-        return ($format) ? $format.$this->translator->trans($text, [], $domain) : '';
+        return $format ? $format.$this->translator->trans($text, [], $domain) : '';
     }
 
     /**
@@ -136,7 +134,7 @@ class FormatExtension extends AbstractExtension
      *
      * @return string
      */
-    public function phoneFormatFilter($phone)
+    public function phoneFormatFilter($phone): string
     {
         // Null | Empty | 0
         if (empty($phone) || 0 === $phone) {
@@ -153,7 +151,7 @@ class FormatExtension extends AbstractExtension
      *
      * @return string
      */
-    public function baseNameFilter($path)
+    public function baseNameFilter($path): string
     {
         return basename($path);
     }
@@ -166,7 +164,7 @@ class FormatExtension extends AbstractExtension
      *
      * @return string
      */
-    public function swiftEventFilter($event, $color = false)
+    public function swiftEventFilter($event, $color = false): string
     {
         $str = '';
 
@@ -231,8 +229,7 @@ class FormatExtension extends AbstractExtension
             return $title;
         }
 
-        $getTitle = str_replace('&T', $title, $this->bag->get('head_title_pattern'));
-        $getTitle = str_replace('&P', $this->bag->get('head_title'), $getTitle);
+        $getTitle = str_replace(['&T', '&P'], [$title, $this->bag->get('head_title')], $this->bag->get('head_title_pattern'));
 
         return $getTitle;
     }

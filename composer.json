@@ -31,6 +31,7 @@
     "symfony/form": "4.*",
     "symfony/framework-bundle": "4.*",
     "symfony/orm-pack": "1.*",
+    "symfony/process": "4.3.*",
     "symfony/security-bundle": "4.*",
     "symfony/swiftmailer-bundle": "3.*",
     "symfony/translation": "4.*",
@@ -40,12 +41,12 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "symfony/debug-bundle": "4.2.*",
+    "symfony/debug-bundle": "4.*",
     "symfony/maker-bundle": "1.*",
-    "symfony/monolog-bundle": "^3.3",
+    "symfony/monolog-bundle": "3.*",
     "symfony/profiler-pack": "^1.0",
     "symfony/test-pack": "1.*",
-    "symfony/var-dumper": "4.2.*",
+    "symfony/var-dumper": "4.*",
     "symfony/web-server-bundle": "4.*"
   },
   "config": {
@@ -82,7 +83,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "4.2.*"
+      "require": "4.3.*"
     }
   }
 }

@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -41,12 +39,12 @@ class ConfigManager
     /**
      * @var array
      */
-    private $realConfig = null;
+    private $realConfig;
 
     /**
      * @var Config
      */
-    private $configObject = null;
+    private $configObject;
 
     /**
      * @var string
@@ -69,7 +67,7 @@ class ConfigManager
         // Load Configuration
         $this->configObject = $em->getRepository(Config::class)->findOneBy(['name' => $configName]);
         if (null !== $this->configObject) {
-            $this->realConfig = @unserialize($this->configObject->getValue());
+            $this->realConfig = @unserialize($this->configObject->getValue(), null);
         }
     }
 
@@ -80,7 +78,7 @@ class ConfigManager
      *
      * @return array|null
      */
-    public function get(string $name)
+    public function get(string $name): ?array
     {
         return $this->realConfig[$name] ?? null;
     }
@@ -90,7 +88,7 @@ class ConfigManager
      *
      * @return array
      */
-    public function getAll()
+    public function getAll(): array
     {
         return $this->realConfig ?? [];
     }

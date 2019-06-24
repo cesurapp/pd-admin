@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -68,9 +66,6 @@ class SecurityManager
     /**
      * Get All Method Roles.
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
-     * @throws \ReflectionException
-     *
      * @return array
      */
     public function getRoles(): array
@@ -97,7 +92,11 @@ class SecurityManager
         $roles = [];
         foreach ($classMethods as $class => $methods) {
             // Class Reflection
-            $reflection = new \ReflectionClass($class);
+            try {
+                $reflection = new \ReflectionClass($class);
+            } catch (\ReflectionException $e) {
+                break;
+            }
 
             // Read Class Annotation
             if ($customRoles = $reflection->getConstant('CUSTOM_ROLES')) {

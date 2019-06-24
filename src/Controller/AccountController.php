@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -17,6 +15,7 @@ use App\Entity\Account\Group;
 use App\Entity\Account\User;
 use App\Form\Account\RolesType;
 use App\Manager\SecurityManager;
+use App\Menu\AccountMenu;
 use Knp\Component\Pager\PaginatorInterface;
 use Pd\UserBundle\Form\ChangePasswordType;
 use Pd\UserBundle\Form\ProfileType;
@@ -29,7 +28,10 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -54,12 +56,12 @@ class AccountController extends AbstractController
      * @param Request            $request
      * @param PaginatorInterface $paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @IsGranted("ROLE_ACCOUNT_LIST")
      * @Route(name="account_list", path="/account")
+     *
+     * @return Response
      */
-    public function list(Request $request, PaginatorInterface $paginator)
+    public function list(Request $request, PaginatorInterface $paginator): Response
     {
         // Query
         $query = $this
@@ -108,9 +110,9 @@ class AccountController extends AbstractController
     /**
      * Create User Filter Form.
      *
-     * @return \Symfony\Component\Form\FormInterface
+     * @return FormInterface
      */
-    private function createUserFilterForm()
+    private function createUserFilterForm(): FormInterface
     {
         $form = $this->get('form.factory')
             ->createNamedBuilder(null, FormType::class, null, [
@@ -143,12 +145,12 @@ class AccountController extends AbstractController
      * @param User                  $user
      * @param ParameterBagInterface $bag
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @IsGranted("ROLE_ACCOUNT_EDIT")
      * @Route(name="account_edit", path="/account/edit/{user}")
+     *
+     * @return Response
      */
-    public function edit(Request $request, User $user, ParameterBagInterface $bag)
+    public function edit(Request $request, User $user, ParameterBagInterface $bag): Response
     {
         // Check Read Only
         $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
@@ -184,8 +186,8 @@ class AccountController extends AbstractController
         // Render Page
         return $this->render('Admin/Account/edit.html.twig', [
             'page_title' => 'account_edit_title',
-            'page_description' => sprintf('%s %s - %s', $user->getProfile()->getFirstname(), $user->getProfile()->getLastname(), $user->getEmail()),
-            'page_menu' => 'App\\Menu\\AccountMenu',
+            'page_description' => sprintf('%s - %s', $user->getProfile()->getFullName(), $user->getEmail()),
+            'page_menu' => AccountMenu::class,
             'form' => $form->createView(),
             'item' => $user,
         ]);
@@ -198,12 +200,12 @@ class AccountController extends AbstractController
      * @param User                         $user
      * @param UserPasswordEncoderInterface $encoder
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @IsGranted("ROLE_ACCOUNT_CHANGEPASSWORD")
      * @Route(name="account_changepassword", path="/account/changepassword/{user}")
+     *
+     * @return Response
      */
-    public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $encoder)
+    public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         // Check Read Only
         $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
@@ -239,8 +241,8 @@ class AccountController extends AbstractController
         // Render Page
         return $this->render('Admin/Account/edit.html.twig', [
             'page_title' => 'account_change_password_title',
-            'page_description' => sprintf('%s %s - %s', $user->getProfile()->getFirstname(), $user->getProfile()->getLastname(), $user->getEmail()),
-            'page_menu' => 'App\\Menu\\AccountMenu',
+            'page_description' => sprintf('%s - %s', $user->getProfile()->getFullName(), $user->getEmail()),
+            'page_menu' => AccountMenu::class,
             'form' => $form->createView(),
             'item' => $user,
         ]);
@@ -253,16 +255,12 @@ class AccountController extends AbstractController
      * @param User            $user
      * @param SecurityManager $security
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
-     * @throws \ReflectionException
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     *
      * @IsGranted("ROLE_ACCOUNT_ROLES")
      * @Route(name="account_roles", path="/account/role/{user}")
+     *
+     * @return Response
      */
-    public function roles(Request $request, User $user, SecurityManager $security)
+    public function roles(Request $request, User $user, SecurityManager $security): Response
     {
         // Set Form & Request
         $form = $this->createForm(RolesType::class, null, [
@@ -299,8 +297,8 @@ class AccountController extends AbstractController
         // Render Page
         return $this->render('Admin/Account/edit.html.twig', [
             'page_title' => 'account_roles_title',
-            'page_description' => sprintf('%s %s - %s', $user->getProfile()->getFirstname(), $user->getProfile()->getLastname(), $user->getEmail()),
-            'page_menu' => 'App\\Menu\\AccountMenu',
+            'page_description' => sprintf('%s - %s', $user->getProfile()->getFullName(), $user->getEmail()),
+            'page_menu' => AccountMenu::class,
             'form' => $form->createView(),
             'item' => $user,
         ]);
@@ -315,7 +313,7 @@ class AccountController extends AbstractController
      * @IsGranted("ROLE_ACCOUNT_ADDGROUP")
      * @Route(name="account_addgroup", path="/account/addGroup/{user}")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function addGroup(Request $request, User $user)
     {
@@ -323,7 +321,7 @@ class AccountController extends AbstractController
         $groupName = $user->getGroupNames();
 
         // Create Form
-        $form = $this->createFormBuilder(null)
+        $form = $this->createFormBuilder()
             ->add('group', EntityType::class, [
                 'class' => Group::class,
                 'choice_label' => 'name',
@@ -365,8 +363,8 @@ class AccountController extends AbstractController
         // Render
         return $this->render('Admin/Account/edit.html.twig', [
             'page_title' => 'account_add_group_title',
-            'page_description' => sprintf('%s %s - %s', $user->getProfile()->getFirstname(), $user->getProfile()->getLastname(), $user->getEmail()),
-            'page_menu' => 'App\\Menu\\AccountMenu',
+            'page_description' => sprintf('%s - %s', $user->getProfile()->getFullName(), $user->getEmail()),
+            'page_menu' => AccountMenu::class,
             'form' => $form->createView(),
             'item' => $user,
         ]);
@@ -381,9 +379,9 @@ class AccountController extends AbstractController
      * @IsGranted("ROLE_ACCOUNT_DELETE")
      * @Route(name="account_delete", path="/accounts/delete/{user}")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function delete(Request $request, User $user)
+    public function delete(Request $request, User $user): RedirectResponse
     {
         // Check All Access
         $this->checkAllAccess($user);
@@ -397,7 +395,7 @@ class AccountController extends AbstractController
         $this->addFlash('success', 'remove_complete');
 
         // Redirect back
-        return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('admin_account_list'));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_account_list')));
     }
 
     /**
@@ -410,9 +408,9 @@ class AccountController extends AbstractController
      * @IsGranted("ROLE_ACCOUNT_ACTIVATE")
      * @Route(name="account_activate", path="/account/activate/{user}/{status}")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function activate(Request $request, User $user, $status)
+    public function activate(Request $request, User $user, $status): RedirectResponse
     {
         // Check All Access
         $this->checkAllAccess($user);
@@ -429,7 +427,7 @@ class AccountController extends AbstractController
         $this->addFlash('success', 'changes_saved');
 
         // Redirect back
-        return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('admin_account_list'));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_account_list')));
     }
 
     /**
@@ -442,9 +440,9 @@ class AccountController extends AbstractController
      * @IsGranted("ROLE_ACCOUNT_FREEZE")
      * @Route(name="account_freeze", path="/account/freeze/{user}/{status}")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function freeze(Request $request, User $user, $status)
+    public function freeze(Request $request, User $user, $status): RedirectResponse
     {
         // Check All Access
         $this->checkAllAccess($user);
@@ -461,7 +459,7 @@ class AccountController extends AbstractController
         $this->addFlash('success', 'changes_saved');
 
         // Redirect back
-        return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('admin_account_list'));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_account_list')));
     }
 
     /**

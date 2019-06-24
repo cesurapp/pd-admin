@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -16,11 +14,14 @@ namespace App\Controller;
 use App\Entity\Account\Group;
 use App\Form\Account\RolesType;
 use App\Manager\SecurityManager;
+use App\Menu\GroupsMenu;
 use Knp\Component\Pager\PaginatorInterface;
 use Pd\UserBundle\Form\GroupType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -37,12 +38,12 @@ class GroupController extends AbstractController
      * @param Request            $request
      * @param PaginatorInterface $paginator
      *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
      * @IsGranted("ROLE_GROUP_LIST")
      * @Route(name="account_group_list", path="/account/group")
+     *
+     * @return Response
      */
-    public function list(Request $request, PaginatorInterface $paginator)
+    public function list(Request $request, PaginatorInterface $paginator): Response
     {
         // Get Groups
         $query = $this
@@ -75,9 +76,9 @@ class GroupController extends AbstractController
      * @IsGranted("ROLE_GROUP_EDIT")
      * @Route(name="account_group_edit", path="/account/group/edit/{group}")
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return Response
      */
-    public function edit(Group $group, Request $request)
+    public function edit(Group $group, Request $request): Response
     {
         // Create Form
         $form = $this->createForm(GroupType::class, $group);
@@ -98,7 +99,7 @@ class GroupController extends AbstractController
         return $this->render('Admin/Account/edit.html.twig', [
             'page_title' => 'account_group_edit_title',
             'page_description' => $group->getName(),
-            'page_menu' => 'App\\Menu\\GroupsMenu',
+            'page_menu' => GroupsMenu::class,
             'form' => $form->createView(),
             'item' => $group,
         ]);
@@ -110,10 +111,10 @@ class GroupController extends AbstractController
      * @param Request             $request
      * @param TranslatorInterface $translator
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     *
      * @IsGranted("ROLE_GROUP_NEW")
      * @Route(name="account_group_new", path="/account/group/new")
+     *
+     * @return RedirectResponse|Response
      */
     public function new(Request $request, TranslatorInterface $translator)
     {
@@ -151,16 +152,12 @@ class GroupController extends AbstractController
      * @param Request         $request
      * @param SecurityManager $security
      *
-     * @throws \Doctrine\Common\Annotations\AnnotationException
-     * @throws \ReflectionException
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     *
      * @IsGranted("ROLE_GROUP_ROLES")
      * @Route(name="account_group_roles", path="/account/group/roles/{group}")
+     *
+     * @return Response
      */
-    public function roles(Group $group, Request $request, SecurityManager $security)
+    public function roles(Group $group, Request $request, SecurityManager $security): Response
     {
         // Set Form & Request
         $form = $this->createForm(RolesType::class, null, [
@@ -195,7 +192,7 @@ class GroupController extends AbstractController
         return $this->render('Admin/Account/edit.html.twig', [
             'page_title' => 'account_group_role_title',
             'page_description' => $group->getName(),
-            'page_menu' => 'App\\Menu\\GroupsMenu',
+            'page_menu' => GroupsMenu::class,
             'form' => $form->createView(),
             'item' => $group,
         ]);
@@ -210,9 +207,9 @@ class GroupController extends AbstractController
      * @IsGranted("ROLE_GROUP_DELETE")
      * @Route(name="account_group_delete", path="/account/group/delete/{group}")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @return RedirectResponse
      */
-    public function delete(Group $group, Request $request)
+    public function delete(Group $group, Request $request): RedirectResponse
     {
         // Remove
         $em = $this->getDoctrine()->getManager();
@@ -223,6 +220,6 @@ class GroupController extends AbstractController
         $this->addFlash('success', 'changes_saved');
 
         // Redirect back
-        return $this->redirect($request->headers->get('referer') ?? $this->generateUrl('admin_account_group_list'));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_account_group_list')));
     }
 }

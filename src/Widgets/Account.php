@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -78,7 +76,7 @@ class Account
                     ->setDescription('widget_user_statistics.description')
                     ->setTemplate('Admin/Widget/userStatistics.html.twig')
                     ->setRole(['ROLE_WIDGET_USERSTATISTICS'])
-                    ->setConfigProcess(function (Request $request) {
+                    ->setConfigProcess(static function (Request $request) {
                         if ($type = $request->get('type')) {
                             switch ($type) {
                                 case '1week':

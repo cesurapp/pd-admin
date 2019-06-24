@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -20,7 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Intl\Intl;
+use Symfony\Component\Intl\Languages;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
@@ -42,8 +40,7 @@ class GeneralForm extends ConfigAbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // Get Language List
-        $allLanguages = Intl::getLanguageBundle()->getLanguageNames();
-        $languageList = array_flip(array_intersect_key($allLanguages, array_flip($options['container']->get('parameter_bag')->get('active_language'))));
+        $languageList = array_flip(array_intersect_key(Languages::getNames(), array_flip($options['container']->get('parameter_bag')->get('active_language'))));
 
         $builder
             ->add('head_title', TextType::class, [

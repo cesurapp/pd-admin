@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -47,7 +45,6 @@ class ContainerCompiler
             $this->initConfig();
             $this->dbClose();
         } catch (\Exception $e) {
-            return false;
         }
     }
 
@@ -60,7 +57,7 @@ class ContainerCompiler
 
         while (false !== $result = $query->fetchObject()) {
             // Fetch Form Data
-            if ($value = @unserialize($result->value)) {
+            if ($value = @unserialize($result->value, null)) {
                 foreach ($value as $name => $val) {
                     // Convert Bool
                     if (1 === $val || '1' === $val) {

@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -43,7 +41,7 @@ abstract class ConfigAbstractType implements FormTypeInterface
         foreach ($form->all() as $key => $formInterface) {
             if ('entity' === $formInterface->getConfig()->getType()->getBlockPrefix()) {
                 if (!\is_object($formInterface->getNormData())) {
-                    $entityColumn = (\is_string($obj = $formInterface->getConfig()->getOption('choice_value'))) ? $obj : $obj[0]->getIdField();
+                    $entityColumn = \is_string($obj = $formInterface->getConfig()->getOption('choice_value')) ? $obj : $obj[0]->getIdField();
 
                     $em = $formInterface->getConfig()->getOption('em');
                     if ($em instanceof EntityManagerInterface) {

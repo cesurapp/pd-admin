@@ -36,6 +36,6 @@ Encore
   .cleanupOutputBeforeBuild()
   .enableBuildNotifications()
   .enableVersioning(false)
-  .enableSingleRuntimeChunk();
+  .disableSingleRuntimeChunk();
 
 module.exports = Encore.getWebpackConfig();

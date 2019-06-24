@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -23,9 +21,9 @@ use App\Manager\ConfigManager;
 use Pd\MailerBundle\SwiftMailer\PdSwiftMessage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Filesystem\Exception\IOException;
-use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -39,6 +37,7 @@ class SettingsController extends AbstractController
      * General Settings.
      *
      * @param Request $request
+     *
      * @IsGranted("ROLE_SETTINGS_GENERAL")
      * @Route(name="settings_general", path="/settings")
      *
@@ -318,19 +317,20 @@ class SettingsController extends AbstractController
      * @IsGranted("ROLE_SETTINGS_ROUTING")
      * @Route(name="settings_clearcache", path="/refresh/cache")
      */
-    public function clearCache()
+    public function clearCache(): JsonResponse
     {
-        // Reload Container
-        $fs = new Filesystem();
+        // Create Process
+        $process = new Process([sprintf('bin/console cache:clear --env=%s', $this->getParameter('kernel.environment'))]);
 
-        try {
-            $fs->remove($this->getParameter('kernel.cache_dir'));
-        } catch (IOException $exception) {
-            header('Content-Type: application/json', true, 403);
-            exit(json_encode(['status' => 'failed', 'message' => $exception->getMessage()]));
+        // Run
+        $process
+            ->setWorkingDirectory($this->getParameter('kernel.project_dir'))
+            ->run();
+
+        if ($process->isSuccessful()) {
+            return $this->json(['status' => 'successful']);
         }
 
-        header('Content-Type: application/json');
-        exit(json_encode(['status' => 'successful']));
+        return $this->json(['status' => 'error'], 400);
     }
 }

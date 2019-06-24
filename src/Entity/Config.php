@@ -4,10 +4,8 @@
  * This file is part of the pdAdmin package.
  *
  * @package     pd-admin
- *
  * @license     LICENSE
  * @author      Kerem APAYDIN <kerem@apaydin.me>
- *
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -53,7 +51,7 @@ class Config
      *
      * @return int
      */
-    public function getId()
+    public function getId(): int
     {
         return $this->id;
     }
@@ -63,9 +61,9 @@ class Config
      *
      * @param string $name
      *
-     * @return Config
+     * @return $this
      */
-    public function setName($name)
+    public function setName($name): self
     {
         $this->name = $name;
 
@@ -77,7 +75,7 @@ class Config
      *
      * @return string
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
@@ -87,9 +85,9 @@ class Config
      *
      * @param string $value
      *
-     * @return Config
+     * @return $this
      */
-    public function setValue($value)
+    public function setValue($value): self
     {
         $this->value = $value;
 
@@ -101,7 +99,7 @@ class Config
      *
      * @return string
      */
-    public function getValue()
+    public function getValue(): string
     {
         return $this->value;
     }
