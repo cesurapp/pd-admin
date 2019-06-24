@@ -320,7 +320,7 @@ class SettingsController extends AbstractController
     public function clearCache(): JsonResponse
     {
         // Create Process
-        $process = new Process([sprintf('bin/console cache:clear --env=%s', $this->getParameter('kernel.environment'))]);
+        $process = Process::fromShellCommandline(sprintf('bin/console cache:clear --env=%s', $this->getParameter('kernel.environment')));
 
         // Run
         $process
