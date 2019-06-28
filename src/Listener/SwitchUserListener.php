@@ -93,8 +93,7 @@ class SwitchUserListener
             $this->tokenStorage->setToken($this->attemptExitUser($request));
         } else {
             try {
-                var_dump($this->tokenStorage->setToken($this->attemptSwitchUser($request, $username)));
-                exit('fak');
+                $this->tokenStorage->setToken($this->attemptSwitchUser($request, $username));
             } catch (AuthenticationException $e) {
                 throw new \LogicException(sprintf('Switch User failed: "%s"', $e->getMessage()));
             }
