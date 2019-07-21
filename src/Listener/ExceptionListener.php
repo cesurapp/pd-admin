@@ -44,23 +44,25 @@ class ExceptionListener implements EventSubscriberInterface
      * Exception Handler.
      *
      * @param ExceptionEvent $event
+     *
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
      */
-    public function onKernelException(ExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event): void
     {
         // Get Exception
         $exception = $event->getException();
 
         if ($exception instanceof NotFoundHttpException) {
-            $event->setResponse(new Response(
-                $this->engine->render('Admin/_other/notFound.html.twig'), 404
-            ));
+            $event->setResponse(new Response($this->engine->render('Admin/_other/notFound.html.twig'), 404));
         }
     }
 
     public static function getSubscribedEvents()
     {
         return [
-           KernelEvents::EXCEPTION => [['onKernelException']],
-       ];
+            KernelEvents::EXCEPTION => [['onKernelException']],
+        ];
     }
 }

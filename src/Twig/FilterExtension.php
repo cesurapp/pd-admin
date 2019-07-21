@@ -11,71 +11,43 @@
 
 namespace App\Twig;
 
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Environment;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
-use Twig\TwigFunction;
 
 /**
  * Twig Extension.
  *
  * @author Kerem APAYDIN <kerem@apaydin.me>
  */
-class FormatExtension extends AbstractExtension
+class FilterExtension extends AbstractExtension
 {
     /**
-     * Translator.
-     *
      * @var TranslatorInterface
      */
     private $translator;
 
     /**
-     * @var ParameterBagInterface
-     */
-    private $bag;
-
-    /**
-     * Constructor.
+     * FilterExtension constructor.
      *
-     * @param TranslatorInterface   $translator
-     * @param ParameterBagInterface $bag
+     * @param TranslatorInterface $translator
      */
-    public function __construct(TranslatorInterface $translator, ParameterBagInterface $bag)
+    public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
-        $this->bag = $bag;
     }
 
     /**
      * Create Twig Filter.
-     *
-     * @return array
      */
     public function getFilters()
     {
         return [
-            new TwigFilter('timeDiff', [$this, 'timeDiffFilter'], ['needs_environment' => true]),
-            new TwigFilter('phoneFormat', [$this, 'phoneFormatFilter']),
-            new TwigFilter('basename', [$this, 'baseNameFilter']),
-            new TwigFilter('swiftEvent', [$this, 'swiftEventFilter']),
-        ];
-    }
-
-    /**
-     * Create Twig Function.
-     *
-     * @return array
-     */
-    public function getFunctions()
-    {
-        return [
-            new TwigFunction('parameters', [$this, 'parametersFunction']),
-            new TwigFunction('title', [$this, 'titleFunction']),
-            new TwigFunction('inArray', [$this, 'inArrayFunction']),
-            new TwigFunction('pathInfo', [$this, 'pathInfoFunction']),
+            new TwigFilter('timeDiff', [$this, 'timeDiff'], ['needs_environment' => true]),
+            new TwigFilter('phoneFormat', [$this, 'phoneFormat']),
+            new TwigFilter('basename', [$this, 'baseName']),
+            new TwigFilter('swiftEvent', [$this, 'swiftEvent']),
         ];
     }
 
@@ -91,7 +63,7 @@ class FormatExtension extends AbstractExtension
      *
      * @return string
      */
-    public function timeDiffFilter(Environment $env, $date, $now = null, $text = 'diff.ago', $domain = 'messages', $length = 1)
+    public function timeDiff(Environment $env, $date, $now = null, $text = 'diff.ago', $domain = 'messages', $length = 1): string
     {
         $units = [
             'y' => $this->translator->trans('diff.year', [], $domain),
@@ -134,7 +106,7 @@ class FormatExtension extends AbstractExtension
      *
      * @return string
      */
-    public function phoneFormatFilter($phone): string
+    public function phoneFormat($phone): string
     {
         // Null | Empty | 0
         if (empty($phone) || 0 === $phone) {
@@ -151,7 +123,7 @@ class FormatExtension extends AbstractExtension
      *
      * @return string
      */
-    public function baseNameFilter($path): string
+    public function baseName($path): string
     {
         return basename($path);
     }
@@ -164,7 +136,7 @@ class FormatExtension extends AbstractExtension
      *
      * @return string
      */
-    public function swiftEventFilter($event, $color = false): string
+    public function swiftEvent($event, $color = false): string
     {
         $str = '';
 
@@ -190,73 +162,5 @@ class FormatExtension extends AbstractExtension
         }
 
         return $str;
-    }
-
-    /**
-     * Return Parameters.
-     *
-     * @param $name
-     * @param int $index
-     *
-     * @return mixed
-     */
-    public function parametersFunction($name, $index = 0)
-    {
-        $params = $this->bag->get($name);
-
-        if ('false' === $index) {
-            return $params;
-        }
-
-        if (\is_array($params)) {
-            return $params[$index];
-        }
-
-        return $params;
-    }
-
-    /**
-     * Return Panel Title.
-     *
-     * @param $title
-     * @param bool $parent
-     *
-     * @return mixed
-     */
-    public function titleFunction($title, $parent = true)
-    {
-        if (!$parent) {
-            return $title;
-        }
-
-        $getTitle = str_replace(['&T', '&P'], [$title, $this->bag->get('head_title')], $this->bag->get('head_title_pattern'));
-
-        return $getTitle;
-    }
-
-    /**
-     * Checks if a value exists in an array.
-     *
-     * @param $needle
-     * @param array $haystack
-     *
-     * @return bool
-     */
-    public function inArrayFunction($needle, array $haystack): bool
-    {
-        return \in_array(mb_strtolower($needle), $haystack);
-    }
-
-    /**
-     * Information about a file path.
-     *
-     * @param string $path
-     * @param string $options
-     *
-     * @return string
-     */
-    public function pathInfoFunction(string $path, $options = 'extension'): string
-    {
-        return pathinfo($path)[mb_strtolower($options)];
     }
 }

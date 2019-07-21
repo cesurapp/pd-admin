@@ -22,7 +22,9 @@ use Pd\MailerBundle\SwiftMailer\PdSwiftMessage;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -41,9 +43,9 @@ class SettingsController extends AbstractController
      * @IsGranted("ROLE_SETTINGS_GENERAL")
      * @Route(name="settings_general", path="/settings")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
-    public function general(Request $request)
+    public function general(Request $request): Response
     {
         // Get Config Manager
         $cm = new ConfigManager($this->getDoctrine()->getManager(), $this->get('parameter_bag'), 'settings_general');
@@ -82,7 +84,7 @@ class SettingsController extends AbstractController
      * @IsGranted("ROLE_SETTINGS_CONTACT")
      * @Route(name="settings_contact", path="/settings/contact")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function contact(Request $request)
     {
@@ -123,7 +125,7 @@ class SettingsController extends AbstractController
      * @IsGranted("ROLE_SETTINGS_EMAIL")
      * @Route(name="settings_email", path="/settings/email")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function email(Request $request)
     {
@@ -196,7 +198,7 @@ class SettingsController extends AbstractController
      * @IsGranted("ROLE_SETTINGS_USER")
      * @Route(name="settings_user", path="/settings/user")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function user(Request $request)
     {
@@ -237,7 +239,7 @@ class SettingsController extends AbstractController
      * @IsGranted("ROLE_SETTINGS_MEDIA")
      * @Route(name="settings_media", path="/settings/media")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function media(Request $request)
     {
@@ -278,7 +280,7 @@ class SettingsController extends AbstractController
      * @IsGranted("ROLE_SETTINGS_CORE")
      * @Route(name="settings_core", path="/settings/core")
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return RedirectResponse|Response
      */
     public function core(Request $request)
     {

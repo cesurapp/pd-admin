@@ -90,7 +90,7 @@ class ConfigManager
      */
     public function getAll(): array
     {
-        return !is_array($this->realConfig) ? [] : $this->realConfig;
+        return !\is_array($this->realConfig) ? [] : $this->realConfig;
     }
 
     /**

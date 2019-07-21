@@ -23,3 +23,12 @@ admin_widget:
     resource: "@PdWidgetBundle/Resources/config/routing.yml"
     prefix: 'admin'
     condition:  "%admin_allow_ips% == [''] ?: (request.getClientIp() in %admin_allow_ips%)"
+
+##
+# Home
+##
+homepage:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+        template: homepage.html.twig

@@ -1,15 +1,15 @@
 {
     "appaydin/pd-mailer": {
-        "version": "1.1.1"
+        "version": "1.2.2"
     },
     "appaydin/pd-menu": {
-        "version": "1.1.0"
+        "version": "1.2.0"
     },
     "appaydin/pd-user": {
-        "version": "1.11.0"
+        "version": "1.20.0"
     },
     "appaydin/pd-widget": {
-        "version": "1.0.05"
+        "version": "1.2.0"
     },
     "beberlei/doctrineextensions": {
         "version": "v1.0.23"
@@ -161,6 +161,9 @@
     "symfony/cache": {
         "version": "v4.0.4"
     },
+    "symfony/cache-contracts": {
+        "version": "v1.1.5"
+    },
     "symfony/config": {
         "version": "v4.0.4"
     },
@@ -208,6 +211,9 @@
     },
     "symfony/event-dispatcher": {
         "version": "v4.0.4"
+    },
+    "symfony/event-dispatcher-contracts": {
+        "version": "v1.1.5"
     },
     "symfony/expression-language": {
         "version": "v4.1.7"
@@ -350,6 +356,9 @@
     "symfony/security-http": {
         "version": "v4.2.1"
     },
+    "symfony/service-contracts": {
+        "version": "v1.1.5"
+    },
     "symfony/stopwatch": {
         "version": "v4.1.7"
     },
@@ -373,6 +382,9 @@
             "version": "3.3",
             "ref": "6bcd6c570c017ea6ae5a7a6a027c929fd3542cd8"
         }
+    },
+    "symfony/translation-contracts": {
+        "version": "v1.1.5"
     },
     "symfony/twig-bridge": {
         "version": "v4.0.4"

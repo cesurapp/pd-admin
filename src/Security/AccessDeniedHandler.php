@@ -58,19 +58,14 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         }
 
         // Set Flash Message
-        $request
-            ->getSession()
-            ->getBag('flashes')
-            ->add('error', $message);
+        $request->getSession()->getBag('flashes')->add('error', $message);
 
-        // Check Login Page
-        if (null !== $request->headers->get('referer')) {
-            if (parse_url($request->headers->get('referer'), PHP_URL_PATH) === $this->router->generate('security_login')) {
-                return new RedirectResponse('/');
-            }
+        // Disable login
+        if (parse_url($request->headers->get('referer'), PHP_URL_PATH) === $this->router->generate('security_login')) {
+            return new RedirectResponse($this->router->generate('homepage'));
         }
 
         // Send Response
-        return new RedirectResponse($request->headers->get('referer', $this->router->generate('admin_dashboard')));
+        return new RedirectResponse($request->headers->get('referer', $this->router->generate('homepage')));
     }
 }

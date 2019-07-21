@@ -28,7 +28,7 @@ parameters:
     mail_auth_mode: login
     mail_allow_self_signed: true
     mail_verify_peer: false
-    mail_sender_address: 'noprely@example.net'
+    mail_sender_address: 'noreply@example.net'
     mail_sender_name: 'pdAdmin'
     mail_test_address: ''
     # Hidden

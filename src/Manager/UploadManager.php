@@ -146,7 +146,7 @@ class UploadManager
      * @param UploadedFile $file
      * @param $filePath string
      */
-    private function imageManager(UploadedFile $file, $filePath)
+    private function imageManager(UploadedFile $file, $filePath): void
     {
         // Create Image Manager
         $img = new ImageManager(['driver' => $this->cfg('media_library')]);
@@ -179,7 +179,7 @@ class UploadManager
      *
      * @param Image $img
      */
-    private function addTextWatermark(&$img)
+    private function addTextWatermark(&$img): void
     {
         // Set X-Y Image Ordinate
         $xOrdinate = $img->getWidth() * $this->cfg('media_wm_font_x');
@@ -205,7 +205,7 @@ class UploadManager
      *
      * @param Image $img
      */
-    private function addImageWatermark(&$img)
+    private function addImageWatermark(&$img): void
     {
         if (file_exists($imagePath = $this->cfg('upload_dir').$this->cfg('media_wm_image'))) {
             $img->insert(
@@ -220,7 +220,7 @@ class UploadManager
     /**
      * Create Upload Directory.
      */
-    private function createDirectory()
+    private function createDirectory(): void
     {
         // Create Current Directory
         $this->currentDir = date('Y/m/d');

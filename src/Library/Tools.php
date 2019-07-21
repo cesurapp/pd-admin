@@ -141,4 +141,14 @@ class Tools
 
         return $imloded;
     }
+
+    /**
+     * Get Project Root Directory.
+     *
+     * @return string
+     */
+    public static function getRootDir(): string
+    {
+        return \dirname(__DIR__, 2);
+    }
 }

@@ -9,7 +9,7 @@
             {% include 'Auth/logo.html.twig' %}
 
             <!-- Resetting Form -->
-            <form action="{{ path('security_login') }}">
+            <form>
                 <div class="header">
                     <h2 class="title">{{ 'security.reset_title'|trans }}</h2>
                     <div class="float-icon">
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="submit">
-                    <button type="submit" class="btn btn-lg btn-primary">{{ 'security.login_title'|trans }}</button>
+                    <a href="{{ path('security_login') }}" class="btn btn-lg btn-primary">{{ 'security.login_title'|trans }}</a>
                 </div>
             </form>
         </div>
