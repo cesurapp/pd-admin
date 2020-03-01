@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -18,7 +18,7 @@ use Symfony\Component\Intl\Languages;
 /**
  * Toolbar Navigation.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class Toolbar extends Menu
 {
@@ -47,9 +47,6 @@ class Toolbar extends Menu
 
     /**
      * Add Language Menu.
-     *
-     * @param ItemInterface $menu
-     * @param array         $options
      */
     private function addLanguage(ItemInterface $menu, array $options = [])
     {
@@ -75,9 +72,6 @@ class Toolbar extends Menu
 
     /**
      * Add Profile Menu.
-     *
-     * @param ItemInterface $menu
-     * @param array         $options
      */
     private function addProfile(ItemInterface $menu, array $options = [])
     {

@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -18,7 +18,7 @@ use Twig\TwigFunction;
 /**
  * Twig Extension.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class FunctionExtension extends AbstractExtension
 {
@@ -29,8 +29,6 @@ class FunctionExtension extends AbstractExtension
 
     /**
      * Constructor.
-     *
-     * @param ParameterBagInterface $bag
      */
     public function __construct(ParameterBagInterface $bag)
     {
@@ -96,9 +94,6 @@ class FunctionExtension extends AbstractExtension
      * Checks if a value exists in an array.
      *
      * @param $needle
-     * @param array $haystack
-     *
-     * @return bool
      */
     public function inArray($needle, array $haystack): bool
     {
@@ -108,10 +103,7 @@ class FunctionExtension extends AbstractExtension
     /**
      * Information about a file path.
      *
-     * @param string $path
      * @param string $options
-     *
-     * @return string
      */
     public function pathInfo(string $path, $options = 'extension'): string
     {

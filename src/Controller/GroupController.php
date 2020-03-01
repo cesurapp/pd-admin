@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -28,20 +28,15 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 /**
  * Controller managing the groups.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class GroupController extends AbstractController
 {
     /**
      * List Groups.
      *
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     *
      * @IsGranted("ROLE_GROUP_LIST")
      * @Route(name="account_group_list", path="/account/group")
-     *
-     * @return Response
      */
     public function list(Request $request, PaginatorInterface $paginator): Response
     {
@@ -70,13 +65,8 @@ class GroupController extends AbstractController
     /**
      * Edit Group.
      *
-     * @param Group   $group
-     * @param Request $request
-     *
      * @IsGranted("ROLE_GROUP_EDIT")
      * @Route(name="account_group_edit", path="/account/group/edit/{group}")
-     *
-     * @return Response
      */
     public function edit(Group $group, Request $request): Response
     {
@@ -107,9 +97,6 @@ class GroupController extends AbstractController
 
     /**
      * Create New Group.
-     *
-     * @param Request             $request
-     * @param TranslatorInterface $translator
      *
      * @IsGranted("ROLE_GROUP_NEW")
      * @Route(name="account_group_new", path="/account/group/new")
@@ -148,14 +135,8 @@ class GroupController extends AbstractController
     /**
      * Edit Group Roles.
      *
-     * @param Group           $group
-     * @param Request         $request
-     * @param SecurityManager $security
-     *
      * @IsGranted("ROLE_GROUP_ROLES")
      * @Route(name="account_group_roles", path="/account/group/roles/{group}")
-     *
-     * @return Response
      */
     public function roles(Group $group, Request $request, SecurityManager $security): Response
     {
@@ -201,13 +182,8 @@ class GroupController extends AbstractController
     /**
      * Delete Group.
      *
-     * @param Group   $group
-     * @param Request $request
-     *
      * @IsGranted("ROLE_GROUP_DELETE")
      * @Route(name="account_group_delete", path="/account/group/delete/{group}")
-     *
-     * @return RedirectResponse
      */
     public function delete(Group $group, Request $request): RedirectResponse
     {

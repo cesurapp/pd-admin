@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -21,7 +21,7 @@ use Twig\Environment;
 /**
  * Exception Listener.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class ExceptionListener implements EventSubscriberInterface
 {
@@ -32,8 +32,6 @@ class ExceptionListener implements EventSubscriberInterface
 
     /**
      * ExceptionListener constructor.
-     *
-     * @param Environment $engine
      */
     public function __construct(Environment $engine)
     {
@@ -42,8 +40,6 @@ class ExceptionListener implements EventSubscriberInterface
 
     /**
      * Exception Handler.
-     *
-     * @param ExceptionEvent $event
      *
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError

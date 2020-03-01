@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -17,7 +17,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Config Compiler.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class ContainerCompiler
 {
@@ -33,8 +33,6 @@ class ContainerCompiler
 
     /**
      * ContainerCompiler constructor.
-     *
-     * @param ContainerBuilder $containerBuilder
      */
     public function __construct(ContainerBuilder $containerBuilder)
     {

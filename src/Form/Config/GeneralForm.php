@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -27,15 +27,12 @@ use Symfony\Component\Validator\Constraints\Length;
 /**
  * General Settings Form.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class GeneralForm extends ConfigAbstractType
 {
     /**
      * Create Form.
-     *
-     * @param FormBuilderInterface $builder
-     * @param array                $options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -87,8 +84,8 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 150,
                     ]),
                 ],
-                'empty_data' => 'Kerem APAYDIN',
-                'attr' => ['placeholder-nt' => 'Kerem APAYDIN'],
+                'empty_data' => 'Ramazan APAYDIN',
+                'attr' => ['placeholder-nt' => 'Ramazan APAYDIN'],
                 'required' => false,
             ])
             ->add('head_keywords', TextareaType::class, [
@@ -172,8 +169,6 @@ class GeneralForm extends ConfigAbstractType
 
     /**
      * Form Default Options.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {

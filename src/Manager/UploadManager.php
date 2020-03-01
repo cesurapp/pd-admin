@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Upload File Manager.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class UploadManager
 {
@@ -46,8 +46,6 @@ class UploadManager
 
     /**
      * Upload constructor.
-     *
-     * @param ParameterBagInterface $parameterBag
      */
     public function __construct(ParameterBagInterface $parameterBag)
     {
@@ -60,8 +58,6 @@ class UploadManager
      *
      * @param $files array|UploadedFile
      * @param bool $rawUpload
-     *
-     * @return array
      */
     public function upload($files, $rawUpload = false): array
     {
@@ -111,10 +107,7 @@ class UploadManager
     /**
      * Start Upload.
      *
-     * @param UploadedFile $file
      * @param $rawUpload boolean
-     *
-     * @return string
      */
     private function uploadProcess(UploadedFile $file, $rawUpload): string
     {
@@ -143,7 +136,6 @@ class UploadManager
     /**
      * Image Process Manager.
      *
-     * @param UploadedFile $file
      * @param $filePath string
      */
     private function imageManager(UploadedFile $file, $filePath): void

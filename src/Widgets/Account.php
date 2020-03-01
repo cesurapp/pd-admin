@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Account Widget.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class Account
 {
@@ -31,8 +31,6 @@ class Account
 
     /**
      * Account Constructor.
-     *
-     * @param EntityManagerInterface $entityManager
      */
     public function __construct(EntityManagerInterface $entityManager)
     {
@@ -41,8 +39,6 @@ class Account
 
     /**
      * Build Widgets.
-     *
-     * @param WidgetEvent $event
      */
     public function builder(WidgetEvent $event)
     {

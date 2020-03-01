@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -22,7 +22,7 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Admin Dashboard.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class DashboardController extends AbstractController
 {
@@ -31,8 +31,6 @@ class DashboardController extends AbstractController
      *
      * @Route(name="dashboard", path="/")
      * @IsGranted("ROLE_DASHBOARD_PANEL")
-     *
-     * @return Response
      */
     public function index(): Response
     {
@@ -46,13 +44,9 @@ class DashboardController extends AbstractController
     /**
      * Change Language for Session.
      *
-     * @param Request         $request
-     * @param WidgetInterface $widget
-     * @param string          $lang
+     * @param string $lang
      *
      * @Route(name="language", path="/language/{lang}")
-     *
-     * @return RedirectResponse
      */
     public function changeLanguage(Request $request, WidgetInterface $widget, $lang): RedirectResponse
     {

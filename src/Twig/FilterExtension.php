@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -19,7 +19,7 @@ use Twig\TwigFilter;
 /**
  * Twig Extension.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class FilterExtension extends AbstractExtension
 {
@@ -30,8 +30,6 @@ class FilterExtension extends AbstractExtension
 
     /**
      * FilterExtension constructor.
-     *
-     * @param TranslatorInterface $translator
      */
     public function __construct(TranslatorInterface $translator)
     {
@@ -54,14 +52,11 @@ class FilterExtension extends AbstractExtension
     /**
      * Time Ago.
      *
-     * @param Environment $env
      * @param $date
      * @param null   $now
      * @param string $text
      * @param int    $length
      * @param string $domain
-     *
-     * @return string
      */
     public function timeDiff(Environment $env, $date, $now = null, $text = 'diff.ago', $domain = 'messages', $length = 1): string
     {
@@ -103,8 +98,6 @@ class FilterExtension extends AbstractExtension
      * Phone Formatter.
      *
      * @param $phone
-     *
-     * @return string
      */
     public function phoneFormat($phone): string
     {
@@ -120,8 +113,6 @@ class FilterExtension extends AbstractExtension
      * Basename Formatter.
      *
      * @param $path
-     *
-     * @return string
      */
     public function baseName($path): string
     {
@@ -133,8 +124,6 @@ class FilterExtension extends AbstractExtension
      *
      * @param $event
      * @param bool $color
-     *
-     * @return string
      */
     public function swiftEvent($event, $color = false): string
     {

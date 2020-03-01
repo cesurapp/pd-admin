@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -20,7 +20,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Find All Method Permissions.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class SecurityManager
 {
@@ -36,9 +36,6 @@ class SecurityManager
 
     /**
      * SecurityManager constructor.
-     *
-     * @param RouterInterface $router
-     * @param WidgetInterface $widget
      */
     public function __construct(RouterInterface $router, WidgetInterface $widget)
     {
@@ -48,8 +45,6 @@ class SecurityManager
 
     /**
      * Get ACL Roles.
-     *
-     * @return array
      */
     public function getACL(): array
     {
@@ -65,8 +60,6 @@ class SecurityManager
 
     /**
      * Get All Method Roles.
-     *
-     * @return array
      */
     public function getRoles(): array
     {

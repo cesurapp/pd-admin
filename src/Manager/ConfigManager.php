@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Application Config Save|Update.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class ConfigManager
 {
@@ -54,8 +54,6 @@ class ConfigManager
     /**
      * ConfigManager constructor.
      *
-     * @param ObjectManager         $em
-     * @param ParameterBagInterface $parameterBag
      * @param $configName string
      */
     public function __construct(ObjectManager $em, ParameterBagInterface $parameterBag, string $configName)
@@ -73,10 +71,6 @@ class ConfigManager
 
     /**
      * Get Custom Configuration.
-     *
-     * @param string $name
-     *
-     * @return array|null
      */
     public function get(string $name): ?array
     {
@@ -85,8 +79,6 @@ class ConfigManager
 
     /**
      * Get All Configuration.
-     *
-     * @return array
      */
     public function getAll(): array
     {
@@ -95,8 +87,6 @@ class ConfigManager
 
     /**
      * Save Config Data.
-     *
-     * @param FormInterface $form
      */
     public function saveConfig(FormInterface $form)
     {
@@ -118,8 +108,6 @@ class ConfigManager
 
     /**
      * Form Normalizer.
-     *
-     * @param FormInterface $form
      *
      * @return mixed
      */

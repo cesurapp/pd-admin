@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -31,14 +31,12 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * Controller managing the settings.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class SettingsController extends AbstractController
 {
     /**
      * General Settings.
-     *
-     * @param Request $request
      *
      * @IsGranted("ROLE_SETTINGS_GENERAL")
      * @Route(name="settings_general", path="/settings")
@@ -79,8 +77,6 @@ class SettingsController extends AbstractController
     /**
      * Contact Settings.
      *
-     * @param Request $request
-     *
      * @IsGranted("ROLE_SETTINGS_CONTACT")
      * @Route(name="settings_contact", path="/settings/contact")
      *
@@ -119,8 +115,6 @@ class SettingsController extends AbstractController
 
     /**
      * Email Settings.
-     *
-     * @param Request $request
      *
      * @IsGranted("ROLE_SETTINGS_EMAIL")
      * @Route(name="settings_email", path="/settings/email")
@@ -193,8 +187,6 @@ class SettingsController extends AbstractController
     /**
      * Account Settings.
      *
-     * @param Request $request
-     *
      * @IsGranted("ROLE_SETTINGS_USER")
      * @Route(name="settings_user", path="/settings/user")
      *
@@ -234,8 +226,6 @@ class SettingsController extends AbstractController
     /**
      * Media Settings.
      *
-     * @param Request $request
-     *
      * @IsGranted("ROLE_SETTINGS_MEDIA")
      * @Route(name="settings_media", path="/settings/media")
      *
@@ -274,8 +264,6 @@ class SettingsController extends AbstractController
 
     /**
      * Core Settings.
-     *
-     * @param Request $request
      *
      * @IsGranted("ROLE_SETTINGS_CORE")
      * @Route(name="settings_core", path="/settings/core")

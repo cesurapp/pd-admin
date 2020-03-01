@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -14,7 +14,7 @@ namespace App\Library;
 /**
  * Tools.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class Tools
 {
@@ -22,10 +22,6 @@ class Tools
      * Converts UTF-8 string to ASCII.
      *
      * @author  David Grudl (https://davidgrudl.com)
-     *
-     * @param string $s
-     *
-     * @return string
      */
     public static function toAscii(string $s): string
     {
@@ -72,12 +68,6 @@ class Tools
      * Converts UTF-8 string to web safe characters [a-z0-9-] text.
      *
      * @author  David Grudl (https://davidgrudl.com)
-     *
-     * @param string      $s
-     * @param string|null $charlist
-     * @param bool        $lower
-     *
-     * @return string
      */
     public static function webalize(string $s, string $charlist = null, bool $lower = true): string
     {
@@ -93,11 +83,6 @@ class Tools
 
     /**
      * Generate random string.
-     *
-     * @param int    $length
-     * @param string $charlist
-     *
-     * @return string
      */
     public static function randomStr(int $length = 10, string $charlist = '0-9A-Z'): string
     {
@@ -125,10 +110,7 @@ class Tools
     /**
      * Array Key => Value Implode.
      *
-     * @param array  $array
      * @param string $glue
-     *
-     * @return array
      */
     public static function implodeKeyValue(array $array, $glue = ' - '): array
     {
@@ -144,8 +126,6 @@ class Tools
 
     /**
      * Get Project Root Directory.
-     *
-     * @return string
      */
     public static function getRootDir(): string
     {

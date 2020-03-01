@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -24,7 +24,7 @@ use Symfony\Component\Validator\Constraints\Image;
 /**
  * Media Settings Form.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class MediaForm extends ConfigAbstractType
 {
@@ -254,8 +254,6 @@ class MediaForm extends ConfigAbstractType
 
     /**
      * Check & Get Image Extension.
-     *
-     * @return array
      */
     private function getImageExtension(): array
     {

@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -32,9 +32,6 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
 
     /**
      * AccessDeniedHandler constructor.
-     *
-     * @param TranslatorInterface $translator
-     * @param RouterInterface     $router
      */
     public function __construct(TranslatorInterface $translator, RouterInterface $router)
     {

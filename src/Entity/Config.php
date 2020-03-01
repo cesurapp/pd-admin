@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -19,7 +19,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="app_config")
  * @ORM\Entity(repositoryClass="App\Repository\ConfigRepository")
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class Config
 {
@@ -48,8 +48,6 @@ class Config
 
     /**
      * Get id.
-     *
-     * @return int
      */
     public function getId(): int
     {
@@ -72,8 +70,6 @@ class Config
 
     /**
      * Get name.
-     *
-     * @return string
      */
     public function getName(): string
     {
@@ -96,8 +92,6 @@ class Config
 
     /**
      * Get value.
-     *
-     * @return string
      */
     public function getValue(): string
     {

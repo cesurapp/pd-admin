@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -23,7 +23,7 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * User Settings Form.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class UserForm extends ConfigAbstractType
 {
@@ -79,8 +79,6 @@ class UserForm extends ConfigAbstractType
 
     /**
      * Form Default Options.
-     *
-     * @param OptionsResolver $resolver
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -89,10 +87,6 @@ class UserForm extends ConfigAbstractType
 
     /**
      * Return All Router.
-     *
-     * @param RouterInterface $router
-     *
-     * @return array
      */
     public function getAllRouter(RouterInterface $router): array
     {

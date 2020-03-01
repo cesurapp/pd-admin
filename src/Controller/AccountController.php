@@ -5,7 +5,7 @@
  *
  * @package     pd-admin
  * @license     LICENSE
- * @author      Kerem APAYDIN <kerem@apaydin.me>
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
  * @link        https://github.com/appaydin/pd-admin
  */
 
@@ -38,7 +38,7 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 /**
  * Controller managing the user profile.
  *
- * @author Kerem APAYDIN <kerem@apaydin.me>
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class AccountController extends AbstractController
 {
@@ -53,13 +53,8 @@ class AccountController extends AbstractController
     /**
      * Show all Account.
      *
-     * @param Request            $request
-     * @param PaginatorInterface $paginator
-     *
      * @IsGranted("ROLE_ACCOUNT_LIST")
      * @Route(name="account_list", path="/account")
-     *
-     * @return Response
      */
     public function list(Request $request, PaginatorInterface $paginator): Response
     {
@@ -109,8 +104,6 @@ class AccountController extends AbstractController
 
     /**
      * Create User Filter Form.
-     *
-     * @return FormInterface
      */
     private function createUserFilterForm(): FormInterface
     {
@@ -141,14 +134,8 @@ class AccountController extends AbstractController
     /**
      * Edit the User.
      *
-     * @param Request               $request
-     * @param User                  $user
-     * @param ParameterBagInterface $bag
-     *
      * @IsGranted("ROLE_ACCOUNT_EDIT")
      * @Route(name="account_edit", path="/account/edit/{user}")
-     *
-     * @return Response
      */
     public function edit(Request $request, User $user, ParameterBagInterface $bag): Response
     {
@@ -196,14 +183,8 @@ class AccountController extends AbstractController
     /**
      * Change User Password.
      *
-     * @param Request                      $request
-     * @param User                         $user
-     * @param UserPasswordEncoderInterface $encoder
-     *
      * @IsGranted("ROLE_ACCOUNT_CHANGEPASSWORD")
      * @Route(name="account_changepassword", path="/account/changepassword/{user}")
-     *
-     * @return Response
      */
     public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
@@ -251,14 +232,8 @@ class AccountController extends AbstractController
     /**
      * Change User Private Roles.
      *
-     * @param Request         $request
-     * @param User            $user
-     * @param SecurityManager $security
-     *
      * @IsGranted("ROLE_ACCOUNT_ROLES")
      * @Route(name="account_roles", path="/account/role/{user}")
-     *
-     * @return Response
      */
     public function roles(Request $request, User $user, SecurityManager $security): Response
     {
@@ -308,9 +283,6 @@ class AccountController extends AbstractController
 
     /**
      * Account Append Group.
-     *
-     * @param Request $request
-     * @param User    $user
      *
      * @IsGranted("ROLE_ACCOUNT_ADDGROUP")
      * @Route(name="account_addgroup", path="/account/addGroup/{user}")
@@ -375,13 +347,8 @@ class AccountController extends AbstractController
     /**
      * Delete Account.
      *
-     * @param Request $request
-     * @param User    $user
-     *
      * @IsGranted("ROLE_ACCOUNT_DELETE")
      * @Route(name="account_delete", path="/accounts/delete/{user}")
-     *
-     * @return RedirectResponse
      */
     public function delete(Request $request, User $user): RedirectResponse
     {
@@ -403,14 +370,10 @@ class AccountController extends AbstractController
     /**
      * Activate/Deactivate Account.
      *
-     * @param Request $request
-     * @param User    $user
      * @param $status
      *
      * @IsGranted("ROLE_ACCOUNT_ACTIVATE")
      * @Route(name="account_activate", path="/account/activate/{user}/{status}")
-     *
-     * @return RedirectResponse
      */
     public function activate(Request $request, User $user, $status): RedirectResponse
     {
@@ -435,14 +398,10 @@ class AccountController extends AbstractController
     /**
      * Freeze Account.
      *
-     * @param Request $request
-     * @param User    $user
      * @param $status
      *
      * @IsGranted("ROLE_ACCOUNT_FREEZE")
      * @Route(name="account_freeze", path="/account/freeze/{user}/{status}")
-     *
-     * @return RedirectResponse
      */
     public function freeze(Request $request, User $user, $status): RedirectResponse
     {
@@ -466,8 +425,6 @@ class AccountController extends AbstractController
 
     /**
      * Check Current User All Access.
-     *
-     * @param UserInterface $user
      */
     private function checkAllAccess(UserInterface $user)
     {
@@ -479,7 +436,6 @@ class AccountController extends AbstractController
     /**
      * Check Current User Read Only.
      *
-     * @param UserInterface $user
      * @param $access
      */
     private function checkOwner(UserInterface $user, $access)

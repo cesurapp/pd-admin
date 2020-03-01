@@ -6,8 +6,8 @@
   "license": "MIT",
   "authors": [
     {
-      "name": "Kerem APAYDIN",
-      "homepage": "http://apaydin.me"
+      "name": "Ramazan APAYDIN",
+      "homepage": "http://github.com/appaydin"
     }
   ],
   "require": {
@@ -19,35 +19,35 @@
     "appaydin/pd-menu": "^1.2",
     "appaydin/pd-user": "^1.20",
     "appaydin/pd-widget": "^1.2",
-    "beberlei/doctrineextensions": "^1.0",
+    "beberlei/doctrineextensions": "^1.2",
     "intervention/image": "^2.5",
     "knplabs/knp-paginator-bundle": "^4.0",
     "sensio/framework-extra-bundle": "^5.3",
-    "symfony/asset": "4.3.*",
-    "symfony/console": "4.3.*",
-    "symfony/dotenv": "4.3.*",
-    "symfony/expression-language": "4.3.*",
+    "symfony/asset": "4.4.*",
+    "symfony/console": "4.4.*",
+    "symfony/dotenv": "4.4.*",
+    "symfony/expression-language": "4.4.*",
     "symfony/flex": "1.*",
-    "symfony/form": "4.3.*",
-    "symfony/framework-bundle": "4.3.*",
-    "symfony/monolog-bundle": "^3.4",
+    "symfony/form": "4.4.*",
+    "symfony/framework-bundle": "4.4.*",
+    "symfony/monolog-bundle": "^3.5",
     "symfony/orm-pack": "1.*",
-    "symfony/process": "4.3.*",
+    "symfony/process": "4.4.*",
     "symfony/security-bundle": "4.*",
     "symfony/swiftmailer-bundle": "3.2.*",
-    "symfony/translation": "4.3.*",
-    "symfony/twig-bundle": "4.3.*",
-    "symfony/validator": "4.3.*",
-    "symfony/yaml": "4.3.*"
+    "symfony/translation": "4.4.*",
+    "symfony/twig-bundle": "4.4.*",
+    "symfony/validator": "4.4.*",
+    "symfony/yaml": "4.4.*"
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "symfony/debug-bundle": "^4.3",
+    "symfony/debug-bundle": "^4.4",
     "symfony/maker-bundle": "^1.0",
     "symfony/profiler-pack": "^1.0",
     "symfony/test-pack": "1.*",
-    "symfony/var-dumper": "4.3.*",
-    "symfony/web-server-bundle": "4.3.*"
+    "symfony/var-dumper": "4.4.*",
+    "symfony/web-server-bundle": "4.4.*"
   },
   "config": {
     "preferred-install": {
@@ -83,7 +83,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "4.3.*"
+      "require": "4.4.*"
     }
   }
 }
