@@ -12,8 +12,8 @@
 namespace App\Form\Config;
 
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -31,13 +31,10 @@ use Symfony\Component\Validator\Constraints\Length;
  */
 class GeneralForm extends ConfigAbstractType
 {
-    /**
-     * Create Form.
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         // Get Language List
-        $languageList = array_flip(array_intersect_key(Languages::getNames(), array_flip($options['container']->get('parameter_bag')->get('active_language'))));
+        $languageList = array_flip(array_intersect_key(Languages::getNames(), array_flip($options['active_language'])));
 
         $builder
             ->add('head_title', TextType::class, [
@@ -117,11 +114,15 @@ class GeneralForm extends ConfigAbstractType
                 'placeholder' => false,
                 'required' => false,
             ])
-            ->add('default_country', CountryType::class, [
-                'label' => 'default_country',
-                'choice_translation_domain' => false,
-                'empty_data' => 'TR',
-                'placeholder' => false,
+            ->add('list_count', RangeType::class, [
+                'label' => 'list_count',
+                'help' => 'list_count_info',
+                'attr' => [
+                    'min' => 1,
+                    'max' => 100,
+                    'step' => 1,
+                ],
+                'empty_data' => '30',
                 'required' => false,
             ])
             ->add('site_logo', FileType::class, [
@@ -167,11 +168,8 @@ class GeneralForm extends ConfigAbstractType
             ]);
     }
 
-    /**
-     * Form Default Options.
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setRequired('container');
+        $resolver->setRequired('active_language');
     }
 }

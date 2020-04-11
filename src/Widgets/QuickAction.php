@@ -11,7 +11,6 @@
 
 namespace App\Widgets;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Pd\WidgetBundle\Builder\Item;
 use Pd\WidgetBundle\Event\WidgetEvent;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,22 +23,9 @@ use Symfony\Component\HttpFoundation\Request;
 class QuickAction
 {
     /**
-     * @var EntityManagerInterface
-     */
-    private $entityManager;
-
-    /**
-     * Account Constructor.
-     */
-    public function __construct(EntityManagerInterface $entityManager)
-    {
-        $this->entityManager = $entityManager;
-    }
-
-    /**
      * Build Widgets.
      */
-    public function builder(WidgetEvent $event)
+    public function builder(WidgetEvent $event): void
     {
         // Get Widget Container
         $widgets = $event->getWidgetContainer();
@@ -56,7 +42,7 @@ class QuickAction
             'action_group' => [
                 'name' => 'nav_group',
                 'description' => 'accouunt_group_list_title',
-                'route' => 'admin_account_group_list',
+                'route' => 'admin_group_list',
                 'icons' => 'group',
                 'linkClass' => 'btn btn-primary',
             ],
@@ -87,24 +73,22 @@ class QuickAction
         $widgets
             ->addWidget(
                 (new Item('quick_action'))
-                ->setGroup('admin')
-                ->setName('widget_quick_action.name')
-                ->setDescription('widget_quick_action.description')
-                ->setTemplate('Admin/Widget/quickAction.html.twig')
-                ->setRole(['ROLE_WIDGET_QUICKACTION'])
-                ->setConfigProcess(static function (Request $request) use ($items) {
-                    if ($id = $request->get('id')) {
-                        if (isset($items[$id])) {
+                    ->setGroup('admin')
+                    ->setName('widget_quick_action.name')
+                    ->setDescription('widget_quick_action.description')
+                    ->setTemplate('Admin/Widget/quickAction.html.twig')
+                    ->setRole(['ROLE_WIDGET_QUICKACTION'])
+                    ->setConfigProcess(static function (Request $request) use ($items) {
+                        if (($id = $request->get('id')) && isset($items[$id])) {
                             return [$id => $items[$id]];
                         }
-                    }
 
-                    return false;
-                })
-                ->setData(static function ($config) use ($items) {
-                    return ['items' => $items];
-                })
-                ->setOrder(0)
+                        return false;
+                    })
+                    ->setData(static function ($config) use ($items) {
+                        return ['items' => $items];
+                    })
+                    ->setOrder(0)
             );
     }
 }

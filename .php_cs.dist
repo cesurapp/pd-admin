@@ -23,14 +23,12 @@ return PhpCsFixer\Config::create()
     ->setRules([
         '@Symfony' => true,
         '@Symfony:risky' => true,
-        '@PHPUnit48Migration:risky' => true,
-        'php_unit_no_expectation_annotation' => false,
+        '@PHPUnit75Migration:risky' => true,
+        'php_unit_dedicate_assert' => ['target' => '5.6'],
         'array_syntax' => ['syntax' => 'short'],
         'fopen_flags' => false,
-        'ordered_imports' => true,
         'protected_to_private' => false,
-        'native_function_invocation' => ['include' => ['@compiler_optimized'], 'scope' => 'namespaced'],
-        'phpdoc_types_order' => ['null_adjustment' => 'always_last', 'sort_algorithm' => 'none'],
+        'combine_nested_dirname' => true,
         'header_comment' => ['header' => $fileHeaderComment, 'separate' => 'both', 'commentType' => 'PHPDoc'],
     ])
     ->setFinder($finder)

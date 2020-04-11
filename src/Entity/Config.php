@@ -35,16 +35,16 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=190, unique=true)
+     * @ORM\Column(type="string", length=190, unique=true)
      */
     private $name;
 
     /**
-     * @var string
+     * @var array
      *
-     * @ORM\Column(name="value", type="text", nullable=true)
+     * @ORM\Column(type="simple_array", nullable=true)
      */
-    private $value;
+    private $value = [];
 
     /**
      * Get id.
@@ -52,6 +52,14 @@ class Config
     public function getId(): int
     {
         return $this->id;
+    }
+
+    /**
+     * Get name.
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 
     /**
@@ -69,32 +77,24 @@ class Config
     }
 
     /**
-     * Get name.
+     * Get value.
      */
-    public function getName(): string
+    public function getValue(): ?array
     {
-        return $this->name;
+        return $this->value;
     }
 
     /**
      * Set value.
      *
-     * @param string $value
+     * @param string|array $value
      *
      * @return $this
      */
     public function setValue($value): self
     {
-        $this->value = $value;
+        $this->value = !\is_array($value) ? [$value] : $value;
 
         return $this;
-    }
-
-    /**
-     * Get value.
-     */
-    public function getValue(): string
-    {
-        return $this->value;
     }
 }

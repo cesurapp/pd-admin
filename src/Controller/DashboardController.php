@@ -14,6 +14,7 @@ namespace App\Controller;
 use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,14 +30,11 @@ class DashboardController extends AbstractController
     /**
      * Dashboard Index.
      *
-     * @Route(name="dashboard", path="/")
+     * @Route(name="admin_dashboard", path="/")
      * @IsGranted("ROLE_DASHBOARD_PANEL")
      */
     public function index(): Response
     {
-        // Set Back URL
-        $this->get('session')->set('backUrl', $this->get('router')->generate('admin_dashboard'));
-
         // Render Page
         return $this->render('Admin/dashboard.html.twig');
     }
@@ -44,11 +42,9 @@ class DashboardController extends AbstractController
     /**
      * Change Language for Session.
      *
-     * @param string $lang
-     *
-     * @Route(name="language", path="/language/{lang}")
+     * @Route(name="admin_language", path="/language/{lang}")
      */
-    public function changeLanguage(Request $request, WidgetInterface $widget, $lang): RedirectResponse
+    public function changeLanguage(Request $request, WidgetInterface $widget, string $lang): RedirectResponse
     {
         // Set Language for Session
         $request->getSession()->set('_locale', $lang);

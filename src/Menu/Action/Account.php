@@ -76,10 +76,10 @@ class Account extends Menu
             ])
             ->setLabelAttr(['class' => 'hidden'])
 
-            ->addChildParent('admin_account_addgroup', 1)
+            ->addChildParent('admin_account_group', 1)
             ->setLabel('edit_group')
-            ->setRoute('admin_account_addgroup', ['user' => $options['user']->getId()])
-            ->setRoles(['ROLE_ACCOUNT_ADDGROUP'])
+            ->setRoute('admin_account_group', ['user' => $options['user']->getId()])
+            ->setRoles(['ROLE_ACCOUNT_GROUP'])
             ->setExtra('label_icon', 'group')
             ->setLinkAttr([
                 'data-tooltip' => '',
@@ -98,10 +98,10 @@ class Account extends Menu
             ])
             ->setLabelAttr(['class' => 'hidden'])
 
-            ->addChildParent('admin_account_changepassword', 1)
+            ->addChildParent('admin_account_password', 1)
             ->setLabel('change_password')
-            ->setRoute('admin_account_changepassword', ['user' => $options['user']->getId()])
-            ->setRoles(['ROLE_ACCOUNT_CHANGEPASSWORD'])
+            ->setRoute('admin_account_password', ['user' => $options['user']->getId()])
+            ->setRoles(['ROLE_ACCOUNT_PASSWORD'])
             ->setExtra('label_icon', 'security')
             ->setLinkAttr([
                 'data-tooltip' => '',

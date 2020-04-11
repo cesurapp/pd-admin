@@ -48,7 +48,7 @@ class Main extends Menu
             // Group List
             ->addChildParent('nav_group', 20)
             ->setLabel('nav_group')
-            ->setRoute('admin_account_group_list')
+            ->setRoute('admin_group_list')
             ->setRoles(['ROLE_GROUP_LIST']);
 
         // Create Settings Section

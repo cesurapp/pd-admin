@@ -30,9 +30,6 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
      */
     private $router;
 
-    /**
-     * AccessDeniedHandler constructor.
-     */
     public function __construct(TranslatorInterface $translator, RouterInterface $router)
     {
         $this->translator = $translator;
@@ -57,7 +54,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         // Set Flash Message
         $request->getSession()->getBag('flashes')->add('error', $message);
 
-        // Disable login
+        // Disable Login
         if (parse_url($request->headers->get('referer'), PHP_URL_PATH) === $this->router->generate('security_login')) {
             return new RedirectResponse($this->router->generate('homepage'));
         }

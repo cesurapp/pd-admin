@@ -30,7 +30,7 @@ class Group extends Menu
         $menu
             ->addChild('admin_account_group_delete', 1)
             ->setLabel('delete')
-            ->setRoute('admin_account_group_delete', ['group' => $options['group']->getId()])
+            ->setRoute('admin_group_delete', ['group' => $options['group']->getId()])
             ->setRoles(['ROLE_GROUP_DELETE'])
             ->setExtra('label_icon', 'delete')
             ->setLinkAttr([
@@ -43,7 +43,7 @@ class Group extends Menu
 
             ->addChildParent('admin_account_group_roles', 1)
             ->setLabel('edit_roles')
-            ->setRoute('admin_account_group_roles', ['group' => $options['group']->getId()])
+            ->setRoute('admin_group_roles', ['group' => $options['group']->getId()])
             ->setRoles(['ROLE_ACCOUNT_ACTIVATE'])
             ->setExtra('label_icon', 'lock')
             ->setLinkAttr([
@@ -54,7 +54,7 @@ class Group extends Menu
 
             ->addChildParent('admin_account_group_edit', 1)
             ->setLabel('edit')
-            ->setRoute('admin_account_group_edit', ['group' => $options['group']->getId()])
+            ->setRoute('admin_group_edit', ['group' => $options['group']->getId()])
             ->setRoles(['ROLE_ACCOUNT_FREEZE'])
             ->setExtra('label_icon', 'mode_edit')
             ->setLinkAttr([

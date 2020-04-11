@@ -9,7 +9,7 @@
  * @link        https://github.com/appaydin/pd-admin
  */
 
-namespace App\Manager;
+namespace App\Service;
 
 use App\Entity\Account\User;
 use Doctrine\Common\Annotations\AnnotationReader;
@@ -22,7 +22,7 @@ use Symfony\Component\Routing\RouterInterface;
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
-class SecurityManager
+class SecurityService
 {
     /**
      * @var RouterInterface
@@ -34,9 +34,6 @@ class SecurityManager
      */
     private $widget;
 
-    /**
-     * SecurityManager constructor.
-     */
     public function __construct(RouterInterface $router, WidgetInterface $widget)
     {
         $this->router = $router;
@@ -49,13 +46,11 @@ class SecurityManager
     public function getACL(): array
     {
         // Default Roles
-        $roles = [
+        return [
             User::ROLE_DEFAULT => User::ROLE_DEFAULT,
             User::ROLE_ADMIN => User::ROLE_ADMIN,
             User::ROLE_ALL_ACCESS => User::ROLE_ALL_ACCESS,
         ];
-
-        return $roles;
     }
 
     /**
@@ -95,7 +90,7 @@ class SecurityManager
             if ($customRoles = $reflection->getConstant('CUSTOM_ROLES')) {
                 foreach ($customRoles as $role) {
                     $roleObject = explode('_', $role);
-                    if (3 === \count($roleObject)) {
+                    if (3 === count($roleObject)) {
                         $access = $roleObject[2];
                         $roleObject = $roleObject[0].'_'.$roleObject[1];
 

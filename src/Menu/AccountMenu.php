@@ -38,8 +38,8 @@ class AccountMenu extends Menu
 
             ->addChildParent('nav_account_change_password', 5)
             ->setLabel('nav_account_change_password')
-            ->setRoute('admin_account_changepassword', ['user' => $options['item'] ?? 0])
-            ->setRoles(['ROLE_ACCOUNT_CHANGEPASSWORD'])
+            ->setRoute('admin_account_password', ['user' => $options['item'] ?? 0])
+            ->setRoles(['ROLE_ACCOUNT_PASSWORD'])
 
             ->addChildParent('nav_account_roles', 10)
             ->setLabel('nav_account_roles')
@@ -48,8 +48,8 @@ class AccountMenu extends Menu
 
             ->addChildParent('nav_account_group', 15)
             ->setLabel('nav_account_group')
-            ->setRoute('admin_account_addgroup', ['user' => $options['item'] ?? 0])
-            ->setRoles(['ROLE_ACCOUNT_ADDGROUP']);
+            ->setRoute('admin_account_group', ['user' => $options['item'] ?? 0])
+            ->setRoles(['ROLE_ACCOUNT_GROUP']);
 
         return $menu;
     }

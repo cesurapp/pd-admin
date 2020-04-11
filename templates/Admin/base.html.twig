@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     {# Meta #}
-    <title>{% block head_title %}{{ parameters('head_title') }}{% endblock %}</title>
-    <meta name="description" content="{{ parameters('head_description') }}"/>
-    <meta name="keywords" content="{{ parameters('head_keywords') }}"/>
-    <meta name="author" content="{{ parameters('head_author') }}"/>
-    <link rel="icon" href="{{ asset(parameters('site_favicon'), 'upload') }}">
+    <title>{% block head_title %}{{ bag.get('head_title') }}{% endblock %}</title>
+    <meta name="description" content="{{ bag.get('head_description') }}"/>
+    <meta name="keywords" content="{{ bag.get('head_keywords') }}"/>
+    <meta name="author" content="{{ bag.get('head_author') }}"/>
+    <link rel="icon" href="{{ asset(bag.get('site_favicon'), 'upload') }}">
 
     {# Assets #}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -43,7 +43,7 @@
         {# Left Navigation #}
         <nav class="left-nav bg-gradient-primary">
             <div class="logo">
-                <a href="{{ path('admin_dashboard') }}"><img src="{{ absolute_url(asset(parameters('site_logo'), 'upload')) }}"></a>
+                <a href="{{ path('admin_dashboard') }}"><img src="{{ absolute_url(asset(bag.get('site_logo'), 'upload')) }}"></a>
             </div>
 
             <div id="nav_main">
@@ -67,7 +67,7 @@
                         {{ pd_menu_render('App\\Menu\\Navigation\\Toolbar', {
                             'user': app.getUser,
                             'locale': app.request.locale,
-                            'active_language': parameters('active_language')
+                            'active_language': bag.get('active_language')
                         }) }}
                     </nav>
                 </section>
@@ -104,7 +104,7 @@
             {# Footer #}
             <footer>
                 <div class="content">
-                    {{ parameters('footer_copyright')|raw }}
+                    {{ bag.get('footer_copyright')|raw }}
                 </div>
             </footer>
         </section>
