@@ -6,7 +6,7 @@ require('popper.js');
 require('bootstrap');
 
 // Load Sumoselect
-require('sumoselect');
+global.Selectize = require('selectize');
 
 // Load SCSS
 require('../scss/vendor.scss');

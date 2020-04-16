@@ -11,15 +11,12 @@
 
 namespace App\Controller;
 
-use Pd\MailerBundle\PdMailerBundle;
 use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Mailer\MailerInterface;
-use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -35,21 +32,8 @@ class DashboardController extends AbstractController
      * @Route(name="admin_dashboard", path="/")
      * @IsGranted("ROLE_DASHBOARD_PANEL")
      */
-    public function index(MailerInterface $mailer): Response
+    public function index(): Response
     {
-        $mail = new Email();
-        $mail->from('from@from.com')
-            ->to('to@to.com')
-            ->subject('subject')
-            ->html(['fullName' => 'ramazan']);
-            //->getHeaders()->addTextHeader('template', 'register');
-
-            $mailer->send($mail);
-        try {
-        } catch (\Exception $exception) {
-
-        }
-
         // Render Page
         return $this->render('Admin/dashboard.html.twig');
     }
