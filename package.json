@@ -1,23 +1,23 @@
 {
   "dependencies": {
-    "ace-builds": "^1.3.3",
-    "air-datepicker": "^2.2.3",
-    "bootstrap": "^4.1.1",
-    "chart.js": "^2.7.2",
-    "hammerjs": "^2.0.8",
+    "ace-builds": "1.*",
+    "air-datepicker": "2.*",
+    "bootstrap": "4.*",
+    "chart.js": "2.*",
+    "hammerjs": "2.*",
     "html5sortable": "^0.9.3",
-    "jquery": "^3.3.1",
-    "popper.js": "^1.14.3",
+    "jquery": "3.*",
+    "popper.js": "1.*",
     "selectize": "^0.12.6",
-    "sortablejs": "^1.7.0"
+    "sortablejs": "1.*"
   },
   "devDependencies": {
-    "@symfony/webpack-encore": "^0.21.0",
-    "autoprefixer": "^9.3.1",
-    "node-sass": "^4.10.0",
-    "postcss-loader": "^3.0.0",
-    "sass-loader": "^7.1.0",
-    "webpack-notifier": "^1.7.0"
+    "@symfony/webpack-encore": "0.28.3",
+    "autoprefixer": "^9.7.6",
+    "node-sass": "^4.*",
+    "postcss-loader": "^3.*",
+    "sass-loader": "^7.*",
+    "webpack-notifier": "^1.*"
   },
   "scripts": {
     "dev-server": "./node_modules/.bin/encore dev-server",
