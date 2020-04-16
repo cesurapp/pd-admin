@@ -102,8 +102,8 @@ class GeneralForm extends ConfigAbstractType
                         'max' => 200,
                     ]),
                 ],
-                'empty_data' => 'pdAdmin Developed by Symfony 4',
-                'attr' => ['placeholder-nt' => 'pdAdmin Developed by Symfony 4'],
+                'empty_data' => 'pdAdmin Developed by Symfony 5',
+                'attr' => ['placeholder-nt' => 'pdAdmin Developed by Symfony 5'],
                 'required' => false,
             ])
             ->add('default_locale', ChoiceType::class, [

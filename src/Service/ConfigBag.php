@@ -56,7 +56,7 @@ class ConfigBag
         $this->loadConfigRepository();
 
         // Load DB
-        if (!empty($this->configs[$name])) {
+        if (isset($this->configs[$name]) && '' !== $this->configs[$name]) {
             return $this->configs[$name];
         }
 
@@ -123,7 +123,19 @@ class ConfigBag
         // Load Cache|Repository
         $store = $this->configRepo->findAll();
         foreach ($store as $config) {
-            $this->configs[$config->getName()] = 1 === \count($config->getValue()) ? $config->getValue()[0] : $config->getValue();
+            if (count($config->getValue()) === 1) {
+                $val = $config->getValue()[0];
+
+                if ('true' === $val) {
+                    $val = true;
+                } elseif ('false' === $val) {
+                    $val = false;
+                }
+            } else {
+                $val = $config->getValue();
+            }
+
+            $this->configs[$config->getName()] = $val;
         }
     }
 
@@ -186,7 +198,7 @@ class ConfigBag
                         if (\is_object($itemData)) {
                             // Get Entity Function
                             $choiceValue = $form->get($itemName)->getConfig()->getOption('choice_value');
-                            $entityGetter = \is_string($choiceValue) ? 'get'.ucfirst($choiceValue) : 'getId';
+                            $entityGetter = \is_string($choiceValue) ? 'get' . ucfirst($choiceValue) : 'getId';
 
                             if (\is_array($itemData) || $itemData instanceof ArrayCollection) {
                                 $data = [];
@@ -212,6 +224,9 @@ class ConfigBag
                         } else {
                             $formData[$itemName] = $this->configs[$itemName] ?? null;
                         }
+                        break;
+                    case 'checkbox':
+                        $formData[$itemName] = $itemData ? 'true' : 'false';
                         break;
                 }
             }

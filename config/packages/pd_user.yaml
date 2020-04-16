@@ -9,6 +9,6 @@ pd_user:
     user_registration: true
     template_path: 'Auth'
     resetting_request_time: 7200
-    mail_sender_address: 'noreply@example.net'
-    mail_sender_name: pdAdmin
+    mail_sender_address: '%env(resolve:MAILER_FROM_EMAIL)%'
+    mail_sender_name: '%env(resolve:MAILER_FROM_NAME)%'
     active_language: "%active_language%"

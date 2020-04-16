@@ -226,6 +226,9 @@ contact_twitter: Twitter
 contact_youtube: Youtube
 contact_linkedin: LinkedIn
 contact_whatsapp: WhatsApp
+nav_mailer_header: Posta Yönetici
+nav_mailer_template: Posta Şablonları
+nav_mailer_logs: Posta Logları
 
 settings_user: Hesap Ayarlar
 settings_user_desc: Kullanıcı hesap ayarları

@@ -18,7 +18,7 @@ parameters:
     head_description: ''
     head_author: 'pdAdmin '
     head_keywords: 'pdAdmin, opensource'
-    footer_copyright: 'pdAdmin Developed for Symfony 4'
+    footer_copyright: 'pdAdmin Developed for Symfony 5'
     default_locale: 'en'
     list_count: 30
     site_logo: 'default/logo.png'

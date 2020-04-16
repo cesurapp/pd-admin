@@ -19,7 +19,7 @@ security:
             user_checker: Pd\UserBundle\Security\UserChecker
             access_denied_handler: App\Security\AccessDeniedHandler
             anonymous: true
-            switch_user: true
+            switch_user: { role: CAN_SWITCH_USER }
             http_basic: ~
             form_login:
                 use_referer: true

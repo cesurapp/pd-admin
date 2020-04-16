@@ -45,11 +45,7 @@ class FilterExtension extends AbstractExtension
     /**
      * Time Ago.
      *
-     * @param $date
-     * @param null   $now
-     * @param string $text
-     * @param string $domain
-     * @param int    $length
+     * @return string
      */
     public function timeDiff(Environment $env, $date, $now = null, $text = 'diff.ago', $domain = 'messages', $length = 1): string
     {
@@ -90,7 +86,7 @@ class FilterExtension extends AbstractExtension
     /**
      * Phone Formatter.
      *
-     * @param $phone
+     * @return string
      */
     public function phoneFormat($phone): string
     {
@@ -105,7 +101,7 @@ class FilterExtension extends AbstractExtension
     /**
      * Basename Formatter.
      *
-     * @param $path
+     * @return string
      */
     public function basename($path): string
     {

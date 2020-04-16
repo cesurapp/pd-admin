@@ -227,6 +227,9 @@ contact_twitter: Twitter
 contact_youtube: Youtube
 contact_linkedin: LinkedIn
 contact_whatsapp: WhatsApp
+nav_mailer_header: Mail Management
+nav_mailer_template: Mail Template
+nav_mailer_logs: Mail Logs
 
 settings_user: Account Settings
 settings_user_desc: User account settings

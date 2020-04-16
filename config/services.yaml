@@ -20,3 +20,5 @@ services:
         resource: '../src/Widgets/*'
         tags:
             - { name: kernel.event_listener, event: widget.start, method: builder }
+
+    Pd\UserBundle\Configuration\ConfigInterface: '@App\Service\ConfigBag'
