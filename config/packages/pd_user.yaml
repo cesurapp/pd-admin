@@ -2,13 +2,13 @@ pd_user:
     user_class: App\Entity\Account\User
     profile_class: App\Entity\Account\Profile
     group_class: App\Entity\Account\Group
-    default_group: "%user_default_group%"
-    login_redirect: '%user_login_redirect%'
-    email_confirmation: "%user_email_confirmation%"
-    welcome_email: "%user_welcome_email%"
-    user_registration: "%user_registration%"
+    default_group: 1
+    login_redirect: 'admin_dashboard'
+    email_confirmation: true
+    welcome_email: true
+    user_registration: true
     template_path: 'Auth'
     resetting_request_time: 7200
-    mail_sender_address: "%mail_sender_address%"
-    mail_sender_name: "%mail_sender_name%"
+    mail_sender_address: '%env(resolve:MAILER_FROM_EMAIL)%'
+    mail_sender_name: '%env(resolve:MAILER_FROM_NAME)%'
     active_language: "%active_language%"

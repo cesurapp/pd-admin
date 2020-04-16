@@ -48,7 +48,7 @@ class Toolbar extends Menu
     /**
      * Add Language Menu.
      */
-    private function addLanguage(ItemInterface $menu, array $options = [])
+    private function addLanguage(ItemInterface $menu, array $options = []): void
     {
         $languageDropdown = $menu->addChild('nav_language', 10)
             ->setLabel('nav_language')
@@ -73,7 +73,7 @@ class Toolbar extends Menu
     /**
      * Add Profile Menu.
      */
-    private function addProfile(ItemInterface $menu, array $options = [])
+    private function addProfile(ItemInterface $menu, array $options = []): void
     {
         // Root Item
         $menu->addChild('nav_profile', 100)
@@ -99,10 +99,10 @@ class Toolbar extends Menu
             // Change Password
             ->addChildParent('nav_profile_password')
             ->setLabel('nav_profile_password')
-            ->setRoute('admin_account_changepassword', ['user' => $options['user']->getId()])
+            ->setRoute('admin_account_password', ['user' => $options['user']->getId()])
             ->setLinkAttr(['class' => 'dropdown-item'])
             ->setExtra('label_icon', 'security')
-            ->setRoles(['ROLE_ACCOUNT_CHANGEPASSWORD'])
+            ->setRoles(['ROLE_ACCOUNT_PASSWORD'])
             // Add Divider
             ->addChildParent('divider')
             ->setExtra('label_translate', false)

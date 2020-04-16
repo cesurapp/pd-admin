@@ -86,7 +86,7 @@ class Tools
      */
     public static function randomStr(int $length = 10, string $charlist = '0-9A-Z'): string
     {
-        $charlist = count_chars(preg_replace_callback('#.-.#', function (array $m) {
+        $charlist = count_chars(preg_replace_callback('#.-.#', static function (array $m) {
             return implode('', range($m[0][0], $m[0][2]));
         }, $charlist), 3);
         $chLen = mb_strlen($charlist);
@@ -108,27 +108,18 @@ class Tools
     }
 
     /**
-     * Array Key => Value Implode.
-     *
-     * @param string $glue
+     * Get Project Root Directory.
      */
-    public static function implodeKeyValue(array $array, $glue = ' - '): array
+    public static function rootDir(string $path = ''): string
     {
-        $imloded = [];
-
-        // Imlode Key => Value
-        foreach ($array as $key => $value) {
-            $imloded[] = "{$key}{$glue}{$value}";
-        }
-
-        return $imloded;
+        return \dirname(__DIR__, 2).'/'.$path;
     }
 
     /**
-     * Get Project Root Directory.
+     * Get Upload Dir.
      */
-    public static function getRootDir(): string
+    public static function uploadDir(string $file = ''): string
     {
-        return \dirname(__DIR__, 2);
+        return self::rootDir($_ENV['UPLOAD_DIR'].$file);
     }
 }

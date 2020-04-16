@@ -26,9 +26,6 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class ContactForm extends ConfigAbstractType
 {
-    /**
-     * Create Form.
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -40,11 +37,6 @@ class ContactForm extends ConfigAbstractType
             ])
             ->add('contact_phone', TextType::class, [
                 'label' => 'contact_phone',
-                'attr' => ['placeholder-nt' => '+0850 111 1111'],
-                'required' => false,
-            ])
-            ->add('contact_mobile_phone', TextType::class, [
-                'label' => 'contact_mobile_phone',
                 'attr' => ['placeholder-nt' => '+0850 111 1111'],
                 'required' => false,
             ])
@@ -65,11 +57,6 @@ class ContactForm extends ConfigAbstractType
             ->add('contact_twitter', UrlType::class, [
                 'label' => 'contact_twitter',
                 'attr' => ['placeholder-nt' => 'https://www.twitter.com/examplepage'],
-                'required' => false,
-            ])
-            ->add('contact_google', UrlType::class, [
-                'label' => 'contact_google',
-                'attr' => ['placeholder-nt' => 'https://plus.google.com'],
                 'required' => false,
             ])
             ->add('contact_youtube', UrlType::class, [

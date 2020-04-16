@@ -4,7 +4,7 @@
 
 pdAdmin 
 =========
-Symfony Powerful Dashboard & Admin. Developed with **Symfony 4 Flex** framework.
+Symfony Powerful Dashboard & Admin. Developed with **Symfony 5** framework.
 
 No changes were made to the symfony structure, the current directory structure is used. A custom namespace for Admin has been created. This field is used for all administrator operations. 
 

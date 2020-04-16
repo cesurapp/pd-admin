@@ -12,7 +12,7 @@
 namespace App\Form\Config;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\Form\FormView;
@@ -25,13 +25,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 abstract class ConfigAbstractType implements FormTypeInterface
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-    }
-
     /**
      * {@inheritdoc}
      */
@@ -96,6 +89,6 @@ abstract class ConfigAbstractType implements FormTypeInterface
      */
     public function getParent()
     {
-        return 'Symfony\Component\Form\Extension\Core\Type\FormType';
+        return FormType::class;
     }
 }

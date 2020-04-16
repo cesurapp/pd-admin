@@ -17,7 +17,7 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 
 /**
- * Twig Extension.
+ * Twig Custom Filters.
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
@@ -28,35 +28,24 @@ class FilterExtension extends AbstractExtension
      */
     private $translator;
 
-    /**
-     * FilterExtension constructor.
-     */
     public function __construct(TranslatorInterface $translator)
     {
         $this->translator = $translator;
     }
 
-    /**
-     * Create Twig Filter.
-     */
     public function getFilters()
     {
         return [
             new TwigFilter('timeDiff', [$this, 'timeDiff'], ['needs_environment' => true]),
             new TwigFilter('phoneFormat', [$this, 'phoneFormat']),
-            new TwigFilter('basename', [$this, 'baseName']),
-            new TwigFilter('swiftEvent', [$this, 'swiftEvent']),
+            new TwigFilter('basename', [$this, 'basename']),
         ];
     }
 
     /**
      * Time Ago.
      *
-     * @param $date
-     * @param null   $now
-     * @param string $text
-     * @param int    $length
-     * @param string $domain
+     * @return string
      */
     public function timeDiff(Environment $env, $date, $now = null, $text = 'diff.ago', $domain = 'messages', $length = 1): string
     {
@@ -97,7 +86,7 @@ class FilterExtension extends AbstractExtension
     /**
      * Phone Formatter.
      *
-     * @param $phone
+     * @return string
      */
     public function phoneFormat($phone): string
     {
@@ -112,44 +101,10 @@ class FilterExtension extends AbstractExtension
     /**
      * Basename Formatter.
      *
-     * @param $path
+     * @return string
      */
-    public function baseName($path): string
+    public function basename($path): string
     {
         return basename($path);
-    }
-
-    /**
-     * SwiftMailer Event Convert.
-     *
-     * @param $event
-     * @param bool $color
-     */
-    public function swiftEvent($event, $color = false): string
-    {
-        $str = '';
-
-        switch ($event) {
-            case \Swift_Events_SendEvent::RESULT_SUCCESS:
-                $str = $color ? 'success' : $this->translator->trans('RESULT_SUCCESS');
-                break;
-            case \Swift_Events_SendEvent::RESULT_FAILED:
-                $str = $color ? 'danger' : $this->translator->trans('RESULT_FAILED');
-                break;
-            case \Swift_Events_SendEvent::RESULT_SPOOLED:
-                $str = $color ? 'primary' : $this->translator->trans('RESULT_SPOOLED');
-                break;
-            case \Swift_Events_SendEvent::RESULT_PENDING:
-                $str = $color ? 'warning' : $this->translator->trans('RESULT_PENDING');
-                break;
-            case \Swift_Events_SendEvent::RESULT_TENTATIVE:
-                $str = $color ? 'info' : $this->translator->trans('RESULT_TENTATIVE');
-                break;
-            case -1:
-                $str = $color ? 'secondary' : $this->translator->trans('RESULT_DELETED');
-                break;
-        }
-
-        return $str;
     }
 }

@@ -29,9 +29,6 @@ class Account
      */
     private $entityManager;
 
-    /**
-     * Account Constructor.
-     */
     public function __construct(EntityManagerInterface $entityManager)
     {
         $this->entityManager = $entityManager;
@@ -40,7 +37,7 @@ class Account
     /**
      * Build Widgets.
      */
-    public function builder(WidgetEvent $event)
+    public function builder(WidgetEvent $event): void
     {
         // Get Widget Container
         $widgets = $event->getWidgetContainer();

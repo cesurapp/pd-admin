@@ -3,7 +3,7 @@ security:
         App\Entity\Account\User:
             algorithm: auto
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_USER]
+        ROLE_ADMIN: [ROLE_USER]
     providers:
         pdadmin_auth:
             entity:
@@ -19,7 +19,7 @@ security:
             user_checker: Pd\UserBundle\Security\UserChecker
             access_denied_handler: App\Security\AccessDeniedHandler
             anonymous: true
-            switch_user: true
+            switch_user: { role: CAN_SWITCH_USER }
             http_basic: ~
             form_login:
                 use_referer: true
@@ -32,11 +32,11 @@ security:
                 target: '%user_logout_redirect%'
             remember_me:
                 secret:   '%env(APP_SECRET)%'
-                lifetime: '%remember_time%'
+                lifetime: 604800 # 1 Week - 1 Month -> 2592000
                 path:     /
     access_control:
         # Force HTTPS
         #- { path: '^/', requires_channel: https }
 
         # Admin Panel
-        - { path: '^/admin', role: [ROLE_USER, ROLE_ADMIN] }
+        - { path: '^/admin', role: [ROLE_ADMIN] }

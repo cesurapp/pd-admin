@@ -7,11 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     {# Meta #}
-    <title>{% block head_title %}{{ parameters('head_title') }}{% endblock %}</title>
-    <meta name="description" content="{{ parameters('head_description') }}"/>
-    <meta name="keywords" content="{{ parameters('head_keywords') }}"/>
-    <meta name="author" content="{{ parameters('head_author') }}"/>
-    <link rel="icon" href="{{ asset(parameters('site_favicon', 0), 'upload') }}">
+    <title>{% block head_title %}{{ bag.get('head_title') }}{% endblock %}</title>
+    <meta name="description" content="{{ bag.get('head_description') }}"/>
+    <meta name="keywords" content="{{ bag.get('head_keywords') }}"/>
+    <meta name="author" content="{{ bag.get('head_author') }}"/>
+    <link rel="icon" href="{{ asset(bag.get('site_favicon'), 'upload') }}">
 
     {#-- Include Assets --#}
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

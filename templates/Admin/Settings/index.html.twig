@@ -8,7 +8,6 @@
 {% block content_head %}
     <span class="text">{{ page_title|trans }}</span>
     <span class="desc">{{ page_description|trans }}</span>
-    <a href="#" class="addbtn btn-success" data-toggle="modal" data-target="#cacheModal" data-tooltip title="{{ 'admin_refresh_cache'|trans }}"><i class="material-icons">refresh</i></a>
 {% endblock %}
 
 {# Content Navigation #}
@@ -16,34 +15,6 @@
 
 {# Content Body #}
 {% block content_body %}
-    <div id="cacheModal" class="modal fade confirm" tabindex="-1">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <div class="modal-header"><h4><i class="material-icons">refresh</i></h4></div>
-                <div class="modal-body">
-                    {{ 'admin_refresh_cache_desc'|trans }}
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary" data-dismiss="modal">{{ 'close'|trans }}</button>
-                    <button type="submit" id="refreshCache" class="btn btn-success">{{ 'refresh'|trans }}</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script>
-        $(function () {
-            $('#refreshCache').click(function () {
-                $.ajax({
-                    url: '{{ path('admin_settings_clearcache') }}',
-                    dataType: 'json',
-                    complete: function (response) {
-                        $('#cacheModal').modal('hide');
-                    }
-                });
-            });
-        })
-    </script>
-
     <div class="content-form">
         {{ form_start(form) }}
         {{ form_widget(form) }}

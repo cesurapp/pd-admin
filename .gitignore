@@ -20,6 +20,7 @@ src/*/Entity/*/*~
 !/public/build/.gitkeep
 /public/uploads/*
 !/public/uploads/.gitkeep
+!/public/uploads/default
 ###< Public ###
 
 ###> Other ###
@@ -27,3 +28,9 @@ node_modules
 .idea
 /build/
 .DS_Store
+
+###> symfony/phpunit-bridge ###
+.phpunit
+.phpunit.result.cache
+/phpunit.xml
+###< symfony/phpunit-bridge ###

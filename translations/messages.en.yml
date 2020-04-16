@@ -44,12 +44,9 @@ ROLE_GROUP:
 ROLE_SETTINGS:
     title: Admin Settings Management
     GENERAL: General
-    EMAIL: Email
     USER: Account
     MEDIA: Media
     CONTACT: Contact
-    CORE: Core
-    ROUTING: Routing
 ROLE_MAIL:
     title: Admin Mail Manager
     TEMPLATELIST: Template Listing
@@ -212,10 +209,10 @@ head_author_info: Specifies the site maker.
 head_keywords: Keyword
 footer_copyright: Footer Copyright
 default_locale: Default Language
-default_country: Default Country
 site_logo: Site Logo
-default_image: Default Image
 site_favicon: Site Favicon
+list_count: Listing count
+list_count_info: Admin panel is the default listing number.
 
 settings_contact: Contact
 settings_contact_desc: System and site communication settings
@@ -223,46 +220,16 @@ nav_config_contact: Contact
 contact_email: Contact Email
 contact_email_info: System mail and contact form are sent to this address.
 contact_phone: Phone
-contact_mobile_phone: Mobil Phone
 contact_fax_number: Fax
 contact_address: Local Address
 contact_facebook: Facebook
 contact_twitter: Twitter
-contact_google: Google+
 contact_youtube: Youtube
 contact_linkedin: LinkedIn
 contact_whatsapp: WhatsApp
-
-settings_email: Email Settings
-settings_email_desc: System email settings
-nav_config_email: Email
-mail_disable_delivery: Email System
-mail_disable_delivery_info: Enable the e-mail system, the system will not be able to send e-mail if it is closed.
-mail_transport: Protocol
-mail_transport_info: The system is the forwarding protocol for e-mails, set by default.
-mail_host: Host
-mail_port: Port
-mail_port_info: Ports 465 and 587 are used for SSL connection. For non-SSL connections, port 25 is used.
-mail_username: Username
-mail_username_info: Enter the username for the server to be contacted.
-mail_timeout: Timeout
-mail_timeout_info: STMP sets the timeout period for the connection
-mail_password: Password
-mail_password_info: Enter the password for the server to connect to. The password is hidden, it will not appear after recording.
-mail_encryption: Encryption
-mail_encryption_info: The type of encryption to use for the connection. SSL is used for port '465' and TLS is used for port '587'.
-mail_auth_mode: Authentication Mode
-mail_auth_mode_info: Authentication mechanism and security level
-mail_allow_self_signed: Self-Signed Certificates
-mail_allow_self_signed_info: Allow self-signed certificates. Requires SSL Verification
-mail_verify_peer: SSL Verification
-mail_verify_peer_info: Require verification of SSL certificate used
-mail_sender_address: Sender Email
-mail_sender_address_info: The name of the system to which the emails are sent.
-mail_sender_name: Sender Name
-mail_sender_name_info: This is the sender name of the system emails.
-mail_test_address: Test Email
-mail_test_address_info: Enter the e-mail address to be used for the test.
+nav_mailer_header: Mail Management
+nav_mailer_template: Mail Template
+nav_mailer_logs: Mail Logs
 
 settings_user: Account Settings
 settings_user_desc: User account settings
@@ -323,36 +290,6 @@ media_wm_font_y: Y Position
 media_wm_font_y_info: Defines the vertical base point of the first character.
 media_wm_font_angle: Font Return Angle
 media_wm_font_angle_info: Return value for font, works only when font is loaded.
-
-settings_core: Core Settings
-settings_core_desc: System core settings
-nav_config_core: Core
-active_language: Active Languages
-active_language_info: Used to add new language to the system.
-list_count: Listing count
-list_count_info: Admin panel is the default listing number.
-remember_time: Remember Me Time
-remember_time_info: The default is (604800sn) week, which sets the duration of the Remember Me feature used in the user login system in seconds.
-twig_cache: Twig Cache
-twig_cache_info: Enable Twig cache. Close for development.
-admin_allow_ips: Admin IP Access
-admin_allow_ips_info: Enables IP access to the Admin panel, allowing only entered IP addresses. Enter the IP addresses below.
-auth_allow_ips: Authorization IP Access
-auth_allow_ips_info: Enables IP access for Authorization, only the entered IP addresses are allowed. Enter the IP addresses below.
-
-settings_routing: Routing Settings
-settings_routing_desc: System general routing settings
-nav_config_routing: Routing
-routing_admin: Admin Panel URL
-routing_admin_info: Routing to the admin panele transport.
-routing_login: User Login URL
-routing_login_info: The address visitors use to log in to their account.
-routing_logout: User Logout URL
-routing_logout_info: The address used for members to sign out.
-routing_register: User Register URL
-routing_register_info: The address that visitors use when registering.
-routing_resetting: User Password Reset URL
-routing_resetting_info: The address used by users to reset their passwords.
 
 ###
 # Widget

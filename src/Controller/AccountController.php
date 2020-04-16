@@ -14,8 +14,11 @@ namespace App\Controller;
 use App\Entity\Account\Group;
 use App\Entity\Account\User;
 use App\Form\Account\RolesType;
-use App\Manager\SecurityManager;
 use App\Menu\AccountMenu;
+use App\Repository\UserRepository;
+use App\Service\ConfigBag;
+use App\Service\SecurityService;
+use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Pd\UserBundle\Form\ChangePasswordType;
 use Pd\UserBundle\Form\ProfileType;
@@ -54,46 +57,33 @@ class AccountController extends AbstractController
      * Show all Account.
      *
      * @IsGranted("ROLE_ACCOUNT_LIST")
-     * @Route(name="account_list", path="/account")
+     * @Route(name="admin_account_list", path="/account")
      */
-    public function list(Request $request, PaginatorInterface $paginator): Response
+    public function list(Request $request, UserRepository $userRepo, ConfigBag $bag, PaginatorInterface $paginator): Response
     {
         // Query
-        $query = $this
-            ->getDoctrine()
-            ->getRepository(User::class)
-            ->createQueryBuilder('u')
-            ->leftJoin('u.profile', 'p')
-            ->addSelect('p');
+        $query = $userRepo->filter();
 
         // Check Owner or All Access
         if (!$this->isGranted('ADMIN_ACCOUNT_ALLREAD')) {
-            $query
-                ->andWhere('u.id = :id')
-                ->setParameter('id', $this->getUser()->getId());
+            $query->andWhere('u.id = :id')->setParameter('id', $this->getUser()->getId());
         }
 
         // Add Filter
+        if ($request->get('status')) {
+            $query->andWhere('u.isActive = :status')->setParameter('status', $request->get('filter'));
+        }
         if ($request->get('filter')) {
             $query
                 ->where('(u.email LIKE :filter) or (p.firstname LIKE :filter) or (p.lastname LIKE :filter) or (p.phone LIKE :filter) or (p.company LIKE :filter)')
                 ->setParameter('filter', "%{$request->get('filter')}%");
         }
-        if ($request->get('status')) {
-            $query
-                ->andWhere('u.isActive = :status')
-                ->setParameter('status', $request->get('filter'));
-        }
 
         // Get Result
-        $pagination = $paginator->paginate(
-            $query->getQuery(),
+        $pagination = $paginator->paginate($query->getQuery(),
             $request->query->getInt('page', 1),
-            $request->query->getInt('limit', $this->getParameter('list_count'))
+            $bag->get('list_count')
         );
-
-        // Set Back URL
-        $this->get('session')->set('backUrl', $request->getRequestUri());
 
         // Render Page
         return $this->render('Admin/Account/list.html.twig', [
@@ -107,8 +97,8 @@ class AccountController extends AbstractController
      */
     private function createUserFilterForm(): FormInterface
     {
-        $form = $this->get('form.factory')
-            ->createNamedBuilder(null, FormType::class, null, [
+        return $this->get('form.factory')
+            ->createNamedBuilder('', FormType::class, null, [
                 'csrf_protection' => false,
                 'method' => 'get',
                 'allow_extra_fields' => true,
@@ -127,17 +117,15 @@ class AccountController extends AbstractController
                 ],
             ])
             ->getForm();
-
-        return $form;
     }
 
     /**
      * Edit the User.
      *
      * @IsGranted("ROLE_ACCOUNT_EDIT")
-     * @Route(name="account_edit", path="/account/edit/{user}")
+     * @Route(name="admin_account_edit", path="/account/{user}")
      */
-    public function edit(Request $request, User $user, ParameterBagInterface $bag): Response
+    public function edit(Request $request, ParameterBagInterface $bag, EntityManagerInterface $em, User $user): Response
     {
         // Check Read Only
         $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
@@ -149,15 +137,12 @@ class AccountController extends AbstractController
 
         // Handle Request
         $form->handleRequest($request);
-
-        // Form Check
         if ($form->isSubmitted() && $form->isValid()) {
             // Check Super Admin & Check All Write
             $this->checkAllAccess($user);
             $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLWRITE');
 
             // Save
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
@@ -183,10 +168,10 @@ class AccountController extends AbstractController
     /**
      * Change User Password.
      *
-     * @IsGranted("ROLE_ACCOUNT_CHANGEPASSWORD")
-     * @Route(name="account_changepassword", path="/account/changepassword/{user}")
+     * @IsGranted("ROLE_ACCOUNT_PASSWORD")
+     * @Route(name="admin_account_password", path="/account/{user}/password")
      */
-    public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
+    public function changePassword(Request $request, User $user, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder): Response
     {
         // Check Read Only
         $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
@@ -211,7 +196,6 @@ class AccountController extends AbstractController
             $user->setPassword($password);
 
             // Save
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
@@ -233,9 +217,9 @@ class AccountController extends AbstractController
      * Change User Private Roles.
      *
      * @IsGranted("ROLE_ACCOUNT_ROLES")
-     * @Route(name="account_roles", path="/account/role/{user}")
+     * @Route(name="admin_account_roles", path="/account/{user}/roles")
      */
-    public function roles(Request $request, User $user, SecurityManager $security): Response
+    public function roles(Request $request, User $user, EntityManagerInterface $em, SecurityService $security): Response
     {
         dump(array_intersect($security->getACL(), $user->getRolesUser()));
 
@@ -263,7 +247,6 @@ class AccountController extends AbstractController
             }
 
             // Save
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
@@ -284,12 +267,10 @@ class AccountController extends AbstractController
     /**
      * Account Append Group.
      *
-     * @IsGranted("ROLE_ACCOUNT_ADDGROUP")
-     * @Route(name="account_addgroup", path="/account/addGroup/{user}")
-     *
-     * @return RedirectResponse|Response
+     * @IsGranted("ROLE_ACCOUNT_GROUP")
+     * @Route(name="admin_account_group", path="/account/{user}/group")
      */
-    public function addGroup(Request $request, User $user)
+    public function addGroup(Request $request, EntityManagerInterface $em, User $user): Response
     {
         // Get Group Name
         $groupName = $user->getGroupNames();
@@ -299,7 +280,7 @@ class AccountController extends AbstractController
             ->add('group', EntityType::class, [
                 'class' => Group::class,
                 'choice_label' => 'name',
-                'choice_attr' => function ($obj) use ($groupName) {
+                'choice_attr' => static function (Group $obj) use ($groupName) {
                     return \in_array($obj->getName(), $groupName, true) ? ['selected' => ''] : [];
                 },
                 'label' => 'account_groups',
@@ -312,9 +293,9 @@ class AccountController extends AbstractController
                 'label' => 'save',
             ])
             ->getForm();
-        $form->handleRequest($request);
 
         // Form Request
+        $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Add user to group
             $user->getGroups()->clear();
@@ -323,7 +304,6 @@ class AccountController extends AbstractController
             }
 
             // Save
-            $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
 
@@ -331,7 +311,7 @@ class AccountController extends AbstractController
             $this->addFlash('success', 'changes_saved');
 
             // Redirect
-            return $this->redirectToRoute('admin_account_addgroup', ['user' => $user->getId()]);
+            return $this->redirectToRoute('admin_account_group', ['user' => $user->getId()]);
         }
 
         // Render
@@ -348,15 +328,14 @@ class AccountController extends AbstractController
      * Delete Account.
      *
      * @IsGranted("ROLE_ACCOUNT_DELETE")
-     * @Route(name="account_delete", path="/accounts/delete/{user}")
+     * @Route(name="admin_account_delete", path="/accounts/{user}/delete")
      */
-    public function delete(Request $request, User $user): RedirectResponse
+    public function delete(Request $request, EntityManagerInterface $em, User $user): RedirectResponse
     {
         // Check All Access
         $this->checkAllAccess($user);
 
         // Remove
-        $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
 
@@ -370,21 +349,18 @@ class AccountController extends AbstractController
     /**
      * Activate/Deactivate Account.
      *
-     * @param $status
-     *
      * @IsGranted("ROLE_ACCOUNT_ACTIVATE")
-     * @Route(name="account_activate", path="/account/activate/{user}/{status}")
+     * @Route(name="admin_account_activate", path="/account/{user}/activate")
      */
-    public function activate(Request $request, User $user, $status): RedirectResponse
+    public function activate(Request $request, EntityManagerInterface $em, User $user): RedirectResponse
     {
         // Check All Access
         $this->checkAllAccess($user);
 
         // Activate / Deactivate
-        $user->setEnabled($status);
+        $user->setEnabled(!$user->isEnabled());
 
         // Update
-        $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
 
@@ -398,21 +374,18 @@ class AccountController extends AbstractController
     /**
      * Freeze Account.
      *
-     * @param $status
-     *
      * @IsGranted("ROLE_ACCOUNT_FREEZE")
-     * @Route(name="account_freeze", path="/account/freeze/{user}/{status}")
+     * @Route(name="admin_account_freeze", path="/account/{user}/freeze")
      */
-    public function freeze(Request $request, User $user, $status): RedirectResponse
+    public function freeze(Request $request, EntityManagerInterface $em, User $user): RedirectResponse
     {
         // Check All Access
         $this->checkAllAccess($user);
 
         // Activate / Deactivate
-        $user->setFreeze((bool) $status);
+        $user->setFreeze(!$user->isFreeze());
 
         // Update
-        $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
 
@@ -426,7 +399,7 @@ class AccountController extends AbstractController
     /**
      * Check Current User All Access.
      */
-    private function checkAllAccess(UserInterface $user)
+    private function checkAllAccess(UserInterface $user): void
     {
         if ($user->hasRole(User::ROLE_ALL_ACCESS) && !$this->getUser()->hasRole(User::ROLE_ALL_ACCESS)) {
             throw $this->createAccessDeniedException();
@@ -438,12 +411,10 @@ class AccountController extends AbstractController
      *
      * @param $access
      */
-    private function checkOwner(UserInterface $user, $access)
+    private function checkOwner(UserInterface $user, $access): void
     {
-        if (!$this->isGranted($access)) {
-            if ($user->getId() !== $this->getUser()->getId()) {
-                throw $this->createAccessDeniedException();
-            }
+        if (!$this->isGranted($access) && $user->getId() !== $this->getUser()->getId()) {
+            throw $this->createAccessDeniedException();
         }
     }
 }

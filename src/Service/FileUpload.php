@@ -9,48 +9,41 @@
  * @link        https://github.com/appaydin/pd-admin
  */
 
-namespace App\Manager;
+namespace App\Service;
 
 use App\Library\Tools;
 use Intervention\Image\Image;
 use Intervention\Image\ImageManager;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Upload File Manager.
+ * Upload File Service.
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
-class UploadManager
+class FileUpload
 {
-    /**
-     * @var ParameterBagInterface
-     */
-    private $parameterBag;
-
     /**
      * Current Upload Directory.
      *
      * @var string
      */
     private $currentDir;
-
     /**
      * Upload Relative Path.
      *
      * @var string
      */
     private $currentPath;
-
     /**
-     * Upload constructor.
+     * @var ConfigBag
      */
-    public function __construct(ParameterBagInterface $parameterBag)
+    private $bag;
+
+    public function __construct(ConfigBag $bag)
     {
-        $this->parameterBag = $parameterBag;
-        $this->createDirectory();
+        $this->bag = $bag;
     }
 
     /**
@@ -58,9 +51,13 @@ class UploadManager
      *
      * @param $files array|UploadedFile
      * @param bool $rawUpload
+     *
+     * @return array
      */
     public function upload($files, $rawUpload = false): array
     {
+        $this->createDirectory();
+
         // Uploaded Files
         $uploadFiles = [];
 
@@ -70,11 +67,9 @@ class UploadManager
         }
 
         // Start Upload
-        if (\is_array($files)) {
-            foreach ($files as $file) {
-                if ($file instanceof UploadedFile) {
-                    $uploadFiles[] = $this->uploadProcess($file, $rawUpload);
-                }
+        foreach ($files as $file) {
+            if ($file instanceof UploadedFile) {
+                $uploadFiles[] = $this->uploadProcess($file, $rawUpload);
             }
         }
 
@@ -85,9 +80,9 @@ class UploadManager
     /**
      * Remove Files.
      *
-     * @param string|array|null $files
+     * @param string|array $files
      */
-    public function removeFiles($files)
+    public static function removeFiles($files): void
     {
         if ($files) {
             // Convert Array
@@ -96,7 +91,7 @@ class UploadManager
             }
 
             foreach ($files as $file) {
-                $file = $this->cfg('upload_dir').$file;
+                $file = Tools::uploadDir($file);
                 if (file_exists($file)) {
                     unlink($file);
                 }
@@ -108,12 +103,13 @@ class UploadManager
      * Start Upload.
      *
      * @param $rawUpload boolean
+     *
+     * @return string
      */
-    private function uploadProcess(UploadedFile $file, $rawUpload): string
+    private function uploadProcess(UploadedFile $file, bool $rawUpload): string
     {
         // Create Filename
-        $tools = new Tools();
-        $fileName = $tools::webalize($tools::randomStr(6).$file->getClientOriginalName(), '.');
+        $fileName = Tools::webalize(Tools::randomStr(6).$file->getClientOriginalName(), '.');
 
         // Upload File and Optimize Images
         if (!$rawUpload) {
@@ -141,19 +137,19 @@ class UploadManager
     private function imageManager(UploadedFile $file, $filePath): void
     {
         // Create Image Manager
-        $img = new ImageManager(['driver' => $this->cfg('media_library')]);
+        $img = new ImageManager(['driver' => $this->bag->get('media_library')]);
         $img = $img->make($file->getRealPath());
 
         // Image Optimize
-        if ($this->cfg('media_optimize')) {
-            $img->resize($this->cfg('media_max_height'), $this->cfg('media_max_width'), function ($constraint) {
+        if ($this->bag->get('media_optimize')) {
+            $img->resize($this->bag->get('media_max_height'), $this->bag->get('media_max_width'), static function ($constraint) {
                 $constraint->upsize();
                 $constraint->aspectRatio();
             });
         }
 
         // Image Add Watermark
-        switch ($this->cfg('media_watermark')) {
+        switch ($this->bag->get('media_watermark')) {
             case 'text':
                 $this->addTextWatermark($img);
                 break;
@@ -163,48 +159,43 @@ class UploadManager
         }
 
         // Save Image
-        $img->save($filePath, $this->cfg('media_optimize') ? $this->cfg('media_quality') : null)->destroy();
+        $img->save($filePath, $this->bag->get('media_optimize') ? $this->bag->get('media_quality') : null)->destroy();
     }
 
     /**
      * Image Add Text Watermark.
-     *
-     * @param Image $img
      */
-    private function addTextWatermark(&$img): void
+    private function addTextWatermark(Image $img): void
     {
         // Set X-Y Image Ordinate
-        $xOrdinate = $img->getWidth() * $this->cfg('media_wm_font_x');
-        $yOrdinate = $img->getHeight() * $this->cfg('media_wm_font_y');
+        $xOrdinate = $img->getWidth() * $this->bag->get('media_wm_font_x');
+        $yOrdinate = $img->getHeight() * $this->bag->get('media_wm_font_y');
 
         // Add Text Watermark
-        $img->text($this->cfg('media_wm_font_text'), $xOrdinate, $yOrdinate, function ($font) {
+        $img->text($this->bag->get('media_wm_font_text'), $xOrdinate, $yOrdinate, function ($font) {
             // Exist Font File
-            if (!empty($this->cfg('media_wm_font')) && file_exists($fontPath = $this->cfg('upload_dir').$this->cfg('media_wm_font'))) {
+            if (!empty($this->bag->get('media_wm_font')) && file_exists($fontPath = Tools::uploadDir($this->bag->get('media_wm_font')))) {
                 $font->file($fontPath);
             }
 
-            $font->size($this->cfg('media_wm_font_size'));
-            $font->color($this->cfg('media_wm_font_color'));
-            $font->align($this->cfg('media_wm_font_align'));
-            $font->valign($this->cfg('media_wm_font_valign'));
-            $font->angle($this->cfg('media_wm_font_angle'));
+            $font->size($this->bag->get('media_wm_font_size'));
+            $font->color($this->bag->get('media_wm_font_color'));
+            $font->align($this->bag->get('media_wm_font_align'));
+            $font->valign($this->bag->get('media_wm_font_valign'));
+            $font->angle($this->bag->get('media_wm_font_angle'));
         });
     }
 
     /**
-     * Image Add Image Watermark.
-     *
-     * @param Image $img
+     * Image Add Watermark.
      */
-    private function addImageWatermark(&$img): void
+    private function addImageWatermark(Image $img): void
     {
-        if (file_exists($imagePath = $this->cfg('upload_dir').$this->cfg('media_wm_image'))) {
-            $img->insert(
-                $imagePath,
-                $this->cfg('media_wm_image_position'),
-                $this->cfg('media_wm_image_x'),
-                $this->cfg('media_wm_image_y')
+        if (file_exists($imagePath = Tools::uploadDir($this->bag->get('media_wm_image')))) {
+            $img->insert($imagePath,
+                $this->bag->get('media_wm_image_position'),
+                $this->bag->get('media_wm_image_x'),
+                $this->bag->get('media_wm_image_y')
             );
         }
     }
@@ -216,27 +207,12 @@ class UploadManager
     {
         // Create Current Directory
         $this->currentDir = date('Y/m/d');
-        $this->currentPath = $this->cfg('upload_dir').$this->currentDir;
+        $this->currentPath = Tools::uploadDir($this->currentDir);
 
         // Create Directory
         if (!file_exists($this->currentPath)) {
-            // Create Filesystem
             $fs = new Filesystem();
-
-            // Create Dir
             $fs->mkdir($this->currentPath);
         }
-    }
-
-    /**
-     * Get Parameter.
-     *
-     * @param $parameterName string
-     *
-     * @return mixed
-     */
-    private function cfg($parameterName)
-    {
-        return $this->parameterBag->get($parameterName);
     }
 }

@@ -11,7 +11,7 @@
 
 namespace App\Twig;
 
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
+use App\Service\ConfigBag;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -23,14 +23,11 @@ use Twig\TwigFunction;
 class FunctionExtension extends AbstractExtension
 {
     /**
-     * @var ParameterBagInterface
+     * @var ConfigBag
      */
     private $bag;
 
-    /**
-     * Constructor.
-     */
-    public function __construct(ParameterBagInterface $bag)
+    public function __construct(ConfigBag $bag)
     {
         $this->bag = $bag;
     }
@@ -43,38 +40,10 @@ class FunctionExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('parameters', [$this, 'parameters']),
             new TwigFunction('title', [$this, 'title']),
             new TwigFunction('inArray', [$this, 'inArray']),
             new TwigFunction('pathInfo', [$this, 'pathInfo']),
         ];
-    }
-
-    /**
-     * Return Parameters.
-     *
-     * @param $name
-     * @param int $index
-     *
-     * @return mixed
-     */
-    public function parameters($name, $index = null)
-    {
-        if (!$this->bag->has($name)) {
-            return false;
-        }
-
-        $params = $this->bag->get($name);
-
-        if (null === $index) {
-            return $params;
-        }
-
-        if (\is_array($params)) {
-            return $params[$index] ?? null;
-        }
-
-        return $params;
     }
 
     /**
@@ -97,7 +66,7 @@ class FunctionExtension extends AbstractExtension
      */
     public function inArray($needle, array $haystack): bool
     {
-        return \in_array(mb_strtolower($needle), $haystack);
+        return \in_array(mb_strtolower($needle), $haystack, false);
     }
 
     /**
