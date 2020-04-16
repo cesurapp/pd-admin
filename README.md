@@ -126,7 +126,7 @@ class SettingsMenu extends Menu
 ```
 
 ### Mail Manager
-Mail Manager is made as Swiftmailer plugin. With Swiftmailer, the log of all mail is stored. 
+Mail Manager is made as Symfony Mailer plugin. With Mailer, the log of all mail is stored. 
 In addition, it is a template manager. You can create custom templates (Email Template) for your posts and provide a compilation that includes submissions. 
 The Mail Template is multi-language supported. You can create templates for different languages. 
 Package installation __packages/pd_mailer.yaml__ located in the file. 
@@ -135,19 +135,18 @@ For further information please contact [pd-mailer](https://github.com/appaydin/p
 Send Email:
 ```php 
 // Create Message
-$message = (new PdSwiftMessage())
-    ->setTemplateId('tester_template') // Unique id for the Mail Template
-    ->setFrom('example@example.com', 'pdAdmin')
-    ->setTo('client@example.com')
-    ->setSubject('pdAdmin Test Mail')
-    ->setBody(serialize([
-        'name' => 'pdAdmin',
-        'age' => '25',
-        'company' => 'WriteLN'
-    ]), 'text/html'); // Twig variables for Mail Template
+$email = new Email();
+$email
+    ->from('example@example.com')
+    ->to('example@gmail.com')
+    ->subject('Subject')
+    ->html([
+        'firstname' => 'Ramazan', 'lastname' => 'APAYDIN'
+    ]) // Data to be used in the template. - Required
+    ->getHeaders()->addTextHeader('template', 'customTemplateID'); // Required
 
-// Send Message
-$this->get('mailer')->send($message);
+// Send Mail
+$this->get('mailer')->send($email);
 ```
 
 ### Create New Widget
