@@ -26,10 +26,10 @@ ROLE_ACCOUNT:
     title: Admin Account Management
     LIST: Listing
     EDIT: Editing
-    CHANGEPASSWORD: Change Password
+    PASSWORD: Change Password
     ROLES: Authorization
     ACTIVATE: Activation
-    ADDGROUP: Add/Remove Group
+    GROUP: Add/Remove Group
     DELETE: Delete
     FREEZE: Account Freeze
     ALLREAD: All Read
@@ -38,7 +38,7 @@ ROLE_GROUP:
     title: Admin Group Management
     LIST: Listing
     EDIT: Editing
-    NEW: New Group
+    CREATE: New Group
     DELETE: Delete
     ROLES: Authorization
 ROLE_SETTINGS:
@@ -49,7 +49,7 @@ ROLE_SETTINGS:
     CONTACT: Contact
 ROLE_MAIL:
     title: Admin Mail Manager
-    TEMPLATELIST: Template Listing
+    TEMPLATE: Template Listing
     TEMPLATEADD: New Template
     TEMPLATEEDIT: Edit Template
     TEMPLATEACTIVE: Enable Template

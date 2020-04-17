@@ -26,11 +26,11 @@
         </div>
     {% elseif type is defined and type == 'range' %}
         {%- set attr = attr|merge({'data-range': '', 'class': 'custom-range' }) -%}
-        <div class="row">
-            <div class="col-10">
+        <div class="d-flex">
+            <div class="btn-block line-height-clear">
                 {{- parent() -}}
             </div>
-            <div class="col text-center range-count">
+            <div class="ml-2 px-2 range-count bg-primary rounded text-white font-weight-bold">
                 {{ value }}
             </div>
         </div>
@@ -45,7 +45,7 @@
 {%- endblock textarea_widget %}
 
 {% block button_widget -%}
-    {% set attr = attr|merge({class: (attr.class|default('btn-default') ~ ' btn')|trim}) %}
+    {% set attr = attr|merge({class: (attr.class|default('btn-primary') ~ ' btn')|trim}) %}
     {{- parent() -}}
 {%- endblock %}
 

@@ -14,7 +14,7 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
-            pattern:    ^/
+            pattern: ^/(admin|login|logout|register|resetting)
             provider: pdadmin_auth
             user_checker: Pd\UserBundle\Security\UserChecker
             access_denied_handler: App\Security\AccessDeniedHandler
@@ -35,8 +35,5 @@ security:
                 lifetime: 604800 # 1 Week - 1 Month -> 2592000
                 path:     /
     access_control:
-        # Force HTTPS
-        #- { path: '^/', requires_channel: https }
-
         # Admin Panel
-        - { path: '^/admin', role: [ROLE_ADMIN] }
+        - { path: '^/admin', role: 'ROLE_ADMIN' }

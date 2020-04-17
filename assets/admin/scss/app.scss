@@ -2,13 +2,13 @@
  Dependencies
 =======================================================*/
 @import "./modules/variables";
-@import "./modules/sumoselect";
 @import "./modules/left-navigation";
 @import "./modules/dashboard";
 @import "./modules/action-menu";
 @import "./modules/content-nav";
 @import "./modules/datepicker";
 @import "./modules/ajaxLoader";
+@import "./modules/selectize";
 
 /*======================================================
  Typography
@@ -26,7 +26,7 @@ html, body {
   font-family: Roboto, -apple-system, BlinkMacSystemFont, Segoe UI, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica, Arial, sans-serif;
 }
 
-body{
+body {
   height: 100vh;
 }
 
@@ -40,12 +40,14 @@ body{
   text-align: left;
   min-height: 100%;
   padding-left: 150px;
+
   .left-nav {
     float: left;
     width: 150px;
     margin-left: -150px;
     min-height: 100vh;
   }
+
   .content-wrapper {
     background: $content-wrapper-background;
     width: 100%;
@@ -91,6 +93,7 @@ button:focus, a:focus {
 @media only screen and (max-width: 768px) {
   #wrapper {
     padding-left: 120px;
+
     .left-nav {
       width: 120px;
       margin-left: -120px;
@@ -101,6 +104,7 @@ button:focus, a:focus {
 @media only screen and (max-width: 544px) {
   #wrapper {
     padding-left: 60px;
+
     .left-nav {
       width: 60px;
       margin-left: -60px;
@@ -108,10 +112,14 @@ button:focus, a:focus {
   }
 }
 
+.line-height-clear {
+  line-height: 0;
+}
+
 /*======================================================
  Other
 =======================================================*/
-.word-break{
+.word-break {
   word-break: break-all;
 }
 
@@ -120,21 +128,26 @@ button:focus, a:focus {
 =======================================================*/
 header {
   z-index: 1;
+
   .wrap {
     background: $header_back;
     padding: 0 $gutter-padding;
     box-shadow: 0 2px 15px -4px rgba(0, 0, 0, 0.2);
     position: relative;
-    z-index:1;
+    z-index: 1;
+
     &.scrolled {
       box-shadow: 0 2px 7px 0 rgba(0, 0, 0, .2);
     }
+
     > nav > ul {
       margin: 0;
       padding: 0;
+
       > li {
         list-style: none;
         float: left;
+
         &.divider {
           display: inline-block;
           width: 1px;
@@ -142,15 +155,17 @@ header {
           height: 19px;
           margin: 10px 10px;
         }
+
         > a {
           border: none;
           color: $header-color;
           cursor: pointer;
           display: inline-block;
-          padding: 20px 14px;
+          padding: 14px 12px;
           box-shadow: none;
           position: relative;
           transition: $transition;
+
           .badge {
             font-size: 10px;
             position: absolute;
@@ -161,29 +176,36 @@ header {
             padding: 3px 4px 2px 3px;
             color: #ddd;
           }
+
           > i {
             vertical-align: middle;
+
             + i {
               margin-left: 10px;
             }
+
             + .text {
               margin-left: 6px;
               vertical-align: middle;
             }
           }
+
           > .text {
             + i {
               margin-left: 10px;
             }
           }
+
           &:focus {
             //color: #FFF;
           }
+
           &:hover {
             //background: $a-link-hover-bg;
             color: $a-link-hover-color;
           }
         }
+
         &.show {
           > a {
             color: #222;
@@ -197,39 +219,45 @@ header {
 
 #search {
   position: relative;
-  margin: 12px 0;
+  margin: 8px 0 7px;
   width: 250px;
+
   input {
     border: none;
-    background: RGBA(226, 228, 230, .4);
+    background: RGBA(226, 228, 230, .5);
     display: inline-block;
     color: $search-color;
     font-weight: 300;
     padding: 6px 20px 6px 50px;
     transition: all .15s;
-    border-radius: 50px;
-    height: 40px;
+    border-radius: $input-border-radius;
+    height: 38px;
+
     &:focus {
       background: darken($search-background, 5%);
       box-shadow: none;
     }
+
     &::placeholder {
       color: $search-color;
     }
+
     &::-moz-placeholder {
       color: $search-color;
     }
   }
+
   button {
     border: none;
     background: transparent;
     position: absolute;
     line-height: 0;
-    padding: 8px 6px 7px 15px;
+    padding: 7px 6px 7px 15px;
     color: $search-button-color;
     left: 0;
     top: 0;
     cursor: pointer;
+
     &:focus {
       outline: 0;
     }
@@ -248,13 +276,16 @@ header {
     width: auto;
     left: 20px;
     right: 20px;
+
     input {
       width: 140px;
       transition: $transition;
+
       &:focus {
         position: absolute;
         width: 100%;
         z-index: 1;
+
         & + button {
           z-index: 2;
         }
@@ -267,23 +298,28 @@ header {
   header {
     .wrap {
       padding: 0 15px;
+
       > nav > ul {
         > li {
           &.divider {
             margin: 8px 6px;
           }
+
           > a {
             padding: 13px 8px;
+
             > i {
               font-size: $font-size-base + .5;
               line-height: 24px;
             }
+
             .text {
               display: none;
             }
           }
         }
       }
+
       .flag-icon {
         font-size: $font-size-base + .3;
       }
@@ -296,17 +332,20 @@ header {
     left: 15px;
     right: 15px;
     margin: 5px 0;
+
     input {
       width: 40px;
       padding: 6px 20px 6px 25px;
       transition: $transition;
       z-index: 2;
       position: relative;
+
       &:focus {
         position: absolute;
         width: 100%;
         padding: 6px 20px 6px 50px;
         z-index: 1;
+
         & + button {
           padding: 8px 6px 6px 15px;
           visibility: visible;
@@ -314,6 +353,7 @@ header {
         }
       }
     }
+
     button {
       padding: 8px 6px 6px 12px;
       transition: $transition;
@@ -332,36 +372,42 @@ header {
     margin-bottom: $gutter-padding;
     padding: $gutter-padding+.2 $gutter-padding 0;
     display: block;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 -1px 1px rgba(0, 0, 0, .1) inset;
     position: relative;
+
     a.back-icon {
       color: $text-color;
       float: left;
       line-height: 55px;
       padding: 4px 0;
+
       i {
         margin-right: 1.3rem;
         font-size: $font-size-base + 2.3;
         vertical-align: middle;
       }
+
       &:hover {
         color: $color;
       }
     }
+
     h2 {
       margin: 0;
       font-weight: 300;
       display: block;
-      font-size: $font-size-base + 1.2;
-      line-height: $font-size-base + 1.5;
-      padding-bottom: 1.5rem;
+      font-size: $font-size-base + 1;
+      line-height: $font-size-base + 1.2;
+      padding-bottom: 1rem;
       position: relative;
+
       .text {
         display: block;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
+
       .desc {
         display: block;
         font-size: $font-size-base + .1;
@@ -372,15 +418,17 @@ header {
         text-overflow: ellipsis;
       }
     }
+
     .addbtn {
       position: absolute;
       right: 0;
-      top: .7rem;
+      top: .6rem;
       border-radius: 100px;
       line-height: 0;
+
       i {
         font-size: $font-size-base + .5;
-        padding: .8rem;
+        padding: .6rem;
         color: #FFF;
       }
     }
@@ -391,20 +439,20 @@ header {
   }
 
   .content-form {
-    background: #FFF;
-    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
-    padding: $gutter-padding;
+    //padding: $gutter-padding;
     border-radius: $border-radius;
   }
 
   .editor-area {
     position: relative;
+
     .editor {
       width: 100%;
       min-height: 500px;
       border: 1px solid $input-border-color;
       border-radius: $border-radius + .1;
       z-index: 3;
+
       &.fullscreen {
         position: fixed;
         left: 0;
@@ -412,12 +460,14 @@ header {
         top: 0;
         bottom: 0;
       }
+
       .ace_search {
         top: 40px;
         border-top-left-radius: $border-radius;
         border-bottom-left-radius: $border-radius;
       }
     }
+
     .buttons {
       background: rgba(255, 255, 255, 0.2);
       border-bottom-left-radius: $border-radius;
@@ -428,11 +478,13 @@ header {
       z-index: 98;
       line-height: 0;
       padding: 0 2px;
+
       a {
         padding: 3px;
         display: inline-block;
       }
     }
+
     &.fullscreen {
       .editor {
         min-height: 0;
@@ -442,10 +494,12 @@ header {
         right: 0;
         top: 0;
         bottom: 0;
+
         .ace_content {
           height: 100% !important;
         }
       }
+
       .buttons {
         position: fixed;
       }
@@ -455,15 +509,19 @@ header {
   #pagination {
     margin-top: 1.3rem;
     text-align: left;
+
     .pagination {
       display: inline-flex;
       box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+
       li:first-child a {
         border-left: none;
       }
+
       li a {
         border-left: 1px solid $pagination-border-color;
       }
+
       i {
         line-height: 0;
         vertical-align: middle;
@@ -484,6 +542,7 @@ header {
       h2 {
         font-size: $font-size-base + 1;
       }
+
       a.back-icon {
 
         i {
@@ -503,8 +562,10 @@ header {
   .content-wrapper {
     .content-title {
       overflow: hidden;
+
       .addbtn {
         top: 1rem;
+
         i {
           padding: .6rem;
           color: #FFF;
@@ -524,15 +585,19 @@ header {
   position: relative;
   display: inline-block;
   width: 100%;
+
   .table-responsive {
     overflow-y: hidden;
   }
+
   form {
     .custom-upload {
       position: relative;
+
       input[type="file"] {
         display: none;
       }
+
       > img {
         background: lighten($input-border-color, 10%);
         border-radius: $border-radius;
@@ -540,19 +605,23 @@ header {
         max-width: 100%;
         max-height: 60px;
         height: 100%;
+
         & + label {
           opacity: 0;
         }
       }
+
       > span {
         padding-left: 50px;
         overflow: hidden;
         text-overflow: ellipsis;
+
         & + label {
           padding: 8px;
           border-radius: $border-radius 0 0 $border-radius;
         }
       }
+
       img, span {
         & + label {
           margin: 0;
@@ -561,20 +630,24 @@ header {
           top: 0;
           transition: $transition;
           min-width: 1px;
+
           i {
             vertical-align: middle;
             line-height: 0;
           }
+
           .text {
             vertical-align: middle;
             display: none;
           }
+
           &:hover {
             color: #FFF;
             cursor: pointer;
           }
         }
       }
+
       &:hover {
         label {
           opacity: 1;
@@ -582,9 +655,11 @@ header {
         }
       }
     }
+
     .files {
       float: left;
       margin-bottom: -10px;
+
       img, span {
         border-radius: 3px;
         border: 1px solid $input-border-color;
@@ -604,11 +679,12 @@ header {
   .table-responsive table {
     table-layout: fixed;
     min-width: 600px;
+
     & th, & td {
-      padding: .7rem;
       vertical-align: middle;
       text-align: left;
     }
+
     .wid-15 {
       width: 15%;
       white-space: nowrap;
@@ -616,6 +692,7 @@ header {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .wid-20 {
       width: 20%;
       white-space: nowrap;
@@ -623,6 +700,7 @@ header {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .wid-25 {
       width: 25%;
       white-space: nowrap;
@@ -630,6 +708,7 @@ header {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .wid-30 {
       width: 30%;
       white-space: nowrap;
@@ -637,6 +716,7 @@ header {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .wid-40 {
       width: 40%;
       white-space: nowrap;
@@ -644,6 +724,7 @@ header {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     .wid-50 {
       width: 50%;
       white-space: nowrap;
@@ -651,18 +732,21 @@ header {
       overflow: hidden;
       text-overflow: ellipsis;
     }
+
     thead th {
       text-transform: uppercase;
       font-size: $font-size-base - 0.2;
       line-height: $font-size-base + .5;
       letter-spacing: 0.03em;
       color: $blue;
+
       a {
         width: 100%;
         display: inline-block;
         vertical-align: middle;
         white-space: normal;
         font-size: $font-size-base - .2;
+
         i {
           font-size: $font-size-base + .3;
           line-height: 1;
@@ -673,51 +757,64 @@ header {
         }
       }
     }
+
     .check {
-      width: 34px;
+      width: 40px;
+
       label {
         vertical-align: middle;
       }
     }
+
     .process {
       width: 40px;
       text-align: center;
       position: relative;
+
       > a, .btn-group > a {
         line-height: 0;
         transition: $transition;
         color: #666;
         display: inline-block;
         vertical-align: middle;
+
         i {
           font-size: $font-size-base + .5;
           vertical-align: middle;
           transition: $transition;
         }
+
         &:hover {
           color: #222;
         }
+
         &.danger {
           color: #a94442;
         }
+
         &.success {
           color: #37B539;
         }
       }
+
       .btn-group {
         display: inline-block;
+
         .dropdown-menu {
           top: 30px;
           right: -10px;
           min-width: 170px;
+
           li.divider {
             margin: 5px 0;
           }
         }
+
         &.open {
           .dropdown-toggle {
             color: #222;
             box-shadow: none;
+
             i {
               transform: rotate(45deg);
             }
@@ -732,6 +829,7 @@ header {
       margin-top: 15px;
       margin-bottom: 15px;
     }
+
     li {
       a {
         background: rgba(0, 0, 0, 0.1);
@@ -739,34 +837,42 @@ header {
         display: block;
         padding: 10px;
         transition: $transition;
+
         i {
           margin-right: 10px;
         }
+
         .label {
           padding: 0.5em .6em .3em;
           margin-left: 10px;
         }
       }
+
       &:hover {
         a {
           background: rgba(0, 0, 0, 0.2);
           color: #000;
         }
       }
+
       &:first-child a {
         border-radius: 3px 3px 0 0;
       }
+
       &:last-child a {
         border-radius: 0 0 3px 3px;
       }
+
       > ul {
         padding: 0 10px;
         margin: 0;
         background: rgba(0, 0, 0, 0.03);
+
         li {
           display: inline-block;
           padding-top: 10px;
           min-width: 25%;
+
           &:last-child {
             padding-bottom: 10px;
           }
@@ -779,12 +885,13 @@ header {
 .info-text {
   position: absolute;
   top: 0;
+
   i {
     font-size: $font-size-base + .1;
   }
 }
 
-.table .custom-control-inline{
+.table .custom-control-inline {
   min-height: 1rem;
   vertical-align: top;
 }
@@ -793,34 +900,42 @@ header {
   position: relative;
   margin-bottom: 20px;
   width: 100%;
+
   input[type=text], input[type=search] {
     height: 34px;
     padding: 5px 12px 5px 35px;
   }
+
   .form-group {
     i {
       color: $text-color;
       left: 10px;
     }
   }
+
   > ul {
     list-style: none;
     margin: 0;
     padding: 0;
+
     > li {
       float: left;
     }
   }
+
   .left, .right {
     display: inline-block;
   }
+
   .left {
     > li {
       margin-right: 5px;
     }
   }
+
   .right {
     float: right;
+
     > li {
       margin-left: 5px;
     }
@@ -837,37 +952,61 @@ header {
 }
 
 .accordion-menu {
+  & > .panel {
+    &:first-child a{
+      border-radius: $border-radius-lg $border-radius-lg 0 0;
+    }
+
+    &:last-child a {
+      border-radius: 0 0 $border-radius-lg $border-radius-lg;
+    }
+  }
+
+  hr{
+    margin: 0;
+    border-color: $input-border-color;
+  }
+
   li {
     list-style-type: none;
   }
+
   .badge {
     margin-left: 5px;
     font-weight: 400;
     border-radius: 2px;
   }
+
   .panel-title {
     font-size: $font-size-base;
     margin: 0;
+
     a {
       background: #EEE;
       font-weight: normal;
       color: #222;
-      padding: 10px;
+      padding: 10px 14px;
       display: block;
       transition: $transition;
+
       &:hover {
         background: #DDD;
       }
     }
   }
+
   .panel-collapse {
     .panel-content {
       padding: 10px;
     }
+
     .custom-control {
-      width: 49%;
+      width: 33%;
       margin-right: 0;
-      .custom-control-description{
+      margin-top: .1rem;
+      margin-bottom: .1rem;
+
+      .custom-control-description {
         overflow: hidden;
         text-overflow: ellipsis;
       }

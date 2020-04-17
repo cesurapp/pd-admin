@@ -6,8 +6,8 @@
     "chart.js": "2.*",
     "hammerjs": "2.*",
     "html5sortable": "^0.9.3",
-    "jquery": "3.*",
-    "popper.js": "1.*",
+    "jquery": "3.4.*",
+    "popper.js": "1.16.*",
     "selectize": "^0.12.6",
     "sortablejs": "1.*"
   },

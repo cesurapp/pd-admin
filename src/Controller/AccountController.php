@@ -221,8 +221,6 @@ class AccountController extends AbstractController
      */
     public function roles(Request $request, User $user, EntityManagerInterface $em, SecurityService $security): Response
     {
-        dump(array_intersect($security->getACL(), $user->getRolesUser()));
-
         // Set Form & Request
         $form = $this->createForm(RolesType::class, null, [
             'roles' => $security->getRoles(),

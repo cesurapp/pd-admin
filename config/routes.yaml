@@ -3,7 +3,6 @@
 ##
 authorization:
     resource: "@PdUserBundle/Resources/config/routing.yaml"
-    prefix: 'auth'
 
 ##
 # Admin
@@ -11,6 +10,7 @@ authorization:
 admin:
     resource: ../src/Controller/
     type: annotation
+    prefix: 'admin'
 admin_widget:
     resource: "@PdWidgetBundle/Resources/config/routing.yml"
     prefix: 'admin'

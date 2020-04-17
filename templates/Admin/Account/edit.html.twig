@@ -6,7 +6,6 @@
 
 {# Content Title #}
 {% block content_head %}
-    <a href="{{ app.session.get('backUrl') }}" class="back-icon"><i class="material-icons">arrow_back</i></a>
     <span class="text">{{ page_title|trans }}</span>
     <span class="desc">{{ page_description|trans }}</span>
 {% endblock %}

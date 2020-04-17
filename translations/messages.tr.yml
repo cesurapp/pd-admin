@@ -26,10 +26,10 @@ ROLE_ACCOUNT:
     title: Admin Hesap Yönetimi
     LIST: Listeleme
     EDIT: Düzenleme
-    CHANGEPASSWORD: Şifre Değiştirme
+    PASSWORD: Şifre Değiştirme
     ROLES: Yetkilendirme
     ACTIVATE: Etkinleştirme
-    ADDGROUP: Grup Ekle/Çıkar
+    GROUP: Grup Ekle/Çıkar
     DELETE: Sil
     FREEZE: Hesap Dondurma
     ALLREAD: Tüm Hesapları Okuma
@@ -38,7 +38,7 @@ ROLE_GROUP:
     title: Admin Grup İzinleri
     LIST: Listeleme
     EDIT: Düzenleme
-    NEW: Yeni Grup
+    CREATE: Yeni Grup
     DELETE: Sil
     ROLES: Yetkilendirme
 ROLE_SETTINGS:
@@ -49,7 +49,7 @@ ROLE_SETTINGS:
     CONTACT: İletişim
 ROLE_MAIL:
     title: Admin Posta Yöneticisi
-    TEMPLATELIST: Şablon Listeleme
+    TEMPLATE: Şablon Listeleme
     TEMPLATEADD: Yeni Şablon
     TEMPLATEEDIT: Şablon Düzenle
     TEMPLATEACTIVE: Şablon Etkinleştir

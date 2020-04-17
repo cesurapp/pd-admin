@@ -52,26 +52,26 @@
         </div>
     {% endfor %}
 </div>
-{{ form_row(form.submit) }}
+{{ form_widget(form.submit) }}
 {{ form_end(form) }}
 
 <script>
-  $(function () {
-    $('[name="roles[acl]"]').change(function () {
-      var val = $(this).val();
-      var selector = '.accordion-menu input[type*=checkbox], .accordion-menu input[name*="aclprocess"]';
+    $(function () {
+        $('[name="roles[acl]"]').change(function () {
+            var val = $(this).val();
+            var selector = '.accordion-menu input[type*=checkbox], .accordion-menu input[name*="aclprocess"]';
 
-      // Disable Admin Access to ROLE_USER
-      if (val === 'ROLE_SUPER_ADMIN') {
-        $.each($(selector), function (index, el) {
-          $(el).attr('disabled', true)
-        })
-      } else {
-        $.each($(selector), function (index, el) {
-          $(el).attr('disabled', false)
-        })
-      }
-    });
-    $('[name="roles[acl]"]:checked').trigger('change');
-  })
+            // Disable Admin Access to ROLE_USER
+            if (val === 'ROLE_SUPER_ADMIN') {
+                $.each($(selector), function (index, el) {
+                    $(el).attr('disabled', true)
+                })
+            } else {
+                $.each($(selector), function (index, el) {
+                    $(el).attr('disabled', false)
+                })
+            }
+        });
+        $('[name="roles[acl]"]:checked').trigger('change');
+    })
 </script>
