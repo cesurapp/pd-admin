@@ -60,8 +60,8 @@ abstract class ConfigAbstractType implements FormTypeInterface
         // Create File Type File Path
         foreach ($form->all() as $key => $formInterface) {
             if ('file' === $formInterface->getConfig()->getType()->getBlockPrefix()) {
-                if (\is_array($formInterface->getViewData())) {
-                    $view->children[$key]->vars['file_path'] = $formInterface->getViewData();
+                if ($formInterface->getViewData()) {
+                    $view->children[$key]->vars['file_path'] = !is_array($formInterface->getViewData()) ? [$formInterface->getViewData()] : $formInterface->getViewData();
                 } elseif (!$formInterface->getViewData() && isset($options['data'][$key])) {
                     $view->children[$key]->vars['file_path'] = $options['data'][$key];
                 }

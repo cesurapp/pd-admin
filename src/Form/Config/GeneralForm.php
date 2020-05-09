@@ -158,7 +158,7 @@ class GeneralForm extends ConfigAbstractType
                     ]),
                     new Image([
                         'mimeTypes' => [
-                            'image/x-icon', 'image/png',
+                            'image/x-icon', 'image/vnd.microsoft.icon', 'image/png',
                         ],
                     ]),
                 ],

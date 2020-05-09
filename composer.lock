@@ -146,16 +146,16 @@
         },
         {
             "name": "appaydin/pd-widget",
-            "version": "2.0.0",
+            "version": "2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-widget.git",
-                "reference": "a29362c0f480ec5781676da88f7e7da95f3d8183"
+                "reference": "b433d0d5b2e75631d2fa086461f21933c4aa10f4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-widget/zipball/a29362c0f480ec5781676da88f7e7da95f3d8183",
-                "reference": "a29362c0f480ec5781676da88f7e7da95f3d8183",
+                "url": "https://api.github.com/repos/appaydin/pd-widget/zipball/b433d0d5b2e75631d2fa086461f21933c4aa10f4",
+                "reference": "b433d0d5b2e75631d2fa086461f21933c4aa10f4",
                 "shasum": ""
             },
             "require": {
@@ -188,7 +188,7 @@
                 "symfony-widget",
                 "widget"
             ],
-            "time": "2020-04-16T12:19:40+00:00"
+            "time": "2020-05-09T23:05:25+00:00"
         },
         {
             "name": "beberlei/doctrineextensions",

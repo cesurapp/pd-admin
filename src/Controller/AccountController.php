@@ -111,10 +111,11 @@ class AccountController extends AbstractController
             ->add('status', ChoiceType::class, [
                 'label' => 'account_status',
                 'choices' => [
-                    'select_all' => null,
-                    'deactive' => '0',
-                    'active' => '1',
+                    'deactive' => '1',
+                    'active' => '0',
                 ],
+                'placeholder' => 'select_all',
+                'required' => false
             ])
             ->getForm();
     }

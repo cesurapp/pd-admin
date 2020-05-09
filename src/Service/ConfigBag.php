@@ -160,7 +160,11 @@ class ConfigBag
         // Update
         foreach ($data as $item) {
             if (\array_key_exists($item->getName(), $configs)) {
-                $item->setValue($configs[$item->getName()]);
+                if (is_bool($configs[$item->getName()])) {
+                    $item->setValue($configs[$item->getName()] ? 'true' : 'false');
+                 } else {
+                    $item->setValue($configs[$item->getName()]);
+                 }
                 $em->persist($item);
 
                 unset($configs[$item->getName()]);

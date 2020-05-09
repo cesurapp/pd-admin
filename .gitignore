@@ -1,7 +1,8 @@
-###> PhpUnit ###
+###> symfony/phpunit-bridge ###
 .phpunit
+.phpunit.result.cache
 /phpunit.xml
-###< PhpUnit ###
+###< symfony/phpunit-bridge ###
 
 ###> Symfony ###
 /.env.local
@@ -28,9 +29,3 @@ node_modules
 .idea
 /build/
 .DS_Store
-
-###> symfony/phpunit-bridge ###
-.phpunit
-.phpunit.result.cache
-/phpunit.xml
-###< symfony/phpunit-bridge ###
