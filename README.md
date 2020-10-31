@@ -20,7 +20,7 @@ Installation
 
 3. Create database schemas
     ```
-    bin/console doctrine:schema:create --force
+    bin/console doctrine:schema:create
     ```
 4. Run built-in web server
      ```
