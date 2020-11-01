@@ -63,7 +63,7 @@ class QuickAction
             'mail_manager_logs' => [
                 'name' => 'mail_manager_logger',
                 'description' => 'mail_manager_logger_desc',
-                'route' => 'admin_mail_logger',
+                'route' => 'mail_log',
                 'icons' => 'send',
                 'linkClass' => 'btn btn-secondary',
             ],
