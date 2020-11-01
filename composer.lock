@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "appaydin/pd-mailer",
-            "version": "2.0.0",
+            "version": "2.0.02",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-mailer.git",
-                "reference": "cceba36b7ff227b6aefec9df57ffe4bf87b70f73"
+                "reference": "395a645aa49b73d9a60acb94ee051d7195d82c4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-mailer/zipball/cceba36b7ff227b6aefec9df57ffe4bf87b70f73",
-                "reference": "cceba36b7ff227b6aefec9df57ffe4bf87b70f73",
+                "url": "https://api.github.com/repos/appaydin/pd-mailer/zipball/395a645aa49b73d9a60acb94ee051d7195d82c4e",
+                "reference": "395a645aa49b73d9a60acb94ee051d7195d82c4e",
                 "shasum": ""
             },
             "require": {
@@ -50,20 +50,24 @@
                 "pdmailer",
                 "symfony-mailer"
             ],
-            "time": "2020-04-14T07:36:21+00:00"
+            "support": {
+                "issues": "https://github.com/appaydin/pd-mailer/issues",
+                "source": "https://github.com/appaydin/pd-mailer/tree/2.0.02"
+            },
+            "time": "2020-09-20T08:06:35+00:00"
         },
         {
             "name": "appaydin/pd-menu",
-            "version": "2.0.0",
+            "version": "2.0.01",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-menu.git",
-                "reference": "b149126ad456955cb45c040c762c3983ff3165d2"
+                "reference": "31820fd688af609e3a1c72de4a519e87e707789b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-menu/zipball/b149126ad456955cb45c040c762c3983ff3165d2",
-                "reference": "b149126ad456955cb45c040c762c3983ff3165d2",
+                "url": "https://api.github.com/repos/appaydin/pd-menu/zipball/31820fd688af609e3a1c72de4a519e87e707789b",
+                "reference": "31820fd688af609e3a1c72de4a519e87e707789b",
                 "shasum": ""
             },
             "require": {
@@ -95,20 +99,24 @@
                 "pd-menu",
                 "symfony-menu"
             ],
-            "time": "2020-04-16T12:17:09+00:00"
+            "support": {
+                "issues": "https://github.com/appaydin/pd-menu/issues",
+                "source": "https://github.com/appaydin/pd-menu/tree/2.0.01"
+            },
+            "time": "2020-09-05T10:55:16+00:00"
         },
         {
             "name": "appaydin/pd-user",
-            "version": "2.0.0",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-user.git",
-                "reference": "8b2625348829d5921fc2b89631b9d6724840e6ae"
+                "reference": "3e55ff896d78b7a157c51a3f081f94cb0dca592f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-user/zipball/8b2625348829d5921fc2b89631b9d6724840e6ae",
-                "reference": "8b2625348829d5921fc2b89631b9d6724840e6ae",
+                "url": "https://api.github.com/repos/appaydin/pd-user/zipball/3e55ff896d78b7a157c51a3f081f94cb0dca592f",
+                "reference": "3e55ff896d78b7a157c51a3f081f94cb0dca592f",
                 "shasum": ""
             },
             "require": {
@@ -142,20 +150,24 @@
                 "symfony-user",
                 "user-management"
             ],
-            "time": "2020-04-16T13:02:15+00:00"
+            "support": {
+                "issues": "https://github.com/appaydin/pd-user/issues",
+                "source": "https://github.com/appaydin/pd-user/tree/2.0.5"
+            },
+            "time": "2020-07-14T17:34:51+00:00"
         },
         {
             "name": "appaydin/pd-widget",
-            "version": "2.0.1",
+            "version": "2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/appaydin/pd-widget.git",
-                "reference": "b433d0d5b2e75631d2fa086461f21933c4aa10f4"
+                "reference": "d0a369fc3e94665594d45fd9ec63dc7d4ebc4e03"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/appaydin/pd-widget/zipball/b433d0d5b2e75631d2fa086461f21933c4aa10f4",
-                "reference": "b433d0d5b2e75631d2fa086461f21933c4aa10f4",
+                "url": "https://api.github.com/repos/appaydin/pd-widget/zipball/d0a369fc3e94665594d45fd9ec63dc7d4ebc4e03",
+                "reference": "d0a369fc3e94665594d45fd9ec63dc7d4ebc4e03",
                 "shasum": ""
             },
             "require": {
@@ -188,7 +200,11 @@
                 "symfony-widget",
                 "widget"
             ],
-            "time": "2020-05-09T23:05:25+00:00"
+            "support": {
+                "issues": "https://github.com/appaydin/pd-widget/issues",
+                "source": "https://github.com/appaydin/pd-widget/tree/2.0.2"
+            },
+            "time": "2020-05-13T18:36:46+00:00"
         },
         {
             "name": "beberlei/doctrineextensions",
