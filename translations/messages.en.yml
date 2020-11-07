@@ -132,8 +132,8 @@ remove_complete: Deletion completed.
 sorry_not_existing: Sorry no registration is available.
 test_email_success: Test email sent.
 user_registration_disable: User registration is currently closed, please try again later.
-440_not_found: 404 Page Not Found!
-440_not_found_description: Sorry, the page you were looking for could not be found or may be removed.
+404_not_found: Page Not Found!
+404_not_found_description: Sorry, the page you were looking for could not be found or may be removed.
 
 ###
 # Pages
