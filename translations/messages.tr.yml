@@ -132,8 +132,8 @@ remove_complete: Silme işlemi tamamlandı.
 sorry_not_existing: Üzgünüz kayıt mevcut değil.
 test_email_success: Test e-postası gönderildi.
 user_registration_disable: Kullanıcı kaydı şu anda kapalı, lütfen daha sonra tekrar deneyin.
-440_not_found: Sayfa Bulunamadı!
-440_not_found_description: Üzgünüz aradığınız sayfa bulunamadı veya kullanımdan kaldırılmış olabilir.
+404_not_found: Sayfa Bulunamadı!
+404_not_found_description: Üzgünüz aradığınız sayfa bulunamadı veya kullanımdan kaldırılmış olabilir.
 
 ###
 # Pages
