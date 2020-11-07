@@ -86,7 +86,7 @@ class GroupController extends AbstractController
 
         // Render Page
         return $this->render('Admin/Account/edit.html.twig', [
-            'page_title' => 'account_group_edit_title',
+            'page_title' => 'account_group_new_title',
             'page_description' => $translator->trans('account_group_new_desc'),
             'form' => $form->createView(),
         ]);
