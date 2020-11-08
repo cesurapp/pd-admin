@@ -176,8 +176,8 @@ account_groups: Groups
 account_roles_title: Private Authorization
 
 nav_group: Groups
-accouunt_group_list_title: User Groups
-accouunt_group_list_desc: Members groups
+account_group_list_title: User Groups
+account_group_list_desc: Members groups
 group_name: Group Name
 group_roles: Authorities
 account_group_edit_title: Edit Group

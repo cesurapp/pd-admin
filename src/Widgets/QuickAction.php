@@ -41,7 +41,7 @@ class QuickAction
             ],
             'action_group' => [
                 'name' => 'nav_group',
-                'description' => 'accouunt_group_list_title',
+                'description' => 'account_group_list_title',
                 'route' => 'admin_group_list',
                 'icons' => 'group',
                 'linkClass' => 'btn btn-primary',
