@@ -176,8 +176,8 @@ account_groups: Gruplar
 account_roles_title: Özel Yetkilendirme
 
 nav_group: Gruplar
-accouunt_group_list_title: Kullanıcı Grupları
-accouunt_group_list_desc: Üyelerin katıldığı gruplar
+account_group_list_title: Kullanıcı Grupları
+account_group_list_desc: Üyelerin katıldığı gruplar
 group_name: Grup Adı
 group_roles: Yetkiler
 account_group_edit_title: Grup Düzenle
