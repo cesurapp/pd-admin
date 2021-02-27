@@ -11,14 +11,14 @@
     }
   ],
   "require": {
-    "php": "^7.3.0",
+    "php": ">=7.4.0",
     "ext-ctype": "*",
     "ext-iconv": "*",
     "ext-json": "*",
-    "appaydin/pd-mailer": "2.*",
-    "appaydin/pd-menu": "2.*",
-    "appaydin/pd-user": "2.*",
-    "appaydin/pd-widget": "2.*",
+    "appaydin/pd-mailer": "^2.0",
+    "appaydin/pd-menu": "^2.0",
+    "appaydin/pd-user": "^2.0",
+    "appaydin/pd-widget": "^2.0",
     "beberlei/doctrineextensions": "1.*",
     "intervention/image": "2.*",
     "knplabs/knp-paginator-bundle": "5.*",
@@ -71,7 +71,8 @@
     "symfony/polyfill-php72": "*",
     "symfony/polyfill-php71": "*",
     "symfony/polyfill-php70": "*",
-    "symfony/polyfill-php56": "*"
+    "symfony/polyfill-php56": "*",
+    "symfony/polyfill-mbstring": "*"
   },
   "scripts": {
     "auto-scripts": {
@@ -91,7 +92,7 @@
   "extra": {
     "symfony": {
       "allow-contrib": false,
-      "require": "5.0.*"
+      "require": "5.2.*"
     }
   }
 }

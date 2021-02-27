@@ -40,6 +40,7 @@ class UserForm extends ConfigAbstractType
                 'help' => 'user_default_group_info',
                 'class' => Group::class,
                 'choice_label' => 'name',
+                'choice_value' => 'id',
                 'choice_translation_domain' => false,
                 'placeholder' => false,
                 'required' => false,

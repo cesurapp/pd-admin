@@ -370,7 +370,7 @@ header {
     background: RGBA(247, 249, 249, 1.00);
     margin: -$gutter-padding;
     margin-bottom: $gutter-padding;
-    padding: $gutter-padding+.2 $gutter-padding 0;
+    padding: $gutter-padding - .2 $gutter-padding 0;
     display: block;
     box-shadow: 0 -1px 1px rgba(0, 0, 0, .1) inset;
     position: relative;
@@ -396,9 +396,9 @@ header {
       margin: 0;
       font-weight: 300;
       display: block;
-      font-size: $font-size-base + 1;
+      font-size: $font-size-base + .7;
       line-height: $font-size-base + 1.2;
-      padding-bottom: 1rem;
+      padding-bottom: .75rem;
       position: relative;
 
       .text {
@@ -410,9 +410,9 @@ header {
 
       .desc {
         display: block;
-        font-size: $font-size-base + .1;
+        font-size: $font-size-base;
         line-height: 20px;
-        margin-top: 10px;
+        margin-top: 5px;
         color: #777;
         overflow: hidden;
         text-overflow: ellipsis;

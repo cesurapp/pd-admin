@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="app_config")
  * @ORM\Entity(repositoryClass="App\Repository\ConfigRepository")
+ * @ORM\Cache(usage="NONSTRICT_READ_WRITE")
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
@@ -42,7 +43,7 @@ class Config
     /**
      * @var array
      *
-     * @ORM\Column(type="simple_array", nullable=true)
+     * @ORM\Column(type="array", nullable=true)
      */
     private $value = [];
 

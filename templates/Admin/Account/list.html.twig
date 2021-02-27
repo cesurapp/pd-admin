@@ -8,17 +8,11 @@
 {% block content_head %}
     <span class="text">{{ 'admin_account_list'|trans }}</span>
     <span class="desc">{{ 'admin_account_desc'|trans }}</span>
+    <a href="#" class="addbtn btn-success" data-toggle="modal" data-target="#searchFilter" data-tooltip title="{{ 'search_filter'|trans }}"><i class="material-icons">search</i></a>
 {% endblock %}
 
 {# Content Body #}
 {% block content_body %}
-    <!-- Action Button -->
-    <div id="actions">
-        <div class="btn-group">
-            <button class="btn btn-success" data-toggle="modal" data-target="#searchFilter" data-tooltip title="{{ 'search_filter'|trans }}"><i class="material-icons">search</i></button>
-        </div>
-    </div>
-
     <!-- Search Filter Form -->
     <div id="searchFilter" class="modal fade" tabindex="-1">
         <form action="{{ path('admin_account_list') }}" class="modal-dialog">

@@ -113,7 +113,7 @@ class Toolbar extends Menu
             ->setRoute('admin_dashboard', ['_switch_user' => '_exit'])
             ->setLinkAttr(['class' => 'dropdown-item bg-warning'])
             ->setExtra('label_icon', 'supervisor_account')
-            ->setRoles(['ROLE_PREVIOUS_ADMIN'])
+            ->setRoles(['IS_IMPERSONATOR'])
             // Logout
             ->addChildParent('nav_profile_logout')
             ->setLabel('nav_profile_logout')
