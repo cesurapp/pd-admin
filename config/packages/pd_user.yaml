@@ -1,6 +1,5 @@
 pd_user:
     user_class: App\Entity\Account\User
-    profile_class: App\Entity\Account\Profile
     group_class: App\Entity\Account\Group
     default_group: 1
     login_redirect: 'admin_dashboard'

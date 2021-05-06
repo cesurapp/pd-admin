@@ -3,30 +3,29 @@
 {% block head_title %}{{ title('security.reset_title'|trans) }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        <div class="auth forgotpassword">
-            <!-- Logo -->
-            {% include 'Auth/logo.html.twig' %}
+    {{ form_start(form) }}
+    <h3 class="title">{{ 'security.reset_title'|trans }}</h3>
 
-            <!-- Forgot Form -->
-            {{ form_start(form) }}
-                <div class="header">
-                    <h2 class="title">{{ 'security.reset_title'|trans }}</h2>
-                    <div class="float-icon">
-                        <a href="{{ path('security_login') }}" class="add" data-toggle="tooltip" title="{{ 'security.login_title'|trans }}"><i class="material-icons">security</i></a>
-                    </div>
-                </div>
-
-                <div class="container-fluid">
-                    {{ form_widget(form) }}
-
-                    <div class="row mt-4">
-                        <div class="col-sm-12 col-xs-12 text-center">
-                            <button type="submit" id="register_submit" class="btn btn-primary btn-lg btn">{{ 'security.reset_btn'|trans }}</button>
-                        </div>
-                    </div>
-                </div>
-            {{ form_end(form) }}
+    <div class="mb-4">
+        {{ form_label(form.username) }}
+        <div class="input-group">
+            <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-envelope"></i></span>
+            {{ form_widget(form.username) }}
         </div>
+        {{ form_errors(form.username) }}
     </div>
+
+    <!--Submit-->
+    <div class="form-group">
+        <button type="submit" class="btn w-100 btn-primary">{{ 'security.reset_btn'|trans }}</button>
+    </div>
+
+    <!--Login-->
+    <div class="w-100 text-center mt-3">
+        <a href="{{ path('security_login') }}">
+            <span class="text-muted">Already have an account?</span>
+            <b>{{ 'security.login_btn'|trans }}</b>
+        </a>
+    </div>
+    {{ form_end(form) }}
 {% endblock %}

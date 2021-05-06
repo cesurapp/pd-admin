@@ -1,42 +1,36 @@
 {# Template Parts #}
-{% extends "Admin/base.html.twig" %}
+{% extends "admin/layout/base.html.twig" %}
 
-{# Document #}
 {% block head_title %}{{ title('admin_dashboard'|trans) }}{% endblock %}
-
-{# Content Title #}
-{% block content_head %}
-    <span class="text">{{ 'admin_dashboard'|trans }}</span>
-    <span class="desc">{{ 'admin_dashboard_desc'|trans }}</span>
-    <a href="#" class="addbtn btn-primary" data-toggle="modal" data-target="#widgetModal" data-tooltip title="{{ 'add_widget'|trans }}"><i class="material-icons">add</i></a>
+{% block content_title %}
+    {{ 'admin_dashboard'|trans }}
+    <button v-tooltip v-modal="'widgetModal'" title="{{ 'add_widget'|trans }}"><i class="fas fa-cubes"></i></button>
 {% endblock %}
 
 {# Content Body #}
 {% block content_body %}
-    <div id="widgetModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header"><h4><i class="material-icons">search</i>{{ 'admin_widget_modal_title'|trans }}</h4></div>
-                <div class="modal-body pl-0 pr-0">
-                    <table class="table table-hover table-striped mb-0">
-                        {% for widget in pd_widget_get('admin') %}
-                            {% if not widget.isActive %}
-                                <tr>
-                                    <td class="text-left" style="width: 40%">{{ widget.name|trans }}</td>
-                                    <td>{{ widget.description|trans }}</td>
-                                    <td style="width: 45px"><a href="{{ path('widget_status', { 'widgetId': widget.id, 'status': 1 }) }}" class="close" data-tooltip title="{{ 'add'|trans }}"><i class="material-icons">add</i></a></td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </table>
-                </div>
-                <div class="modal-footer"><button type="button" id="close" class="btn btn-outline-primary" data-dismiss="modal">{{ 'close'|trans }}</button></div>
-            </div>
-        </div>
-    </div>
-
-    {# Load Chart JS #}
-    <script src="{{ asset('plugin/chart.js', 'admin') }}"></script>
+    <modal id="widgetModal" :slim="true" size="lg">
+        <template v-slot:title><i class="fas fa-cubes"></i>{{ 'admin_widget_modal_title'|trans }}</template>
+        <template v-slot:content="props">
+            <table class="table table-hover mb-0 table-bordered">
+                {% for widget in pd_widget_get('admin') %}
+                    {% if not widget.isActive %}
+                        <tr>
+                            <td class="text-left" style="width: 40%">{{ widget.name|trans }}</td>
+                            <td>{{ widget.description|trans }}</td>
+                            <td class="text-center" style="width: 50px">
+                                <a href="{{ path('widget_status', { 'widgetId': widget.id, 'status': 1 }) }}"
+                                   class="close text-muted"
+                                   v-tooltip title="{{ 'add'|trans }}">
+                                    <i class="fas fa-plus"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </table>
+        </template>
+    </modal>
 
     <div class="dashboard">
         {{ pd_widget_render('admin') }}

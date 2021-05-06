@@ -6,26 +6,24 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     {# Meta #}
-    <title>{{ title('440_not_found'|trans) }}</title>
+    <title>{{ '404_not_found'|trans }}</title>
     <meta name="description" content="{{ bag.get('head_description') }}"/>
     <meta name="keywords" content="{{ bag.get('head_keywords') }}"/>
     <meta name="author" content="{{ bag.get('head_author') }}"/>
     <link rel="icon" href="{{ asset(bag.get('site_favicon'), 'upload') }}">
 
     {# Assets #}
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-    <link rel="stylesheet" href="{{ asset('vendor.css', 'admin') }}">
-    <link rel="stylesheet" href="{{ asset('app.css', 'admin') }}">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('build/admin/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('build/admin/app.css') }}">
 </head>
 <body class="d-flex">
-{# Wrapper #}
-<section class="container align-self-center">
-    <div class="d-flex flex-column text-center justify-content-center align-items-center">
-        <h2 class="mb-4">{{ '440_not_found'|trans }}</h2>
-        <p class="alert alert-danger border-0 mb-4">{{ '440_not_found_description'|trans }}</p>
-        <p><a href="{{ path('admin_dashboard') }}">Go Home</a></p>
-    </div>
-</section>
+    <section class="container align-self-center">
+        <div class="d-flex flex-column text-center justify-content-center align-items-center">
+            <h2 class="mb-3">{{ '404_not_found'|trans }}</h2>
+            <p class="alert alert-danger">{{ '404_not_found_description'|trans }}</p>
+            <p><a class="btn btn-primary" href="{{ path('admin_dashboard') }}">{{ 'go_home'|trans }}</a></p>
+        </div>
+    </section>
 </body>
 </html>

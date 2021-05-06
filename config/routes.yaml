@@ -18,13 +18,9 @@ admin:
 admin_widget:
     resource: "@PdWidgetBundle/Resources/config/routing.yml"
     prefix: 'admin'
-admin_mailer:
-    resource: "@PdMailerBundle/Resources/config/routing.yaml"
-    prefix: 'admin'
-
-##
-# Web
-##
-homepage:
-    resource: ../src/Controller/Web
-    type: annotation
+redirect_home:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
+    defaults:
+        route: security_login
+        permanent: true

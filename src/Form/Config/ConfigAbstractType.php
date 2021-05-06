@@ -34,7 +34,7 @@ abstract class ConfigAbstractType implements FormTypeInterface
         foreach ($form->all() as $key => $formInterface) {
             if ('entity' === $formInterface->getConfig()->getType()->getBlockPrefix()) {
                 if (!\is_object($formInterface->getNormData())) {
-                    $entityColumn = \is_string($obj = $formInterface->getConfig()->getOption('choice_value')) ? $obj : $obj[0]->getIdField();
+                    $entityColumn = is_string($obj = $formInterface->getConfig()->getOption('choice_value')) ? $obj : $obj[0]->getIdField();
 
                     $em = $formInterface->getConfig()->getOption('em');
                     if ($em instanceof EntityManagerInterface) {
@@ -57,8 +57,9 @@ abstract class ConfigAbstractType implements FormTypeInterface
      */
     public function finishView(FormView $view, FormInterface $form, array $options)
     {
+
         // Create File Type File Path
-        foreach ($form->all() as $key => $formInterface) {
+       /* foreach ($form->all() as $key => $formInterface) {
             if ('file' === $formInterface->getConfig()->getType()->getBlockPrefix()) {
                 if ($formInterface->getViewData()) {
                     $view->children[$key]->vars['file_path'] = !is_array($formInterface->getViewData()) ? [$formInterface->getViewData()] : $formInterface->getViewData();
@@ -66,7 +67,9 @@ abstract class ConfigAbstractType implements FormTypeInterface
                     $view->children[$key]->vars['file_path'] = $options['data'][$key];
                 }
             }
-        }
+        }*/
+
+
     }
 
     /**

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="tr">
+<html lang="{{ app.request.locale }}">
 
 <head>
     <meta charset="UTF-8">
@@ -14,28 +14,16 @@
     <link rel="icon" href="{{ asset(bag.get('site_favicon'), 'upload') }}">
 
     {#-- Include Assets --#}
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
-
-    <link rel="stylesheet" href="{{ asset('vendor.css', 'admin') }}">
-    <link rel="stylesheet" href="{{ asset('auth/auth.css', 'admin') }}">
-    <script src="{{ asset('vendor.js', 'admin') }}"></script>
-
-    <script>
-      /**
-       * Bootstrap Tooltip Activate
-       */
-      $(function () {
-        $('[data-toggle="tooltip"], [data-tooltip]').tooltip();
-      })
-    </script>
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('build/auth.css') }}">
 
     {# Head Block #}
     {% block head %}{% endblock %}
 </head>
 
 <body>
-    <div id="app-login">
+    <div id="auth-wrap">
         {% block body %}{% endblock %}
     </div>
 </body>

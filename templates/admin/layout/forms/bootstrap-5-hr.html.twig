@@ -1,4 +1,4 @@
-{% use "admin/layout/bootstrap-5.html.twig" %}
+{% use "admin/layout/forms/bootstrap-5.html.twig" %}
 
 {# Labels #}
 
@@ -18,18 +18,21 @@
 {%- endblock form_label %}
 
 {% block form_label_class -%}
-    col-sm-4
+    col-sm-4 col-md-5 col-xxl-4
 {%- endblock form_label_class %}
+{% block form_group_class -%}
+    col-sm-8 col-md-7 col-xxl-8
+{%- endblock form_group_class %}
 
 {# Rows #}
 
 {% block form_row -%}
-    {#{%- if expanded is defined and expanded -%}
+    {#{%- if if expanded is defined and expanded -%}
         {{ block('fieldset_form_row') }}
     {%- else -%}#}
         {%- set widget_attr = {} -%}
-        {%- if help is not empty -%}
-            {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+        {%- if expanded is defined and expanded -%}
+            {%- set widget_attr = {attr: {'class': 'fieldset-group'}} -%}
         {%- endif -%}
         {%- set row_class = row_class|default(row_attr.class|default('mb-3')) -%}
         {%- set is_form_floating = is_form_floating|default('form-floating' in row_class) -%}
@@ -65,7 +68,7 @@
                     {{- form_errors(form) -}}
                 </div>
             {%- endif -%}
-            {##}</div>
+        </div>
     {#{%- endif -%}#}
 {%- endblock form_row %}
 
@@ -115,18 +118,13 @@
 
 {% block checkbox_row -%}
     <div{% with {attr: row_attr|merge({class: (row_attr.class|default('mb-3') ~ ' row')|trim})} %}{{ block('attributes') }}{% endwith %}>{#--#}
-        <div class="{{ block('form_label_class') }}"></div>{#--#}
-        <div class="{{ block('form_group_class') }}">
-            {{- form_widget(form) -}}
-            {{- form_help(form) -}}
+        {{ block('form_label') }}
+        <div class="{{ block('form_group_class') }} d-flex align-items-center">
+            {{- form_widget(form, {'horizontal': true}) -}}
             {{- form_errors(form) -}}
         </div>{#--#}
     </div>
 {%- endblock checkbox_row %}
-
-{% block form_group_class -%}
-    col-sm-8
-{%- endblock form_group_class %}
 
 {%- block form_widget_compound -%}
 

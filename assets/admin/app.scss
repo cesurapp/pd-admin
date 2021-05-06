@@ -243,7 +243,7 @@ footer {
   }
 
   .form-container {
-    @include media-breakpoint-up(md){
+    @include media-breakpoint-up(lg) {
       display: flex;
       flex-flow: row wrap;
       margin-right: -.3rem;
@@ -269,7 +269,7 @@ footer {
     }
 
     @include media-breakpoint-down(md) {
-      .help-popover{
+      .help-popover {
         position: relative;
         margin-left: .25rem;
         top: -.25rem;
@@ -277,7 +277,7 @@ footer {
     }
 
     @include media-breakpoint-down(sm) {
-      .col-form-label{
+      .col-form-label {
         padding-top: 0 !important;
       }
     }
