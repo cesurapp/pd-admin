@@ -1,0 +1,65 @@
+{% extends "Auth/base.html.twig" %}
+
+{% block head_title %}{{ title('security.login_title'|trans) }}{% endblock %}
+
+{% block body %}
+    <form action="{{ path("security_login") }}" method="post">
+        <h3 class="title">{{ 'security.login_title'|trans }}</h3>
+
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+
+        {% for label,message in app.session.flashBag.all %}
+            {% if label == 'error' %}{% set label = 'danger' %} {% endif %}
+            {% for msg in message %}
+                <div class="alert alert-{{ label }}">{{ msg }}</div>
+            {% endfor %}
+        {% endfor %}
+
+        <!--Username-->
+        <div class="mb-3">
+            <label for="username" class="form-label">{{ 'security.email'|trans }}</label>
+            <div class="input-group">
+                <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-user"></i></span>
+                <input id="username" name="_username" value="{{ last_username }}" type="email" class="form-control"
+                       placeholder="{{ 'security.login_username'|trans }}" required autofocus>
+            </div>
+        </div>
+
+        <!--Password-->
+        <div class="mb-3">
+            <label for="password" class="form-label">{{ 'security.login_password'|trans }}</label>
+            <div class="input-group">
+                <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                <input id="password" name="_password" type="password" class="form-control"
+                       placeholder="{{ 'security.login_password'|trans }}" required>
+            </div>
+        </div>
+
+        <!--Rememberme-->
+        <d class="d-flex mb-3">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="_remember_me" id="_remember_me" value="on">
+                <label class="form-check-label" for="_remember_me">{{ 'security.login_rememberme'|trans }}</label>
+            </div>
+
+            <a href="{{ path('security_resetting') }}"
+               class="ms-auto text-muted">{{ 'security.forgot_password'|trans }}</a>
+        </d>
+
+        <!--CSRF-->
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}"/>
+
+        <!--Submit-->
+        <div class="form-group">
+            <button type="submit" class="btn w-100 btn-primary">{{ 'security.login_btn'|trans }}</button>
+        </div>
+
+        <!--Register-->
+        <div class="w-100 text-center mt-3">
+            <a href="{{ path('security_register') }}"><span class="text-muted">{{ 'Not registered?'|trans }}</span>
+                <b>{{ 'security.register'|trans }}</b></a>
+        </div>
+    </form>
+{% endblock %}

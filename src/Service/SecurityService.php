@@ -24,20 +24,10 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class SecurityService
 {
-    /**
-     * @var RouterInterface
-     */
-    private $router;
-
-    /**
-     * @var WidgetInterface
-     */
-    private $widget;
-
-    public function __construct(RouterInterface $router, WidgetInterface $widget)
+    public function __construct(
+        private RouterInterface $router,
+        private WidgetInterface $widget)
     {
-        $this->router = $router;
-        $this->widget = $widget;
     }
 
     /**
@@ -45,10 +35,8 @@ class SecurityService
      */
     public function getACL(): array
     {
-        // Default Roles
         return [
             User::ROLE_DEFAULT => User::ROLE_DEFAULT,
-            User::ROLE_ADMIN => User::ROLE_ADMIN,
             User::ROLE_ALL_ACCESS => User::ROLE_ALL_ACCESS,
         ];
     }
@@ -92,12 +80,12 @@ class SecurityService
                     $roleObject = explode('_', $role);
                     if (3 === count($roleObject)) {
                         $access = $roleObject[2];
-                        $roleObject = $roleObject[0].'_'.$roleObject[1];
+                        $roleObject = $roleObject[0] . '_' . $roleObject[1];
 
                         if (isset($roles[$roleObject])) {
-                            $roles[$roleObject][$access] = $roleObject.'_'.$access;
+                            $roles[$roleObject][$access] = $roleObject . '_' . $access;
                         } else {
-                            $roles[$roleObject] = [$access => $roleObject.'_'.$access];
+                            $roles[$roleObject] = [$access => $roleObject . '_' . $access];
                         }
                     }
                 }
@@ -114,12 +102,12 @@ class SecurityService
                         $roleObject = explode('_', $access->getAttributes());
                         if (3 === \count($roleObject)) {
                             $access = $roleObject[2];
-                            $roleObject = $roleObject[0].'_'.$roleObject[1];
+                            $roleObject = $roleObject[0] . '_' . $roleObject[1];
 
                             if (isset($roles[$roleObject])) {
-                                $roles[$roleObject][$access] = $roleObject.'_'.$access;
+                                $roles[$roleObject][$access] = $roleObject . '_' . $access;
                             } else {
-                                $roles[$roleObject] = [$access => $roleObject.'_'.$access];
+                                $roles[$roleObject] = [$access => $roleObject . '_' . $access];
                             }
                         }
                     }
@@ -135,12 +123,12 @@ class SecurityService
                     $access = explode('_', $role);
 
                     // Set Main
-                    if (!isset($roles[$access[0].'_'.$access[1]])) {
-                        $roles[$access[0].'_'.$access[1]] = [];
+                    if (!isset($roles[$access[0] . '_' . $access[1]])) {
+                        $roles[$access[0] . '_' . $access[1]] = [];
                     }
 
                     // Add Role Access
-                    $roles[$access[0].'_'.$access[1]][$access[2]] = $role;
+                    $roles[$access[0] . '_' . $access[1]][$access[2]] = $role;
                 }
             }
         }

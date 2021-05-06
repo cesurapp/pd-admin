@@ -1,0 +1,62 @@
+access_denied: Erişim engellendi!
+access_denied_not_authorized: Erişim engellendi! Bu işlem için yetkili değilsiniz.
+not_login_own_account: Erişim engellendi! Kendi hesabınıza giriş yapamazsınız.
+not_login_super_admin: Erişim engellendi! Süper Admin hesabına giriş yapamazsınız.
+not_login_already_switched: Erişim engellendi! Zaten mevcut bir kullanıcıya geçiş yaptınız.
+not_login_switch_authorized: Erişim engellendi! Yetkiniz bu işlem için yeterli değil.
+
+ACL:
+    title: Erişim Kontrol
+ACLProcess:
+    title: Özel İşlemler
+ROLE_USER:
+    title: Kullanıcı
+ROLE_ADMIN:
+    title: Admin
+ROLE_SUPER_ADMIN:
+    title: Süper Admin
+ROLE_ALLOWED_TO_SWITCH:
+    title: Hesap Değiştirme
+ROLE_DASHBOARD:
+    title: Admin Paneli (Dashboard)
+    PANEL: Panel Listeleme
+ROLE_ACCOUNT:
+    title: Admin Hesap Yönetimi
+    LIST: Listeleme
+    EDIT: Düzenleme
+    PASSWORD: Şifre Değiştirme
+    ROLES: Yetkilendirme
+    ACTIVATE: Etkinleştirme
+    GROUP: Grup Ekle/Çıkar
+    DELETE: Sil
+    FREEZE: Hesap Dondurma
+    ALLREAD: Tüm Hesapları Okuma
+    ALLWRITE: Tüm Hesapları Yazma
+ROLE_GROUP:
+    title: Admin Grup İzinleri
+    LIST: Listeleme
+    EDIT: Düzenleme
+    CREATE: Yeni Grup
+    DELETE: Sil
+    ROLES: Yetkilendirme
+ROLE_SETTINGS:
+    title: Admin Ayarlar İzinleri
+    GENERAL: Genel
+    USER: Hesap
+    MEDIA: Medya
+    CONTACT: İletişim
+ROLE_MAIL:
+    title: Admin Posta Yöneticisi
+    TEMPLATE: Şablon Listeleme
+    TEMPLATEADD: Yeni Şablon
+    TEMPLATEEDIT: Şablon Düzenle
+    TEMPLATEACTIVE: Şablon Etkinleştir
+    TEMPLATEDELETE: Şablon Sil
+    LOGGER: Log Listeleme
+    VIEWLOG: Log Görüntüleme
+    LOGDELETE: Log Sil
+ROLE_WIDGET:
+    title: Admin Widget
+    USERINFO: Kullanıcı Bilgisi
+    QUICKACTION: Hızlı Menü
+    USERSTATISTICS: Kullanıcı İstatistikleri

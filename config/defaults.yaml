@@ -19,43 +19,15 @@ parameters:
     head_author: 'pdAdmin'
     head_keywords: 'pdAdmin, opensource'
     footer_copyright: 'pdAdmin Developed for Symfony 5'
-    default_locale: 'en'
+    default_locale: 'tr'
     list_count: 30
     site_logo: 'default/logo.png'
     site_favicon: 'default/favicon.ico'
 
     ##
-    # Contact Default Config
-    ##
-    contact_email: 'info@example.com'
-    contact_phone: ''
-    contact_fax_number: ''
-    contact_address: ''
-    contact_facebook: ''
-    contact_twitter: ''
-    contact_youtube: ''
-    contact_linkedin: ''
-    contact_whatsapp: null
-
-    ##
     # Media Default Config
     ##
-    media_library: gd
     media_optimize: 1
     media_max_width: 1028
     media_max_height: 768
     media_quality: 75
-    media_watermark: text
-    media_wm_image: null
-    media_wm_image_position: null
-    media_wm_image_x: null
-    media_wm_image_y: null
-    media_wm_font: ''
-    media_wm_font_text: 'pdAdmin'
-    media_wm_font_size: '36'
-    media_wm_font_color: '#445160'
-    media_wm_font_align: 'center'
-    media_wm_font_valign: 'middle'
-    media_wm_font_x: '0.5'
-    media_wm_font_y: '0.5'
-    media_wm_font_angle: 45

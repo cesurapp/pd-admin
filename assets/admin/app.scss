@@ -1,0 +1,345 @@
+/*======================================================
+ Bootstrap
+=======================================================*/
+@import "variables";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/root";
+@import "~bootstrap/scss/reboot";
+@import "~bootstrap/scss/type";
+@import "~bootstrap/scss/images";
+@import "~bootstrap/scss/containers";
+@import "~bootstrap/scss/grid";
+@import "~bootstrap/scss/forms";
+@import "~bootstrap/scss/buttons";
+@import "~bootstrap/scss/transitions";
+@import "~bootstrap/scss/dropdown";
+@import "~bootstrap/scss/button-group";
+@import "~bootstrap/scss/pagination";
+@import "~bootstrap/scss/badge";
+@import "~bootstrap/scss/alert";
+@import "~bootstrap/scss/close";
+@import "~bootstrap/scss/toasts";
+@import "~bootstrap/scss/modal";
+@import "~bootstrap/scss/tooltip";
+@import "~bootstrap/scss/popover";
+@import "~bootstrap/scss/helpers";
+@import "~bootstrap/scss/utilities/api";
+@import "~bootstrap/scss/tables";
+//@import "~bootstrap/scss/card";
+//@import "~bootstrap/scss/accordion";
+//@import "~bootstrap/scss/nav";
+//@import "~bootstrap/scss/navbar";
+//@import "~bootstrap/scss/breadcrumb";
+//@import "~bootstrap/scss/carousel";
+//@import "~bootstrap/scss/spinners";
+//@import "~bootstrap/scss/progress";
+//@import "~bootstrap/scss/list-group";
+
+/*======================================================
+ Bootstrap Custom
+=======================================================*/
+.dropdown-menu {
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  margin-top: .5rem !important;
+  min-width: 11rem;
+
+  &:not(:hover) {
+    .dropdown-item.active, .dropdown-item:active {
+      background-color: $dropdown-link-active-bg;
+      color: $dropdown-link-active-color;
+    }
+  }
+
+  & > li {
+    display: flex;
+
+    &:last-child .dropdown-item {
+      margin-bottom: .25rem;
+    }
+  }
+}
+
+.dropdown-header {
+  font-weight: 600;
+  padding: .4rem 1rem;
+}
+
+.dropdown-divider {
+  margin-top: .5rem;
+  margin-bottom: 0;
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  border-radius: $border-radius;
+  transition: $transition-base;
+  margin: .25rem .25rem -.25rem;
+
+  i {
+    width: 17px;
+    margin-right: .5rem;
+    font-size: $font-size-base + .1;
+  }
+
+  &:hover {
+    background-color: $dropdown-link-active-bg !important;
+    color: $dropdown-link-active-color !important;
+  }
+
+  &.active, &:active {
+    background-color: inherit;
+    color: inherit;
+  }
+}
+
+
+.form-container {
+  //overflow: hidden;
+  & > div:last-of-type {
+    margin-bottom: 0 !important;
+  }
+}
+
+.popover {
+  box-shadow: $box-shadow;
+}
+
+/*======================================================
+ Typography
+=======================================================*/
+html, body {
+  min-height: 100%;
+  height: 100%;
+}
+
+body {
+  background: #f5f8fb;
+  -webkit-font-smoothing: antialiased;
+}
+
+#app {
+  position: relative;
+  display: flex;
+  min-height: 100%;
+
+  .app-nav {
+    width: 275px;
+  }
+
+  .app-content {
+    flex: 1;
+  }
+}
+
+.app-content {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/*======================================================
+ Footer
+=======================================================*/
+footer {
+  border-top: 1px solid rgba(255, 255, 255, .075);
+  padding-top: $grid-gutter-width;
+  padding-left: $grid-gutter-width / 2;
+  padding-right: $grid-gutter-width / 2;
+  margin-top: auto;
+  font-size: $small-font-size;
+  opacity: .65;
+  text-align: center;
+}
+
+/*======================================================
+ Content Header
+=======================================================*/
+.content-header {
+  display: flex;
+  padding: .75rem $grid-gutter-width * 1.5;
+  background: #43485d;
+
+  .content-title {
+    margin-bottom: 0;
+    font-size: 1.3rem;
+    line-height: 1.4rem;
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    font-weight: 400;
+
+    & > i {
+      margin-right: 1rem;
+      font-size: 1.4rem;
+      line-height: 1.2rem;
+    }
+
+    button {
+      background: transparent;
+      border: none;
+      padding: 0;
+      color: #FFF;
+      opacity: .8;
+      transition: $transition-base;
+      margin-left: 1rem;
+      line-height: 0;
+      outline: none;
+
+      i {
+        font-size: 1.4rem;
+        line-height: 1.2rem;
+      }
+
+      &:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+  }
+
+  // Profile
+  .pd-menu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+
+    .dropdown {
+      display: flex;
+      align-items: center;
+    }
+
+    .dropdown-toggle {
+      display: inline-flex;
+      padding: 0;
+      opacity: .8;
+      transition: $transition-base;
+      margin-left: 1rem;
+      color: #FFF;
+
+      &:after {
+        display: none;
+      }
+
+      i {
+        font-size: 1.4rem;
+      }
+
+      &:hover, &.show {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+/*======================================================
+ Content Body
+=======================================================*/
+.content-body {
+  .forms {
+    padding: $grid-gutter-width $grid-gutter-width * 1.5;
+  }
+
+  .form-container {
+    @include media-breakpoint-up(md){
+      display: flex;
+      flex-flow: row wrap;
+      margin-right: -.3rem;
+
+      & > * {
+        width: 50%;
+
+        &:nth-child(2n) {
+          margin-left: $grid-gutter-width;
+        }
+
+        &:last-of-type {
+          width: 100%;
+          display: block;
+          margin-left: 0;
+
+          & > div {
+            margin-left: 0;
+            padding-left: 0;
+          }
+        }
+      }
+    }
+
+    @include media-breakpoint-down(md) {
+      .help-popover{
+        position: relative;
+        margin-left: .25rem;
+        top: -.25rem;
+      }
+    }
+
+    @include media-breakpoint-down(sm) {
+      .col-form-label{
+        padding-top: 0 !important;
+      }
+    }
+  }
+
+  .sticky-header {
+    position: sticky;
+    top: 0;
+  }
+}
+
+.full-height {
+  height: 100%;
+}
+
+// Form Help Popover
+.col-form-label {
+  position: relative;
+
+  .help-popover {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: $font-size-base + .1;
+    transition: $transition-base;
+    line-height: 0;
+
+    &:hover {
+      color: $primary;
+    }
+  }
+}
+
+// Form Range
+.form-rage-wrap {
+  height: 100%;
+
+  .count {
+    background: $primary;
+    padding: .1rem .35rem;
+    margin-left: .5rem;
+    border-radius: $border-radius;
+    color: #FFF;
+    display: table;
+    min-width: 45px;
+    text-align: center;
+  }
+}
+
+// Form Fieldset Group
+.fieldset-group {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  margin-left: -$grid-gutter-width;
+
+  & > div {
+    margin-left: $grid-gutter-width;
+    margin-bottom: 0;
+  }
+}
+
+/*======================================================
+ Admin Widgets
+=======================================================*/

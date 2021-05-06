@@ -7,8 +7,9 @@ pd_user:
     email_confirmation: true
     welcome_email: true
     user_registration: true
-    template_path: 'Auth'
+    template_path: 'auth'
     resetting_request_time: 7200
     mail_sender_address: '%env(resolve:MAILER_FROM_EMAIL)%'
     mail_sender_name: '%env(resolve:MAILER_FROM_NAME)%'
     active_language: "%active_language%"
+    register_type: App\Form\Account\RegisterType

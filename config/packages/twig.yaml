@@ -1,9 +1,5 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
-    debug: '%kernel.debug%'
-    strict_variables: '%kernel.debug%'
-    cache: "%kernel.cache_dir%/twig"
-    form_themes: ['Admin/_other/bootstrap-hr-4.html.twig']
-    exception_controller: null
+    form_themes: ['admin/layout/forms/bootstrap-5-hr.html.twig']
     globals:
         bag: '@App\Service\ConfigBag'

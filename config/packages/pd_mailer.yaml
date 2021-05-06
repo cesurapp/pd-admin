@@ -1,5 +1,0 @@
-pd_mailer:
-    logger_active: true
-    template_active: true
-    list_count: "%list_count%"
-    active_language: "%active_language%"

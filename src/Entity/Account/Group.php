@@ -19,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * User Groups.
  *
  * @ORM\Table(name="user_group")
- * @ORM\Entity(repositoryClass="App\Repository\GroupRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Account\GroupRepository")
  * @UniqueEntity(fields="name", message="group_already_taken")
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>

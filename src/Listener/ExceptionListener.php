@@ -25,10 +25,7 @@ use Twig\Environment;
  */
 class ExceptionListener implements EventSubscriberInterface
 {
-    /**
-     * @var Environment
-     */
-    private $engine;
+    private Environment $engine;
 
     public function __construct(Environment $engine)
     {
@@ -41,14 +38,12 @@ class ExceptionListener implements EventSubscriberInterface
         $exception = $event->getThrowable();
 
         if ($exception instanceof NotFoundHttpException) {
-            $event->setResponse(new Response($this->engine->render('Admin/_other/notFound.html.twig'), 404));
+            $event->setResponse(new Response($this->engine->render('admin/layout/404.html.twig'), 404));
         }
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
-        return [
-            KernelEvents::EXCEPTION => [['onKernelException']],
-        ];
+        return [KernelEvents::EXCEPTION => [['onKernelException']]];
     }
 }

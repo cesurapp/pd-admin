@@ -22,10 +22,7 @@ use Twig\TwigFunction;
  */
 class FunctionExtension extends AbstractExtension
 {
-    /**
-     * @var ConfigBag
-     */
-    private $bag;
+    private ConfigBag $bag;
 
     public function __construct(ConfigBag $bag)
     {
@@ -34,48 +31,46 @@ class FunctionExtension extends AbstractExtension
 
     /**
      * Create Twig Function.
-     *
-     * @return array
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('title', [$this, 'title']),
             new TwigFunction('inArray', [$this, 'inArray']),
             new TwigFunction('pathInfo', [$this, 'pathInfo']),
+            new TwigFunction('basename', [$this, 'basename']),
         ];
     }
 
     /**
      * Return Panel Title.
-     *
-     * @param $title
-     * @param bool $parent
-     *
-     * @return mixed
      */
-    public function title($title, $parent = true)
+    public function title($title, $parent = true): string
     {
         return !$parent ? $title : str_replace(['&T', '&P'], [$title, $this->bag->get('head_title')], $this->bag->get('head_title_pattern'));
     }
 
     /**
      * Checks if a value exists in an array.
-     *
-     * @param $needle
      */
     public function inArray($needle, array $haystack): bool
     {
-        return \in_array(mb_strtolower($needle), $haystack, false);
+        return in_array($needle, $haystack, false);
     }
 
     /**
      * Information about a file path.
-     *
-     * @param string $options
      */
     public function pathInfo(string $path, $options = 'extension'): string
     {
         return pathinfo($path)[mb_strtolower($options)];
+    }
+
+    /**
+     * Basename Formatter.
+     */
+    public function basename($path): string
+    {
+        return basename($path);
     }
 }

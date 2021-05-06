@@ -20,15 +20,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class AccessDeniedHandler implements AccessDeniedHandlerInterface
 {
-    /**
-     * @var TranslatorInterface
-     */
-    private $translator;
-
-    /**
-     * @var RouterInterface
-     */
-    private $router;
+    private TranslatorInterface $translator;
+    private RouterInterface $router;
 
     public function __construct(TranslatorInterface $translator, RouterInterface $router)
     {
@@ -36,16 +29,16 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $this->router = $router;
     }
 
-    public function handle(Request $request, AccessDeniedException $accessDeniedException)
+    public function handle(Request $request, AccessDeniedException $accessDeniedException): RedirectResponse
     {
         // Create Message
         $message = $accessDeniedException->getMessage();
         switch ($message) {
             case false !== mb_stristr($message, '@IsGranted'):
-                $message = $this->translator->trans('access_denied_not_authorized');
+                $message = $this->translator->trans('access_denied_not_authorized', [], 'acl');
                 break;
             case false !== mb_stristr($message, 'Access Denied.'):
-                $message = $this->translator->trans('access_denied');
+                $message = $this->translator->trans('access_denied', [], 'acl');
                 break;
             default:
                 $message = $this->translator->trans($message);
@@ -54,12 +47,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         // Set Flash Message
         $request->getSession()->getBag('flashes')->add('error', $message);
 
-        // Disable Login
-        if (parse_url($request->headers->get('referer'), PHP_URL_PATH) === $this->router->generate('security_login')) {
-            return new RedirectResponse($this->router->generate('homepage'));
-        }
-
         // Send Response
-        return new RedirectResponse($request->headers->get('referer', $this->router->generate('homepage')));
+        return new RedirectResponse($request->headers->get('referer', $this->router->generate('security_login')));
     }
 }

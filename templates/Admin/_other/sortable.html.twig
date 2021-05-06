@@ -1,9 +1,0 @@
-<a {% for attr, value in options %} {{ attr }}="{{ value }}"{% endfor %}>{{ title }}
-    {% if options['class'] == 'asc' %}
-        <i class="material-icons">arrow_drop_down</i>
-    {% elseif options['class'] == 'desc' %}
-        <i class="material-icons">arrow_drop_up</i>
-    {% else %}
-        <i class="material-icons">swap_vert</i>
-    {% endif %}
-</a>

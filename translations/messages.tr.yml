@@ -1,67 +1,6 @@
-###
-# Security Permission
-###
-access_denied: Erişim engellendi!
-access_denied_not_authorized: Erişim engellendi! Bu işlem için yetkili değilsiniz.
-not_login_own_account: Erişim engellendi! Kendi hesabınıza giriş yapamazsınız.
-not_login_super_admin: Erişim engellendi! Süper Admin hesabına giriş yapamazsınız.
-not_login_already_switched: Erişim engellendi! Zaten mevcut bir kullanıcıya geçiş yaptınız.
-not_login_switch_authorized: Erişim engellendi! Yetkiniz bu işlem için yeterli değil.
-ACL:
-    title: Erişim Kontrol
-ACLProcess:
-    title: Özel İşlemler
-ROLE_USER:
-    title: Kullanıcı
-ROLE_ADMIN:
-    title: Admin
-ROLE_SUPER_ADMIN:
-    title: Süper Admin
-ROLE_ALLOWED_TO_SWITCH:
-    title: Hesap Değiştirme
-ROLE_DASHBOARD:
-    title: Admin Paneli (Dashboard)
-    PANEL: Panel Listeleme
-ROLE_ACCOUNT:
-    title: Admin Hesap Yönetimi
-    LIST: Listeleme
-    EDIT: Düzenleme
-    PASSWORD: Şifre Değiştirme
-    ROLES: Yetkilendirme
-    ACTIVATE: Etkinleştirme
-    GROUP: Grup Ekle/Çıkar
-    DELETE: Sil
-    FREEZE: Hesap Dondurma
-    ALLREAD: Tüm Hesapları Okuma
-    ALLWRITE: Tüm Hesapları Yazma
-ROLE_GROUP:
-    title: Admin Grup İzinleri
-    LIST: Listeleme
-    EDIT: Düzenleme
-    CREATE: Yeni Grup
-    DELETE: Sil
-    ROLES: Yetkilendirme
-ROLE_SETTINGS:
-    title: Admin Ayarlar İzinleri
-    GENERAL: Genel
-    USER: Hesap
-    MEDIA: Medya
-    CONTACT: İletişim
-ROLE_MAIL:
-    title: Admin Posta Yöneticisi
-    TEMPLATE: Şablon Listeleme
-    TEMPLATEADD: Yeni Şablon
-    TEMPLATEEDIT: Şablon Düzenle
-    TEMPLATEACTIVE: Şablon Etkinleştir
-    TEMPLATEDELETE: Şablon Sil
-    LOGGER: Log Listeleme
-    VIEWLOG: Log Görüntüleme
-    LOGDELETE: Log Sil
-ROLE_WIDGET:
-    title: Admin Widget
-    USERINFO: Kullanıcı Bilgisi
-    QUICKACTION: Hızlı Menü
-    USERSTATISTICS: Kullanıcı İstatistikleri
+404_not_found: Sayfa Bulunamadı!
+404_not_found_description: Üzgünüz aradığınız sayfa bulunamadı veya kullanımdan kaldırılmış olabilir.
+go_home: Anasayfa'ya Git
 
 ###
 # Time Ago
@@ -132,8 +71,7 @@ remove_complete: Silme işlemi tamamlandı.
 sorry_not_existing: Üzgünüz kayıt mevcut değil.
 test_email_success: Test e-postası gönderildi.
 user_registration_disable: Kullanıcı kaydı şu anda kapalı, lütfen daha sonra tekrar deneyin.
-440_not_found: Sayfa Bulunamadı!
-440_not_found_description: Üzgünüz aradığınız sayfa bulunamadı veya kullanımdan kaldırılmış olabilir.
+
 
 ###
 # Pages
@@ -260,36 +198,6 @@ media_max_width: Resim Maximum Genişlik
 media_max_width_info: Resimler için maximum genişlik değeridir.
 media_quality: Resim Kalitesi
 media_quality_info: 0-100 arasında değer girin, varsayılan 80'dir.
-media_watermark: Fligran (Kaplama)
-media_watermark_info: Resim üzerine fligran(kaplama) uygulanır.
-watermark_text: Yazı
-watermark_image: Resim
-media_wm_image: Fligran Resim
-media_wm_image_info: Fligran için '.png' formatında transparent resim kullanmanız önerilir.
-media_wm_image_position: Fligran Konumu
-media_wm_image_position_info: Fligranın ekleneceği konumun başlangıç noktasını belirler.
-media_wm_image_x: Fligran X
-media_wm_image_x_info: Fligranın X kordinatı üzerinde isteğe bağlı başlangıç pikselidir.
-media_wm_image_y: Fligran Y
-media_wm_image_y_info: Fligranın Y kordinatı üzerinde isteğe bağlı başlangıç pikselidir.
-media_wm_font: Fligran Font
-media_wm_font_info: Fligran için font dosyası seçin. Herhangi bir dosya seçilmediğinde varsayılan font kullanılacaktır.
-upload_font_btn: Font Yükle
-media_wm_font_text: Fligran Yazısı
-media_wm_font_size: Font Boyutu
-media_wm_font_size_info: Font büyüklüğü varsayılan 24 piksel olarak ayarlanmıştır.
-media_wm_font_color: Font Renk
-media_wm_font_color_info: Font için Hex yada RGBA olarak renk kodu girebilirsiniz.
-media_wm_font_align: Font Yatay Hizalama
-media_wm_font_align_info: Yatay font hizalamasıdır.
-media_wm_font_valign: Font Dikey Hizalama
-media_wm_font_valign_info: Dikey font hizalamasıdır.
-media_wm_font_x: X Pozisyon
-media_wm_font_x_info: İlk karakterin yatay taban noktasını tanımlar.
-media_wm_font_y: Y Pozisyon
-media_wm_font_y_info: İlk karakterin dikey taban noktasını tanımlar.
-media_wm_font_angle: Font Dönüş Açısı
-media_wm_font_angle_info: Font için dönüş açısıdır, sadece font yüklemesi yapıldığında çalışır.
 
 ###
 # Widget

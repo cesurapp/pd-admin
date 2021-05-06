@@ -1,67 +1,6 @@
-###
-# Security Permission
-###
-access_denied: Access denied!
-access_denied_not_authorized: Access denied! You are not authorized to do this.
-not_login_own_account: Access denied! You can not log in on your own account.
-not_login_super_admin: Access denied! You can not log in to the Super Admin account.
-not_login_already_switched: Access denied! You have already migrated to an existing user.
-not_login_switch_authorized: Access denied! Your competence is not enough for this process.
-ACL:
-    title: Access Control
-ACLProcess:
-    title: Custom Actions
-ROLE_USER:
-    title: User
-ROLE_ADMIN:
-    title: Admin
-ROLE_SUPER_ADMIN:
-    title: Super Admin
-ROLE_ALLOWED_TO_SWITCH:
-    title: Account Switch
-ROLE_DASHBOARD:
-    title: Admin Panel (Dashboard)
-    PANEL: Panel Listing
-ROLE_ACCOUNT:
-    title: Admin Account Management
-    LIST: Listing
-    EDIT: Editing
-    PASSWORD: Change Password
-    ROLES: Authorization
-    ACTIVATE: Activation
-    GROUP: Add/Remove Group
-    DELETE: Delete
-    FREEZE: Account Freeze
-    ALLREAD: All Read
-    ALLWRITE: All Write
-ROLE_GROUP:
-    title: Admin Group Management
-    LIST: Listing
-    EDIT: Editing
-    CREATE: New Group
-    DELETE: Delete
-    ROLES: Authorization
-ROLE_SETTINGS:
-    title: Admin Settings Management
-    GENERAL: General
-    USER: Account
-    MEDIA: Media
-    CONTACT: Contact
-ROLE_MAIL:
-    title: Admin Mail Manager
-    TEMPLATE: Template Listing
-    TEMPLATEADD: New Template
-    TEMPLATEEDIT: Edit Template
-    TEMPLATEACTIVE: Enable Template
-    TEMPLATEDELETE: Delete Template
-    LOGGER: Log Listing
-    VIEWLOG: Log View
-    LOGDELETE: Log Delete
-ROLE_WIDGET:
-    title: Admin Widget
-    USERINFO: User Information
-    QUICKACTION: Quick Action
-    USERSTATISTICS: User Statistics
+404_not_found: 404 Page Not Found!
+404_not_found_description: Sorry, the page you were looking for could not be found or may be removed.
+go_home: Go Homepage
 
 ###
 # Time Ago
@@ -132,8 +71,7 @@ remove_complete: Deletion completed.
 sorry_not_existing: Sorry no registration is available.
 test_email_success: Test email sent.
 user_registration_disable: User registration is currently closed, please try again later.
-440_not_found: 404 Page Not Found!
-440_not_found_description: Sorry, the page you were looking for could not be found or may be removed.
+
 
 ###
 # Pages

@@ -1,0 +1,3 @@
+pd_menu:
+    currentClass: active
+    iconTemplate: '<i class="fa&text"></i>'

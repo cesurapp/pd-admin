@@ -8,8 +8,14 @@ services:
         public: false
 
     App\:
-        resource: '../src/*'
-        exclude: '../src/{DependencyInjection,Entity,Migrations,Tests,Widgets,Kernel.php}'
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+            - '../src/Tests/'
+            - '../src/Migrations/'
+            - '../src/Widgets/'
 
     App\Controller\:
         resource: '../src/Controller'
@@ -21,4 +27,5 @@ services:
         tags:
             - { name: kernel.event_listener, event: widget.start, method: builder }
 
+    # Load DB Configurator
     Pd\UserBundle\Configuration\ConfigInterface: '@App\Service\ConfigBag'

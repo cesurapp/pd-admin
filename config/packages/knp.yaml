@@ -8,7 +8,7 @@ knp_paginator:
         distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
         filter_field_name: filterField # filter field query parameter name
         filter_value_name: filterValue # filter value query paameter name
-    template:
-        pagination: 'Admin/_other/pagination.html.twig'                 # sliding pagination controls template
-        sortable: 'Admin/_other/sortable.html.twig'                     # sort link template
-        filtration: '@KnpPaginator/Pagination/filtration.html.twig'     # filters template
+    #template:
+        #pagination: 'admin/layout/pagination.html.twig'                 # sliding pagination controls template
+        #sortable: 'admin/layout/sortable.html.twig'                     # sort link template
+        #filtration: '@KnpPaginator/Pagination/filtration.html.twig'     # filters template

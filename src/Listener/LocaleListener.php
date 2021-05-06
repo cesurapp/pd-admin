@@ -14,10 +14,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
  */
 class LocaleListener implements EventSubscriberInterface
 {
-    /**
-     * @var ConfigBag
-     */
-    private $bag;
+    private ConfigBag $bag;
 
     public function __construct(ConfigBag $bag)
     {
@@ -29,7 +26,7 @@ class LocaleListener implements EventSubscriberInterface
         $event->getRequest()->setDefaultLocale($this->bag->get('default_locale'));
     }
 
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [KernelEvents::REQUEST => [['setDefaultLocale', 99]]];
     }

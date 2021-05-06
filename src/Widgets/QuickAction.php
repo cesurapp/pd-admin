@@ -49,15 +49,8 @@ class QuickAction
             'action_settings' => [
                 'name' => 'settings_general',
                 'description' => 'settings_general_desc',
-                'route' => 'admin_settings_general',
+                'route' => 'admin_config_general',
                 'icons' => 'settings',
-                'linkClass' => 'btn btn-secondary',
-            ],
-            'mail_manager' => [
-                'name' => 'nav_mail_manager',
-                'description' => 'mail_manager_list_desc',
-                'route' => 'mail_template',
-                'icons' => 'email',
                 'linkClass' => 'btn btn-secondary',
             ],
             'mail_manager_logs' => [
@@ -76,7 +69,7 @@ class QuickAction
                     ->setGroup('admin')
                     ->setName('widget_quick_action.name')
                     ->setDescription('widget_quick_action.description')
-                    ->setTemplate('Admin/Widget/quickAction.html.twig')
+                    ->setTemplate('admin/widgets/quickAction.html.twig')
                     ->setRole(['ROLE_WIDGET_QUICKACTION'])
                     ->setConfigProcess(static function (Request $request) use ($items) {
                         if (($id = $request->get('id')) && isset($items[$id])) {

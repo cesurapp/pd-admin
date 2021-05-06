@@ -1,3 +1,7 @@
+kernel:
+    resource: ../src/Kernel.php
+    type: annotation
+
 ##
 # Authorization
 ##
@@ -8,7 +12,7 @@ authorization:
 # Admin
 ##
 admin:
-    resource: ../src/Controller/
+    resource: ../src/Controller/Admin
     type: annotation
     prefix: 'admin'
 admin_widget:
@@ -19,10 +23,8 @@ admin_mailer:
     prefix: 'admin'
 
 ##
-# Homepage
+# Web
 ##
 homepage:
-    path: /
-    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
-    defaults:
-        template: homepage.html.twig
+    resource: ../src/Controller/Web
+    type: annotation

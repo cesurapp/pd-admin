@@ -29,3 +29,5 @@ node_modules
 .idea
 /build/
 .DS_Store
+npm-debug.log
+yarn-error.log
