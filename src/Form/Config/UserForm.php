@@ -13,6 +13,7 @@ namespace App\Form\Config;
 
 use App\Entity\Account\Group;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -25,19 +26,24 @@ use Symfony\Component\Routing\RouterInterface;
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
-class UserForm extends ConfigAbstractType
+class UserForm extends AbstractType
 {
+    public function __construct(private RouterInterface $router)
+    {
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('user_registration', CheckboxType::class, [
-                'label' => 'user_registration',
-                'help' => 'user_registration_info',
+                'label' => 'config.user.registration',
+                'label_attr' => ['class' => 'checkbox-switch'],
+                'help' => 'config.user.registration_help',
                 'required' => false,
             ])
             ->add('user_default_group', EntityType::class, [
-                'label' => 'user_default_group',
-                'help' => 'user_default_group_info',
+                'label' => 'config.user.default_group',
+                'help' => 'config.user.default_group_help',
                 'class' => Group::class,
                 'choice_label' => 'name',
                 'choice_value' => 'id',
@@ -46,53 +52,44 @@ class UserForm extends ConfigAbstractType
                 'required' => false,
             ])
             ->add('user_login_redirect', ChoiceType::class, [
-                'label' => 'user_login_redirect',
-                'help' => 'user_login_redirect_info',
-                'choices' => $this->getAllRouter($options['router']),
-                'empty_data' => 'admin_dashboard',
+                'label' => 'config.user.login_redirect',
+                'help' => 'config.user.login_redirect_help',
+                'choices' => $this->getAllRouter(),
+                'empty_data' => 'admin.dashboard',
                 'choice_translation_domain' => false,
                 'placeholder' => false,
-                'required' => false,
+                'required' => false
             ])
             ->add('user_logout_redirect', ChoiceType::class, [
-                'label' => 'user_logout_redirect',
-                'help' => 'user_logout_redirect_info',
-                'choices' => $this->getAllRouter($options['router']),
-                'empty_data' => 'fos_user_security_login',
+                'label' => 'config.user.logout_redirect',
+                'help' => 'config.user.logout_redirect_help',
+                'choices' => $this->getAllRouter(),
+                'empty_data' => 'security_login',
                 'choice_translation_domain' => false,
                 'placeholder' => false,
                 'required' => false,
             ])
             ->add('user_email_confirmation', CheckboxType::class, [
-                'label' => 'user_email_confirmation',
-                'help' => 'user_email_confirmation_info',
+                'label' => 'config.user.email_confirmation',
+                'label_attr' => ['class' => 'checkbox-switch'],
+                'help' => 'config.user.email_confirmation_help',
                 'required' => false,
             ])
             ->add('user_welcome_email', CheckboxType::class, [
-                'label' => 'user_welcome_email',
-                'help' => 'user_welcome_email_info',
+                'label' => 'config.user.welcome_email',
+                'label_attr' => ['class' => 'checkbox-switch'],
+                'help' => 'config.user.welcome_email_help',
                 'required' => false,
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'save',
+                'label' => 'button.save',
             ]);
     }
 
-    /**
-     * Form Default Options.
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setRequired('router');
-    }
-
-    /**
-     * Return All Router.
-     */
-    public function getAllRouter(RouterInterface $router): array
+    public function getAllRouter(): array
     {
         // Get Router Collection
-        $allRouter = $router->getRouteCollection()->all();
+        $allRouter = $this->router->getRouteCollection()->all();
         $routerList = [];
 
         // Set Route Name => Path
@@ -104,5 +101,10 @@ class UserForm extends ConfigAbstractType
 
         // Return
         return array_flip($routerList);
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return '';
     }
 }

@@ -19,11 +19,14 @@
     {% else %}
         {% if type == 'range' %}
             <div class="d-flex align-items-center form-rage-wrap">
-                <input type="{{ type }}" v-slider v-model.number="forms.{{ id|trim }}" {{ block('widget_attributes') }} {% if value is not empty %} v-set-value="'{{ value|escape('js') }}'" {% endif %}/>
+                <input type="{{ type }}" v-slider v-model.number="forms.{{ id|trim }}" {{ block('widget_attributes') }} {% if value is not empty %} data-value="{{ value }}" v-set-value="{{ value|escape('js') }}" {% endif %}/>
                 <span class="count">{{ value }}</span>
             </div>
         {% elseif type == 'file' %}
-            <input type="{{ type }}" {{ block('widget_attributes') }}/>
+            <div class="d-flex align-items-center file-type">
+                <input type="{{ type }}" {{ block('widget_attributes') }}/>
+                <img src="{{ asset(data, 'upload') }}" class="ms-2 rounded">
+            </div>
         {% elseif type == 'number' %}
             <input type="{{ type }}" v-model.number="forms.{{ id|trim }}" {{ block('widget_attributes') }} {% if value is not empty %} v-set-value="'{{ value|escape('js') }}'" {% endif %}/>
         {% else %}
@@ -106,7 +109,7 @@
 {%- endblock choice_widget_options -%}
 
 {%- block checkbox_widget -%}
-    <input type="checkbox" v-model="forms.{{ full_name|trim }}" v-set-value="'{{ checked|escape('js') }}'" data-type="boolean" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input type="checkbox" v-model="forms.{{ full_name|trim }}"  {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 {%- endblock checkbox_widget -%}
 
 {%- block radio_widget -%}

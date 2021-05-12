@@ -11,8 +11,7 @@
 
 namespace App\Service;
 
-use Imagine\Gd\Imagine;
-use Imagine\Image\Box;
+use Gregwar\Image\Image;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\String\ByteString;
@@ -29,8 +28,7 @@ class FileUpload
     private string $currentPath;
 
     public function __construct(
-        private ConfigBag $bag,
-        private Imagine $imagine)
+        private ConfigBag $bag)
     {
     }
 
@@ -83,7 +81,9 @@ class FileUpload
     private function uploadProcess(UploadedFile $file, bool $rawUpload): string
     {
         // Create Filename
-        $fileName = (new AsciiSlugger())->slug(ByteString::fromRandom(6) . $file->getClientOriginalName());
+        $fileName = (new AsciiSlugger())->slug(
+                ByteString::fromRandom(3) . '-' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
+            ) . '.' . $file->guessClientExtension();
 
         // Upload File and Optimize Images
         if (!$rawUpload) {
@@ -109,19 +109,15 @@ class FileUpload
     private function imageManager(UploadedFile $file, string $filePath): void
     {
         // Create Image Manager
-        $img = $this->imagine->open($file->getRealPath());
+        $img = Image::open($file->getRealPath());
 
         // Image Optimize
         if ($this->bag->get('media_optimize')) {
-            $box = new Box($this->bag->get('media_max_width'), $this->bag->get('media_max_height'));
-            $img->resize($box);
+            $img->scaleResize($this->bag->get('media_max_width'), $this->bag->get('media_max_height'), 'transparent', true);
         }
 
         // Save Image
-        $img->save($filePath, [
-            'jpeg_quality' => $this->bag->get('media_optimize') ? $this->bag->get('media_quality') : 100,
-            'png_compression_level' => $this->bag->get('media_optimize') ? (int)round(($this->bag->get('media_quality') / 10)) : 9
-        ]);
+        $img->save($filePath, 'guess', $this->bag->get('media_optimize') ? (int)$this->bag->get('media_quality') : 80);
     }
 
     /**

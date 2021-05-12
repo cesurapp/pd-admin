@@ -12,6 +12,7 @@ doctrine:
         auto_mapping: true
         resolve_target_entities:
             Pd\WidgetBundle\Entity\UserInterface: App\Entity\Account\User
+            Pd\ActivityBundle\Entity\UserInterface: App\Entity\Account\User
         mappings:
             App:
                 is_bundle: false

@@ -1,0 +1,5 @@
+pd_activity:
+    log_mailer: false
+    log_request: true
+    request_exclude_methods: []
+    request_match_uri: ^/admin

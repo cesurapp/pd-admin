@@ -24,3 +24,11 @@ redirect_home:
     defaults:
         route: security_login
         permanent: true
+
+##
+# API
+##
+api:
+    resource: ../src/Controller/Api
+    type: annotation
+    prefix: api

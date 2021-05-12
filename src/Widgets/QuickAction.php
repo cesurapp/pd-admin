@@ -35,7 +35,7 @@ class QuickAction
             'action_account' => [
                 'name' => 'nav_account',
                 'description' => 'admin_account_desc',
-                'route' => 'admin_account_list',
+                'route' => 'admin.account_list',
                 'icons' => 'person',
                 'linkClass' => 'btn btn-primary',
             ],
@@ -49,7 +49,7 @@ class QuickAction
             'action_settings' => [
                 'name' => 'settings_general',
                 'description' => 'settings_general_desc',
-                'route' => 'admin_config_general',
+                'route' => 'admin.config_general',
                 'icons' => 'settings',
                 'linkClass' => 'btn btn-secondary',
             ],

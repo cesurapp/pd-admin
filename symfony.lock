@@ -1,4 +1,10 @@
 {
+    "appaydin/pd-activity": {
+        "version": "1.0.0"
+    },
+    "appaydin/pd-api": {
+        "version": "1.0.0"
+    },
     "appaydin/pd-menu": {
         "version": "3.0.01"
     },
@@ -97,8 +103,11 @@
     "friendsofphp/proxy-manager-lts": {
         "version": "v1.0.3"
     },
-    "imagine/imagine": {
-        "version": "1.2.4"
+    "gregwar/cache": {
+        "version": "v1.0.13"
+    },
+    "gregwar/image": {
+        "version": "v2.1.0"
     },
     "knplabs/knp-components": {
         "version": "1.3.5"
@@ -115,8 +124,29 @@
     "laminas/laminas-zendframework-bridge": {
         "version": "1.2.0"
     },
+    "lcobucci/clock": {
+        "version": "2.0.0"
+    },
+    "lcobucci/jwt": {
+        "version": "4.1.4"
+    },
+    "lexik/jwt-authentication-bundle": {
+        "version": "2.5",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "2.5",
+            "ref": "5b2157bcd5778166a5696e42f552ad36529a07a6"
+        },
+        "files": [
+            "config/packages/lexik_jwt_authentication.yaml"
+        ]
+    },
     "monolog/monolog": {
         "version": "1.23.0"
+    },
+    "namshi/jose": {
+        "version": "7.2.3"
     },
     "nikic/php-parser": {
         "version": "v4.0.1"
@@ -238,9 +268,6 @@
     "symfony/event-dispatcher-contracts": {
         "version": "v1.1.5"
     },
-    "symfony/expression-language": {
-        "version": "v4.1.7"
-    },
     "symfony/filesystem": {
         "version": "v4.0.4"
     },
@@ -334,6 +361,9 @@
     "symfony/orm-pack": {
         "version": "v2.1.0"
     },
+    "symfony/password-hasher": {
+        "version": "5.x-dev"
+    },
     "symfony/phpunit-bridge": {
         "version": "4.3",
         "recipe": {
@@ -390,6 +420,9 @@
     },
     "symfony/security-http": {
         "version": "v4.2.1"
+    },
+    "symfony/serializer": {
+        "version": "v5.2.7"
     },
     "symfony/service-contracts": {
         "version": "v1.1.5"

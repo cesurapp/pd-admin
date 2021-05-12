@@ -67,7 +67,7 @@ class Action extends Menu
 
             ->addChildParent('switch_user', 1)
             ->setLabel('switch_user')
-            ->setRoute('admin_dashboard', ['_switch_user' => $options['user']->getEmail()])
+            ->setRoute('admin.dashboard', ['_switch_user' => $options['user']->getEmail()])
             ->setRoles(['ROLE_ALLOWED_TO_SWITCH'])
             ->setExtra('label_icon', 'account_circle')
             ->setLinkAttr([

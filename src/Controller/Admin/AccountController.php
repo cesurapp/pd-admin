@@ -26,7 +26,6 @@ use Pd\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,10 +43,7 @@ class AccountController extends AbstractController
     /**
      * Security Manager Add Custom Roles.
      */
-    public const CUSTOM_ROLES = [
-        'ROLE_ACCOUNT_ALLREAD',
-        'ROLE_ACCOUNT_ALLWRITE',
-    ];
+    public const CUSTOM_ROLES = ['ROLE_ACCOUNT_ALLREAD', 'ROLE_ACCOUNT_ALLWRITE'];
 
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -56,29 +52,25 @@ class AccountController extends AbstractController
     {
     }
 
-
     /**
      * Show all Account.
      */
-    #[Route('/account', name: 'admin_account_list')]
+    #[Route('/account', name: 'admin.account_list')]
     #[IsGranted(['ROLE_ACCOUNT_LIST'])]
     public function list(Request $request, UserRepository $userRepo, PaginatorInterface $paginator): Response
     {
-        // Query
         $query = $userRepo->filter($request);
 
         // Check Owner or All Access
-        if (!$this->isGranted('ADMIN_ACCOUNT_ALLREAD')) {
+        if (!$this->isGranted('ROLE_ACCOUNT_ALLREAD')) {
             $query->andWhere('u.id = :id')->setParameter('id', $this->getUser()->getId());
         }
 
-        // Get Result
         $pagination = $paginator->paginate($query->getQuery(),
             $request->query->getInt('page', 1),
             $this->bag->get('list_count')
         );
 
-        // Render Page
         return $this->render('admin/account/list.html.twig', [
             'users' => $pagination,
         ]);
@@ -89,14 +81,14 @@ class AccountController extends AbstractController
      */
     #[Route('/account/{user}', name: 'admin_account_edit')]
     #[IsGranted(['ROLE_ACCOUNT_EDIT'])]
-    public function edit(Request $request, ParameterBagInterface $bag, User $user): Response
+    public function edit(Request $request, User $user): Response
     {
         // Check Read Only
         $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
 
         // Create Form
         $form = $this->createForm(ProfileType::class, $user, [
-            'parameter_bag' => $bag,
+            'active_language' => $this->bag->get('active_language'),
         ]);
 
         // Handle Request
@@ -112,11 +104,11 @@ class AccountController extends AbstractController
 
             // Change Site Language
             if ($this->getUser()->getId() === $user->getId()) {
-                $request->getSession()->set('_locale', $form->get('profile')['language']->getData());
+                $request->getSession()->set('_locale', $form->get('language')->getData());
             }
 
             // Flash Message
-            $this->addFlash('success', 'changes_saved');
+            $this->addFlash('success', 'message.saved');
         }
 
         // Render Page
@@ -297,7 +289,7 @@ class AccountController extends AbstractController
         $this->addFlash('success', 'remove_complete');
 
         // Redirect back
-        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_account_list')));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin.account_list')));
     }
 
     /**
@@ -321,7 +313,7 @@ class AccountController extends AbstractController
         $this->addFlash('success', 'changes_saved');
 
         // Redirect back
-        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_account_list')));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin.account_list')));
     }
 
     /**
@@ -345,7 +337,7 @@ class AccountController extends AbstractController
         $this->addFlash('success', 'changes_saved');
 
         // Redirect back
-        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_account_list')));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin.account_list')));
     }
 
     /**

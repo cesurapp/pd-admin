@@ -11,7 +11,8 @@
 
 namespace App\Form\Config;
 
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -22,51 +23,50 @@ use Symfony\Component\Form\FormBuilderInterface;
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
-class MediaForm extends ConfigAbstractType
+class MediaForm extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('media_optimize', ChoiceType::class, [
-                'label' => 'media_optimize',
-                'help' => 'media_optimize_info',
-                'choices' => [
-                    'enable' => 1,
-                    'disable' => 0,
-                ],
-                'empty_data' => '1',
-                'multiple' => false,
-                'expanded' => true,
+            ->add('media_optimize', CheckboxType::class, [
+                'label' => 'config.media.optimize',
+                'label_attr' => ['class' => 'checkbox-switch'],
+                'help' => 'config.media.optimize_help',
                 'required' => false,
-                'placeholder' => false,
             ])
             ->add('media_max_height', IntegerType::class, [
-                'label' => 'media_max_height',
-                'help' => 'media_max_height_info',
-                'empty_data' => '1024',
-                'attr' => ['placeholder-nt' => '1024'],
+                'label' => 'config.media.max_height',
+                'help' => 'config.media.max_height_help',
+                'empty_data' => '1920',
+                'attr' => ['placeholder-nt' => '1920'],
                 'required' => false,
             ])
             ->add('media_max_width', IntegerType::class, [
-                'label' => 'media_max_width',
-                'help' => 'media_max_width_info',
-                'empty_data' => '768',
-                'attr' => ['placeholder-nt' => '768'],
+                'label' => 'config.media.max_width',
+                'help' => 'config.media.max_width_help',
+                'empty_data' => '1080',
+                'attr' => ['placeholder-nt' => '1080'],
                 'required' => false,
             ])
             ->add('media_quality', RangeType::class, [
-                'label' => 'media_quality',
-                'help' => 'media_quality_info',
+                'label' => 'config.media.quality',
+                'help' => 'config.media.quality_help',
                 'attr' => [
                     'min' => 1,
                     'max' => 100,
                     'step' => 1,
                 ],
                 'empty_data' => '80',
-                'required' => false,
+                'required' => false
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'save',
+                'label' => 'button.save',
+                'validate' => false
             ]);
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return '';
     }
 }

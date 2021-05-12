@@ -24,24 +24,24 @@ class Navigation extends Menu
     public function createMenu(array $options = []): ItemInterface
     {
         // Create Root Item
-        $menu = $this->createRoot('nav_settings')->setChildAttr([
-            'sidebar' => 'nav_system',
+        $menu = $this->createRoot('config_toolbar')->setChildAttr([
+            'sidebar' => 'config.system',
         ]);
 
         // Create Menu Items
-        $menu->addChild('nav_config_general')
-            ->setLabel('nav_config_general')
-            ->setRoute('admin_config_general')
+        $menu->addChild('general')
+            ->setLabel('config.general.title')
+            ->setRoute('admin.config_general')
             ->setRoles(['ROLE_CONFIG_GENERAL'])
             // Account
-            ->addChildParent('nav_config_user')
-            ->setLabel('nav_config_user')
-            ->setRoute('admin_config_user')
+            ->addChildParent('user')
+            ->setLabel('config.user.title')
+            ->setRoute('admin.config_user')
             ->setRoles(['ROLE_CONFIG_USER'])
             // Media
-            ->addChildParent('nav_config_media')
-            ->setLabel('nav_config_media')
-            ->setRoute('admin_config_media')
+            ->addChildParent('media')
+            ->setLabel('config.media.title')
+            ->setRoute('admin.config_media')
             ->setRoles(['ROLE_CONFIG_MEDIA']);
 
         return $menu;

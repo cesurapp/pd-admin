@@ -109,12 +109,6 @@ class SettingsMenu extends Menu
             ->setRoute('admin_config_general')
             ->setLinkAttr(['class' => 'nav-item'])
             ->setRoles(['ROLE_CONFIG_GENERAL'])
-            // Contact
-            ->addChildParent('nav_config_contact')
-            ->setLabel('nav_config_contact')
-            ->setRoute('admin_config_contact')
-            ->setLinkAttr(['class' => 'nav-item'])
-            ->setRoles(['ROLE_CONFIG_CONTACT'])
             // Email
             ->addChildParent('nav_config_email')
             ->setLabel('nav_config_email')

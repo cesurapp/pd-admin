@@ -90,8 +90,12 @@ class Config
         return null;
     }
 
-    public function setValue(?string $value): self
+    public function setValue($value): self
     {
+        if (is_array($value)) {
+            $value = serialize($value);
+        }
+
         $this->value = $value;
 
         return $this;

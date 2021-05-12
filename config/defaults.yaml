@@ -2,32 +2,37 @@ parameters:
     ##
     # Core Config
     ##
-    active_language: [en, tr]
-    user_registration: true
-    user_default_group: null
-    user_login_redirect: admin_dashboard
-    user_logout_redirect: security_login
-    user_email_confirmation: true
-    user_welcome_email: true
+    app.active_language: [ en, tr ]
+    app.user_registration: true
+    app.user_default_group: null
+    app.user_login_redirect: admin.dashboard
+    app.user_logout_redirect: security_login
+    app.user_email_confirmation: true
+    app.user_welcome_email: true
 
     ##
     # General Default Config
     ##
-    head_title: 'pdAdmin'
-    head_title_pattern: '&T - &P'
-    head_description: ''
-    head_author: 'pdAdmin'
-    head_keywords: 'pdAdmin, opensource'
-    footer_copyright: 'pdAdmin Developed for Symfony 5'
-    default_locale: 'tr'
-    list_count: 30
-    site_logo: 'default/logo.png'
-    site_favicon: 'default/favicon.ico'
+    app.head_title: 'pdAdmin'
+    app.head_title_pattern: '&T - &P'
+    app.head_description: ''
+    app.head_author: 'pdAdmin'
+    app.head_keywords: 'pdAdmin, opensource'
+    app.footer_copyright: 'pdAdmin Developed for Symfony 5'
+    app.default_locale: 'tr'
+    app.list_count: 30
+    app.site_logo: 'default/logo.png'
+    app.site_favicon: 'default/favicon.ico'
 
     ##
     # Media Default Config
     ##
-    media_optimize: 1
-    media_max_width: 1028
-    media_max_height: 768
-    media_quality: 75
+    app.media_optimize: 1
+    app.media_max_width: 1028
+    app.media_max_height: 768
+    app.media_quality: 75
+
+    ##
+    # API
+    ##
+    api.route: ^/api

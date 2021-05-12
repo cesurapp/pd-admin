@@ -11,7 +11,6 @@
 
 namespace App\Controller\Admin;
 
-use App\Form\Config\ContactForm;
 use App\Form\Config\GeneralForm;
 use App\Form\Config\MediaForm;
 use App\Form\Config\UserForm;
@@ -31,72 +30,35 @@ class ConfigController extends AbstractController
 {
     /**
      * General Configuration.
-     *
-     * @IsGranted("ROLE_CONFIG_GENERAL")
-     * @Route(name="admin_config_general", path="/config")
      */
+    #[Route('/config', name: 'admin.config_general')]
+    #[IsGranted(['ROLE_CONFIG_GENERAL'])]
     public function general(Request $request, ConfigBag $bag): Response
     {
         // Create Form
-        $form = $this->createForm(GeneralForm::class, $bag->getAll(), ['active_language' => $bag->get('active_language')]);
-
-        // Handle Request
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Save DB
-            $bag->saveForm($form);
-
-            // Flash Message
-            $this->addFlash('success', 'changes_saved');
-
-            // Refresh Page
-            return $this->redirectToRoute('admin_config_general');
-        }
-
-        // Render Page
-        return $this->render('admin/config/index.html.twig', [
-            'form' => $form->createView(),
-            'page_title' => 'config_general',
+        $form = $this->createForm(GeneralForm::class, $bag->getAll(), [
+            'active_language' => $bag->get('active_language')
         ]);
-    }
-
-    /**
-     * Contact Settings.
-     *
-     * @IsGranted("ROLE_CONFIG_CONTACT")
-     * @Route(name="admin_config_contact", path="/config/contact")
-     */
-    public function contact(Request $request, ConfigBag $bag): Response
-    {
-        // Create Form
-        $form = $this->createForm(ContactForm::class, $bag->getAll());
 
         // Handle Request
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Save
             $bag->saveForm($form);
-
-            // Flash Message
-            $this->addFlash('success', 'changes_saved');
-
-            // Refresh Page
-            return $this->redirectToRoute('admin_config_contact');
+            $this->addFlash('success', 'message.saved');
+            return $this->redirectToRoute('admin.config_general');
         }
 
         // Render Page
         return $this->render('admin/config/index.html.twig', [
             'form' => $form->createView(),
-            'page_title' => 'config_contact',
         ]);
     }
 
     /**
      * Media Settings.
-     *
-     * @IsGranted("ROLE_CONFIG_MEDIA")
-     * @Route(name="admin_config_media", path="/config/media")
      */
+    #[Route('/config/media', name: 'admin.config_media')]
+    #[IsGranted(['ROLE_CONFIG_MEDIA'])]
     public function media(Request $request, ConfigBag $bag): Response
     {
         // Create Form
@@ -104,56 +66,39 @@ class ConfigController extends AbstractController
 
         // Handle Request
         $form->handleRequest($request);
-
-        // Submit & Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
-            // Save Config
             $bag->saveForm($form);
-
-            // Flash Message
-            $this->addFlash('success', 'changes_saved');
-
-            // Refresh Page
-            return $this->redirectToRoute('admin_config_media');
+            $this->addFlash('success', 'message.saved');
+            return $this->redirectToRoute('admin.config_media');
         }
 
         // Render Page
         return $this->render('admin/config/index.html.twig', [
             'form' => $form->createView(),
-            'page_title' => 'config_media',
         ]);
     }
 
     /**
      * Account Settings.
-     *
-     * @IsGranted("ROLE_CONFIG_USER")
-     * @Route(name="admin_config_user", path="/config/user")
      */
+    #[Route('/config/user', name: 'admin.config_user')]
+    #[IsGranted(['ROLE_CONFIG_USER'])]
     public function user(Request $request, ConfigBag $bag): Response
     {
         // Create Form
-        $form = $this->createForm(UserForm::class, $bag->getAll(), ['router' => $this->get('router')]);
+        $form = $this->createForm(UserForm::class, $bag->getAll());
 
         // Handle Request
         $form->handleRequest($request);
-
-        // Submit & Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
-            // Save Config
             $bag->saveForm($form);
-
-            // Flash Message
-            $this->addFlash('success', 'changes_saved');
-
-            // Refresh Page
-            return $this->redirectToRoute('admin_config_user');
+            $this->addFlash('success', 'message.saved');
+            return $this->redirectToRoute('admin.config_user');
         }
 
         // Render Page
         return $this->render('admin/config/index.html.twig', [
             'form' => $form->createView(),
-            'page_title' => 'config_user',
         ]);
     }
 }

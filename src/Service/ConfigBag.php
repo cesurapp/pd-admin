@@ -30,7 +30,7 @@ class ConfigBag
     public function __construct(
         private ConfigRepository $configRepo,
         private ParameterBagInterface $bag,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
     )
     {
     }
@@ -45,6 +45,11 @@ class ConfigBag
         // Load DB
         if (!empty($this->configs[$name])) {
             return $this->configs[$name];
+        }
+
+        // Load Default App Parameters
+        if ($this->bag->has('app.' . $name)) {
+            return $this->bag->get('app.' . $name);
         }
 
         // Load Symfony Parameters
@@ -98,6 +103,12 @@ class ConfigBag
         // Check Config
         if (count($this->configs) > 0) {
             return;
+        }
+
+        foreach ($this->bag->all() as $key => $item) {
+            if (str_contains($key, 'app.')) {
+                $this->configs[str_replace('app.', '', $key)] = $item;
+            }
         }
 
         // Load Cache|Repository
@@ -174,16 +185,15 @@ class ConfigBag
                         ->setValue(json_encode($data));
                     break;
                 case 'file':
-                    /*if ($itemData instanceof UploadedFile || \is_array($itemData)) {
-                        // Delete Old File
+                    if ($item->getData()) {
                         FileUpload::removeFiles($this->configs[$itemName]);
 
-                        // Upload New File
-                        $uploadManager = new FileUpload($this);
-                        $formData[$itemName] = $uploadManager->upload($itemData, true);
-                    } else {
-                        $formData[$itemName] = $this->configs[$itemName] ?? null;
-                    }*/
+                        $file = (new FileUpload($this))->upload($item->getData(), false);
+                        $configItems[] = (new Config())
+                            ->setName($itemName)
+                            ->setType(is_array($item->getData()) ? 'array' : 'string')
+                            ->setValue(is_array($item->getData()) ? $file : $file[0]);
+                    }
                     break;
                 default:
                     $configItems[] = (new Config())

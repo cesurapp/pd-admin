@@ -12,7 +12,7 @@
     },
     "dependencies": {
         "axios": "^0.21.1",
-        "bootstrap": "^5.0.0-beta1",
+        "bootstrap": "^5.0.0",
         "vue": "^3.0.5"
     },
     "license": "MIT",

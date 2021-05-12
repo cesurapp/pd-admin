@@ -12,6 +12,7 @@
 namespace App\Twig;
 
 use App\Service\ConfigBag;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
@@ -22,11 +23,10 @@ use Twig\TwigFunction;
  */
 class FunctionExtension extends AbstractExtension
 {
-    private ConfigBag $bag;
-
-    public function __construct(ConfigBag $bag)
+    public function __construct(
+        private ConfigBag $bag,
+        private TranslatorInterface $translator)
     {
-        $this->bag = $bag;
     }
 
     /**
@@ -39,6 +39,7 @@ class FunctionExtension extends AbstractExtension
             new TwigFunction('inArray', [$this, 'inArray']),
             new TwigFunction('pathInfo', [$this, 'pathInfo']),
             new TwigFunction('basename', [$this, 'basename']),
+            new TwigFunction('flashJsonMessage', [$this, 'flashJsonMessage']),
         ];
     }
 
@@ -72,5 +73,19 @@ class FunctionExtension extends AbstractExtension
     public function basename($path): string
     {
         return basename($path);
+    }
+
+    /**
+     * Flash Message to JSON Format and Translated
+     */
+    public function flashJsonMessage(array $messages): string
+    {
+        $translated = [];
+
+        foreach ($messages as $type => $items) {
+            $translated[$type] = array_map(fn ($message) => $this->translator->trans($message), $items);
+        }
+
+        return json_encode($translated);
     }
 }

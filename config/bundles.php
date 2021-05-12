@@ -17,4 +17,7 @@ return [
     Pd\UserBundle\PdUserBundle::class => ['all' => true],
     Pd\WidgetBundle\PdWidgetBundle::class => ['all' => true],
     Pd\MenuBundle\PdMenuBundle::class => ['all' => true],
+    Pd\ActivityBundle\PdActivityBundle::class => ['all' => true],
+    Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle::class => ['all' => true],
+    Pd\ApiBundle\PdApiBundle::class => ['all' => true],
 ];

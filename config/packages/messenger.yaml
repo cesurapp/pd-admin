@@ -1,6 +1,10 @@
 framework:
     messenger:
         transports:
-            async: '%env(MESSENGER_TRANSPORT_DSN)%'
+            async:
+                dsn: '%env(MESSENGER_TRANSPORT_DSN)%'
+                retry_strategy:
+                    max_retries: 1
         routing:
             'Symfony\Component\Mailer\Messenger\SendEmailMessage': async
+            'Pd\ActivityBundle\Message\ActivityLogMessage': async

@@ -52,7 +52,7 @@ class Toolbar extends Menu
             $languageDropdown
                 ->addChild($label)
                 ->setLabel($label)
-                ->setRoute('admin_language', ['lang' => $key])
+                ->setRoute('admin.language', ['lang' => $key])
                 ->setExtra('label_translate', false)
                 ->setLinkAttr(['class' => ($options['locale'] === $key) ? 'dropdown-item active' : 'dropdown-item']);
         }
@@ -98,7 +98,7 @@ class Toolbar extends Menu
                 // Return Admin (Role Switch)
                 ->addChildParent('nav_profile_return_admin')
                 ->setLabel('nav_profile_return_admin')
-                ->setRoute('admin_dashboard', ['_switch_user' => '_exit'])
+                ->setRoute('admin.dashboard', ['_switch_user' => '_exit'])
                 ->setLinkAttr(['class' => 'dropdown-item bg-warning'])
                 ->setExtra('label_icon', 's fa-arrow-circle-left')
                 ->setRoles(['IS_IMPERSONATOR'])

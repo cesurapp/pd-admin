@@ -29,7 +29,7 @@ class DashboardController extends AbstractController
     /**
      * Dashboard Index.
      */
-    #[Route('/', name: 'admin_dashboard')]
+    #[Route('/', name: 'admin.dashboard')]
     #[IsGranted(['ROLE_DASHBOARD_PANEL'])]
     public function index(): Response
     {
@@ -40,7 +40,7 @@ class DashboardController extends AbstractController
     /**
      * Change Language for Session.
      */
-    #[Route('/language/{lang}', name: 'admin_language')]
+    #[Route('/language/{lang}', name: 'admin.language')]
     public function changeLanguage(Request $request, WidgetInterface $widget, string $lang): RedirectResponse
     {
         // Set Language for Session
@@ -50,6 +50,6 @@ class DashboardController extends AbstractController
         $widget->clearWidgetCache();
 
         // Return Back
-        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_dashboard')));
+        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin.dashboard')));
     }
 }

@@ -29,9 +29,7 @@ class UserRepository extends ServiceEntityRepository
      */
     public function filter(Request $request): QueryBuilder
     {
-        $query = $this->createQueryBuilder('u')
-            ->leftJoin('u.profile', 'p')
-            ->addSelect('p');
+        $query = $this->createQueryBuilder('u');
 
         // Add Filter
         if ($request->get('status')) {
@@ -39,7 +37,7 @@ class UserRepository extends ServiceEntityRepository
         }
         if ($request->get('filter')) {
             $query
-                ->where('(u.email LIKE :filter) or (p.firstName LIKE :filter) or (p.lastName LIKE :filter) or (p.phone LIKE :filter) or (p.company LIKE :filter)')
+                ->where('(u.email LIKE :filter) or (u.firstName LIKE :filter) or (u.lastName LIKE :filter) or (u.phone LIKE :filter)')
                 ->setParameter('filter', "%{$request->get('filter')}%");
         }
 

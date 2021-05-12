@@ -25,7 +25,7 @@
     {# Main Navigation #}
     <sidebar>
         <div class="logo">
-            <a href="{{ path('admin_dashboard') }}"><img src="{{ asset(bag.get('site_logo'), 'upload') }}"></a>
+            <a href="{{ path('admin.dashboard') }}"><img src="{{ asset(bag.get('site_logo'), 'upload') }}"></a>
         </div>
         {{ pd_menu_render('App\\Menu\\Sidebar') }}
         <footer>{{ bag.get('footer_copyright')|raw }}</footer>
@@ -52,7 +52,7 @@
 
 <!--Vue App Init-->
 {% block initVue %}{% endblock %}
-<script>window.flashBag = {{ app.session.flashBag.all|json_encode|raw }}</script>
+<script>window.flashBag = {{ flashJsonMessage(app.session.flashBag.all)|raw }}</script>
 <script src="{{ asset('build/admin/app.js') }}"></script>
 
 </body>

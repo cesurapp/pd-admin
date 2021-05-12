@@ -3,9 +3,13 @@ security:
         App\Entity\Account\User:
             algorithm: auto
     role_hierarchy:
-        ROLE_ADMIN: [ROLE_USER]
+        ROLE_SUPER_ADMIN: [ROLE_USER]
     providers:
         pdadmin_auth:
+            entity:
+                class: App\Entity\Account\User
+                property: email
+        pdadmin_api:
             entity:
                 class: App\Entity\Account\User
                 property: email
@@ -25,15 +29,31 @@ security:
                 use_referer: true
                 login_path: security_login
                 check_path: security_login
-                default_target_path: "%user_login_redirect%"
+                default_target_path: "%app.user_login_redirect%"
                 csrf_token_generator: security.csrf.token_manager
             logout:
                 path: security_logout
-                target: '%user_logout_redirect%'
+                target: '%app.user_logout_redirect%'
             remember_me:
                 secret:   '%env(APP_SECRET)%'
                 lifetime: 604800 # 1 Week - 1 Month -> 2592000
                 path:     /
+        api:
+            pattern: "%api.route%"
+            stateless: true
+            anonymous: true
+            provider: pdadmin_api
+            json_login:
+                check_path: /api/auth/login
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            guard:
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
     access_control:
         # Admin Panel
-        - { path: '^/admin', role: 'ROLE_ADMIN' }
+        - { path: '^/admin', role: 'ROLE_USER' }
+
+        # API
+        #- { path: "%api.route%/doc", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%api.route%/auth", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: "%api.route%", roles: IS_AUTHENTICATED_FULLY }

@@ -27,7 +27,7 @@ class Sidebar extends Menu
         $menu = $this->createRoot('main_menu', true);
         $menu->addChild('nav_dashboard', 1)
             ->setLabel('nav_dashboard')
-            ->setRoute('admin_dashboard')
+            ->setRoute('admin.dashboard')
             ->setRoles(['ROLE_DASHBOARD'])
             ->setExtra('label_icon', 's fa-chart-pie');
 
@@ -37,13 +37,13 @@ class Sidebar extends Menu
         $menu
             ->addChild('nav_accounts', 20)
             ->setLabel('nav_account')
-            ->setRoute('admin_account_list')
+            ->setRoute('admin.account_list')
             ->setRoles(['ROLE_ACCOUNT_LIST'])
             ->setExtra('label_icon', 's fa-user-shield')
                 // Account List
                 ->addChild('nav_account', 10)
                 ->setLabel('nav_account')
-                ->setRoute('admin_account_list')
+                ->setRoute('admin.account_list')
                 ->setRoles(['ROLE_ACCOUNT_LIST'])
                 // Group List
                 ->addChildParent('nav_group', 20)
@@ -55,21 +55,15 @@ class Sidebar extends Menu
          * Settings Menus
          */
         $menu
-            ->addChild('nav_config', 50)
-            ->setLabel('nav_config')
-            ->setRoute('admin_config_general')
+            ->addChild('config', 50)
+            ->setLabel('config.title')
+            ->setRoute('admin.config_general')
             ->setExtra('label_icon', 's fa-cogs')
-            ->setRoles(['ROLE_SETTINGS'])
-                // System Settings Divider
-                ->addChild('nav_system_header', 1)
-                ->setLabel('nav_system_header')
-                ->setListAttr(['class' => 'header'])
-                ->setLabelAttr(['class' => 'title'])
-                ->setRoles(['ROLE_CONFIG_GENERAL'])
+            ->setRoles(['ROLE_CONFIG_GENERAL'])
                 // Admin Settings
-                ->addChildParent('nav_system', 10)
-                ->setLabel('nav_system')
-                ->setRoute('admin_config_general')
+                ->addChild('config.system', 10)
+                ->setLabel('config.system')
+                ->setRoute('admin.config_general')
                 ->setRoles(['ROLE_CONFIG_GENERAL']);
 
         return $menu;

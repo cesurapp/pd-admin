@@ -1,14 +1,12 @@
 {# Template Parts #}
-{% extends "Admin/Layout/base.html.twig" %}
+{% extends "admin/layout/base.html.twig" %}
 
 {% block head_title %}{{ title(page_title|trans) }}{% endblock %}
 {% block content_title %}<i class="fas fa-user-shield"></i>{{ page_title|trans }}{% endblock %}
 
 {# Content Body #}
 {% block content_body %}
-    {% if page_menu is defined %}
-        <content-menu>{{ pd_menu_render(page_menu, { 'item': item.id }) }}</content-menu>
-    {% endif %}
+    <content-menu>{{ pd_menu_render(page_menu, { 'item': item.id }) }}</content-menu>
 
     <div class="forms">
         {% if form.acl is not defined %}

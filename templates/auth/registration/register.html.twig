@@ -13,6 +13,7 @@
                 <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-envelope"></i></span>
                 {{ form_widget(form.email) }}
             </div>
+            {{ form_errors(form.email) }}
         </div>
         <div class="mb-3">
             {{ form_label(form.plainPassword.first) }}
@@ -20,6 +21,7 @@
                 <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-lock"></i></span>
                 {{ form_widget(form.plainPassword.first) }}
             </div>
+            {{ form_errors(form.plainPassword.first) }}
         </div>
         <div class="mb-4">
             {{ form_label(form.plainPassword.second) }}
@@ -27,6 +29,7 @@
                 <span class="input-group-text" id="inputGroup-sizing-default"><i class="fas fa-lock"></i></span>
                 {{ form_widget(form.plainPassword.second) }}
             </div>
+            {{ form_errors(form.plainPassword.second) }}
         </div>
 
         <!--Submit-->

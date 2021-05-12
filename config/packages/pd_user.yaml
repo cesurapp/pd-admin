@@ -2,7 +2,7 @@ pd_user:
     user_class: App\Entity\Account\User
     group_class: App\Entity\Account\Group
     default_group: 1
-    login_redirect: 'admin_dashboard'
+    login_redirect: 'admin.dashboard'
     email_confirmation: true
     welcome_email: true
     user_registration: true
@@ -10,5 +10,5 @@ pd_user:
     resetting_request_time: 7200
     mail_sender_address: '%env(resolve:MAILER_FROM_EMAIL)%'
     mail_sender_name: '%env(resolve:MAILER_FROM_NAME)%'
-    active_language: "%active_language%"
+    active_language: "%app.active_language%"
     register_type: App\Form\Account\RegisterType
