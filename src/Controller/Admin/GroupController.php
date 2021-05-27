@@ -13,16 +13,16 @@ namespace App\Controller\Admin;
 
 use App\Entity\Account\Group;
 use App\Form\Account\RolesType;
-use App\Menu\Group\Navigation;
 use App\Repository\Account\GroupRepository;
 use App\Service\ConfigBag;
 use App\Service\SecurityService;
+use App\Tables\GroupListTable;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Pd\UserBundle\Form\GroupType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -34,26 +34,31 @@ use Symfony\Component\Routing\Annotation\Route;
  */
 class GroupController extends AbstractController
 {
+    public function __construct(private EntityManagerInterface $em)
+    {
+    }
+
     /**
      * List Groups.
      *
      * @IsGranted("ROLE_GROUP_LIST")
-     * @Route(name="admin_group_list", path="/group")
      */
-    public function list(Request $request, GroupRepository $groupRepo, ConfigBag $bag, PaginatorInterface $paginator): Response
+    #[Route('/group', name: 'admin.group_list')]
+    public function list(Request $request, GroupRepository $groupRepo, GroupListTable $table, ConfigBag $bag, PaginatorInterface $paginator): Response
     {
-        // Get Groups
-        $query = $groupRepo->createQueryBuilder('g');
+        $table
+            ->handleQueryBuilder($query = $groupRepo->createQueryBuilder('q'))
+            ->handleRequest($request);
 
         // Get Result
-        $pagination = $paginator->paginate($query,
+        $data = $paginator->paginate($query,
             $request->query->getInt('page', 1),
             $bag->get('list_count')
         );
 
         // Render Page
-        return $this->render('Admin/Account/listGroup.html.twig', [
-            'groups' => $pagination,
+        return $request->isXmlHttpRequest() ? $this->json($data) : $this->render('Admin/Account/listGroup.html.twig', [
+            'table' => $table
         ]);
     }
 
@@ -61,73 +66,47 @@ class GroupController extends AbstractController
      * Create New Group.
      *
      * @IsGranted("ROLE_GROUP_CREATE")
-     * @Route(name="admin_group_create", path="/group/create")
      */
-    public function create(Request $request, EntityManagerInterface $em): Response
+    #[Route('/group/create', name: 'admin.group_create')]
+    public function create(Request $request, Group $group = null): Response
     {
         // Create Form
-        $group = new Group(null);
+        $group ??= new Group(null);
         $form = $this->createForm(GroupType::class, $group);
 
         // Handle Request
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            // Save
-            $em->persist($group);
-            $em->flush();
+            $this->em->persist($group);
+            $this->em->flush();
 
-            // Success Message
-            $this->addFlash('success', 'changes_saved');
-
-            // Redirect Edit
-            return $this->redirectToRoute('admin_group_edit', ['group' => $group->getId()]);
+            return $this->json($group);
         }
 
         // Render Page
-        return $this->render('admin/account/edit.html.twig', [
-            'page_title' => 'account_group_edit_title',
-            'form' => $form->createView(),
-        ]);
+        return $this
+            ->render('admin/account/groupEdit.html.twig', ['form' => $form->createView()])
+            ->setStatusCode($form->isSubmitted() && !$form->isValid() ? 403 : 200);
     }
 
     /**
      * Edit Group.
      *
      * @IsGranted("ROLE_GROUP_EDIT")
-     * @Route(name="admin_group_edit", path="/group/{group}")
      */
-    public function edit(Request $request, Group $group, EntityManagerInterface $em): Response
+    #[Route('/group/{group}/edit', name: 'admin.group_edit')]
+    public function edit(Request $request, Group $group): Response
     {
-        // Create Form
-        $form = $this->createForm(GroupType::class, $group);
-
-        // Handle Request
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Save
-            $em->persist($group);
-            $em->flush();
-
-            // Message
-            $this->addFlash('success', 'changes_saved');
-        }
-
-        // Render Page
-        return $this->render('admin/account/edit.html.twig', [
-            'page_title' => 'account_group_edit_title',
-            'page_menu' => Navigation::class,
-            'form' => $form->createView(),
-            'item' => $group,
-        ]);
+        return $this->create($request, $group);
     }
 
     /**
      * Edit Group Roles.
      *
      * @IsGranted("ROLE_GROUP_ROLES")
-     * @Route(name="admin_group_roles", path="/group/{group}/roles")
      */
-    public function roles(Group $group, Request $request, EntityManagerInterface $em, SecurityService $security): Response
+    #[Route('/group/{group}/roles', name: 'admin.group_roles')]
+    public function roles(Group $group, Request $request, SecurityService $security): Response
     {
         // Set Form & Request
         $form = $this->createForm(RolesType::class, null, [
@@ -143,45 +122,37 @@ class GroupController extends AbstractController
             $roles = $form->get('roles')->getData();
             if ($form->has('acl')) {
                 $roles = array_merge($roles, [$form->get('acl')->getData()]);
-                $roles = array_merge($roles, $form->get('aclprocess')->getData());
+                $roles = array_merge($roles, $form->get('aclProcess')->getData());
             }
             if ($roles) {
                 $group->setRoles($roles);
             }
 
             // Save
-            $em->persist($group);
-            $em->flush();
+            $this->em->persist($group);
+            $this->em->flush();
 
-            // Message
-            $this->addFlash('success', 'changes_saved');
+            return $this->json($group);
         }
 
         // Render Page
-        return $this->render('admin/account/edit.html.twig', [
-            'page_title' => 'account_group_role_title',
-            'page_menu' => Navigation::class,
-            'form' => $form->createView(),
-            'item' => $group,
-        ]);
+        return $this
+            ->render('admin/account/groupEdit.html.twig', ['form' => $form->createView()])
+            ->setStatusCode($form->isSubmitted() && !$form->isValid() ? 403 : 200);
     }
 
     /**
      * Delete Group.
      *
      * @IsGranted("ROLE_GROUP_DELETE")
-     * @Route(name="admin_group_delete", path="/group/{group}/delete")
      */
-    public function delete(Request $request, EntityManagerInterface $em, Group $group): RedirectResponse
+    #[Route('/group/{group}/delete', name: 'admin.group_delete', methods: ['DELETE'])]
+    public function delete(Group $group): JsonResponse
     {
         // Remove
-        $em->remove($group);
-        $em->flush();
+        $this->em->remove($group);
+        $this->em->flush();
 
-        // Add Flash
-        $this->addFlash('success', 'changes_saved');
-
-        // Redirect back
-        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin_group_list')));
+        return $this->json(['status' => true]);
     }
 }

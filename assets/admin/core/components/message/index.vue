@@ -2,9 +2,9 @@
     <div class="toast-wrapper position-fixed top-0 end-0">
         <transition-group name="toast-container" tag="div" class="toast-container">
             <div v-for="(msg, index) in toasts" :key="index" @mouseover="msg.pause = true" @mouseout="msg.pause = false"
-                 :class="msg.type" class="toast show d-flex border-0">
+                 :class="msg.type" class="toast show d-flex border-0 text-white">
                 <div class="toast-body">{{ msg.message }}</div>
-                <button type="button" @click.prevent="remove(msg.id)" class="btn-close ms-auto"></button>
+                <button type="button" @click.prevent="remove(msg.id)" class="btn-close ms-auto btn-close-white"></button>
             </div>
         </transition-group>
     </div>
@@ -52,7 +52,7 @@ export default {
                 type: 'bg-' + type,
                 message: message,
                 paused: false,
-                duration: duration
+                duration: duration || 4000
             });
         },
         remove(id) {
@@ -82,8 +82,10 @@ export default {
 </script>
 
 <style lang="scss">
+@import "../../../_variables.scss";
+
 .toast-wrapper{
-    z-index: 7;
+    z-index: 50;
 }
 
 .toast {
@@ -111,5 +113,9 @@ export default {
 .toast-container > .toast {
     margin-bottom: 0;
     margin-top: .75rem;
+}
+
+.toast-container .bg-success{
+    color: tint-color($success, 95%);
 }
 </style>

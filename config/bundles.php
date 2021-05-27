@@ -20,4 +20,5 @@ return [
     Pd\ActivityBundle\PdActivityBundle::class => ['all' => true],
     Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle::class => ['all' => true],
     Pd\ApiBundle\PdApiBundle::class => ['all' => true],
+    Sonata\Exporter\Bridge\Symfony\SonataExporterSymfonyBundle::class => ['all' => true],
 ];

@@ -1,39 +1,107 @@
 <template>
+    <div class="dashboard">
+        <div ref="container" class="wrap">
+            <slot></slot>
+        </div>
+    </div>
 </template>
+
 <script>
+import Sortable from 'sortablejs/Sortable.min';
+
 export default {
     mounted() {
-        /**
-         * Widget Sortable
-         */
-        /*let Sortable = require('sortablejs');
-        $(document).ready(function () {
-            let el = document.querySelector('.dashboard');
-            if (el) {
-                new Sortable(el, {
-                    draggable: ".widget",
-                    handle: ".mover",
-                    animation: 200,
-                    forceFallback: true,
-
-                    onEnd: function (evt) {
-                        $.each(evt.to.children, function (index, element) {
-                            // Get Order URL
-                            let orderUrl = $(element).data('order');
-                            orderUrl = orderUrl.replace('0', index);
-
-                            // Send Ajax Data
-                            $.ajax({
-                                url: orderUrl,
-                                dataType: 'json',
-                                complete: function (response) {
-                                }
-                            });
-                        })
-                    }
-                });
+        Sortable.create(this.$refs.container, {
+            draggable: ".widget",
+            handle: ".mover",
+            animation: 200,
+            forceFallback: true,
+            onEnd: (evt) => {
+                let index = 0;
+                for (let widget of evt.to.children) {
+                    this.$root.http.get(widget.getAttribute('data-order').replace(0, index));
+                    index++;
+                }
             }
-        });*/
+        });
     }
 }
 </script>
+
+<style lang="scss">
+@import "../../_variables.scss";
+
+.dashboard {
+    padding: $grid-gutter-width $grid-gutter-width * 1.5;
+    position: relative;
+
+    .wrap {
+        margin-left: -1rem;
+        display: flex;
+        flex-flow: row wrap;
+    }
+
+    .widget {
+        background: #f1f1f1;
+        border-radius: $border-radius-sm;
+        margin-left: 1rem;
+        margin-bottom: 1rem;
+        position: relative;
+        min-height: 30px;
+        box-shadow: 1px 1px 3px -1px rgb(0 0 0 / 50%);
+
+        &.clean {
+            background: transparent;
+            box-shadow: none;
+        }
+
+        .actions {
+            position: absolute;
+            top: 0;
+            right: 0;
+            opacity: 0;
+            transition: .2s all;
+            transition-delay: .6s;
+        }
+
+        &:hover {
+            .actions {
+                opacity: 1;
+            }
+        }
+
+        &.half {
+            width: calc(50% - 1rem);
+            @include media-breakpoint-down(md) {
+                width: calc(100% - 1rem);
+            }
+        }
+
+        &.full {
+            width: calc(100% - 1rem);
+        }
+    }
+
+    .mover {
+        cursor: move;
+    }
+
+    .nav-link {
+        padding: .5rem .5rem;
+        line-height: .25rem;
+        opacity: .4;
+        transition: .2s all;
+
+        &:hover {
+            background: $primary;
+            color: #FFF;
+            opacity: 1;
+        }
+
+        &.close:hover {
+            background: $danger;
+            color: #FFF;
+        }
+    }
+}
+</style>

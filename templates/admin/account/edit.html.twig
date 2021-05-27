@@ -1,12 +1,11 @@
 {# Template Parts #}
 {% extends "admin/layout/base.html.twig" %}
-
-{% block head_title %}{{ title(page_title|trans) }}{% endblock %}
-{% block content_title %}<i class="fas fa-user-shield"></i>{{ page_title|trans }}{% endblock %}
+{% block head_title %}{{ title('account.title'|trans) }}{% endblock %}
+{% block content_title %}<i class="fas fa-user-shield"></i>{{ 'account.title'|trans }}{% endblock %}
 
 {# Content Body #}
 {% block content_body %}
-    <content-menu>{{ pd_menu_render(page_menu, { 'item': item.id }) }}</content-menu>
+    <content-menu>{{ pd_menu_render('App\\Menu\\NavAccount', { 'item': item.id }) }}</content-menu>
 
     <div class="forms">
         {% if form.acl is not defined %}

@@ -1,0 +1,52 @@
+{# Template Parts #}
+{% extends "admin/layout/base.html.twig" %}
+{% block head_title %}{{ title('activity.mail.title'|trans) }}{% endblock %}
+{% block content_title %}<i class="fas fa-envelope-open-text"></i>{{ 'activity.mail.title'|trans }}{% endblock %}
+
+{# Content Body #}
+{% block content_body %}
+    <off-canvas ref="canvas" id="details">
+        <template v-slot:content v-if="current">
+            <table class="table table-sm table-hover">
+                <tbody>
+                    <tr><th>ID</th><td>${current.id}</td></tr>
+                    <tr><th>Konu</th><td class="text-break">${current.mailSubject}</td></tr>
+                    <tr><th>İçerik</th><td class="text-break">${current.mailBody}</td></tr>
+                    <tr><th>Gönderilme</th><td>${dateISOTime(current.createdAt)}</td></tr>
+                    <tr><th>TO</th><td class="text-break">${current.mailTo}</td></tr>
+                    <tr><th>From</th><td class="text-break">${current.mailFrom}</td></tr>
+                    <tr><th>CC</th><td class="text-break">${current.mailCC}</td></tr>
+                    <tr><th>BCC</th><td class="text-break">${current.mailBcc}</td></tr>
+                </tbody>
+            </table>
+        </template>
+    </off-canvas>
+
+    <datatable
+        data-api="{{ url('admin.activity_log.mail') }}"
+        data-column="{{ table.columnsJson|url_encode }}"
+        data-sort-api="{{ url('admin.data_table') }}"
+        data-sort-table="{{ table.name }}"
+        sort-field="q.id"
+        :actions="null"
+        :checkbox="false"
+        :row-click="onRowClick"
+    >
+    </datatable>
+
+    <script data-type="vue">
+        window.vueApp.push({
+            data(){
+                return {
+                    current: null
+                }
+            },
+            methods:{
+                onRowClick(row) {
+                    this.current = row;
+                    this.$refs.canvas.show();
+                }
+            }
+        })
+    </script>
+{% endblock %}

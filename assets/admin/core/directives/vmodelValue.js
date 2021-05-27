@@ -1,13 +1,19 @@
 export default {
     beforeMount(el, binding, vnode) {
-        let val = binding.value;
+        let val = null;
+        let id = el.id;
         let type = el.getAttribute('data-type');
 
         if (type === 'boolean') {
-            console.log(val);
-            val = Boolean(val);
+            val = Boolean(binding.value);
+        } else if (type === 'date') {
+            val = new Date(binding.value)
+        } else {
+            val = JSON.parse(binding.value);
         }
 
-        vnode.dirs[0].instance.forms[`${el.id}`] = val;
+        setTimeout(() => {
+            vnode.dirs[0].instance.$root.forms[id] = val;
+        }, 10);
     }
 }

@@ -1,0 +1,43 @@
+Pd\ActivityBundle\Entity\ActivityLog:
+    attributes:
+        id:
+            groups: ['default']
+        methodReadable:
+            groups: ['default']
+            serialized_name: method
+        uri:
+            groups: ['default']
+        body:
+            groups: ['default']
+        clientIp:
+            groups: ['default']
+        locale:
+            groups: ['default']
+        createdAt:
+            groups: ['default']
+        owner.fullName:
+            groups: [ 'default' ]
+            serialized_name: owner
+
+Pd\ActivityBundle\Entity\MailLog:
+    attributes:
+        id:
+            groups: ['default']
+        mailToArray:
+            groups: ['default']
+            serialized_name: mailTo
+        mailFromArray:
+            groups: ['default']
+            serialized_name: mailFrom
+        mailCCArray:
+            groups: ['default']
+            serialized_name: mailCC
+        mailBccArray:
+            groups: ['default']
+            serialized_name: mailBcc
+        mailSubject:
+            groups: ['default']
+        mailBody:
+            groups: ['default']
+        createdAt:
+            groups: [ 'default' ]

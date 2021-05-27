@@ -19,18 +19,18 @@
     {% else %}
         {% if type == 'range' %}
             <div class="d-flex align-items-center form-rage-wrap">
-                <input type="{{ type }}" v-slider v-model.number="forms.{{ id|trim }}" {{ block('widget_attributes') }} {% if value is not empty %} data-value="{{ value }}" v-set-value="{{ value|escape('js') }}" {% endif %}/>
+                <input type="{{ type }}" v-slider v-model.number="$root.forms.{{ id|trim }}" {{ block('widget_attributes') }} data-value="{{ value|default(null) }}" v-set-value="{{ value|json_encode|default(null) }}"/>
                 <span class="count">{{ value }}</span>
             </div>
         {% elseif type == 'file' %}
             <div class="d-flex align-items-center file-type">
                 <input type="{{ type }}" {{ block('widget_attributes') }}/>
-                <img src="{{ asset(data, 'upload') }}" class="ms-2 rounded">
+                <img src="{{ asset(data|default(''), 'upload') }}" class="ms-2 rounded">
             </div>
         {% elseif type == 'number' %}
-            <input type="{{ type }}" v-model.number="forms.{{ id|trim }}" {{ block('widget_attributes') }} {% if value is not empty %} v-set-value="'{{ value|escape('js') }}'" {% endif %}/>
+            <input type="{{ type }}" v-model.number="$root.forms.{{ id|trim }}" {{ block('widget_attributes') }} v-set-value="'{{ value|json_encode|default(null) }}'"/>
         {% else %}
-            <input type="{{ type }}" v-model="forms.{{ id|trim }}" {{ block('widget_attributes') }} {% if value is not empty %} v-set-value="'{{ value|escape('js') }}'" {% endif %}/>
+            <input type="{{ type }}" v-model="$root.forms.{{ id|trim }}" {{ block('widget_attributes') }} v-set-value="'{{ value|json_encode|default(null) }}'"/>
         {% endif %}
     {% endif %}
 {%- endblock form_widget_simple -%}
@@ -53,7 +53,7 @@
 {%- endblock collection_widget -%}
 
 {%- block textarea_widget -%}
-    <textarea v-model="forms.{{ id|trim }}" {{ block('widget_attributes') }} v-set-value="'{{ value|escape('js') }}'"></textarea>
+    <textarea v-model="$root.forms.{{ id|trim }}" {{ block('widget_attributes') }} v-set-value="'{{ value|json_encode }}'"></textarea>
 {%- endblock textarea_widget -%}
 
 {%- block choice_widget -%}
@@ -77,22 +77,14 @@
     {%- if required and placeholder is none and not placeholder_in_choices and not multiple and (attr.size is not defined or attr.size <= 1) -%}
         {% set required = false %}
     {%- endif -%}
-    <select v-model="forms.{{ id|trim }}" v-set-value="'{{ value|escape('js') }}'" {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
-        {%- if placeholder is not none -%}
-            <option value=""{% if required and value is empty %} selected="selected"{% endif %}>{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}</option>
-        {%- endif -%}
-        {%- if preferred_choices|length > 0 -%}
-            {% set options = preferred_choices %}
-            {% set render_preferred_choices = true %}
-            {{- block('choice_widget_options') -}}
-            {%- if choices|length > 0 and separator is not none -%}
-                <option disabled="disabled">{{ separator }}</option>
-            {%- endif -%}
-        {%- endif -%}
-        {%- set options = choices -%}
-        {%- set render_preferred_choices = false -%}
-        {{- block('choice_widget_options') -}}
-    </select>
+    <pd-select v-model="$root.forms.{{ id|trim }}"
+        {{ block('widget_attributes') }}
+        {% if multiple %} :multiple="true"{% endif %}
+        {%- if placeholder is not none -%}placeholder="{{ placeholder != '' ? (translation_domain is same as(false) ? placeholder : placeholder|trans({}, translation_domain)) }}"{%- endif -%}
+        :opts="{{ choices|json_encode }}"
+        current="{{ value|json_encode }}"
+    >
+    </pd-select>
 {%- endblock choice_widget_collapsed -%}
 
 {%- block choice_widget_options -%}
@@ -109,11 +101,11 @@
 {%- endblock choice_widget_options -%}
 
 {%- block checkbox_widget -%}
-    <input type="checkbox" v-model="forms.{{ full_name|trim }}"  {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input type="checkbox" v-model="$root.forms.{{ id|trim }}"  {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 {%- endblock checkbox_widget -%}
 
 {%- block radio_widget -%}
-    <input type="radio" v-model="forms.{{ full_name|trim }}" v-set-value="'{{ value|escape('js') }}'" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input type="radio" v-model="$root.forms.{{ id|trim }}" v-set-value="'{{ value|json_encode }}'" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 {%- endblock radio_widget -%}
 
 {%- block datetime_widget -%}

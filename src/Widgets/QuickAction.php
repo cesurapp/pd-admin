@@ -36,28 +36,21 @@ class QuickAction
                 'name' => 'nav_account',
                 'description' => 'admin_account_desc',
                 'route' => 'admin.account_list',
-                'icons' => 'person',
+                'icons' => 'user-shield',
                 'linkClass' => 'btn btn-primary',
             ],
             'action_group' => [
                 'name' => 'nav_group',
                 'description' => 'accouunt_group_list_title',
                 'route' => 'admin_group_list',
-                'icons' => 'group',
+                'icons' => 'users-cog',
                 'linkClass' => 'btn btn-primary',
             ],
             'action_settings' => [
                 'name' => 'settings_general',
                 'description' => 'settings_general_desc',
                 'route' => 'admin.config_general',
-                'icons' => 'settings',
-                'linkClass' => 'btn btn-secondary',
-            ],
-            'mail_manager_logs' => [
-                'name' => 'mail_manager_logger',
-                'description' => 'mail_manager_logger_desc',
-                'route' => 'admin_mail_logger',
-                'icons' => 'send',
+                'icons' => 'cogs',
                 'linkClass' => 'btn btn-secondary',
             ],
         ];
@@ -67,8 +60,8 @@ class QuickAction
             ->addWidget(
                 (new Item('quick_action'))
                     ->setGroup('admin')
-                    ->setName('widget_quick_action.name')
-                    ->setDescription('widget_quick_action.description')
+                    ->setName('widget.quick_action.name')
+                    ->setDescription('widget.quick_action.description')
                     ->setTemplate('admin/widgets/quickAction.html.twig')
                     ->setRole(['ROLE_WIDGET_QUICKACTION'])
                     ->setConfigProcess(static function (Request $request) use ($items) {

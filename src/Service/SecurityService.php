@@ -12,7 +12,6 @@
 namespace App\Service;
 
 use App\Entity\Account\User;
-use Doctrine\Common\Annotations\AnnotationReader;
 use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\RouterInterface;
@@ -24,9 +23,10 @@ use Symfony\Component\Routing\RouterInterface;
  */
 class SecurityService
 {
-    public function __construct(
-        private RouterInterface $router,
-        private WidgetInterface $widget)
+    private array $roles = [];
+    private array $excludeClass = [];
+
+    public function __construct(private RouterInterface $router, private WidgetInterface $widget)
     {
     }
 
@@ -43,96 +43,91 @@ class SecurityService
 
     /**
      * Get All Method Roles.
+     *
+     * @throws \ReflectionException
      */
     public function getRoles(): array
     {
-        // Finds Route Class
-        $routes = $this->router->getRouteCollection()->all();
-        $classMethods = [];
-        foreach ($routes as $route) {
-            // Check Action
-            if (isset($route->getDefaults()['_controller']) && (2 === \count($controller = explode('::', $route->getDefaults()['_controller'])))) {
-                if (!class_exists($controller[0])) {
-                    continue;
-                }
-
-                if (!isset($classMethods[$controller[0]])) {
-                    $classMethods[$controller[0]] = [];
-                }
-                $classMethods[$controller[0]][] = $controller[1];
-            }
-        }
-
-        // Find Class Roles
-        $reader = new AnnotationReader();
-        $roles = [];
-        foreach ($classMethods as $class => $methods) {
-            // Class Reflection
-            try {
+        if (!count($this->roles)) {
+            $this->extractWidgetRoles();
+            foreach ($this->getRouterList() as $class => $methods) {
                 $reflection = new \ReflectionClass($class);
-            } catch (\ReflectionException $e) {
-                break;
-            }
-
-            // Read Class Annotation
-            if ($customRoles = $reflection->getConstant('CUSTOM_ROLES')) {
-                foreach ($customRoles as $role) {
-                    $roleObject = explode('_', $role);
-                    if (3 === count($roleObject)) {
-                        $access = $roleObject[2];
-                        $roleObject = $roleObject[0] . '_' . $roleObject[1];
-
-                        if (isset($roles[$roleObject])) {
-                            $roles[$roleObject][$access] = $roleObject . '_' . $access;
-                        } else {
-                            $roles[$roleObject] = [$access => $roleObject . '_' . $access];
-                        }
-                    }
-                }
-            }
-
-            // Read Method Annotation
-            foreach ($methods as $method) {
-                if (!$reflection->hasMethod($method)) {
-                    continue;
-                }
-
-                foreach ($reader->getMethodAnnotations($reflection->getMethod($method)) as $access) {
-                    if ($access instanceof IsGranted) {
-                        $roleObject = explode('_', $access->getAttributes());
-                        if (3 === \count($roleObject)) {
-                            $access = $roleObject[2];
-                            $roleObject = $roleObject[0] . '_' . $roleObject[1];
-
-                            if (isset($roles[$roleObject])) {
-                                $roles[$roleObject][$access] = $roleObject . '_' . $access;
-                            } else {
-                                $roles[$roleObject] = [$access => $roleObject . '_' . $access];
-                            }
-                        }
-                    }
+                $this->extractClassCustomRoles($reflection);
+                foreach ($methods as $method) {
+                    $this->extractMethodRoles($reflection, $method);
                 }
             }
         }
 
-        // Add Widget Roles
-        $widgets = $this->widget->getWidgets(false);
-        foreach ($widgets as $widget) {
-            if ($widget->getRole()) {
-                foreach ($widget->getRole() as $role) {
-                    $access = explode('_', $role);
+        $roles = [];
+        foreach (array_unique($this->roles) as $role) {
+            $roleObject = explode('_', $role);
+            if (3 === \count($roleObject)) {
+                $access = $roleObject[2];
+                $roleObject = $roleObject[0] . '_' . $roleObject[1];
 
-                    // Set Main
-                    if (!isset($roles[$access[0] . '_' . $access[1]])) {
-                        $roles[$access[0] . '_' . $access[1]] = [];
-                    }
-
-                    // Add Role Access
-                    $roles[$access[0] . '_' . $access[1]][$access[2]] = $role;
+                if (isset($roles[$roleObject])) {
+                    $roles[$roleObject][$access] = $roleObject . '_' . $access;
+                } else {
+                    $roles[$roleObject] = [$access => $roleObject . '_' . $access];
                 }
             }
         }
 
         return $roles;
+    }
+
+    private function extractClassCustomRoles(\ReflectionClass $reflection): void
+    {
+        if ($reflection->hasConstant('CUSTOM_ROLES')) {
+            $this->roles = array_merge($this->roles, array_values($reflection->getConstant('CUSTOM_ROLES')));
+        }
+    }
+
+    private function extractMethodRoles(\ReflectionClass $reflection, string $method): void
+    {
+        if (!$reflection->hasMethod($method)) {
+            return;
+        }
+
+        $roles = array_map(
+            static function ($attribute) {
+                $roles = array_map(static fn($roles) => (array)$roles, $attribute->getArguments());
+                return array_merge([], ...$roles);
+            },
+            $reflection->getMethod($method)->getAttributes(IsGranted::class)
+        );
+
+        $this->roles = array_merge($this->roles, ...$roles);
+    }
+
+    private function extractWidgetRoles(): void
+    {
+        $roles = array_values(array_map(
+            static fn($widget) => $widget->getRole(),
+            $this->widget->getWidgets(false)
+        ));
+
+        $this->roles = array_merge($this->roles, ...$roles);
+    }
+
+    private function getRouterList(): array
+    {
+        $list = [];
+        foreach ($this->router->getRouteCollection()->all() as $router) {
+            if ($router->getDefault('_controller')) {
+                [$class, $method] = explode('::', $router->getDefault('_controller'));
+                if (!class_exists($class) || in_array($class, $this->excludeClass, true)) {
+                    continue;
+                }
+
+                if (!isset($list[$class])) {
+                    $list[$class] = [];
+                }
+                $list[$class][] = $method;
+            }
+        }
+
+        return $list;
     }
 }

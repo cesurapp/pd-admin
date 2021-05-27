@@ -1,5 +1,6 @@
 pd_activity:
-    log_mailer: false
+    log_mailer: true
     log_request: true
+    log_ajax_request: false
     request_exclude_methods: []
     request_match_uri: ^/admin

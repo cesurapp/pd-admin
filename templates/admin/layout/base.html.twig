@@ -19,13 +19,14 @@
 
     {# Head Block #}
     {% block head %}{% endblock %}
+    <script>window.vueApp = [];</script>
 </head>
 <body>
 <section id="app">
     {# Main Navigation #}
     <sidebar>
         <div class="logo">
-            <a href="{{ path('admin.dashboard') }}"><img src="{{ asset(bag.get('site_logo'), 'upload') }}"></a>
+            <a href="{{ path('admin.dashboard') }}"><img src="{{ asset(bag.get('site_logo')|default(''), 'upload') }}"></a>
         </div>
         {{ pd_menu_render('App\\Menu\\Sidebar') }}
         <footer>{{ bag.get('footer_copyright')|raw }}</footer>

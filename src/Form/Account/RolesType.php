@@ -32,12 +32,13 @@ class RolesType extends AbstractType
                 'expanded' => true,
                 'choices' => $options['acl'],
                 'choice_label' => static function ($val, $key, $index) {
-                    return $key.'.title';
+                    return $key . '.title';
                 },
                 'mapped' => false,
                 'data' => key(array_intersect($options['acl'], $options['userRoles'])),
+                'translation_domain' => 'acl'
             ])
-            ->add('aclprocess', ChoiceType::class, [
+            ->add('aclProcess', ChoiceType::class, [
                 'label' => false,
                 'multiple' => true,
                 'expanded' => true,
@@ -47,6 +48,7 @@ class RolesType extends AbstractType
                 'mapped' => false,
                 'data' => $options['userRoles'],
                 'required' => false,
+                'translation_domain' => 'acl'
             ])
             ->add('roles', ChoiceType::class, [
                 'label' => false,
@@ -55,26 +57,26 @@ class RolesType extends AbstractType
                 'choices' => $options['roles'],
                 'choice_label' => static function ($val, $key, $index) {
                     $s = explode('_', $val);
-
-                    return 3 === \count($s) ? $s[0].'_'.$s[1].'.'.$key : $val;
+                    return 3 === \count($s) ? $s[0] . '_' . $s[1] . '.' . $key : $val;
                 },
                 'choice_name' => static function ($val) {
                     return $val;
                 },
                 'data' => $options['userRoles'],
+                'translation_domain' => 'acl'
             ])
             ->add('submit', SubmitType::class, [
-                'label' => 'save',
+                'label' => 'button.save',
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver
-            ->setRequired([
-                'roles',
-                'acl',
-                'userRoles',
-            ]);
+        $resolver->setRequired(['roles', 'acl', 'userRoles',]);
+    }
+
+    public function getBlockPrefix(): string
+    {
+        return '';
     }
 }

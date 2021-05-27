@@ -18,7 +18,6 @@ use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Intl\Languages;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -86,7 +85,7 @@ class GeneralForm extends AbstractType
                 'choices' => array_flip(array_intersect_key(Languages::getNames(), array_flip($options['active_language']))),
                 'choice_translation_domain' => false,
                 'empty_data' => 'tr',
-                'placeholder' => false,
+                'placeholder' => 'Dil Seçin',
                 'required' => false,
             ])
             ->add('list_count', RangeType::class, [

@@ -1,5 +1,6 @@
 import * as Vue from 'vue/dist/vue.esm-bundler'
 import {onMounted, getCurrentInstance, ref} from 'vue'
+import appMerger from "./core/config/appMerger";
 
 /**
  * ============
@@ -8,7 +9,6 @@ import {onMounted, getCurrentInstance, ref} from 'vue'
  */
 let appConfig = {
     ...{delimiters: ['${', '}']},
-    ...(window.vueApp || {}),
     ...{
         setup(props, context) {
             let forms = ref({});
@@ -28,6 +28,14 @@ let appConfig = {
 
 /**
  * ============
+ * Merge APPS
+ * ============
+ */
+appMerger(appConfig, window.vueApp)
+delete window.vueApp;
+
+/**
+ * ============
  * Create APP
  * ============
  */
@@ -35,3 +43,4 @@ window.Root = Vue.createApp(appConfig)
     .use(require('./core/index').default)
     .use(require('./src/index').default)
     .mount('#app');
+

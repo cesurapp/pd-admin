@@ -1,10 +1,37 @@
+# Message & Button & Text
+message:
+    saved: Değişiklikler kaydedildi.
+    deleted: Silme işlemi tamamlandı.
+button:
+    save: Kaydet
+    add: Ekle
+    delete: Sil
+    move: Taşı
+    yes: Evet
+    no: Hayır
+    cancel: İptal
+    edit: Düzenle
+confirm:
+    delete: Silmek istediğinizden emin misiniz?
+    approve: Bu işlemi gerçekleştirmek istediğinizden emin misiniz?
+date: Tarih
+save: Kaydet
+
+# Toolbar
+toolbar:
+    language: Dil
+    profile:
+        edit: Profilim
+        password: Şifremi Değiştir
+        return_admin: Admine Dön
+        logout: Çıkış Yap
+# Pages
 404:
     title: Sayfa Bulunamadı!
     description: Üzgünüz aradığınız sayfa bulunamadı veya kullanımdan kaldırılmış olabilir.
-message:
-    saved: Değişiklikler kaydedildi.
-button:
-    save: Kaydet
+
+dashboard:
+    title: Admin Panel
 
 config:
     title: Ayarlar
@@ -50,195 +77,59 @@ config:
         email_confirmation_help: Yeni üyeler için e-posta doğrulamayı etkinleştirir.
         welcome_email: Hoşgeldiniz E-postası
         welcome_email_help: Yeni üyeler için hoşgeldiniz e-postası gönderir.
+
 account:
-    title: Hesaplar
+    title: Hesap Düzenle
+    edit:
+        title: Profilim
+        firstname: Adınız
+        lastname: Soyadınız
+        phone: Telefon
+        language: Dil
+        groups: Üye Gruplar
+    password:
+        title: Şifre
+    roles:
+        title: Yetkiler
+    groups:
+        title: Gruplar
 
+accounts:
+    title: Hesap Yönetimi
+    account:
+        title: Hesaplar
+        approve: Hesabı Onayla
+        unapprove: Onayı Kaldır
+        freeze: Hesabı Dondur
+        unfreeze: Hesabı Etkinleştir
+        switch: Hesaba Giriş Yap
+    group:
+        title: Gruplar
+        add: Yeni Grup
+        add_title: Yeni Grup Oluştur
+        roles: Yetkilendirme
+        edit_title: Grubu Düzenle
 
+activity:
+    log:
+        title: Etkinlik Günlüğü
+    mail:
+        title: Posta Günlüğü
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#
-#diff:
-#    year:   yıl
-#    month:  ay
-#    day:    gün
-#    hour:   saat
-#    minute: dakika
-#    second: saniye
-#    ago:    önce
-#
-
-
-
-
-
-
-###
-# General
-###
-#edit: Düzenle
-#edit_roles: Yetkilendirme
-#delete: Sil
-#change_password: Şifre Değiştir
-#edit_group: Grup Düzenle
-#switch_user: Hesaba Giriş Yap
-#activate_deactivate: Etkinleştir / Devre Dışı
-#freeze_unfreeze: Askıya Al / Kapat
-#add_new: Yeni Ekle
-#close: Kapat
-#yes: Evet
-#add: Ekle
-#refresh: Yenile
-#add_widget: Widget Ekle
-#search: Ara..
-#search_filter: Filtrele
-#search_placeholder: Arama...
-#active: Etkin
-#deactive: Devredışı
-#select_all: Tümünü Seç
-#select_item: Seçim Yapın
-#selected: '{%s} Seçili'
-#selected_all: '{%s} Tane Seçildi'
-#no_matches: '"{%s}" için eşleşme bulunamadı!'
-#delete_message: Silmek istediğinizden emin misiniz?
-#save: Kaydet
-#homepage: Anasayfa
-#upload_image_btn: Resim Yükle
-#Default: Varsayılan
-#default: Varsayılan
-#test: Test
-#left: Sol
-#right: Sağ
-#top: Üst
-#bottom: Alt
-#middle: Merkez
-#center: Merkez
-#top_left: Üst Sol
-#top_right: Üst Sağ
-#bottom_left: Alt Sol
-#bottom_right: Alt Sağ
-#enable: Etkinleştir
-#disable: Kapalı
-#enabled: Etkin
-#disabled: Devre Dışı
-#account_frozen: Hesap Dondurulmuş
-#date: Tarih
-#success: Başarılı
-#process_completed: İşlem Tamamlandı.
-#changes_saved: Değişiklikler kaydedildi.
-#remove_complete: Silme işlemi tamamlandı.
-#sorry_not_existing: Üzgünüz kayıt mevcut değil.
-#test_email_success: Test e-postası gönderildi.
-#user_registration_disable: Kullanıcı kaydı şu anda kapalı, lütfen daha sonra tekrar deneyin.
-#
-#
-#
-#nav_dashboard: Panel
-#admin_dashboard: Admin Panel
-#admin_dashboard_desc: Yönetici Alanı
-#admin_widget_modal_title: Widgetler
-#nav_profile_edit: Hesabım
-#nav_profile_password: Şifre Değiştir
-#nav_profile_return_admin: Admin'e Dön
-#nav_profile_logout: Çıkış Yap
-#
-#search_keyword: Anahtar Kelime
-#search_keyword_account_placeholder: İsim / E-posta / Telefon
-#nav_account: Hesaplar
-#nav_account_edit: Profil
-#nav_account_change_password: Şifre Değiştir
-#nav_account_roles: Yetkilendirme
-#nav_account_group: Grup
-#account_firstname: İsim
-#account_email: E-posta
-#account_phone: Telefon
-#account_lastlogin: Son Giriş
-#account_status: Hesap Durumu
-#search_filter_title: Sonuçları Filtrele
-#admin_account_list: Hesaplar
-#admin_account_desc: Kayıtlı tüm kullanıcılar
-#account_edit_title: Hesap Düzenle
-#firstname: İsim
-#lastname: Soyisim
-#phone: Telefon
-#website: Website
-#company: Şirket
-#language: Dil
-#created_at: Oluşturma Tarihi
-#account_change_password_title: Şifre Değiştir
-#account_add_group_title: Grup
-#account_groups: Gruplar
-#account_roles_title: Özel Yetkilendirme
-#
-#nav_group: Gruplar
-#accouunt_group_list_title: Kullanıcı Grupları
-#accouunt_group_list_desc: Üyelerin katıldığı gruplar
-#group_name: Grup Adı
-#group_roles: Yetkiler
-#account_group_edit_title: Grup Düzenle
-#account_group_edit_desc: Kullanıcı grup düzenleme
-#nav_group_edit: Detaylar
-#nav_group_roles: Yetkilendirme
-#account_group_new_title: Yeni Grup
-#account_group_new_desc: Yeni kullanıcı grubu oluştur
-#account_group_role_title: Grup Yetkilendirme
-#account_group_role_desc: Kullanıcı grup yetkilendirme
-#
-
-#
-#settings_contact: İletişim Ayarlar
-#settings_contact_desc: Sistem ve site iletişim ayarları
-#nav_config_contact: İletişim
-#contact_email: İletişim E-posta
-#contact_email_info: Sistem postaları ve iletişim formu bu adrese gönderilir.
-#contact_phone: Telefon
-#contact_fax_number: Fax
-#contact_address: Yerel Adres
-#contact_facebook: Facebook
-#contact_twitter: Twitter
-#contact_youtube: Youtube
-#contact_linkedin: LinkedIn
-#contact_whatsapp: WhatsApp
-#nav_mailer_header: Posta Yönetici
-#nav_mailer_template: Posta Şablonları
-#nav_mailer_logs: Posta Logları
-#
-#settings_user: Hesap Ayarlar
-#settings_user_desc: Kullanıcı hesap ayarları
-#nav_config_user: Hesap
-#user_registration: Üye Kaydı
-
-#
-#settings_media: Medya Ayarlar
-#settings_media_desc: Sistem medya ayarları
-#nav_config_media: Medya
-
-#
-#widget_user_info:
-#    name: Kullanıcı Bilgisi
-#    description: Kayıtlı üye sayısını gösterir.
-#    count: Kayıtlı Üye
-#widget_user_statistics:
-#    name: Kullanıcı İstatistikleri
-#    description: Detaylı kullanıcı istatistiklerini gösterir.
-#widget_quick_action:
-#    name: Hızlı Butonlar
-#    description: Menülere kolay erişim butonları oluşturur.
-#    add_button: Buton Ekle
+# Widgets
+widget:
+    modal_title: Yeni Widget Ekle
+    user_info:
+        name: Kullanıcı Bilgisi
+        description: Kayıtlı üye sayısını gösterir.
+        count: Kayıtlı Üye
+    user_statistic:
+        name: Kullanıcı İstatistikleri
+        description: Detaylı kullanıcı istatistiklerini gösterir.
+        last_week: Son 1 Hafta
+        last_month: Son 1 Ay
+        last_three_month: Son 3 Ay
+    quick_action:
+        name: Hızlı Butonlar
+        description: Menülere kolay erişim butonları oluşturur.
+        add_button: Buton Ekle

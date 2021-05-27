@@ -196,6 +196,9 @@
             "ref": "aaddfdf43cdecd4cf91f992052d76c2cadc04543"
         }
     },
+    "sonata-project/exporter": {
+        "version": "2.6.2"
+    },
     "symfony/amqp-messenger": {
         "version": "v5.2.7"
     },

@@ -17,6 +17,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 
 /**
  * Get Config for DB.
@@ -194,6 +195,13 @@ class ConfigBag
                             ->setType(is_array($item->getData()) ? 'array' : 'string')
                             ->setValue(is_array($item->getData()) ? $file : $file[0]);
                     }
+                    break;
+                case 'date':
+                case 'datetime':
+                    $configItems[] = (new Config())
+                        ->setType('datetime')
+                        ->setName($itemName)
+                        ->setValue($item->getData() ? (new DateTimeNormalizer())->normalize($item->getData()) : null);
                     break;
                 default:
                     $configItems[] = (new Config())

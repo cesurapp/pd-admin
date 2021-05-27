@@ -26,21 +26,21 @@
 @import "~bootstrap/scss/utilities/api";
 @import "~bootstrap/scss/tables";
 //@import "~bootstrap/scss/card";
-//@import "~bootstrap/scss/accordion";
-//@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/accordion";
+@import "~bootstrap/scss/nav";
+@import "~bootstrap/scss/offcanvas";
 //@import "~bootstrap/scss/navbar";
 //@import "~bootstrap/scss/breadcrumb";
 //@import "~bootstrap/scss/carousel";
 //@import "~bootstrap/scss/spinners";
 //@import "~bootstrap/scss/progress";
-//@import "~bootstrap/scss/list-group";
+@import "~bootstrap/scss/list-group";
 
 /*======================================================
  Bootstrap Custom
 =======================================================*/
 .dropdown-menu {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-  margin-top: .5rem !important;
   min-width: 11rem;
 
   &:not(:hover) {
@@ -52,10 +52,6 @@
 
   & > li {
     display: flex;
-
-    &:last-child .dropdown-item {
-      margin-bottom: .25rem;
-    }
   }
 }
 
@@ -65,8 +61,7 @@
 }
 
 .dropdown-divider {
-  margin-top: .5rem;
-  margin-bottom: 0;
+  width: 100%;
 }
 
 .dropdown-item {
@@ -74,12 +69,12 @@
   align-items: center;
   border-radius: $border-radius;
   transition: $transition-base;
-  margin: .25rem .25rem -.25rem;
+  line-height: 1.7rem;
 
   i {
-    width: 17px;
+    width: 19px;
     margin-right: .5rem;
-    font-size: $font-size-base + .1;
+    font-size: $font-size-base + .3;
   }
 
   &:hover {
@@ -105,6 +100,36 @@
   box-shadow: $box-shadow;
 }
 
+a:hover {
+  cursor: pointer;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+
+  i {
+    margin-right: .25rem;
+  }
+}
+
+.btn-sm, .btn-group-sm > .btn {
+  i {
+    font-size: $font-size-sm + .25;
+  }
+}
+
+/*======================================================
+ Custom
+=======================================================*/
+.full-height {
+  height: 100%;
+}
+
+.full-width {
+  width: 100%;
+}
+
 /*======================================================
  Typography
 =======================================================*/
@@ -114,7 +139,7 @@ html, body {
 }
 
 body {
-  background: #f5f8fb;
+  background: #FFF;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -122,13 +147,16 @@ body {
   position: relative;
   display: flex;
   min-height: 100%;
+  max-width: 100vw;
 
   .app-nav {
     width: 275px;
+    z-index: 20;
   }
 
   .app-content {
-    flex: 1;
+    flex: 1 1 100%;
+    overflow: hidden;
   }
 }
 
@@ -158,20 +186,22 @@ footer {
 .content-header {
   display: flex;
   padding: .75rem $grid-gutter-width * 1.5;
-  background: #43485d;
+  padding-bottom: .8rem;
+  background: #f1f0f1;
+  box-shadow: 0 1px 3px -1px rgb(0 0 0 / 50%);
+  z-index: 10;
 
   .content-title {
     margin-bottom: 0;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     line-height: 1.4rem;
     display: flex;
     align-items: center;
-    color: #FFF;
     font-weight: 400;
 
     & > i {
       margin-right: 1rem;
-      font-size: 1.4rem;
+      font-size: 1.5rem;
       line-height: 1.2rem;
     }
 
@@ -179,7 +209,6 @@ footer {
       background: transparent;
       border: none;
       padding: 0;
-      color: #FFF;
       opacity: .8;
       transition: $transition-base;
       margin-left: 1rem;
@@ -212,18 +241,19 @@ footer {
 
     .dropdown-toggle {
       display: inline-flex;
+      align-items: center;
       padding: 0;
       opacity: .8;
       transition: $transition-base;
       margin-left: 1rem;
-      color: #FFF;
 
       &:after {
-        display: none;
+        //display: none;
+        margin-left: .5rem;
       }
 
       i {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
       }
 
       &:hover, &.show {
@@ -231,6 +261,10 @@ footer {
         transform: scale(1.1);
       }
     }
+  }
+
+  .dropdown-menu {
+    margin-top: .6rem !important;
   }
 }
 
@@ -283,14 +317,21 @@ footer {
     }
   }
 
+  .full-form {
+    .form-container {
+      display: block;
+      margin: 0;
+
+      & > * {
+        width: auto;
+      }
+    }
+  }
+
   .sticky-header {
     position: sticky;
     top: 0;
   }
-}
-
-.full-height {
-  height: 100%;
 }
 
 // Form Help Popover
@@ -347,6 +388,53 @@ footer {
   }
 }
 
+// Roles Template
+.roles-accordion {
+  .accordion-body {
+    display: flex;
+    flex-flow: row wrap;
+
+    .form-check {
+      width: 33.3%;
+      margin: .15rem 0;
+
+      @include media-breakpoint-down(md) {
+        width: 50%;
+      }
+
+      @include media-breakpoint-down(sm) {
+        width: 100%;
+      }
+    }
+  }
+}
+
 /*======================================================
  Admin Widgets
 =======================================================*/
+.widget_quick_action {
+  .quick-buttons {
+    .wrapper {
+      display: flex;
+      align-items: center;
+      flex-flow: row wrap;
+      margin-left: -$grid-gutter-width;
+      margin-top: -$grid-gutter-width;
+    }
+
+    .btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: $grid-gutter-width;
+      margin-top: $grid-gutter-width;
+      flex: 1;
+      max-width: 150px;
+    }
+
+    i {
+      font-size: $font-size-lg + .4;
+      margin: .25rem 0;
+    }
+  }
+}

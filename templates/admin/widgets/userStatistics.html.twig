@@ -1,110 +1,113 @@
-<div class="widget box-3 box-col-3 widget_{{ widget.id }}" data-order="{{ path('widget_order', {'widgetId': widget.id, 'order': '0'}) }}">
+<div class="widget half widget_{{ widget.id }}" data-order="{{ path('widget_order', {'widgetId': widget.id, 'order': '0'}) }}">
     <div class="card">
         <div class="card-body p-0">
             {# Action Button #}
-            {% embed '@PdWidget/widgetAction.html.twig' %}
+            {% embed 'admin/widgets/actions.html.twig' %}
                 {% block add_config %}
-                    <a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '1week' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '1week' }) }}">Son 1 Hafta</a>
-                    <a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '1month' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '1month' }) }}">Son 1 Ay</a>
-                    <a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '3month' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '3month'}) }}">Son 3 Ay</a>
+                    <li><a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '1week' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '1week' }) }}">{{ 'widget.user_statistic.last_week'|trans }}</a></li>
+                    <li><a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '1month' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '1month' }) }}">{{ 'widget.user_statistic.last_month'|trans }}</a></li>
+                    <li><a class="dropdown-item {{ widget.config.type is defined and widget.config.type in '3month' ? 'active' }}" href="{{ path('widget_config', { 'widgetId': widget.id, 'type': '3month'}) }}">{{ 'widget.user_statistic.last_three_month'|trans }}</a></li>
                 {% endblock %}
             {% endembed %}
 
             {# Canvas #}
-            <canvas id="canvas"></canvas>
+            <canvas id="canvas" style="min-height: 200px;"></canvas>
 
             {# Load Data #}
             {% set widgetData = widget.data %}
 
-            {# Draw Canvas #}
-            <script>
-              var ctx = document.getElementById('canvas').getContext("2d");
+            <script data-type="script" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
+            <script data-type="vue">
+                window.vueApp.push({
+                    mounted: () => {
+                        let ctx = document.getElementById('canvas').getContext("2d");
+                        Chart.defaults.font.size = 12;
 
-              Chart.defaults.global.defaultFontFamily = 'Roboto';
-              Chart.defaults.global.defaultFontSize = 14;
+                        let gradient = {
+                            red: ctx.createLinearGradient(0, 300, 0, 150),
+                            blue: ctx.createLinearGradient(0, 300, 0, 150)
+                        }
+                        gradient.red.addColorStop(0, 'rgba(255, 99, 132, .3)');
+                        gradient.red.addColorStop(1, 'rgba(255, 99, 132, .8)');
+                        gradient.blue.addColorStop(0, 'rgba(54, 162, 235, .3)');
+                        gradient.blue.addColorStop(1, 'rgba(54, 162, 235, .8)');
 
-              var gradientFillRed = ctx.createLinearGradient(0, 300, 0, 150);
-              gradientFillRed.addColorStop(0, 'rgba(255, 99, 132, .3)');
-              gradientFillRed.addColorStop(1, 'rgba(255, 99, 132, .8)');
-
-              var gradientFillBlue = ctx.createLinearGradient(0, 300, 0, 150);
-              gradientFillBlue.addColorStop(0, 'rgba(54, 162, 235, .3)');
-              gradientFillBlue.addColorStop(1, 'rgba(54, 162, 235, .8)');
-
-              new Chart(ctx, {
-                type: 'line',
-                data: {
-                  labels: {{ widgetData.column|raw }},
-                  datasets: [{
-                    label: '{{ "security.login_title"|trans }}',
-                    data: {{ widgetData.logged|raw }},
-                    backgroundColor: gradientFillBlue,
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1,
-                    fill: true,
-                  }, {
-                    label: '{{ "security.register_title"|trans }}',
-                    data: {{ widgetData.created|raw }},
-                    backgroundColor: gradientFillRed,
-                    borderColor: 'red',
-                    borderWidth: 1,
-                    fill: true
-                  }]
-                },
-                options: {
-                  responsive: true,
-                  maintainAspectRatio: false,
-                  tooltips: {
-                    mode: 'index',
-                    intersect: false,
-                    cornerRadius: 3,
-                    backgroundColor: 'rgba(0,0,0,.8)',
-                    titleMarginBottom:10,
-                    bodySpacing: 6,
-                    xPadding: 8,
-                    yPadding: 8,
-                    callbacks: {
-                      title: function(tooltipItem) {
-                        return '{{ "date"|trans }} ' + tooltipItem[0].xLabel;
-                      }
+                        new Chart(ctx, {
+                            type: 'line',
+                            data: {
+                                labels: {{ widgetData.column|raw }},
+                                datasets: [{
+                                    label: '{{ "security.login_title"|trans }}',
+                                    data: {{ widgetData.logged|raw }},
+                                    backgroundColor: gradient.blue,
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    borderWidth: 1,
+                                    fill: true,
+                                }, {
+                                    label: '{{ "security.register_title"|trans }}',
+                                    data: {{ widgetData.created|raw }},
+                                    backgroundColor: gradient.red,
+                                    borderColor: 'red',
+                                    borderWidth: 1,
+                                    fill: true
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                maintainAspectRatio: false,
+                                tooltips: {
+                                    mode: 'index',
+                                    intersect: false,
+                                    cornerRadius: 3,
+                                    backgroundColor: 'rgba(0,0,0,.8)',
+                                    titleMarginBottom:10,
+                                    bodySpacing: 6,
+                                    xPadding: 8,
+                                    yPadding: 8,
+                                    callbacks: {
+                                        title: function(tooltipItem) {
+                                            return '{{ "date"|trans }} ' + tooltipItem[0].xLabel;
+                                        }
+                                    }
+                                },
+                                layout: {
+                                    padding: {
+                                        left: 5,
+                                        right: 25,
+                                        top: 5,
+                                        bottom: 5
+                                    }
+                                },
+                                scales:{
+                                    yAxes: [{
+                                        gridLines: {
+                                            display: false,
+                                            drawTicks: false,
+                                        },
+                                        ticks: {
+                                            fontColor: 'rgba(0,0,0,0.5)',
+                                            fontStyle: 'bold',
+                                            beginAtZero: true,
+                                            maxTicksLimit: 5,
+                                            padding: 10
+                                        }
+                                    }],
+                                    xAxes: [{
+                                        gridLines: {
+                                            display: true,
+                                            tickMarkLength:0
+                                        },
+                                        ticks: {
+                                            padding: 15,
+                                            fontColor: 'rgba(0,0,0,.5)',
+                                            fontStyle: 'bold',
+                                        }
+                                    }]
+                                }
+                            }
+                        });
                     }
-                  },
-                  layout: {
-                    padding: {
-                      left: 5,
-                      right: 25,
-                      top: 5,
-                      bottom: 5
-                    }
-                  },
-                  scales:{
-                    yAxes: [{
-                      gridLines: {
-                        display: false,
-                        drawTicks: false,
-                      },
-                      ticks: {
-                        fontColor: 'rgba(0,0,0,0.5)',
-                        fontStyle: 'bold',
-                        beginAtZero: true,
-                        maxTicksLimit: 5,
-                        padding: 10
-                      }
-                    }],
-                    xAxes: [{
-                      gridLines: {
-                        display: true,
-                        tickMarkLength:0
-                      },
-                      ticks: {
-                        padding: 15,
-                        fontColor: 'rgba(0,0,0,.5)',
-                        fontStyle: 'bold',
-                      }
-                    }]
-                  }
-                }
-              });
+                });
             </script>
         </div>
     </div>

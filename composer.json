@@ -29,6 +29,7 @@
         "gregwar/image": "^2.1",
         "knplabs/knp-paginator-bundle": "5.*",
         "sensio/framework-extra-bundle": "5.*",
+        "sonata-project/exporter": "^2.6",
         "symfony/asset": "5.*",
         "symfony/console": "5.*",
         "symfony/dotenv": "5.*",

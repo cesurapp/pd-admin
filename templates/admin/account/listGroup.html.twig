@@ -1,46 +1,45 @@
 {# Template Parts #}
 {% extends "admin/layout/base.html.twig" %}
-
-{# Document #}
-{% block head_title %}{{ title('accouunt_group_list_title'|trans) }}{% endblock %}
-
-{# Content Title #}
-{% block content_head %}
-    <span class="text">{{ 'accouunt_group_list_title'|trans }}</span>
-    <span class="desc">{{ 'accouunt_group_list_desc'|trans }}</span>
-{% endblock %}
+{% block head_title %}{{ title('accounts.group.title'|trans) }}{% endblock %}
+{% block content_title %}<i class="fas fa-user-shield"></i>{{ 'accounts.group.title'|trans }}{% endblock %}
 
 {# Content Body #}
 {% block content_body %}
-    <form id="pageForm" method="post">
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th class="wid-25">{{ knp_pagination_sortable(groups, 'group_name'|trans, 'g.name') }}</th>
-                        <th class="wid-25">{{ 'group_roles'|trans }}</th>
-                        <th class="process"></th>
-                    </tr>
-                </thead>
+    <ajax-form ref="former" message="{{ 'message.saved'|trans }}"></ajax-form>
+    <datatable
+        data-api="{{ url('admin.group_list') }}"
+        data-column="{{ table.columnsJson|url_encode }}"
+        data-sort-api="{{ url('admin.data_table') }}"
+        data-sort-table="{{ table.name }}"
+        sort-field="q.id"
+        ref="table"
+    >
+        <template v-slot:actions="{item, index, remove}">
+            <li><a class="dropdown-item" @click.prevent="$refs.former.get(route('{{ route('admin.group_edit') }}', {'{group}': item.id}), '{{ 'accounts.group.edit_title'|trans }}', index)"><i class="fas fa-user-edit"></i>{{ 'button.edit'|trans }}</a></li>
+            <li><a class="dropdown-item" @click.prevent="$refs.former.get(route('{{ route('admin.group_roles') }}', {'{group}': item.id}), '{{ 'accounts.group.roles'|trans }}', index)"><i class="fas fa-user-lock"></i>{{ 'accounts.group.roles'|trans }}</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" v-confirm="'danger'" data-msg="{{ 'confirm.delete'|trans }}"
+                   data-yes="{{ 'button.yes'|trans }}" data-no="{{ 'button.cancel'|trans }}"
+                   @confirmed="del(item, index, remove)"><i class="fas fa-trash"></i>{{ 'button.delete'|trans }}</a>
+            </li>
+        </template>
+        <template v-slot:header-left>
+            <a @click.prevent="$refs.former.get('{{ path('admin.group_create') }}', '{{ 'accounts.group.add_title'|trans }}', 'append')" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>{{ 'accounts.group.add'|trans }}</a>
+        </template>
+    </datatable>
 
-                <tbody>
-                {% for group in groups %}
-                    <tr>
-                        <td class="wid-25">{{ group.name }}</td>
-                        <td class="wid-25">{{ group.roles|length }}</td>
-                        <td class="process">
-                            <div class="floating-menu">
-                                <a><i class="material-icons">more_horiz</i></a>
-                                {{ pd_menu_render('App\\Menu\\Group\\Action', {'group': group}) }}
-                            </div>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </form>
-
-    <!-- Pagination -->
-    {{ knp_pagination_render(groups) }}
+    <script data-type="vue">
+        window.vueApp.push({
+            methods: {
+                del(item, index, remove) {
+                    this.$root.http.delete(this.route('{{ route('admin.group_delete') }}', {'{group}': item.id}))
+                        .then((resp) => {
+                            remove(index);
+                            this.$root.msg.success('{{ 'message.deleted'|trans }}')
+                        })
+                }
+            }
+        })
+    </script>
 {% endblock %}
+

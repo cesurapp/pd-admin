@@ -13,25 +13,25 @@ namespace App\Controller\Admin;
 
 use App\Entity\Account\Group;
 use App\Entity\Account\User;
+use App\Form\Account\ChangePasswordType;
+use App\Form\Account\ProfileType;
 use App\Form\Account\RolesType;
-use App\Menu\Account\Navigation;
 use App\Repository\Account\UserRepository;
 use App\Service\ConfigBag;
 use App\Service\SecurityService;
+use App\Tables\AccountListTable;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
-use Pd\UserBundle\Form\ChangePasswordType;
-use Pd\UserBundle\Form\ProfileType;
-use Pd\UserBundle\Model\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Controller managing the user profile.
@@ -43,7 +43,10 @@ class AccountController extends AbstractController
     /**
      * Security Manager Add Custom Roles.
      */
-    public const CUSTOM_ROLES = ['ROLE_ACCOUNT_ALLREAD', 'ROLE_ACCOUNT_ALLWRITE'];
+    public const CUSTOM_ROLES = [
+        'ROLE_ACCOUNT_ALLREAD' => 'ROLE_ACCOUNT_ALLREAD',
+        'ROLE_ACCOUNT_ALLWRITE' => 'ROLE_ACCOUNT_ALLWRITE'
+    ];
 
     public function __construct(
         private EntityManagerInterface $entityManager,
@@ -54,33 +57,38 @@ class AccountController extends AbstractController
 
     /**
      * Show all Account.
+     *
+     * @IsGranted("ROLE_ACCOUNT_LIST")
      */
     #[Route('/account', name: 'admin.account_list')]
-    #[IsGranted(['ROLE_ACCOUNT_LIST'])]
-    public function list(Request $request, UserRepository $userRepo, PaginatorInterface $paginator): Response
+    public function list(Request $request, AccountListTable $table, UserRepository $userRepo, PaginatorInterface $paginator): Response
     {
-        $query = $userRepo->filter($request);
+        $table
+            ->handleQueryBuilder($query = $userRepo->createQueryBuilder('u'))
+            ->handleRequest($request);
 
         // Check Owner or All Access
         if (!$this->isGranted('ROLE_ACCOUNT_ALLREAD')) {
             $query->andWhere('u.id = :id')->setParameter('id', $this->getUser()->getId());
         }
 
+        // Paginate
         $pagination = $paginator->paginate($query->getQuery(),
             $request->query->getInt('page', 1),
             $this->bag->get('list_count')
         );
 
-        return $this->render('admin/account/list.html.twig', [
-            'users' => $pagination,
-        ]);
+        return $request->isXmlHttpRequest() ?
+            $this->json($pagination, context: ['groups' => 'default']) :
+            $this->render('admin/account/list.html.twig', ['table' => $table]);
     }
 
     /**
      * Edit the User.
+     *
+     * @IsGranted("ROLE_ACCOUNT_EDIT")
      */
-    #[Route('/account/{user}', name: 'admin_account_edit')]
-    #[IsGranted(['ROLE_ACCOUNT_EDIT'])]
+    #[Route('/account/{user}', name: 'admin.account_edit')]
     public function edit(Request $request, User $user): Response
     {
         // Check Read Only
@@ -95,8 +103,8 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             // Check Super Admin & Check All Write
-            $this->checkAllAccess($user);
-            $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLWRITE');
+            $this->checkAllAccess($this->getUser());
+            $this->checkOwner($this->getUser(), 'ADMIN_ACCOUNT_ALLWRITE');
 
             // Save
             $this->entityManager->persist($user);
@@ -113,8 +121,6 @@ class AccountController extends AbstractController
 
         // Render Page
         return $this->render('admin/account/edit.html.twig', [
-            'page_title' => 'account_edit_title',
-            'page_menu' => Navigation::class,
             'form' => $form->createView(),
             'item' => $user,
         ]);
@@ -122,13 +128,14 @@ class AccountController extends AbstractController
 
     /**
      * Change User Password.
+     *
+     * @IsGranted("ROLE_ACCOUNT_PASSWORD")
      */
-    #[Route('/account/{user}/password', name: 'admin_account_password')]
-    #[IsGranted(['ROLE_ACCOUNT_PASSWORD'])]
+    #[Route('/account/{user}/password', name: 'admin.account_password')]
     public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
         // Check Read Only
-        $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLREAD');
+        $this->checkOwner($this->getUser(), 'ADMIN_ACCOUNT_ALLREAD');
 
         // Create Form
         $form = $this->createForm(ChangePasswordType::class, $user, [
@@ -142,8 +149,8 @@ class AccountController extends AbstractController
         // Form Submit & Valid
         if ($form->isSubmitted() && $form->isValid()) {
             // Check Super Admin & Check All Write
-            $this->checkAllAccess($user);
-            $this->checkOwner($user, 'ADMIN_ACCOUNT_ALLWRITE');
+            $this->checkAllAccess($this->getUser());
+            $this->checkOwner($this->getUser(), 'ADMIN_ACCOUNT_ALLWRITE');
 
             // Encode Password
             $password = $encoder->encodePassword($user, $form->get('plainPassword')->getData());
@@ -154,13 +161,11 @@ class AccountController extends AbstractController
             $this->entityManager->flush();
 
             // Flash Message
-            $this->addFlash('success', 'changes_saved');
+            $this->addFlash('success', 'message.saved');
         }
 
         // Render Page
         return $this->render('admin/account/edit.html.twig', [
-            'page_title' => 'account_change_password_title',
-            'page_menu' => Navigation::class,
             'form' => $form->createView(),
             'item' => $user,
         ]);
@@ -168,9 +173,10 @@ class AccountController extends AbstractController
 
     /**
      * Change User Private Roles.
+     *
+     * @IsGranted("ROLE_ACCOUNT_ROLES")
      */
-    #[Route('/account/{user}/roles', name: 'admin_account_roles')]
-    #[IsGranted(['ROLE_ACCOUNT_ROLES'])]
+    #[Route('/account/{user}/roles', name: 'admin.account_roles')]
     public function roles(Request $request, User $user, SecurityService $security): Response
     {
         // Set Form & Request
@@ -184,15 +190,18 @@ class AccountController extends AbstractController
         // Valid Form
         if ($form->isSubmitted() && $form->isValid()) {
             // Check Super Admin
-            $this->checkAllAccess($user);
+            $this->checkAllAccess($this->getUser());
 
             // User Add Roles
             $roles = $form->get('roles')->getData();
             if ($form->has('acl')) {
                 $roles = array_merge($roles, [$form->get('acl')->getData()]);
-                $roles = array_merge($roles, $form->get('aclprocess')->getData());
+                $roles = array_merge($roles, $form->get('aclProcess')->getData());
             }
             if ($roles) {
+                if (!$this->getUser()->hasRole(User::ROLE_ALL_ACCESS)) {
+                    $roles = array_intersect($user->getRoles(), $roles);
+                }
                 $user->setRoles($roles);
             }
 
@@ -201,13 +210,11 @@ class AccountController extends AbstractController
             $this->entityManager->flush();
 
             // View Message
-            $this->addFlash('success', 'changes_saved');
+            $this->addFlash('success', 'message.saved');
         }
 
         // Render Page
         return $this->render('admin/account/edit.html.twig', [
-            'page_title' => 'account_roles_title',
-            'page_menu' => Navigation::class,
             'form' => $form->createView(),
             'item' => $user,
         ]);
@@ -215,9 +222,10 @@ class AccountController extends AbstractController
 
     /**
      * Account Append Group.
+     *
+     * @IsGranted("ROLE_ACCOUNT_GROUP")
      */
-    #[Route('/account/{user}/group', name: 'admin_account_group')]
-    #[IsGranted(['ROLE_ACCOUNT_GROUP'])]
+    #[Route('/account/{user}/group', name: 'admin.account_group')]
     public function addGroup(Request $request, User $user): Response
     {
         // Get Group Name
@@ -226,19 +234,20 @@ class AccountController extends AbstractController
         // Create Form
         $form = $this->createFormBuilder()
             ->add('group', EntityType::class, [
+                'label' => 'account.edit.groups',
                 'class' => Group::class,
                 'choice_label' => 'name',
+                'choice_value' => 'id',
                 'choice_attr' => static function (Group $obj) use ($groupName) {
                     return in_array($obj->getName(), $groupName, true) ? ['selected' => ''] : [];
                 },
-                'label' => 'account_groups',
                 'multiple' => true,
                 'expanded' => false,
                 'choice_translation_domain' => false,
                 'required' => false,
             ])
             ->add('Submit', SubmitType::class, [
-                'label' => 'save',
+                'label' => 'button.save',
             ])
             ->getForm();
 
@@ -259,13 +268,11 @@ class AccountController extends AbstractController
             $this->addFlash('success', 'changes_saved');
 
             // Redirect
-            return $this->redirectToRoute('admin_account_group', ['user' => $user->getId()]);
+            return $this->redirectToRoute('admin.account_group', ['user' => $user->getId()]);
         }
 
         // Render
         return $this->render('admin/account/edit.html.twig', [
-            'page_title' => 'account_add_group_title',
-            'page_menu' => Navigation::class,
             'form' => $form->createView(),
             'item' => $user,
         ]);
@@ -273,31 +280,29 @@ class AccountController extends AbstractController
 
     /**
      * Delete Account.
+     *
+     * @IsGranted("ROLE_ACCOUNT_DELETE")
      */
-    #[Route('/accounts/{user}/delete', name: 'admin_account_delete')]
-    #[IsGranted(['ROLE_ACCOUNT_DELETE'])]
-    public function delete(Request $request, User $user): RedirectResponse
+    #[Route('/accounts/{user}/delete', name: 'admin.account_delete', methods: ['DELETE'])]
+    public function delete(User $user): JsonResponse
     {
         // Check All Access
-        $this->checkAllAccess($user);
+        $this->checkAllAccess($this->getUser());
 
         // Remove
         $this->entityManager->remove($user);
         $this->entityManager->flush();
 
-        // Flash Message
-        $this->addFlash('success', 'remove_complete');
-
-        // Redirect back
-        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin.account_list')));
+        return $this->json(['success' => true]);
     }
 
     /**
      * Activate/Deactivate Account.
+     *
+     * @IsGranted("ROLE_ACCOUNT_ACTIVATE")
      */
-    #[Route('/account/{user}/activate', name: 'admin_account_activate')]
-    #[IsGranted(['ROLE_ACCOUNT_ACTIVATE'])]
-    public function activate(Request $request, EntityManagerInterface $em, User $user): RedirectResponse
+    #[Route('/account/{user}/activate', name: 'admin.account_activate', methods: ['POST'])]
+    public function activate(User $user): JsonResponse
     {
         // Check All Access
         $this->checkAllAccess($user);
@@ -306,38 +311,29 @@ class AccountController extends AbstractController
         $user->setActive(!$user->isActive());
 
         // Update
-        $em->persist($user);
-        $em->flush();
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
-        // Flash Message
-        $this->addFlash('success', 'changes_saved');
-
-        // Redirect back
-        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin.account_list')));
+        return $this->json($user);
     }
 
     /**
      * Freeze Account.
+     *
+     * @IsGranted("ROLE_ACCOUNT_FREEZE")
      */
-    #[Route('/account/{user}/freeze', name: 'admin_account_freeze')]
-    #[IsGranted(['ROLE_ACCOUNT_FREEZE'])]
-    public function freeze(Request $request, EntityManagerInterface $em, User $user): RedirectResponse
+    #[Route('/account/{user}/freeze', name: 'admin.account_freeze', methods: ['POST'])]
+    public function freeze(User $user): JsonResponse
     {
         // Check All Access
-        $this->checkAllAccess($user);
+        $this->checkAllAccess($this->getUser());
 
         // Activate / Deactivate
         $user->setFreeze(!$user->isFreeze());
+        $this->entityManager->persist($user);
+        $this->entityManager->flush();
 
-        // Update
-        $em->persist($user);
-        $em->flush();
-
-        // Flash Message
-        $this->addFlash('success', 'changes_saved');
-
-        // Redirect back
-        return $this->redirect($request->headers->get('referer', $this->generateUrl('admin.account_list')));
+        return $this->json($user);
     }
 
     /**

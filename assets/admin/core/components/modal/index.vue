@@ -14,10 +14,10 @@
                     <button type="button" class="btn-close" @click="instance.hide()"></button>
                 </div>
                 <div class="modal-body py-0" :class="{'p-0': slim}">
-                    <slot name="content" :el="el" :modal="instance"></slot>
+                    <slot name="content" :el="$el" :modal="instance"></slot>
                 </div>
                 <div class="modal-footer">
-                    <slot name="buttons" :el="el" :modal="instance">
+                    <slot name="buttons" :el="$el" :modal="instance">
                         <button type="button" class="btn btn-secondary" @click="instance.hide()">Kapat</button>
                     </slot>
                 </div>
@@ -52,7 +52,6 @@ export default {
     data() {
         return {
             instance: null,
-            el: null
         }
     },
     computed:{
@@ -64,7 +63,6 @@ export default {
         this.$root[this.id] = this;
     },
     mounted() {
-        this.el = this.$el;
         this.instance = new this.bootstrap.Modal(this.$el, {
             backdrop: this.backdrop || true,
             keyboard: this.keyboard || true,

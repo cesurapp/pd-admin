@@ -28,9 +28,10 @@ class DashboardController extends AbstractController
 {
     /**
      * Dashboard Index.
+     *
+     * @IsGranted("ROLE_DASHBOARD_PANEL")
      */
     #[Route('/', name: 'admin.dashboard')]
-    #[IsGranted(['ROLE_DASHBOARD_PANEL'])]
     public function index(): Response
     {
         // Render Page

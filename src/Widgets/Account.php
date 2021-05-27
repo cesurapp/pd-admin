@@ -25,11 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class Account
 {
-    private EntityManagerInterface $entityManager;
-
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager)
     {
-        $this->entityManager = $entityManager;
     }
 
     /**
@@ -37,21 +34,17 @@ class Account
      */
     public function builder(WidgetEvent $event): void
     {
-        // Get Widget Container
-        $widgets = $event->getWidgetContainer();
-
-        // Add Widgets
-        $widgets
+        $event->getWidgetContainer()
             ->addWidget($this->getUserInfoWidget())
             ->addWidget($this->getUserStatisticsWidget());
     }
 
     private function getUserInfoWidget(): ItemInterface
     {
-        return (new Item('user_info'))
+        return (new Item('user.info'))
             ->setGroup('admin')
-            ->setName('widget_user_info.name')
-            ->setDescription('widget_user_info.description')
+            ->setName('widget.user_info.name')
+            ->setDescription('widget.user_info.description')
             ->setTemplate('admin/widgets/userInfo.html.twig')
             ->setRole(['ROLE_WIDGET_USERINFO'])
             ->setData(function ($config) {
@@ -70,8 +63,8 @@ class Account
     {
         return (new Item('user_statistics'))
             ->setGroup('admin')
-            ->setName('widget_user_statistics.name')
-            ->setDescription('widget_user_statistics.description')
+            ->setName('widget.user_statistic.name')
+            ->setDescription('widget.user_statistic.description')
             ->setTemplate('admin/widgets/userStatistics.html.twig')
             ->setRole(['ROLE_WIDGET_USERSTATISTICS'])
             ->setConfigProcess(static function (Request $request) {

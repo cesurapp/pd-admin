@@ -11,8 +11,6 @@ ACLProcess:
     title: Özel İşlemler
 ROLE_USER:
     title: Kullanıcı
-ROLE_ADMIN:
-    title: Admin
 ROLE_SUPER_ADMIN:
     title: Süper Admin
 ROLE_ALLOWED_TO_SWITCH:
@@ -39,12 +37,11 @@ ROLE_GROUP:
     CREATE: Yeni Grup
     DELETE: Sil
     ROLES: Yetkilendirme
-ROLE_SETTINGS:
+ROLE_CONFIG:
     title: Admin Ayarlar İzinleri
     GENERAL: Genel
     USER: Hesap
     MEDIA: Medya
-    CONTACT: İletişim
 ROLE_MAIL:
     title: Admin Posta Yöneticisi
     TEMPLATE: Şablon Listeleme

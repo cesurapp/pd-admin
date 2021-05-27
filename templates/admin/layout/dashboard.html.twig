@@ -1,16 +1,16 @@
 {# Template Parts #}
 {% extends "admin/layout/base.html.twig" %}
 
-{% block head_title %}{{ title('admin_dashboard'|trans) }}{% endblock %}
+{% block head_title %}{{ title('dashboard.title'|trans) }}{% endblock %}
 {% block content_title %}
-    {{ 'admin_dashboard'|trans }}
-    <button v-tooltip v-modal="'widgetModal'" title="{{ 'add_widget'|trans }}"><i class="fas fa-cubes"></i></button>
+    {{ 'dashboard.title'|trans }}
+    <button v-tooltip v-modal="'widgetModal'" title="{{ 'widget.modal_title'|trans }}"><i class="fas fa-cubes"></i></button>
 {% endblock %}
 
 {# Content Body #}
 {% block content_body %}
     <modal id="widgetModal" :slim="true" size="lg">
-        <template v-slot:title><i class="fas fa-cubes"></i>{{ 'admin_widget_modal_title'|trans }}</template>
+        <template v-slot:title><i class="fas fa-cubes"></i>{{ 'widget.modal_title'|trans }}</template>
         <template v-slot:content="props">
             <table class="table table-hover mb-0 table-bordered">
                 {% for widget in pd_widget_get('admin') %}
@@ -20,8 +20,7 @@
                             <td>{{ widget.description|trans }}</td>
                             <td class="text-center" style="width: 50px">
                                 <a href="{{ path('widget_status', { 'widgetId': widget.id, 'status': 1 }) }}"
-                                   class="close text-muted"
-                                   v-tooltip title="{{ 'add'|trans }}">
+                                   class="close text-muted" v-tooltip title="{{ 'button.add'|trans }}">
                                     <i class="fas fa-plus"></i>
                                 </a>
                             </td>
@@ -32,7 +31,6 @@
         </template>
     </modal>
 
-    <div class="dashboard">
-        {{ pd_widget_render('admin') }}
-    </div>
+    <!--Vue Dashboard Component-->
+    <dashboard>{{ pd_widget_render('admin') }}</dashboard>
 {% endblock %}

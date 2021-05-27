@@ -1,11 +1,11 @@
-<div class="box-1 box-col-1 widget widget_{{ widget.id }}" data-order="{{ path('widget_order', {'widgetId': widget.id, 'order': '0'}) }}">
-    <div class="card text-center bg-primary text-white">
-        <div class="card-body p-0 d-flex flex-column justify-content-center align-content-center">
-            {# Action Button #}
-            {% embed '@PdWidget/widgetAction.html.twig' %}{% endembed %}
+<div class="widget half p-3 widget_{{ widget.id }}" data-order="{{ path('widget_order', {'widgetId': widget.id, 'order': '0'}) }}">
+    {# Action Button #}
+    {% embed 'admin/widgets/actions.html.twig' %}{% endembed %}
 
-            <span class="count">{{ widget.data.result }}</span>
-            <h5 class="font-weight-light mb-0">{{ 'widget_user_info.count'|trans }}</h5>
+    <div class="d-flex full-height">
+        <div class="btn btn-success d-flex flex-column align-items-center justify-content-center p-4 text-white full-height">
+            <span class="fs-1">{{ widget.data.result }}</span>
+            <span class="fs-4">{{ 'widget.user_info.count'|trans }}</span>
         </div>
     </div>
 </div>

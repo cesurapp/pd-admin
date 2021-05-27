@@ -1,9 +1,77 @@
 {# Template Parts #}
 {% extends "admin/layout/base.html.twig" %}
-{% block head_title %}{{ title('account.title'|trans) }}{% endblock %}
-{% block content_title %}<i class="fas fa-user-shield"></i>{{ 'account.title'|trans }}{% endblock %}
+{% block head_title %}{{ title('accounts.account.title'|trans) }}{% endblock %}
+{% block content_title %}<i class="fas fa-user-shield"></i>{{ 'accounts.account.title'|trans }}{% endblock %}
 
 {# Content Body #}
 {% block content_body %}
-    <data-table></data-table>
+    <datatable
+        data-api="{{ url('admin.account_list') }}"
+        data-column="{{ table.columnsJson|url_encode }}"
+        data-sort-api="{{ url('admin.data_table') }}"
+        data-sort-table="{{ table.name }}"
+        sort-field="u.id"
+    >
+        <template v-slot:actions="{item, index, remove}">
+            {% if is_granted('ROLE_ACCOUNT_ACTIVATE') %}
+                <li><a class="dropdown-item" v-confirm="'warning'" data-msg="{{ 'confirm.approve'|trans }}"
+                       data-yes="{{ 'button.yes'|trans }}" data-no="{{ 'button.cancel'|trans }}"
+                       @confirmed="activate(item)">
+                        <i class="far fa-check-circle"></i>
+                        ${ item.active ? '{{ 'accounts.account.unapprove'|trans }}' : '{{ 'accounts.account.approve'|trans }}'}</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_ACCOUNT_FREEZE') %}
+                <li><a class="dropdown-item" v-confirm="'warning'" data-msg="{{ 'confirm.approve'|trans }}"
+                       data-yes="{{ 'button.yes'|trans }}" data-no="{{ 'button.cancel'|trans }}" @confirmed="freeze(item)">
+                        <i class="far fa-pause-circle"></i>
+                        ${ item.freeze ? '{{ 'accounts.account.unfreeze'|trans }}' : '{{ 'accounts.account.freeze'|trans }}'}
+                    </a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_ACCOUNT_EDIT') %}
+                <li><a class="dropdown-item"
+                       :href="route('{{ route('admin.account_edit') }}', {'{user}': item.id})"><i
+                            class="fas fa-user-edit"></i>{{ 'button.edit'|trans }}</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_ALLOWED_TO_SWITCH') %}
+                <li><a class="dropdown-item"
+                       :href="'{{ url('admin.dashboard', {'_switch_user': ''}) }}' + item.email">
+                        <i class="fas fa-theater-masks"></i>{{ 'accounts.account.switch'|trans }}</a>
+                </li>
+            {% endif %}
+
+            {% if is_granted('ROLE_ACCOUNT_DELETE') %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" v-confirm="'danger'" data-msg="{{ 'confirm.delete'|trans }}"
+                       data-yes="{{ 'button.yes'|trans }}" data-no="{{ 'button.cancel'|trans }}"
+                       @confirmed="del(item, index, remove)"><i class="fas fa-trash"></i>{{ 'button.delete'|trans }}</a>
+                </li>
+            {% endif %}
+
+        </template>
+    </datatable>
+
+    <script data-type="vue">
+        window.vueApp.push({
+            methods: {
+                freeze(item) {
+                    this.$root.http.post(this.route('{{ route('admin.account_freeze') }}', {'{user}': item.id})).then(function (resp) {
+                        item.freeze = resp.data.freeze;
+                    })
+                },
+                activate(item) {
+                    this.$root.http.post(this.route('{{ route('admin.account_activate') }}', {'{user}': item.id})).then(function (resp) {
+                        item.active = resp.data.active;
+                    })
+                },
+                del(item, index, remove) {
+                    this.$root.http.delete(this.route('{{ route('admin.account_delete') }}', {'{user}': item.id})).then(function (resp) {
+                        remove(index);
+                    })
+                }
+            }
+        })
+    </script>
 {% endblock %}

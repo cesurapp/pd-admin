@@ -1,0 +1,52 @@
+{# Template Parts #}
+{% extends "admin/layout/base.html.twig" %}
+{% block head_title %}{{ title('activity.log.title'|trans) }}{% endblock %}
+{% block content_title %}<i class="fas fa-clipboard-list"></i>{{ 'activity.log.title'|trans }}{% endblock %}
+
+{# Content Body #}
+{% block content_body %}
+    <off-canvas ref="canvas" id="details">
+        <template v-slot:content v-if="current">
+            <table class="table table-sm table-hover">
+                <tbody>
+                    <tr><th>ID</th><td>${current.id}</td></tr>
+                    <tr><th>Method</th><td>${current.method}</td></tr>
+                    <tr><th>Url</th><td class="text-break">${current.uri}</td></tr>
+                    <tr><th>Oluşturulma</th><td>${dateISOTime(current.createdAt)}</td></tr>
+                    <tr><th>Body</th><td class="text-break">${current.body}</td></tr>
+                    <tr><th>IP</th><td>${current.clientIp}</td></tr>
+                    <tr><th>Dil</th><td>${current.locale}</td></tr>
+                    <tr><th>Kullanıcı</th><td>${current.owner}</td></tr>
+                </tbody>
+            </table>
+        </template>
+    </off-canvas>
+
+    <datatable
+        data-api="{{ url('admin.activity_log.http') }}"
+        data-column="{{ table.columnsJson|url_encode }}"
+        data-sort-api="{{ url('admin.data_table') }}"
+        data-sort-table="{{ table.name }}"
+        sort-field="q.id"
+        :actions="null"
+        :checkbox="false"
+        :row-click="onRowClick"
+    >
+    </datatable>
+
+    <script data-type="vue">
+        window.vueApp.push({
+            data(){
+                return {
+                    current: null
+                }
+            },
+            methods:{
+                onRowClick(row) {
+                    this.current = row;
+                    this.$refs.canvas.show();
+                }
+            }
+        })
+    </script>
+{% endblock %}

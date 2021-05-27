@@ -16,14 +16,16 @@ $line-height-base: 1.7;
 $alert-padding-y: .5rem;
 $alert-padding-x: 1rem;
 $font-size-base: .9rem;
+$font-size-sm: .85rem;
 $transition-base: all .15s ease-in-out;
 $grid-gutter-width: 1rem;
 $small-font-size: .85em;
 $font-weight-bold: 500;
 $btn-close-focus-shadow: none;
 $primary: #5d52fd;
-$green: #8fd48f;
-$cyan: #07adcb;
+$green: #44ba44;
+$cyan: #0695af;
+$yellow: #e8bf3a;
 $btn-close-width: .75em;
 $dropdown-item-padding-x: 1rem;
 $dropdown-item-padding-y: 1.2rem / 4;
@@ -31,8 +33,8 @@ $dropdown-divider-margin-y: 1rem / 3;
 $dropdown-border-color: #dee2e6;
 $dropdown-link-hover-bg: #e9ecef;
 $dropdown-border-width: 0;
-$dropdown-padding-x: 0;
-$dropdown-padding-y: 0;
+$dropdown-padding-x: .25rem;
+$dropdown-padding-y: .25rem;
 $modal-header-padding-y: .85rem;
 $modal-header-padding-x: $modal-header-padding-y * 1.5;
 $modal-header-border-width: 0;
@@ -40,11 +42,25 @@ $modal-footer-border-width: 0;
 $modal-content-border-width: 0;
 $table-cell-padding-x: .75rem;
 
+$accordion-padding-y: .6rem;
+$accordion-padding-x: 1.2rem;
+
 $popover-border-width: 0;
 $popover-header-bg: $primary;
 $popover-header-color: #FFF;
 $popover-font-size: $font-size-base;
 $popover-body-padding-y: 1rem / 2;
+
+$pagination-padding-y: .3rem;
+$pagination-padding-x: .6rem;
+$pagination-bg: #f1f1f1;
+$pagination-border-color: rgba(0, 0, 0, .05);
+$pagination-active-border-color: rgba(0, 0, 0, .05);
+$pagination-focus-box-shadow: none;
+$pagination-disabled-bg: #f1f1f1;
+
+$list-group-hover-bg: #e9ecef;
+$badge-border-radius: .2rem;
 
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";

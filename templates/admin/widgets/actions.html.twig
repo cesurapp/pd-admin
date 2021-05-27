@@ -1,0 +1,15 @@
+<ul class="nav actions justify-content-end {{ bgcolor is defined ? bgcolor }}">
+    {%  if block('add_config') is not empty %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle {{ color is defined ? color }}" data-bs-toggle="dropdown" href="#"><i class="fas fa-cog"></i></a>
+            <ul class="dropdown-menu dropdown-menu-right">
+                {% block add_config %}{% endblock %}
+            </ul>
+        </li>
+    {% endif %}
+    {% block add %}{% endblock %}
+
+    <li class="nav-item"><a class="nav-link mover {{ color is defined ? color }}" href="#" v-tooltip title="{{ 'button.move'|trans }}"><i class="fas fa-arrows-alt"></i></a></li>
+    <li class="nav-item"><a class="nav-link {{ color is defined ? color }}" href="#" title="{{ widget.name|trans }}" v-popover data-bs-content="{{ widget.description|trans }}"><i class="fas fa-question"></i></a></li>
+    <li class="nav-item"><a class="nav-link close {{ color is defined ? color }}" href="{{ path('widget_status', { 'widgetId': widget.id, 'status': widget.isActive ? 0 : 1 }) }}"><i class="fas fa-times"></i></a></li>
+</ul>

@@ -1,0 +1,25 @@
+App\Entity\Account\User:
+    attributes:
+        id:
+            groups: ['default']
+        email:
+            groups: ['default']
+        active:
+            groups: ['default']
+        freeze:
+            groups: ['default']
+        lastLogin:
+            groups: ['default']
+        createdAt:
+            groups: ['default']
+        firstName:
+            groups: ['default']
+        lastName:
+            groups: ['default']
+        phone:
+            groups: ['default']
+        language:
+            groups: ['default']
+        fullName:
+            groups: ['default']
+

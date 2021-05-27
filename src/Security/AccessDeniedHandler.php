@@ -11,6 +11,7 @@
 
 namespace App\Security;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
@@ -29,7 +30,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $this->router = $router;
     }
 
-    public function handle(Request $request, AccessDeniedException $accessDeniedException): RedirectResponse
+    public function handle(Request $request, AccessDeniedException $accessDeniedException): RedirectResponse|JsonResponse
     {
         // Create Message
         $message = $accessDeniedException->getMessage();
@@ -44,8 +45,16 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
                 $message = $this->translator->trans($message);
         }
 
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse([
+                'messages' => [
+                    'danger' => [$message]
+                ]
+            ], $accessDeniedException->getCode());
+        }
+
         // Set Flash Message
-        $request->getSession()->getBag('flashes')->add('error', $message);
+        $request->getSession()->getBag('flashes')->add('danger', $message);
 
         // Send Response
         return new RedirectResponse($request->headers->get('referer', $this->router->generate('security_login')));

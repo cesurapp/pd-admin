@@ -18,7 +18,7 @@ parameters:
     app.head_description: ''
     app.head_author: 'pdAdmin'
     app.head_keywords: 'pdAdmin, opensource'
-    app.footer_copyright: 'pdAdmin Developed for Symfony 5'
+    app.footer_copyright: 'pdAdmin Developed with Symfony 5'
     app.default_locale: 'tr'
     app.list_count: 30
     app.site_logo: 'default/logo.png'
@@ -27,7 +27,7 @@ parameters:
     ##
     # Media Default Config
     ##
-    app.media_optimize: 1
+    app.media_optimize: true
     app.media_max_width: 1028
     app.media_max_height: 768
     app.media_quality: 75

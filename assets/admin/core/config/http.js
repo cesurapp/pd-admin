@@ -3,13 +3,17 @@ import {defineComponent} from 'vue';
 
 export default defineComponent({
     name: 'Axios',
-    render() {},
+    render() {
+    },
     beforeCreate() {
         /**
          * Axios Instance
          */
         const http = Axios.create({
-            headers: {'Content-Type': 'application/json'}
+            headers: {
+                'Content-Type': 'application/json',
+                'X-Requested-With': 'XMLHttpRequest'
+            }
         })
 
         /**
@@ -45,6 +49,11 @@ export default defineComponent({
                 return response;
             },
             (response) => {
+                // Show Alert Message
+                if (response.response.data.hasOwnProperty('messages')) {
+                    this.$root.msg.showBag(response.response.data.messages);
+                }
+
                 // Progress Error
                 this.$root.progress.error(response.config.id);
 

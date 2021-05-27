@@ -16,12 +16,17 @@ export default {
 
         /**
          * ============
-         * Init Component
+         * Setup Global Mixins
          * ============
          */
-        app.component('modal', require('./components/modal').default);
-        app.directive('modal', require('./components/modal/directive').default);
-        app.component('data-table', require('./components/datatable').default);
+        app.use(require('./mixins').default);
+
+        /**
+         * ============
+         * Init Global Components
+         * ============
+         */
+        app.use(require('./components').default);
 
         /**
          * ============
@@ -34,12 +39,8 @@ export default {
                 <http></http>
                 <message></message>
                 <progress-bar></progress-bar>
-            `,
-            components: {
-                'message': require('./components/message').default,
-                'progress-bar': require('./components/progress').default,
-                'http': require('./config/http').default
-            },
+                <confirm></confirm>
+            `
         });
     }
 }

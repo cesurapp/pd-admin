@@ -26,29 +26,29 @@ class Sidebar extends Menu
         // Create ROOT Menu
         $menu = $this->createRoot('main_menu', true);
         $menu->addChild('nav_dashboard', 1)
-            ->setLabel('nav_dashboard')
+            ->setLabel('dashboard.title')
             ->setRoute('admin.dashboard')
-            ->setRoles(['ROLE_DASHBOARD'])
+            ->setRoles(['ROLE_DASHBOARD_PANEL'])
             ->setExtra('label_icon', 's fa-chart-pie');
 
         /**
          * Account Menus
          */
         $menu
-            ->addChild('nav_accounts', 20)
-            ->setLabel('nav_account')
+            ->addChild('account_group', 20)
+            ->setLabel('accounts.title')
             ->setRoute('admin.account_list')
             ->setRoles(['ROLE_ACCOUNT_LIST'])
             ->setExtra('label_icon', 's fa-user-shield')
                 // Account List
-                ->addChild('nav_account', 10)
-                ->setLabel('nav_account')
+                ->addChild('accounts', 10)
+                ->setLabel('accounts.account.title')
                 ->setRoute('admin.account_list')
                 ->setRoles(['ROLE_ACCOUNT_LIST'])
                 // Group List
-                ->addChildParent('nav_group', 20)
-                ->setLabel('nav_group')
-                ->setRoute('admin_group_list')
+                ->addChildParent('groups', 20)
+                ->setLabel('accounts.group.title')
+                ->setRoute('admin.group_list')
                 ->setRoles(['ROLE_GROUP_LIST']);
 
         /**
@@ -64,8 +64,17 @@ class Sidebar extends Menu
                 ->addChild('config.system', 10)
                 ->setLabel('config.system')
                 ->setRoute('admin.config_general')
-                ->setRoles(['ROLE_CONFIG_GENERAL']);
-
+                ->setRoles(['ROLE_CONFIG_GENERAL'])
+                // Activity Log HTTP
+                ->addChildParent('activity.http', 20)
+                ->setLabel('activity.log.title')
+                ->setRoute('admin.activity_log.http')
+                ->setRoles(['ROLE_ACTIVITY_HTTP'])
+                // Activity Log Mail
+                ->addChildParent('activity.mail', 30)
+                ->setLabel('activity.mail.title')
+                ->setRoute('admin.activity_log.mail')
+                ->setRoles(['ROLE_ACTIVITY_MAIL']);
         return $menu;
     }
 }

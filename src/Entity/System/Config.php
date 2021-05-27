@@ -12,6 +12,7 @@
 namespace App\Entity\System;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -25,7 +26,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Config
 {
-    public const TYPES = ['boolean', 'string', 'number', 'json', 'array'];
+    public const TYPES = ['boolean', 'string', 'number', 'json', 'array', 'datetime'];
 
     /**
      * @ORM\Column(name="id", type="integer")
@@ -85,6 +86,7 @@ class Config
             case 'string': return (string)$this->value;
             case 'array': return unserialize($this->value);
             case 'json': return json_decode($this->value, true);
+            case 'datetime': return (new DateTimeNormalizer())->denormalize($this->value, 'object');
         }
 
         return null;

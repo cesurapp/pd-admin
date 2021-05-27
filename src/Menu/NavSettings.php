@@ -9,7 +9,7 @@
  * @link        https://github.com/appaydin/pd-admin
  */
 
-namespace App\Menu\Settings;
+namespace App\Menu;
 
 use Pd\MenuBundle\Builder\ItemInterface;
 use Pd\MenuBundle\Builder\Menu;
@@ -19,7 +19,7 @@ use Pd\MenuBundle\Builder\Menu;
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
-class Navigation extends Menu
+class NavSettings extends Menu
 {
     public function createMenu(array $options = []): ItemInterface
     {

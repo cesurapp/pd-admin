@@ -5,6 +5,8 @@ git pull origin master
 composer install --no-dev --optimize-autoloader
 bin/console doctrine:schema:update --force --dump-sql
 bin/console doctrine:migrations:migrate --no-interaction
+yarn install
+yarn run build
 pm2 stop all
 pm2 delete all
 pm2 start
