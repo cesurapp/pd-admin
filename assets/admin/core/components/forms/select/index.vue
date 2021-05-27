@@ -125,6 +125,7 @@ export default {
     top: 1px;
     bottom: 1px;
     border-radius: $input-border-radius;
+    transform: translateY(0);
 }
 
 .multiselect-options {
