@@ -7,28 +7,28 @@
 </template>
 
 <script>
-import Sortable from 'sortablejs/Sortable.min';
+import Dragula from 'dragula';
 
 export default {
     mounted() {
-        Sortable.create(this.$refs.container, {
-            draggable: ".widget",
-            handle: ".mover",
-            animation: 200,
-            forceFallback: true,
-            onEnd: (evt) => {
-                let index = 0;
-                for (let widget of evt.to.children) {
-                    this.$root.http.get(widget.getAttribute('data-order').replace(0, index));
-                    index++;
-                }
+        Dragula([this.$refs.container], {
+            moves: function (el, container, handle) {
+                return handle.tagName === 'I' ? handle.parentNode && handle.parentNode.classList.contains('mover') :
+                    handle.classList.contains('mover')
             }
-        });
+        }).on('drop', function (el) {
+            let index = 0;
+            for (let widget of evt.to.children) {
+                this.$root.http.get(widget.getAttribute('data-order').replace(0, index));
+                index++;
+            }
+        })
     }
 }
 </script>
 
 <style lang="scss">
+@import "~dragula/dist/dragula.min.css";
 @import "../../_variables.scss";
 
 .dashboard {

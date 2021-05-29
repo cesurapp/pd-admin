@@ -5,15 +5,15 @@
             <a ref="sortableColumn" class="dropdown-toggle" href="#" data-bs-toggle="dropdown"
                data-bs-auto-close="outside"><i class="fas fa-columns"></i></a>
             <div class="dropdown-menu py-2 px-0">
-                <draggable v-model="$parent.$parent.columns" item-key="field" class="list-group" :forceFallback="true" handle=".handle" @end="saveTable">
-                    <template #item="{ element }">
+                <SlickList axis="y" v-model:list="$parent.$parent.columns" @update:list="saveTable">
+                    <SlickItem class="drag-item" v-for="(column, i) in $parent.$parent.columns" :key="column.field" :index="i">
                         <label class="list-group-item list-group-item-action px-3 py-1 rounded-0 fw-normal border-0">
                             <i class="fas fa-bars handle me-2"></i>
-                            <input class="form-check-input me-2" type="checkbox" v-model="element.visible" @change="saveTable">
-                            {{ element.label }}
+                            <input class="form-check-input me-2" type="checkbox" v-model="column.visible" @change="saveTable">
+                            {{ column.label }}
                         </label>
-                    </template>
-                </draggable>
+                    </SlickItem>
+                </SlickList>
             </div>
         </div>
     </th>
@@ -21,10 +21,12 @@
 
 <script>
 import Storage from "../storage";
+import { SlickList, SlickItem } from 'vue-slicksort';
 
 export default {
     name: "DataTableColumnDraggable",
     props: ['options'],
+    components: {SlickList, SlickItem},
     computed: {
         getHiddenColumn() {
             return this.$parent.$parent.columns
@@ -140,5 +142,9 @@ export default {
     i {
         font-size: $font-size-lg !important;
     }
+}
+
+.drag-item{
+    z-index: 1000;
 }
 </style>

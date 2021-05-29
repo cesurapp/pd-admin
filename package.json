@@ -14,10 +14,10 @@
         "@vueform/multiselect": "^1.4.0",
         "axios": "^0.21.1",
         "bootstrap": "^5.0.0",
-        "sortablejs": "^1.13.0",
+        "dragula": "^3.7.3",
         "vue": "^3.0.5",
-        "vue3-datepicker": "^0.2.4",
-        "vuedraggable": "^4.0.1"
+        "vue-slicksort": "^2.0.0-alpha.5",
+        "vue3-datepicker": "^0.2.4"
     },
     "license": "MIT",
     "private": true,

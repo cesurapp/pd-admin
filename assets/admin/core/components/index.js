@@ -26,6 +26,6 @@ export default {
         app.component('pd-input', require('./forms/input').default);
         app.component('pd-range', require('./forms/range').default);
 
-        app.component('draggable', require('vuedraggable'));
+        app.use(require('vue-slicksort').plugin)
     }
 }

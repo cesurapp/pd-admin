@@ -1,5 +1,4 @@
-import * as Vue from 'vue/dist/vue.esm-bundler'
-import {onMounted, getCurrentInstance, ref} from 'vue'
+import {onMounted, getCurrentInstance, ref, createApp} from 'vue/dist/vue.esm-bundler'
 import appMerger from "./core/config/appMerger";
 
 /**
@@ -39,7 +38,7 @@ delete window.vueApp;
  * Create APP
  * ============
  */
-window.Root = Vue.createApp(appConfig)
+window.Root = createApp(appConfig)
     .use(require('./core/index').default)
     .use(require('./src/index').default)
     .mount('#app');
