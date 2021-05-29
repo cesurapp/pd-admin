@@ -256,7 +256,7 @@ export default {
                         } else {
                             this.maxHeight = null;
                         }
-                    }, 150);
+                    }, 75);
                 })
             }
         }
@@ -271,7 +271,7 @@ export default {
     position: relative;
 
     & > .wrapper {
-        box-shadow: 1px 1px 3px -1px rgb(0, 0, 0, 0.4);
+        box-shadow: 1px 0 3px -1px rgb(0, 0, 0, 0.4);
     }
 
     // Table
@@ -401,7 +401,15 @@ export default {
         }
 
         .header, .footer {
-            padding: .6rem $grid-gutter-width + .5;
+            padding: .3rem $grid-gutter-width + .5;
+            background: #d1d4e0;
+        }
+
+        .footer{
+            border-top: 1px solid #cdcccc;
+            border-bottom: 1px solid #cdcccc;
+            background: #f1f0f1;
+            padding: .175rem $grid-gutter-width + .5;
         }
     }
 

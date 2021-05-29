@@ -76,7 +76,8 @@ export default {
 @import "../../../_variables.scss";
 
 .page-link {
-    min-width: 37px;
+    border: none;
+    min-width: 35px;
     text-align: center;
 }
 </style>

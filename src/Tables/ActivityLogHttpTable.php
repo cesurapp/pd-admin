@@ -90,10 +90,10 @@ class ActivityLogHttpTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::dateRange('createdAt', static function (QueryBuilder $query, array $data) {
                         if (isset($data['createdAt']['start'])) {
-                            $query->andWhere('u.createdAt >= :createdStart')->setParameter('createdStart', new \DateTime($data['createdAt']['start']));
+                            $query->andWhere('q.createdAt >= :createdStart')->setParameter('createdStart', new \DateTime($data['createdAt']['start']));
                         }
                         if (isset($data['createdAt']['end'])) {
-                            $query->andWhere('u.createdAt < :createdEnd')->setParameter('createdEnd', new \DateTime($data['createdAt']['end']));
+                            $query->andWhere('q.createdAt < :createdEnd')->setParameter('createdEnd', new \DateTime($data['createdAt']['end']));
                         }
                     })
                 ]
