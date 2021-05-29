@@ -42,7 +42,7 @@ class QuickAction
             'action_group' => [
                 'name' => 'nav_group',
                 'description' => 'accouunt_group_list_title',
-                'route' => 'admin_group_list',
+                'route' => 'admin.group_list',
                 'icons' => 'users-cog',
                 'linkClass' => 'btn btn-primary',
             ],

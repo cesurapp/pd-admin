@@ -12,15 +12,14 @@ import Dragula from 'dragula';
 export default {
     mounted() {
         Dragula([this.$refs.container], {
-            moves: function (el, container, handle) {
+            moves: (el, container, handle) => {
                 return handle.tagName === 'I' ? handle.parentNode && handle.parentNode.classList.contains('mover') :
                     handle.classList.contains('mover')
             }
-        }).on('drop', function (el) {
-            let index = 0;
-            for (let widget of evt.to.children) {
-                this.$root.http.get(widget.getAttribute('data-order').replace(0, index));
-                index++;
+        }).on('drop', (el) => {
+            let widgets = this.$refs.container.getElementsByClassName('widget');
+            for (let index = 0; index < widgets.length; index++) {
+                this.$root.http.get(widgets[index].getAttribute('data-order').replace(0, index));
             }
         })
     }
