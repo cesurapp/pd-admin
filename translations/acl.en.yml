@@ -1,0 +1,53 @@
+access_denied: Access denied!
+access_denied_not_authorized: Access denied! You are not authorized for this action.
+not_login_own_account: Access denied! You cannot log into your own account.
+not_login_super_admin: Access denied! You cannot login to the Super Admin account.
+not_login_already_switched: Access denied! You have already switched to an existing user.
+not_login_switch_authorized: Access denied! Your authorization is not sufficient for this operation.
+
+ACL:
+    title: Access Control
+ACLProcess:
+    title: Special Process
+ROLE_USER:
+    title: User
+ROLE_SUPER_ADMIN:
+    title: Super Admin
+ROLE_ALLOWED_TO_SWITCH:
+    title: Account Switching
+ROLE_DASHBOARD:
+    title: Admin - Dashboard
+    PANEL: Display Admin Panel
+ROLE_ACCOUNT:
+    title: Admin - User Management
+    LIST: Listing
+    EDIT: Edit
+    PASSWORD: Change Password
+    ROLES: Authorization
+    ACTIVATE: Activation
+    GROUP: Add/Remove Group
+    DELETE: Delete
+    FREEZE: Account Freeze
+    ALLREAD: Reading All Accounts
+    ALLWRITE: Writing All Accounts
+ROLE_GROUP:
+    title: Admin - User Group Management
+    LIST: Listing
+    EDIT: Edit
+    CREATE: New Group
+    DELETE: Delete
+    ROLES: Authorization
+ROLE_CONFIG:
+    title: Admin - System Settings
+    GENERAL: General
+    USER: Account
+    MEDIA: Media
+ROLE_WIDGET:
+    title: Admin - Dashboard Widget
+    USERINFO: User Information
+    QUICKACTION: Quick Menu
+    USERSTATISTICS: User Statistics
+ROLE_ACTIVITY:
+    title: Admin - Log Management
+    HTTP: Activity Log
+    MAIL: Mail Log

@@ -9,8 +9,8 @@ use Sonata\Exporter\Writer\XlsWriter;
 use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\StreamedResponse;
-use Symfony\Component\Messenger\MessageBusInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
  * Ajax Data Table
@@ -24,7 +24,7 @@ abstract class AbstractDataTable implements DataTableInterface
     private ?Request $request;
 
     public function __construct(protected AuthorizationCheckerInterface $auth,
-                                protected MessageBusInterface $bus)
+                                protected TranslatorInterface $trans)
     {
     }
 

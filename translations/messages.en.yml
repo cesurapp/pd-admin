@@ -1,0 +1,142 @@
+# Message & Button & Text
+message:
+    saved: Changes are saved.
+    deleted: The deletion is complete.
+button:
+    save: Save
+    add: Add
+    delete: Delete
+    move: Move
+    yes: Yes
+    no: No
+    cancel: Cancel
+    edit: Edit
+confirm:
+    delete: Are you sure you want to delete it?
+    approve: Are you sure you want to perform this action?
+date: Date
+save: Save
+
+# Toolbar
+toolbar:
+    language: Language
+    profile:
+        edit: My Profile
+        password: Change my password
+        return_admin: Back to Admin
+        logout: Sign Out
+
+# Pages
+404:
+    title: Page Not Found!
+    description: Sorry, the page you are looking for was not found or may have been deprecated.
+
+dashboard:
+    title: Admin Panel
+
+config:
+    title: Settings
+    system: System Settings
+    general:
+        title: General
+        head_title: Site Title
+        head_title_help: The name of the site, shown as a suffix.
+        head_title_pattern: Title Pattern
+        head_title_pattern_help: '&T: Active page title, <br>&P: Panel suffix'
+        head_description: Site Description
+        head_description_help: The meta 'description' tag field for the panel.
+        head_author: Site Author
+        head_author_help: Determines the site builder.
+        head_keywords: Keywords
+        footer_copyright: Footer Copyright
+        default_locale: Default Language
+        site_logo: Site Logo
+        site_favicon: Site Favicon
+        list_count: Number of Listings
+        list_count_help: Default listing number for admin panel
+    media:
+        title: Media
+        optimize: Image Optimize
+        optimize_help: Enables optimization for images uploaded with the pdAdmin upload system.
+        max_height: Image Maximum Height
+        max_height_help: It is the maximum height value for images.
+        max_width: Image Maximum Width
+        max_width_help: Maximum width for images.
+        quality: Picture Quality
+        quality_help: Enter value from 0-100, default is 80.
+    user:
+        title: User
+        registration: Member Registration
+        registration_help: Activates member registration.
+        default_group: Default Group
+        default_group_help: The group that new members join automatically.
+        login_redirect: Login Redirect
+        login_redirect_help: The page that the user will be redirected to after logging in.
+        logout_redirect: Exit Redirect
+        logout_redirect_help: The page that the user will be redirected to after logging out.
+        email_confirmation: Email Verification
+        email_confirmation_help: Enables email verification for new members.
+        welcome_email: Welcome Email
+        welcome_email_help: Sends a welcome email for new members.
+
+account:
+    title: Edit Account
+    edit:
+        title: My Profile
+        firstname: Your name
+        lastname: Last name
+        phone: Phone
+        language: Language
+        groups: Member Groups
+    password:
+        title: Password
+    roles:
+        title: Roles
+    groups:
+        title: Groups
+
+accounts:
+    title: Account Management
+    account:
+        title: Accounts
+        approve: Approve Account
+        unapprove: Unapprove
+        freeze: Freeze Account
+        unfreeze: Activate Account
+        switch: Login to Account
+    group:
+        title: Groups
+        add: New Group
+        add_title: Create New Group
+        roles: Authorization
+        edit_title: Edit Group
+
+activity:
+    log:
+        title: Activity Log
+    mail:
+        title: Mail Log
+
+# Widgets
+widget:
+    modal_title: Add New Widget
+    user_info:
+        name: User Information
+        description: Shows the number of registered members.
+        count: Registered Member
+    user_statistic:
+        name: User Statistics
+        description: Shows detailed user statistics.
+        last_week: Last 1 Week
+        last_month: Last 1 Month
+        last_three_month: Last 3 Months
+    quick_action:
+        name: Quick Buttons
+        description: Creates easy access buttons to menus.
+        add_button: Add Button
+        account: accounts
+        account_desc: Displays the user account list
+        group: Groups
+        group_desc: Displays user group settings
+        general: General Settings
+        general_desc: Displays general system settings

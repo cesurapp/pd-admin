@@ -123,6 +123,7 @@ $grid-gutter-width: 1.2rem;
     transition-delay: .25s;
     z-index: 3;
     box-shadow: 0.07rem 0 0.07rem rgb(0 0 0 / 15%);
+    width: 275px;
 
     .toggle {
         background: #3a3a3a;
@@ -239,21 +240,33 @@ $grid-gutter-width: 1.2rem;
         }
     }
 
-    .pd-menu a {
-        display: flex;
-        align-items: center;
-        color: #afb2b6;
-        padding: $grid-gutter-width / 1.3 $grid-gutter-width;
-        transition: $transition-base;
-        font-weight: 600;
-        position: relative;
-        font-size: $font-size-base + .1;
-        line-height: $font-size-base + .1;
+    .pd-menu {
+        a{
+            display: flex;
+            align-items: center;
+            color: #afb2b6;
+            padding: $grid-gutter-width / 1.3 $grid-gutter-width;
+            transition: $transition-base;
+            font-weight: 600;
+            position: relative;
+            font-size: $font-size-base + .1;
+            line-height: $font-size-base + .1;
 
-        i {
-            margin-right: $grid-gutter-width;
-            font-size: $font-size-base + .7rem;
-            width: 24px;
+            i {
+                margin-right: $grid-gutter-width;
+                font-size: $font-size-base + .7rem;
+                width: 24px;
+            }
+        }
+
+        & > li > a > span{
+            overflow: hidden;
+            padding-right: .9rem;
+            white-space: nowrap;
+            display: block;
+            width: 100%;
+            text-overflow: ellipsis;
+            line-height: 1.4;
         }
     }
 
@@ -384,16 +397,26 @@ $grid-gutter-width: 1.2rem;
 
     // Big Menu
     &.bigmenu {
-        width: 170px !important;
-        .pd-menu a {
-            flex-direction: column;
-            padding: $grid-gutter-width;
+        width: 170px;
+        min-width: auto;
+        .pd-menu {
+            a{
+                flex-direction: column;
+                padding: $grid-gutter-width - .2;
 
-            i {
-                margin-right: 0;
-                margin-bottom: $grid-gutter-width * 0.85;
-                font-size: $font-size-base + 1.5rem;
-                width: auto;
+                i {
+                    margin-right: 0;
+                    margin-bottom: $grid-gutter-width * 0.85;
+                    font-size: $font-size-base + 1.5rem;
+                    width: auto;
+                }
+            }
+
+            & > li > a > span{
+                padding-right: 0;
+                text-align: center;
+                line-height: 1.2;
+                text-overflow: inherit;
             }
         }
 
