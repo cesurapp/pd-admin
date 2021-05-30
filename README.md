@@ -1,6 +1,6 @@
-![page-login](https://user-images.githubusercontent.com/8649070/42580602-9e3bd2b0-8533-11e8-9a37-4ebb02765559.jpg)
+![page-login](https://user-images.githubusercontent.com/8649070/120119713-efae3900-c1a1-11eb-88cf-481afb058b07.png)
 
-![page-admin](https://user-images.githubusercontent.com/8649070/42580601-9e100496-8533-11e8-93bf-9d74e721ccd5.png)
+![page-admin](https://user-images.githubusercontent.com/8649070/120119714-f177fc80-c1a1-11eb-8853-3d60b5c1c4ed.png)
 
 pdAdmin
 =========
@@ -11,6 +11,18 @@ Symfony Powerful Dashboard & Admin. Developed with **Symfony 5**, **Vue 3**, **B
 No changes were made to the symfony structure, the current directory structure is used. A custom namespace for Admin has been created. This field is used for all administrator operations.
 
 The interface is designed to be responsive using Twitter Bootstrap. The least possible dependency was tried to be used.
+
+Properties
+--------------------
+* Messenger was used for queuing.
+* PM2 has been set for background processes.
+* Cron processes are managed by PM2.
+* A special Data Table has been written to the panel (Vue3)
+* Supports CSV, Excel export.
+* Special package written for HTTP vs Mail logging.
+* JWT is used for API login.
+* Responsive design
+* Vue documentation is not yet available, see source file.
 
 Installation
 --------------------
@@ -41,7 +53,6 @@ Documentation
 * [Multilingual System](#multilingual-system)
 * [Delegation](#delegation)
 * [System Settings](#system-settings)
-* [Mail Manager](#mail-manager)
 * [Create New Widget](#create-new-widget)
 * [Create New Menu](#create-new-menu)
 
@@ -71,10 +82,9 @@ New languages can be added from the kernel settings. You need to translate manua
 [SensioFrameworkExtraBundle](https://symfony.com/doc/master/bundles/SensioFrameworkExtraBundle/annotations/security.html) is used with Symfony security component. There are three default user roles.
 
 * ROLE_USER
-* ROLE_ADMIN
 * ROLE_SUPER_ADMIN
 
-ROLE_SUPER_ADMIN has full authority. ROLE_ADMIN and ROLE_USER authorities can be restricted and panel access can be turned off in the __security.yaml__ file.
+ROLE_SUPER_ADMIN has full authority. ROLE_USER authorities can be restricted and panel access can be turned off in the __security.yaml__ file.
 
 ### System Settings
 System settings are stored in the database. All settings can be used as parameters after container assembly. Since all settings are compiled with the container
@@ -119,30 +129,6 @@ class SettingsMenu extends Menu
         return $menu;
     }
 }
-```
-
-### Mail Manager
-Mail Manager is made as Symfony Mailer plugin. With Mailer, the log of all mail is stored.
-In addition, it is a template manager. You can create custom templates (Email Template) for your posts and provide a compilation that includes submissions.
-The Mail Template is multi-language supported. You can create templates for different languages.
-Package installation __packages/pd_mailer.yaml__ located in the file.
-For further information please contact [pd-mailer](https://github.com/appaydin/pd-mailer)
-
-Send Email:
-```php
-// Create Message
-$email = new Email();
-$email
-    ->from('example@example.com')
-    ->to('example@gmail.com')
-    ->subject('Subject')
-    ->html([
-        'firstname' => 'Ramazan', 'lastname' => 'APAYDIN'
-    ]) // Data to be used in the template. - Required
-    ->getHeaders()->addTextHeader('template', 'customTemplateID'); // Required
-
-// Send Mail
-$this->get('mailer')->send($email);
 ```
 
 ### Create New Widget
