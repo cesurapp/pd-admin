@@ -11,7 +11,7 @@ class AccountListTable extends AbstractDataTable
     protected function initColumns(): array
     {
         return [
-            [
+            'id' => [
                 'field' => 'id',
                 'field_sort' => 'u.id',
                 'label' => 'ID',
@@ -23,7 +23,6 @@ class AccountListTable extends AbstractDataTable
                 //'template' => '<span class="badge bg-secondary">{{ data }}</span>',
                 //'background' => '#333333',
                 //'roles' => ['ROLE_ACCOUNT_LIST'],
-                //'export_render' => '',
                 //'export_template' => '',
                 'filters' => [
                     DataTableFilters::number('id', static function (QueryBuilder $query, array $data) {
@@ -31,7 +30,7 @@ class AccountListTable extends AbstractDataTable
                     }, 'ID')
                 ]
             ],
-            [
+            'email' => [
                 'field' => 'email',
                 'field_sort' => 'u.email',
                 'label' => 'E-posta',
@@ -42,33 +41,35 @@ class AccountListTable extends AbstractDataTable
                     }, 'E-posta adresi')
                 ]
             ],
-            [
+            'active' => [
                 'field' => 'active',
                 'field_sort' => 'u.active',
                 'label' => 'Aktif',
                 'sortable' => true,
                 'template' => '<span class="badge bg-success" v-if="data.active">Evet</span>
                                <span class="badge bg-secondary" v-else>Hayır</span>',
+                'export_template' => fn($data) => $data ? 'Evet' : 'Hayır',
                 'filters' => [
                     DataTableFilters::switch('active', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('u.active = :active')->setParameter('active', (bool)json_decode(strtolower($data['active'])));
                     }, 'Aktif / İnaktif')
                 ]
             ],
-            [
+            'freeze' =>  [
                 'field' => 'freeze',
                 'field_sort' => 'u.freeze',
                 'label' => 'Dondurulmuş',
                 'sortable' => true,
                 'template' => '<span class="badge bg-danger" v-if="data.freeze">Evet</span>
                                <span class="badge bg-secondary" v-else>Hayır</span>',
+                'export_template' => fn($data) => $data ? 'Evet' : 'Hayır',
                 'filters' => [
                     DataTableFilters::switch('freeze', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('u.freeze = :freeze')->setParameter('freeze', (bool)json_decode(strtolower($data['freeze'])));
                     }, 'Aktif / Dondurulmuş')
                 ]
             ],
-            [
+            'lastLogin' => [
                 'field' => 'lastLogin',
                 'field_sort' => 'u.lastLogin',
                 'label' => 'Son Giriş',
@@ -85,12 +86,13 @@ class AccountListTable extends AbstractDataTable
                     })
                 ]
             ],
-            [
+            'createdAt' => [
                 'field' => 'createdAt',
                 'field_sort' => 'u.createdAt',
                 'label' => 'Oluşturulma',
                 'sortable' => true,
                 'template' => '<span>{{ dateISOTime(data.createdAt) }}</span>',
+                'export_template' => fn(\DateTimeInterface $date) => $date->format('d.m.Y H:i'),
                 'filters' => [
                     DataTableFilters::dateRange('createdAt', static function (QueryBuilder $query, array $data) {
                         if (isset($data['createdAt']['start'])) {
@@ -102,7 +104,7 @@ class AccountListTable extends AbstractDataTable
                     })
                 ]
             ],
-            [
+            'firstName' => [
                 'field' => 'firstName',
                 'field_sort' => 'u.firstName',
                 'label' => 'Ad',
@@ -113,7 +115,7 @@ class AccountListTable extends AbstractDataTable
                     }, 'İsim')
                 ]
             ],
-            [
+            'lastName' => [
                 'field' => 'lastName',
                 'field_sort' => 'u.lastName',
                 'label' => 'Soyad',
@@ -124,7 +126,7 @@ class AccountListTable extends AbstractDataTable
                     }, 'Soyisim')
                 ]
             ],
-            [
+            'phone' => [
                 'field' => 'phone',
                 'field_sort' => 'u.phone',
                 'label' => 'Telefon',

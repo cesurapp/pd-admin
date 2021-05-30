@@ -11,6 +11,7 @@
         data-sort-api="{{ url('admin.data_table') }}"
         data-sort-table="{{ table.name }}"
         sort-field="u.id"
+        :exporter="true"
     >
         <template v-slot:actions="{item, index, remove}">
             {% if is_granted('ROLE_ACCOUNT_ACTIVATE') %}

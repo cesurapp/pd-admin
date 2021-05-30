@@ -22,7 +22,7 @@ export default {
             dropdowns: [],
             activeItem: null,
             activeDropdown: null,
-            mobileWidth: 768
+            mobileWidth: 992
         }
     },
     methods: {
@@ -154,6 +154,7 @@ $grid-gutter-width: 1.2rem;
     }
 
     &.active {
+        min-width: 250px;
         .toggle i {
             transform: rotate(180deg);
         }

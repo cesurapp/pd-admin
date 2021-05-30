@@ -6,13 +6,14 @@
         height: autoHeight && maxHeight ? maxHeight + 'px' : 'auto'
     }">
         <!--Toolbar-->
-        <div class="header"  v-if="$slots['header-left'] || $slots['header-right']">
+        <div class="header"  v-if="$slots['header-left'] || $slots['header-right'] || exporter">
             <div class="d-flex">
                 <div class="d-flex align-items-center">
                     <slot name="header-left" :checked="checked"></slot>
                 </div>
                 <div class="ms-auto d-flex align-items-center">
                     <slot name="header-right" :checked="checked"></slot>
+                    <exporter v-if="exporter" :columns="columns"></exporter>
                 </div>
             </div>
         </div>
@@ -71,13 +72,15 @@
 
 <script>
 import {encodeFilter, decodeFilter} from "./filters/prepareFilter";
+import Exporter from './Exporter';
 
 export default {
     name: 'DataTable',
     components: {
         'tHead': require('./blocks/thead').default,
         'tBody': require('./blocks/tbody').default,
-        'paginator': require('../paginator').default
+        'paginator': require('../paginator').default,
+        Exporter
     },
     props: {
         dataApi: {type: [String, Array], default: null},
@@ -97,6 +100,7 @@ export default {
         rowClick: {type: Function},
         actions: {type: Boolean, default: true},
         filters: {type: Boolean, default: true},
+        exporter: {type: Boolean, default: false},
     },
     data() {
         return {
@@ -402,6 +406,7 @@ export default {
 
         .header, .footer {
             padding: .3rem $grid-gutter-width + .5;
+            padding-bottom: .31rem;
             background: #d1d4e0;
         }
 

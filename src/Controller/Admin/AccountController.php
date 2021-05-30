@@ -78,6 +78,10 @@ class AccountController extends AbstractController
             $this->bag->get('list_count')
         );
 
+        if ($request->get('export')) {
+            return $table->export();
+        }
+
         return $request->isXmlHttpRequest() ?
             $this->json($pagination, context: ['groups' => 'default']) :
             $this->render('admin/account/list.html.twig', ['table' => $table]);

@@ -5,10 +5,10 @@
             <a ref="sortableColumn" class="dropdown-toggle" href="#" data-bs-toggle="dropdown"
                data-bs-auto-close="outside"><i class="fas fa-columns"></i></a>
             <div class="dropdown-menu py-2 px-0">
-                <SlickList axis="y" v-model:list="$parent.$parent.columns" @update:list="saveTable">
+                <SlickList :useDragHandle="true" axis="y" v-model:list="$parent.$parent.columns" @update:list="saveTable">
                     <SlickItem class="drag-item" v-for="(column, i) in $parent.$parent.columns" :key="column.field" :index="i">
                         <label class="list-group-item list-group-item-action px-3 py-1 rounded-0 fw-normal border-0">
-                            <i class="fas fa-bars handle me-2"></i>
+                            <i class="fas fa-bars handle me-2" v-handle-directive></i>
                             <input class="form-check-input me-2" type="checkbox" v-model="column.visible" @change="saveTable">
                             {{ column.label }}
                         </label>
@@ -21,12 +21,13 @@
 
 <script>
 import Storage from "../storage";
-import { SlickList, SlickItem } from 'vue-slicksort';
+import { SlickList, SlickItem, HandleDirective } from 'vue-slicksort';
 
 export default {
     name: "DataTableColumnDraggable",
     props: ['options'],
     components: {SlickList, SlickItem},
+    directives: {HandleDirective},
     computed: {
         getHiddenColumn() {
             return this.$parent.$parent.columns
@@ -146,5 +147,9 @@ export default {
 
 .drag-item{
     z-index: 1000;
+    .handle {
+        cursor: move;
+        margin-top: 2px;
+    }
 }
 </style>

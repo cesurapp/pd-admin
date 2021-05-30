@@ -11,7 +11,7 @@ class ActivityLogMailTable extends AbstractDataTable
     protected function initColumns(): array
     {
         return [
-            [
+            'id' => [
                 'field' => 'id',
                 'field_sort' => 'q.id',
                 'label' => 'ID',
@@ -25,7 +25,7 @@ class ActivityLogMailTable extends AbstractDataTable
                     }, 'ID')
                 ]
             ],
-            [
+            'mailSubject' => [
                 'field' => 'mailSubject',
                 'field_sort' => 'q.mailSubject',
                 'label' => 'Konu',
@@ -36,7 +36,7 @@ class ActivityLogMailTable extends AbstractDataTable
                     }, 'Konu')
                 ]
             ],
-            [
+            'mailBody' => [
                 'field' => 'mailBody',
                 'field_sort' => 'q.mailBody',
                 'label' => 'İçerik',
@@ -47,7 +47,7 @@ class ActivityLogMailTable extends AbstractDataTable
                     }, 'Posta İçeriği')
                 ]
             ],
-            [
+            'mailTo' => [
                 'field' => 'mailTo',
                 'field_sort' => 'q.mailTo',
                 'label' => 'TO',
@@ -58,7 +58,7 @@ class ActivityLogMailTable extends AbstractDataTable
                     }, 'TO')
                 ]
             ],
-            [
+            'mailFrom' => [
                 'field' => 'mailFrom',
                 'field_sort' => 'q.mailFrom',
                 'label' => 'From',
@@ -69,7 +69,7 @@ class ActivityLogMailTable extends AbstractDataTable
                     }, 'From')
                 ]
             ],
-            [
+            'mailCC' => [
                 'field' => 'mailCC',
                 'field_sort' => 'q.mailCC',
                 'label' => 'CC',
@@ -80,7 +80,7 @@ class ActivityLogMailTable extends AbstractDataTable
                     }, 'CC')
                 ]
             ],
-            [
+            'mailBcc' => [
                 'field' => 'mailBcc',
                 'field_sort' => 'q.mailBcc',
                 'label' => 'BCC',
@@ -91,7 +91,7 @@ class ActivityLogMailTable extends AbstractDataTable
                     }, 'BCC')
                 ]
             ],
-            [
+            'createdAt' => [
                 'field' => 'createdAt',
                 'field_sort' => 'q.createdAt',
                 'label' => 'Oluşturulma',

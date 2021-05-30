@@ -12,7 +12,7 @@ class ActivityLogHttpTable extends AbstractDataTable
     protected function initColumns(): array
     {
         return [
-            [
+            'id' => [
                 'field' => 'id',
                 'field_sort' => 'q.id',
                 'label' => 'ID',
@@ -26,7 +26,7 @@ class ActivityLogHttpTable extends AbstractDataTable
                     }, 'ID')
                 ]
             ],
-            [
+            'method' => [
                 'field' => 'method',
                 'field_sort' => 'q.method',
                 'label' => 'Method',
@@ -37,7 +37,7 @@ class ActivityLogHttpTable extends AbstractDataTable
                     }, array_flip(ActivityLog::METHODS))
                 ]
             ],
-            [
+            'uri' =>  [
                 'field' => 'uri',
                 'field_sort' => 'q.uri',
                 'label' => 'Uri',
@@ -48,7 +48,7 @@ class ActivityLogHttpTable extends AbstractDataTable
                     }, 'Uri')
                 ]
             ],
-            [
+            'clientIp' => [
                 'field' => 'clientIp',
                 'field_sort' => 'q.clientIp',
                 'label' => 'Client IP',
@@ -59,7 +59,7 @@ class ActivityLogHttpTable extends AbstractDataTable
                     }, 'Client IP')
                 ]
             ],
-            [
+            'locale' => [
                 'field' => 'locale',
                 'field_sort' => 'q.locale',
                 'label' => 'Dil',
@@ -70,7 +70,7 @@ class ActivityLogHttpTable extends AbstractDataTable
                     }, 'Dil')
                 ]
             ],
-            [
+            'owner' => [
                 'field' => 'owner',
                 'field_sort' => 'q.owner',
                 'label' => 'İşlem Yapan',
@@ -81,7 +81,7 @@ class ActivityLogHttpTable extends AbstractDataTable
                     }, 'İşlem Yapan')
                 ]
             ],
-            [
+            'createdAt' =>  [
                 'field' => 'createdAt',
                 'field_sort' => 'q.createdAt',
                 'label' => 'Oluşturulma',

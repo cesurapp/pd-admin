@@ -11,7 +11,7 @@ class GroupListTable extends AbstractDataTable
     protected function initColumns(): array
     {
         return [
-            [
+            'id' => [
                 'field' => 'id',
                 'field_sort' => 'q.id',
                 'label' => 'ID',
@@ -25,7 +25,7 @@ class GroupListTable extends AbstractDataTable
                     }, 'ID')
                 ]
             ],
-            [
+            'name' => [
                 'field' => 'name',
                 'field_sort' => 'q.name',
                 'label' => 'Grup Adı',

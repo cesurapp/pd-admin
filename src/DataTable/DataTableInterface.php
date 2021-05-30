@@ -4,6 +4,7 @@ namespace App\DataTable;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 interface DataTableInterface
 {
@@ -17,7 +18,5 @@ interface DataTableInterface
 
     public function handleRequest(Request $request): self;
 
-    public function exportExcel(): void;
-
-    public function exportCsv(): void;
+    public function export(): StreamedResponse;
 }
