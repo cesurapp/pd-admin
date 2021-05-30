@@ -13,7 +13,13 @@ export default {
         }
 
         setTimeout(() => {
-            vnode.dirs[0].instance.$root.forms[id] = val;
+            if (el.getAttribute('type') === 'radio') {
+                if (el.checked){
+                    vnode.dirs[0].instance.$root.forms[id] = val;
+                }
+            } else {
+                vnode.dirs[0].instance.$root.forms[id] = val;
+            }
         }, 10);
     }
 }

@@ -133,3 +133,9 @@ widget:
         name: Hızlı Butonlar
         description: Menülere kolay erişim butonları oluşturur.
         add_button: Buton Ekle
+        account: Hesaplar
+        account_desc: Kullanıcı hesap listesini görüntüler
+        group: Gruplar
+        group_desc: Kullanıcı grup ayarlarını görüntüler
+        general: Genel Ayarlar
+        general_desc: Genel sistem ayarlarını görüntüler

@@ -269,7 +269,7 @@ class AccountController extends AbstractController
             $this->entityManager->flush();
 
             // Flash Message
-            $this->addFlash('success', 'changes_saved');
+            $this->addFlash('success', 'message.saved');
 
             // Redirect
             return $this->redirectToRoute('admin.account_group', ['user' => $user->getId()]);

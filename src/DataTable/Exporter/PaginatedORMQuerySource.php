@@ -4,12 +4,19 @@
 namespace App\DataTable\Exporter;
 
 use Doctrine\ORM\Query;
-use Sonata\Exporter\Source\DoctrineORMQuerySourceIterator;
+use Sonata\Exporter\Source\AbstractPropertySourceIterator;
 use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
-class PaginatedORMQuerySource extends DoctrineORMQuerySourceIterator
+/**
+ * Doctrine ORM Paginator Source
+ *
+ * @author Ramazan APAYDIN <apaydin541@gmail.com>
+ */
+class PaginatedORMQuerySource extends AbstractPropertySourceIterator
 {
+    protected Query $query;
+
     private const PAGE_SIZE = 1000;
 
     private int $page = 0;
@@ -18,11 +25,34 @@ class PaginatedORMQuerySource extends DoctrineORMQuerySourceIterator
 
     public function __construct(Query $query, array $fields, array $columns, string $dateTimeFormat = 'r',)
     {
-        parent::__construct($query, $fields, $dateTimeFormat);
+        $this->query = clone $query;
+        $this->query->setParameters($query->getParameters());
+        foreach ($query->getHints() as $name => $value) {
+            $this->query->setHint($name, $value);
+        }
 
+        $this->columns = $columns;
         $this->query->setMaxResults(self::PAGE_SIZE);
         $this->query->setFirstResult(0);
-        $this->columns = $columns;
+
+        parent::__construct($fields, $dateTimeFormat);
+    }
+
+    public function current()
+    {
+        $current = $this->iterator->current();
+
+        $data = $this->getCurrentData($current[0]);
+
+        $this->query->getEntityManager()->clear();
+
+        return $data;
+    }
+
+    final public function rewind(): void
+    {
+        $this->iterator = $this->query->iterate();
+        $this->iterator->rewind();
     }
 
     public function next(): void
@@ -55,7 +85,7 @@ class PaginatedORMQuerySource extends DoctrineORMQuerySourceIterator
 
                 if (isset($this->columns[$name]['export_template'])) {
                     $data[$name] = $this->columns[$name]['export_template']($propertyValue);
-                }else {
+                } else {
                     $data[$name] = $this->getValue($propertyValue);
                 }
             } catch (UnexpectedTypeException $e) {

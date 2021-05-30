@@ -12,6 +12,7 @@
 namespace App\Service;
 
 use App\Entity\Account\User;
+use Doctrine\Common\Annotations\Reader;
 use Pd\WidgetBundle\Widget\WidgetInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\Routing\RouterInterface;
@@ -26,7 +27,7 @@ class SecurityService
     private array $roles = [];
     private array $excludeClass = [];
 
-    public function __construct(private RouterInterface $router, private WidgetInterface $widget)
+    public function __construct(private RouterInterface $router, private WidgetInterface $widget, private Reader $reader)
     {
     }
 
@@ -90,6 +91,7 @@ class SecurityService
             return;
         }
 
+        // Find Attribute
         $roles = array_map(
             static function ($attribute) {
                 $roles = array_map(static fn($roles) => (array)$roles, $attribute->getArguments());
@@ -97,6 +99,13 @@ class SecurityService
             },
             $reflection->getMethod($method)->getAttributes(IsGranted::class)
         );
+
+        // Find Annotation
+        foreach ($this->reader->getMethodAnnotations($reflection->getMethod($method)) as $access) {
+            if ($access instanceof IsGranted) {
+                $roles[] = (array)$access->getAttributes();
+            }
+        }
 
         $this->roles = array_merge($this->roles, ...$roles);
     }

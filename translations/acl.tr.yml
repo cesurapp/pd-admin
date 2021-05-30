@@ -16,10 +16,10 @@ ROLE_SUPER_ADMIN:
 ROLE_ALLOWED_TO_SWITCH:
     title: Hesap Değiştirme
 ROLE_DASHBOARD:
-    title: Admin Paneli (Dashboard)
-    PANEL: Panel Listeleme
+    title: Admin - Dashboard
+    PANEL: Panel Görüntüleme
 ROLE_ACCOUNT:
-    title: Admin Hesap Yönetimi
+    title: Admin - Kullanıcı Yönetimi
     LIST: Listeleme
     EDIT: Düzenleme
     PASSWORD: Şifre Değiştirme
@@ -31,29 +31,23 @@ ROLE_ACCOUNT:
     ALLREAD: Tüm Hesapları Okuma
     ALLWRITE: Tüm Hesapları Yazma
 ROLE_GROUP:
-    title: Admin Grup İzinleri
+    title: Admin - Kullanıcı Grup Yönetimi
     LIST: Listeleme
     EDIT: Düzenleme
     CREATE: Yeni Grup
     DELETE: Sil
     ROLES: Yetkilendirme
 ROLE_CONFIG:
-    title: Admin Ayarlar İzinleri
+    title: Admin - Sistem Ayarları
     GENERAL: Genel
     USER: Hesap
     MEDIA: Medya
-ROLE_MAIL:
-    title: Admin Posta Yöneticisi
-    TEMPLATE: Şablon Listeleme
-    TEMPLATEADD: Yeni Şablon
-    TEMPLATEEDIT: Şablon Düzenle
-    TEMPLATEACTIVE: Şablon Etkinleştir
-    TEMPLATEDELETE: Şablon Sil
-    LOGGER: Log Listeleme
-    VIEWLOG: Log Görüntüleme
-    LOGDELETE: Log Sil
 ROLE_WIDGET:
-    title: Admin Widget
+    title: Admin - Dashboard Widget
     USERINFO: Kullanıcı Bilgisi
     QUICKACTION: Hızlı Menü
     USERSTATISTICS: Kullanıcı İstatistikleri
+ROLE_ACTIVITY:
+    title: Admin - Günlük Yönetimi
+    HTTP: Etkinlik Günlüğü
+    MAIL: Posta Günlüğü

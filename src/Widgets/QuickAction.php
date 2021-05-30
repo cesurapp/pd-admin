@@ -33,22 +33,22 @@ class QuickAction
         // Action Button
         $items = [
             'action_account' => [
-                'name' => 'nav_account',
-                'description' => 'admin_account_desc',
+                'name' => 'widget.quick_action.account',
+                'description' => 'widget.quick_action.account_desc',
                 'route' => 'admin.account_list',
                 'icons' => 'user-shield',
                 'linkClass' => 'btn btn-primary',
             ],
             'action_group' => [
-                'name' => 'nav_group',
-                'description' => 'accouunt_group_list_title',
+                'name' => 'widget.quick_action.group',
+                'description' => 'widget.quick_action.group_desc',
                 'route' => 'admin.group_list',
                 'icons' => 'users-cog',
                 'linkClass' => 'btn btn-primary',
             ],
             'action_settings' => [
-                'name' => 'settings_general',
-                'description' => 'settings_general_desc',
+                'name' => 'widget.quick_action.general',
+                'description' => 'widget.quick_action.general_desc',
                 'route' => 'admin.config_general',
                 'icons' => 'cogs',
                 'linkClass' => 'btn btn-secondary',
