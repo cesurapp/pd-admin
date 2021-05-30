@@ -85,7 +85,6 @@ class GeneralForm extends AbstractType
                 'choices' => array_flip(array_intersect_key(Languages::getNames(), array_flip($options['active_language']))),
                 'choice_translation_domain' => false,
                 'empty_data' => 'tr',
-                'placeholder' => 'Dil Seçin',
                 'required' => false,
             ])
             ->add('list_count', RangeType::class, [
