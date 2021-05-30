@@ -134,7 +134,7 @@ widget:
         name: Quick Buttons
         description: Creates easy access buttons to menus.
         add_button: Add Button
-        account: accounts
+        account: Accounts
         account_desc: Displays the user account list
         group: Groups
         group_desc: Displays user group settings
