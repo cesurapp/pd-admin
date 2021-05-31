@@ -38,12 +38,20 @@ Installation
     ```
 4. Run built-in web server
      ```
-     symfony server:start --no-tls
+     symfony server:start --no-tls -d
      ```
 5. Install & Build assets
      ```
      yarn install
      yarn run build
+     ```
+6. Run Backround Process
+     ```
+     pm2 start
+
+     # Manuel
+     # bin/console messenger:consume -vv
+     # bin/console schedule:run
      ```
 
 Documentation
