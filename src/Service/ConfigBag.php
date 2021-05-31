@@ -32,8 +32,7 @@ class ConfigBag
         private ConfigRepository $configRepo,
         private ParameterBagInterface $bag,
         private EntityManagerInterface $entityManager,
-    )
-    {
+    ) {
     }
 
     /**
@@ -49,8 +48,8 @@ class ConfigBag
         }
 
         // Load Default App Parameters
-        if ($this->bag->has('app.' . $name)) {
-            return $this->bag->get('app.' . $name);
+        if ($this->bag->has('app.'.$name)) {
+            return $this->bag->get('app.'.$name);
         }
 
         // Load Symfony Parameters
@@ -67,6 +66,7 @@ class ConfigBag
     public function getAll(): array
     {
         $this->loadConfigRepository();
+
         return $this->configs;
     }
 
@@ -102,7 +102,7 @@ class ConfigBag
     private function loadConfigRepository(): void
     {
         // Check Config
-        if (count($this->configs) > 0) {
+        if (\count($this->configs) > 0) {
             return;
         }
 
@@ -168,8 +168,8 @@ class ConfigBag
                     $data = [];
                     if (\is_object($item->getData())) {
                         $choiceValue = $form->get($itemName)->getConfig()->getOption('choice_value');
-                        $entityGetter = is_string($choiceValue) ? 'get' . ucfirst($choiceValue) : 'getId';
-                        if (is_array($item->getData()) || $item->getData() instanceof ArrayCollection) {
+                        $entityGetter = \is_string($choiceValue) ? 'get'.ucfirst($choiceValue) : 'getId';
+                        if (\is_array($item->getData()) || $item->getData() instanceof ArrayCollection) {
                             foreach ($item->getData() as $itemData) {
                                 $data[] = $itemData->{$entityGetter}();
                             }
@@ -192,8 +192,8 @@ class ConfigBag
                         $file = (new FileUpload($this))->upload($item->getData(), false);
                         $configItems[] = (new Config())
                             ->setName($itemName)
-                            ->setType(is_array($item->getData()) ? 'array' : 'string')
-                            ->setValue(is_array($item->getData()) ? $file : $file[0]);
+                            ->setType(\is_array($item->getData()) ? 'array' : 'string')
+                            ->setValue(\is_array($item->getData()) ? $file : $file[0]);
                     }
                     break;
                 case 'date':

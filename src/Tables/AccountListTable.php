@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\Tables;
 
 use App\DataTable\AbstractDataTable;
@@ -27,8 +36,8 @@ class AccountListTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::number('id', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('u.id = :uid')->setParameter('uid', $data['id']);
-                    }, 'ID')
-                ]
+                    }, 'ID'),
+                ],
             ],
             'email' => [
                 'field' => 'email',
@@ -38,8 +47,8 @@ class AccountListTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('email', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('u.email = :email')->setParameter('email', $data['email']);
-                    }, 'E-posta adresi')
-                ]
+                    }, 'E-posta adresi'),
+                ],
             ],
             'active' => [
                 'field' => 'active',
@@ -48,26 +57,26 @@ class AccountListTable extends AbstractDataTable
                 'sortable' => true,
                 'template' => '<span class="badge bg-success" v-if="data.active">Evet</span>
                                <span class="badge bg-secondary" v-else>Hayır</span>',
-                'export_template' => fn($data) => $data ? 'Evet' : 'Hayır',
+                'export_template' => fn ($data) => $data ? 'Evet' : 'Hayır',
                 'filters' => [
                     DataTableFilters::switch('active', static function (QueryBuilder $query, array $data) {
-                        $query->andWhere('u.active = :active')->setParameter('active', (bool)json_decode(strtolower($data['active'])));
-                    }, 'Aktif / İnaktif')
-                ]
+                        $query->andWhere('u.active = :active')->setParameter('active', (bool) json_decode(strtolower($data['active'])));
+                    }, 'Aktif / İnaktif'),
+                ],
             ],
-            'freeze' =>  [
+            'freeze' => [
                 'field' => 'freeze',
                 'field_sort' => 'u.freeze',
                 'label' => 'Dondurulmuş',
                 'sortable' => true,
                 'template' => '<span class="badge bg-danger" v-if="data.freeze">Evet</span>
                                <span class="badge bg-secondary" v-else>Hayır</span>',
-                'export_template' => fn($data) => $data ? 'Evet' : 'Hayır',
+                'export_template' => fn ($data) => $data ? 'Evet' : 'Hayır',
                 'filters' => [
                     DataTableFilters::switch('freeze', static function (QueryBuilder $query, array $data) {
-                        $query->andWhere('u.freeze = :freeze')->setParameter('freeze', (bool)json_decode(strtolower($data['freeze'])));
-                    }, 'Aktif / Dondurulmuş')
-                ]
+                        $query->andWhere('u.freeze = :freeze')->setParameter('freeze', (bool) json_decode(strtolower($data['freeze'])));
+                    }, 'Aktif / Dondurulmuş'),
+                ],
             ],
             'lastLogin' => [
                 'field' => 'lastLogin',
@@ -83,8 +92,8 @@ class AccountListTable extends AbstractDataTable
                         if (isset($data['lastLogin']['end'])) {
                             $query->andWhere('u.lastLogin < :lastEnd')->setParameter('lastEnd', new \DateTime($data['lastLogin']['end']));
                         }
-                    })
-                ]
+                    }),
+                ],
             ],
             'createdAt' => [
                 'field' => 'createdAt',
@@ -92,7 +101,7 @@ class AccountListTable extends AbstractDataTable
                 'label' => 'Oluşturulma',
                 'sortable' => true,
                 'template' => '<span>{{ dateISOTime(data.createdAt) }}</span>',
-                'export_template' => fn(\DateTimeInterface $date) => $date->format('d.m.Y H:i'),
+                'export_template' => fn (\DateTimeInterface $date) => $date->format('d.m.Y H:i'),
                 'filters' => [
                     DataTableFilters::dateRange('createdAt', static function (QueryBuilder $query, array $data) {
                         if (isset($data['createdAt']['start'])) {
@@ -101,8 +110,8 @@ class AccountListTable extends AbstractDataTable
                         if (isset($data['createdAt']['end'])) {
                             $query->andWhere('u.createdAt < :createdEnd')->setParameter('createdEnd', new \DateTime($data['createdAt']['end']));
                         }
-                    })
-                ]
+                    }),
+                ],
             ],
             'firstName' => [
                 'field' => 'firstName',
@@ -112,8 +121,8 @@ class AccountListTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::text('firstName', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('u.firstName LIKE :firstName')->setParameter('firstName', "%{$data['firstName']}%");
-                    }, 'İsim')
-                ]
+                    }, 'İsim'),
+                ],
             ],
             'lastName' => [
                 'field' => 'lastName',
@@ -123,8 +132,8 @@ class AccountListTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::text('lastName', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('u.lastName LIKE :lastName')->setParameter('lastName', "%{$data['lastName']}%");
-                    }, 'Soyisim')
-                ]
+                    }, 'Soyisim'),
+                ],
             ],
             'phone' => [
                 'field' => 'phone',
@@ -134,9 +143,9 @@ class AccountListTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::number('phone', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('u.phone = :phone')->setParameter('phone', $data['phone']);
-                    }, 'Telefon')
-                ]
-            ]
+                    }, 'Telefon'),
+                ],
+            ],
         ];
     }
 }

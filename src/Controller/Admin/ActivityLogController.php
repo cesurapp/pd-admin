@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\Controller\Admin;
 
 use App\Service\ConfigBag;
@@ -15,7 +24,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * Activity Log Viewer
+ * Activity Log Viewer.
+ *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
 class ActivityLogController extends AbstractController
@@ -25,7 +35,7 @@ class ActivityLogController extends AbstractController
     }
 
     /**
-     * View HTTP Logs
+     * View HTTP Logs.
      *
      * @IsGranted("ROLE_ACTIVITY_HTTP")
      */
@@ -48,7 +58,7 @@ class ActivityLogController extends AbstractController
     }
 
     /**
-     * View Mail Logs
+     * View Mail Logs.
      *
      * @IsGranted("ROLE_ACTIVITY_MAIL")
      */

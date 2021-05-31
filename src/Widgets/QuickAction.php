@@ -37,21 +37,21 @@ class QuickAction
                 'description' => 'widget.quick_action.account_desc',
                 'route' => 'admin.account_list',
                 'icons' => 'user-shield',
-                'linkClass' => 'btn btn-primary',
+                'linkClass' => 'btn btn-lg btn-primary',
             ],
             'action_group' => [
                 'name' => 'widget.quick_action.group',
                 'description' => 'widget.quick_action.group_desc',
                 'route' => 'admin.group_list',
                 'icons' => 'users-cog',
-                'linkClass' => 'btn btn-primary',
+                'linkClass' => 'btn btn-lg btn-primary',
             ],
             'action_settings' => [
                 'name' => 'widget.quick_action.general',
                 'description' => 'widget.quick_action.general_desc',
                 'route' => 'admin.config_general',
                 'icons' => 'cogs',
-                'linkClass' => 'btn btn-secondary',
+                'linkClass' => 'btn btn-lg btn-secondary',
             ],
         ];
 

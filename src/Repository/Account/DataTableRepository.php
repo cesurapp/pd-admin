@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\Repository\Account;
 
 use App\Entity\Account\DataTable;
@@ -22,13 +31,13 @@ class DataTableRepository extends ServiceEntityRepository
     }
 
     /**
-     * Create Table Data User
+     * Create Table Data User.
      */
     public function createOrUpdate(UserInterface $user, Request $request): DataTable
     {
         $table = $this->findOneBy([
                 'owner' => $user->getId(),
-                'name' => $request->get('table')
+                'name' => $request->get('table'),
             ]) ?? new DataTable();
 
         $data = $request->getContent() ? json_decode($request->getContent(), true) : null;

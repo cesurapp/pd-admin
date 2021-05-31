@@ -24,7 +24,7 @@ class ConfigRepository extends ServiceEntityRepository
     }
 
     /**
-     * Get by Config Names
+     * Get by Config Names.
      */
     public function loadByNames(array $names): QueryBuilder
     {

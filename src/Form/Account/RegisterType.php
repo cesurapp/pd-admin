@@ -1,12 +1,12 @@
 <?php
 
 /**
- * This file is part of the pd-admin pd-user package.
+ * This file is part of the pdAdmin package.
  *
- * @package     pd-user
+ * @package     pd-admin
  * @license     LICENSE
  * @author      Ramazan APAYDIN <apaydin541@gmail.com>
- * @link        https://github.com/appaydin/pd-user
+ * @link        https://github.com/appaydin/pd-admin
  */
 
 namespace App\Form\Account;

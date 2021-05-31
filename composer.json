@@ -10,6 +10,8 @@
             "homepage": "https://github.com/appaydin"
         }
     ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=8.0.0",
         "ext-ctype": "*",
@@ -20,14 +22,14 @@
         "appaydin/pd-activity": "^1.0",
         "appaydin/pd-api": "^1.0",
         "appaydin/pd-menu": "3.*",
-        "appaydin/pd-user": "3.*",
+        "appaydin/pd-user": "^3.0",
         "appaydin/pd-widget": "3.*",
         "beberlei/doctrineextensions": "1.*",
         "doctrine/doctrine-bundle": "^2.3",
         "doctrine/doctrine-migrations-bundle": "^3.1",
         "doctrine/orm": "^2.8",
         "gregwar/image": "^2.1",
-        "knplabs/knp-paginator-bundle": "5.*",
+        "knplabs/knp-paginator-bundle": "dev-master",
         "sensio/framework-extra-bundle": "5.*",
         "sonata-project/exporter": "^2.6",
         "symfony/asset": "5.*",
@@ -36,9 +38,11 @@
         "symfony/flex": "1.*",
         "symfony/form": "5.*",
         "symfony/framework-bundle": "5.*",
+        "symfony/intl": "5.3.*",
         "symfony/mailer": "5.*",
         "symfony/messenger": "5.*",
         "symfony/monolog-bundle": "3.*",
+        "symfony/runtime": "5.3.*",
         "symfony/security-bundle": "5.*",
         "symfony/translation": "5.*",
         "symfony/twig-bundle": "5.*",
@@ -105,7 +109,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": false,
-            "require": "5.2.*"
+            "require": "5.3.*"
         }
     }
 }

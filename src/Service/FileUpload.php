@@ -35,7 +35,7 @@ class FileUpload
     /**
      * Upload Files & Encode ImageManager.
      */
-    public function upload(array|UploadedFile $files, bool $rawUpload = false): array
+    public function upload(array | UploadedFile $files, bool $rawUpload = false): array
     {
         $this->createDirectory();
 
@@ -61,7 +61,7 @@ class FileUpload
     /**
      * Remove Files.
      */
-    public static function removeFiles(array|string $files): void
+    public static function removeFiles(array | string $files): void
     {
         if (!\is_array($files)) {
             $files = [$files];
@@ -82,15 +82,15 @@ class FileUpload
     {
         // Create Filename
         $fileName = (new AsciiSlugger())->slug(
-                ByteString::fromRandom(3) . '-' . pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME)
-            ) . '.' . $file->guessClientExtension();
+                ByteString::fromRandom(3).'-'.pathinfo($file->getClientOriginalName(), \PATHINFO_FILENAME)
+            ).'.'.$file->guessClientExtension();
 
         // Upload File and Optimize Images
         if (!$rawUpload) {
             switch ($file->getClientMimeType()) {
-                case image_type_to_mime_type(IMAGETYPE_JPEG):
-                case image_type_to_mime_type(IMAGETYPE_PNG):
-                    $this->imageManager($file, $this->currentPath . '/' . $fileName);
+                case image_type_to_mime_type(\IMAGETYPE_JPEG):
+                case image_type_to_mime_type(\IMAGETYPE_PNG):
+                    $this->imageManager($file, $this->currentPath.'/'.$fileName);
                     break;
                 default:
                     $file->move($this->currentPath, $fileName);
@@ -100,7 +100,7 @@ class FileUpload
         }
 
         // Return Filename
-        return $this->currentDir . '/' . $fileName;
+        return $this->currentDir.'/'.$fileName;
     }
 
     /**
@@ -117,7 +117,7 @@ class FileUpload
         }
 
         // Save Image
-        $img->save($filePath, 'guess', $this->bag->get('media_optimize') ? (int)$this->bag->get('media_quality') : 80);
+        $img->save($filePath, 'guess', $this->bag->get('media_optimize') ? (int) $this->bag->get('media_quality') : 80);
     }
 
     /**

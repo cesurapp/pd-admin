@@ -56,7 +56,7 @@ class FunctionExtension extends AbstractExtension
      */
     public function inArray($needle, array $haystack): bool
     {
-        return in_array($needle, $haystack, false);
+        return \in_array($needle, $haystack, false);
     }
 
     /**
@@ -76,7 +76,7 @@ class FunctionExtension extends AbstractExtension
     }
 
     /**
-     * Flash Message to JSON Format and Translated
+     * Flash Message to JSON Format and Translated.
      */
     public function flashJsonMessage(array $messages): string
     {

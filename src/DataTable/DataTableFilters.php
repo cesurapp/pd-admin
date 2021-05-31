@@ -1,9 +1,18 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\DataTable;
 
 /**
- * Generate DataTable Filter Inputs
+ * Generate DataTable Filter Inputs.
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
@@ -23,18 +32,21 @@ class DataTableFilters
     public static function number(string $field, callable $query, ?string $placeholder = null, ?string $default = null, array $customParameters = []): array
     {
         $customParameters['type'] = 'number';
+
         return self::text($field, $query, $placeholder, $default, $customParameters);
     }
 
     public static function email(string $field, callable $query, ?string $placeholder = null, ?string $default = null, array $customParameters = []): array
     {
         $customParameters['type'] = 'email';
+
         return self::text($field, $query, $placeholder, $default, $customParameters);
     }
 
     public static function tel(string $field, callable $query, ?string $placeholder = null, ?string $default = null, array $customParameters = []): array
     {
         $customParameters['type'] = 'tel';
+
         return self::text($field, $query, $placeholder, $default, $customParameters);
     }
 
@@ -58,13 +70,14 @@ class DataTableFilters
             'field' => $field,
             'query' => $query,
             'label' => $label,
-            'default' => $default
+            'default' => $default,
         ], $customParameters);
     }
 
     public static function switch(string $field, callable $query, ?string $label = null, ?bool $default = null, array $customParameters = []): array
     {
         $customParameters['type'] = 'switch';
+
         return self::checkbox($field, $query, $label, $default, $customParameters);
     }
 
@@ -75,8 +88,8 @@ class DataTableFilters
             'field' => $field,
             'query' => $query,
             'placeholder' => $placeholder,
-            'default' => $default ? $default->format(DATE_ATOM) : null,
-            'format' => $format ?? 'dd.MM.yyyy'
+            'default' => $default ? $default->format(\DATE_ATOM) : null,
+            'format' => $format ?? 'dd.MM.yyyy',
         ], $customParameters);
     }
 
@@ -87,8 +100,8 @@ class DataTableFilters
             'field' => $field,
             'query' => $query,
             'placeholder' => $placeholder,
-            'default' => array_map(static fn($date) => $date->format(DATE_ATOM), $default),
-            'format' => $format ?? 'dd.MM.yyyy'
+            'default' => array_map(static fn ($date) => $date->format(\DATE_ATOM), $default),
+            'format' => $format ?? 'dd.MM.yyyy',
         ], $customParameters);
     }
 
@@ -100,7 +113,7 @@ class DataTableFilters
             'query' => $query,
             'placeholder' => $placeholder,
             'default' => $default,
-            'options' => $options
+            'options' => $options,
         ], $customParameters);
     }
 
@@ -113,7 +126,7 @@ class DataTableFilters
             'query' => $query,
             'placeholder' => $placeholder,
             'default' => $default,
-            'options' => $options
+            'options' => $options,
         ], $customParameters);
     }
 }

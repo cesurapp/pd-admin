@@ -29,8 +29,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -45,14 +45,13 @@ class AccountController extends AbstractController
      */
     public const CUSTOM_ROLES = [
         'ROLE_ACCOUNT_ALLREAD' => 'ROLE_ACCOUNT_ALLREAD',
-        'ROLE_ACCOUNT_ALLWRITE' => 'ROLE_ACCOUNT_ALLWRITE'
+        'ROLE_ACCOUNT_ALLWRITE' => 'ROLE_ACCOUNT_ALLWRITE',
     ];
 
     public function __construct(
         private EntityManagerInterface $entityManager,
         private ConfigBag $bag
-    )
-    {
+    ) {
     }
 
     /**
@@ -136,7 +135,7 @@ class AccountController extends AbstractController
      * @IsGranted("ROLE_ACCOUNT_PASSWORD")
      */
     #[Route('/account/{user}/password', name: 'admin.account_password')]
-    public function changePassword(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
+    public function changePassword(Request $request, User $user, UserPasswordHasherInterface $hasher): Response
     {
         // Check Read Only
         $this->checkOwner($this->getUser(), 'ADMIN_ACCOUNT_ALLREAD');
@@ -157,7 +156,7 @@ class AccountController extends AbstractController
             $this->checkOwner($this->getUser(), 'ADMIN_ACCOUNT_ALLWRITE');
 
             // Encode Password
-            $password = $encoder->encodePassword($user, $form->get('plainPassword')->getData());
+            $password = $hasher->hashPassword($user, $form->get('plainPassword')->getData());
             $user->setPassword($password);
 
             // Save
@@ -243,7 +242,7 @@ class AccountController extends AbstractController
                 'choice_label' => 'name',
                 'choice_value' => 'id',
                 'choice_attr' => static function (Group $obj) use ($groupName) {
-                    return in_array($obj->getName(), $groupName, true) ? ['selected' => ''] : [];
+                    return \in_array($obj->getName(), $groupName, true) ? ['selected' => ''] : [];
                 },
                 'multiple' => true,
                 'expanded' => false,

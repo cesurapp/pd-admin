@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
 
 namespace App\DataTable\Exporter;
 
@@ -9,7 +17,7 @@ use Symfony\Component\PropertyAccess\Exception\UnexpectedTypeException;
 use Symfony\Component\PropertyAccess\PropertyPath;
 
 /**
- * Doctrine ORM Paginator Source
+ * Doctrine ORM Paginator Source.
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
@@ -23,7 +31,7 @@ class PaginatedORMQuerySource extends AbstractPropertySourceIterator
 
     private array $columns;
 
-    public function __construct(Query $query, array $fields, array $columns, string $dateTimeFormat = 'r',)
+    public function __construct(Query $query, array $fields, array $columns, string $dateTimeFormat = 'r', )
     {
         $this->query = clone $query;
         $this->query->setParameters($query->getParameters());
@@ -60,7 +68,7 @@ class PaginatedORMQuerySource extends AbstractPropertySourceIterator
         $this->iterator->next();
 
         if (!$this->iterator->valid()) {
-            $this->page++;
+            ++$this->page;
             $this->query->setFirstResult($this->page * self::PAGE_SIZE);
             $this->query->getEntityManager()->clear();
 

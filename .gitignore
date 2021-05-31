@@ -31,6 +31,10 @@ node_modules
 .DS_Store
 npm-debug.log
 yarn-error.log
+###> phpunit/phpunit ###
+/phpunit.xml
+.phpunit.result.cache
+###< phpunit/phpunit ###
 
 ###> lexik/jwt-authentication-bundle ###
 /config/jwt/*.pem

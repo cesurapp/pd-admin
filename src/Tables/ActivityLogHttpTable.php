@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\Tables;
 
 use App\DataTable\AbstractDataTable;
@@ -23,8 +32,8 @@ class ActivityLogHttpTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::number('id', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.id = :uid')->setParameter('uid', $data['id']);
-                    }, 'ID')
-                ]
+                    }, 'ID'),
+                ],
             ],
             'method' => [
                 'field' => 'method',
@@ -34,10 +43,10 @@ class ActivityLogHttpTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::select('method', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.method = :method')->setParameter('method', $data['method']);
-                    }, array_flip(ActivityLog::METHODS))
-                ]
+                    }, array_flip(ActivityLog::METHODS)),
+                ],
             ],
-            'uri' =>  [
+            'uri' => [
                 'field' => 'uri',
                 'field_sort' => 'q.uri',
                 'label' => 'Uri',
@@ -45,8 +54,8 @@ class ActivityLogHttpTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('uri', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.uri LIKE :uri')->setParameter('uri', "{$data['uri']}%");
-                    }, 'Uri')
-                ]
+                    }, 'Uri'),
+                ],
             ],
             'clientIp' => [
                 'field' => 'clientIp',
@@ -56,8 +65,8 @@ class ActivityLogHttpTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('clientIp', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.clientIp = :clientIp')->setParameter('clientIp', $data['clientIp']);
-                    }, 'Client IP')
-                ]
+                    }, 'Client IP'),
+                ],
             ],
             'locale' => [
                 'field' => 'locale',
@@ -67,8 +76,8 @@ class ActivityLogHttpTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('locale', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.locale = :locale')->setParameter('locale', $data['locale']);
-                    }, 'Dil')
-                ]
+                    }, 'Dil'),
+                ],
             ],
             'owner' => [
                 'field' => 'owner',
@@ -78,10 +87,10 @@ class ActivityLogHttpTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('owner', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('IDENTITY(q.owner) = :owner')->setParameter('owner', $data['owner']);
-                    }, 'İşlem Yapan')
-                ]
+                    }, 'İşlem Yapan'),
+                ],
             ],
-            'createdAt' =>  [
+            'createdAt' => [
                 'field' => 'createdAt',
                 'field_sort' => 'q.createdAt',
                 'label' => 'Oluşturulma',
@@ -95,8 +104,8 @@ class ActivityLogHttpTable extends AbstractDataTable
                         if (isset($data['createdAt']['end'])) {
                             $query->andWhere('q.createdAt < :createdEnd')->setParameter('createdEnd', new \DateTime($data['createdAt']['end']));
                         }
-                    })
-                ]
+                    }),
+                ],
             ],
         ];
     }

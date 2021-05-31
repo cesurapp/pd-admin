@@ -25,7 +25,7 @@ class UserRepository extends ServiceEntityRepository
     }
 
     /**
-     * Filter User
+     * Filter User.
      */
     public function filter(Request $request): QueryBuilder
     {

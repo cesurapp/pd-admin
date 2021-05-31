@@ -31,7 +31,7 @@ class Sidebar extends Menu
             ->setRoles(['ROLE_DASHBOARD_PANEL'])
             ->setExtra('label_icon', 's fa-chart-pie');
 
-        /**
+        /*
          * Account Menus
          */
         $menu
@@ -51,7 +51,7 @@ class Sidebar extends Menu
                 ->setRoute('admin.group_list')
                 ->setRoles(['ROLE_GROUP_LIST']);
 
-        /**
+        /*
          * Settings Menus
          */
         $menu
@@ -75,6 +75,7 @@ class Sidebar extends Menu
                 ->setLabel('activity.mail.title')
                 ->setRoute('admin.activity_log.mail')
                 ->setRoles(['ROLE_ACTIVITY_MAIL']);
+
         return $menu;
     }
 }

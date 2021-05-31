@@ -1,14 +1,16 @@
 security:
-    encoders:
+    enable_authenticator_manager: true
+    password_hashers:
         App\Entity\Account\User:
             algorithm: auto
     role_hierarchy:
-        ROLE_SUPER_ADMIN: [ROLE_USER]
+        ROLE_SUPER_ADMIN: [ ROLE_USER ]
     providers:
         pdadmin_auth:
             entity:
                 class: App\Entity\Account\User
                 property: email
+
         pdadmin_api:
             entity:
                 class: App\Entity\Account\User
@@ -20,9 +22,9 @@ security:
         main:
             pattern: ^/(admin|login|logout|register|resetting)
             provider: pdadmin_auth
+            lazy: true
             user_checker: Pd\UserBundle\Security\UserChecker
             access_denied_handler: App\Security\AccessDeniedHandler
-            anonymous: true
             switch_user: { role: CAN_SWITCH_USER }
             http_basic: ~
             form_login:
@@ -30,30 +32,27 @@ security:
                 login_path: security_login
                 check_path: security_login
                 default_target_path: "%app.user_login_redirect%"
-                csrf_token_generator: security.csrf.token_manager
+            entry_point: form_login
             logout:
                 path: security_logout
                 target: '%app.user_logout_redirect%'
             remember_me:
-                secret:   '%env(APP_SECRET)%'
+                secret: '%env(APP_SECRET)%'
                 lifetime: 604800 # 1 Week - 1 Month -> 2592000
-                path:     /
+                path: /
         api:
             pattern: "%api.route%"
             stateless: true
-            anonymous: true
             provider: pdadmin_api
             json_login:
                 check_path: /api/auth/login
                 failure_handler: lexik_jwt_authentication.handler.authentication_failure
-            guard:
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
+            entry_point: lexik_jwt_authentication.jwt_token_authenticator
     access_control:
         # Admin Panel
-        - { path: '^/admin', role: 'ROLE_USER' }
+        - { path: '^/admin', role: ROLE_USER }
 
         # API
-        #- { path: "%api.route%/doc", roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: "%api.route%/auth", roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        #- { path: "%api.route%/doc", roles: PUBLIC_ACCESS }
+        - { path: "%api.route%/auth", roles: PUBLIC_ACCESS }
         - { path: "%api.route%", roles: IS_AUTHENTICATED_FULLY }

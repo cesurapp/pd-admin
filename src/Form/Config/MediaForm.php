@@ -57,11 +57,11 @@ class MediaForm extends AbstractType
                     'step' => 1,
                 ],
                 'empty_data' => '80',
-                'required' => false
+                'required' => false,
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'button.save',
-                'validate' => false
+                'validate' => false,
             ]);
     }
 

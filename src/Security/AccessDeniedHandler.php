@@ -30,7 +30,7 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         $this->router = $router;
     }
 
-    public function handle(Request $request, AccessDeniedException $accessDeniedException): RedirectResponse|JsonResponse
+    public function handle(Request $request, AccessDeniedException $accessDeniedException): RedirectResponse | JsonResponse
     {
         // Create Message
         $message = $accessDeniedException->getMessage();
@@ -48,8 +48,8 @@ class AccessDeniedHandler implements AccessDeniedHandlerInterface
         if ($request->isXmlHttpRequest()) {
             return new JsonResponse([
                 'messages' => [
-                    'danger' => [$message]
-                ]
+                    'danger' => [$message],
+                ],
             ], $accessDeniedException->getCode());
         }
 

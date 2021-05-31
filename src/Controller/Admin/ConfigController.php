@@ -38,7 +38,7 @@ class ConfigController extends AbstractController
     {
         // Create Form
         $form = $this->createForm(GeneralForm::class, $bag->getAll(), [
-            'active_language' => $bag->get('active_language')
+            'active_language' => $bag->get('active_language'),
         ]);
 
         // Handle Request
@@ -46,6 +46,7 @@ class ConfigController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $bag->saveForm($form);
             $this->addFlash('success', 'message.saved');
+
             return $this->redirectToRoute('admin.config_general');
         }
 
@@ -71,6 +72,7 @@ class ConfigController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $bag->saveForm($form);
             $this->addFlash('success', 'message.saved');
+
             return $this->redirectToRoute('admin.config_media');
         }
 
@@ -96,6 +98,7 @@ class ConfigController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $bag->saveForm($form);
             $this->addFlash('success', 'message.saved');
+
             return $this->redirectToRoute('admin.config_user');
         }
 

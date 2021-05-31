@@ -81,9 +81,9 @@ class Config
         }
 
         switch ($this->type) {
-            case 'boolean': return (bool)$this->value;
-            case 'number': return (int)$this->value;
-            case 'string': return (string)$this->value;
+            case 'boolean': return (bool) $this->value;
+            case 'number': return (int) $this->value;
+            case 'string': return (string) $this->value;
             case 'array': return unserialize($this->value);
             case 'json': return json_decode($this->value, true);
             case 'datetime': return (new DateTimeNormalizer())->denormalize($this->value, 'object');
@@ -94,7 +94,7 @@ class Config
 
     public function setValue($value): self
     {
-        if (is_array($value)) {
+        if (\is_array($value)) {
             $value = serialize($value);
         }
 

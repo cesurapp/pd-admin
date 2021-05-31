@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\DataTable;
 
 use App\DataTable\Exporter\PaginatedORMQuerySource;
@@ -13,7 +22,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Ajax Data Table
+ * Ajax Data Table.
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */
@@ -29,15 +38,15 @@ abstract class AbstractDataTable implements DataTableInterface
     }
 
     /**
-     * Get Table Name
+     * Get Table Name.
      */
-    public function getName(): string|int
+    public function getName(): string | int
     {
         return (new \ReflectionClass($this))->getShortName();
     }
 
     /**
-     * Get Column List
+     * Get Column List.
      */
     final public function getColumns(): array
     {
@@ -60,7 +69,7 @@ abstract class AbstractDataTable implements DataTableInterface
     }
 
     /**
-     * Get Columns List for JSON
+     * Get Columns List for JSON.
      */
     final public function getColumnsJson(): string
     {
@@ -68,7 +77,7 @@ abstract class AbstractDataTable implements DataTableInterface
     }
 
     /**
-     * Init Query Builder
+     * Init Query Builder.
      */
     final public function handleQueryBuilder(QueryBuilder $queryBuilder): self
     {
@@ -78,7 +87,7 @@ abstract class AbstractDataTable implements DataTableInterface
     }
 
     /**
-     * Generate Query using ORM|DBAL Query Builder
+     * Generate Query using ORM|DBAL Query Builder.
      */
     final public function handleRequest(Request $request): self
     {
@@ -102,7 +111,7 @@ abstract class AbstractDataTable implements DataTableInterface
     }
 
     /**
-     * Export Data to CSV - Excel
+     * Export Data to CSV - Excel.
      */
     final public function export(): StreamedResponse
     {
@@ -126,7 +135,7 @@ abstract class AbstractDataTable implements DataTableInterface
 
         // Set File Header
         $response->headers->set('Content-Type', $writer->getDefaultMimeType());
-        $response->headers->set('Content-Disposition', HeaderUtils::makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, 'export.' . $writer->getFormat()));
+        $response->headers->set('Content-Disposition', HeaderUtils::makeDisposition(HeaderUtils::DISPOSITION_ATTACHMENT, 'export.'.$writer->getFormat()));
 
         return $response;
     }
@@ -136,7 +145,7 @@ abstract class AbstractDataTable implements DataTableInterface
         if ($columns = $this->request->get('columns')) {
             $columns = explode(',', $columns);
 
-            if (is_array($columns) && count($columns)) {
+            if (\is_array($columns) && \count($columns)) {
                 return $columns;
             }
         }

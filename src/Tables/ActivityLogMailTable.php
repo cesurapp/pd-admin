@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\Tables;
 
 use App\DataTable\AbstractDataTable;
@@ -22,8 +31,8 @@ class ActivityLogMailTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::number('id', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.id = :uid')->setParameter('uid', $data['id']);
-                    }, 'ID')
-                ]
+                    }, 'ID'),
+                ],
             ],
             'mailSubject' => [
                 'field' => 'mailSubject',
@@ -33,8 +42,8 @@ class ActivityLogMailTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('mailSubject', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.mailSubject LIKE :mailSubject')->setParameter('mailSubject', "%{$data['mailSubject']}%");
-                    }, 'Konu')
-                ]
+                    }, 'Konu'),
+                ],
             ],
             'mailBody' => [
                 'field' => 'mailBody',
@@ -44,8 +53,8 @@ class ActivityLogMailTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('mailBody', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.mailBody LIKE :mailBody')->setParameter('mailBody', "%{$data['mailBody']}%");
-                    }, 'Posta İçeriği')
-                ]
+                    }, 'Posta İçeriği'),
+                ],
             ],
             'mailTo' => [
                 'field' => 'mailTo',
@@ -55,8 +64,8 @@ class ActivityLogMailTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('mailTo', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.mailTo LIKE :mailTo')->setParameter('mailTo', "%{$data['mailTo']}%");
-                    }, 'TO')
-                ]
+                    }, 'TO'),
+                ],
             ],
             'mailFrom' => [
                 'field' => 'mailFrom',
@@ -66,8 +75,8 @@ class ActivityLogMailTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('mailFrom', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.mailFrom LIKE :mailFrom')->setParameter('mailFrom', "%{$data['mailFrom']}%");
-                    }, 'From')
-                ]
+                    }, 'From'),
+                ],
             ],
             'mailCC' => [
                 'field' => 'mailCC',
@@ -77,8 +86,8 @@ class ActivityLogMailTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('mailCC', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.mailCC LIKE :mailCC')->setParameter('mailCC', "%{$data['mailCC']}%");
-                    }, 'CC')
-                ]
+                    }, 'CC'),
+                ],
             ],
             'mailBcc' => [
                 'field' => 'mailBcc',
@@ -88,8 +97,8 @@ class ActivityLogMailTable extends AbstractDataTable
                 'filters' => [
                     DataTableFilters::email('mailBcc', static function (QueryBuilder $query, array $data) {
                         $query->andWhere('q.mailBcc LIKE :mailBcc')->setParameter('mailBcc', "%{$data['mailBcc']}%");
-                    }, 'BCC')
-                ]
+                    }, 'BCC'),
+                ],
             ],
             'createdAt' => [
                 'field' => 'createdAt',
@@ -105,9 +114,9 @@ class ActivityLogMailTable extends AbstractDataTable
                         if (isset($data['createdAt']['end'])) {
                             $query->andWhere('q.createdAt < :createdEnd')->setParameter('createdEnd', new \DateTime($data['createdAt']['end']));
                         }
-                    })
-                ]
-            ]
+                    }),
+                ],
+            ],
         ];
     }
 }

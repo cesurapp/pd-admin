@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the pdAdmin package.
+ *
+ * @package     pd-admin
+ * @license     LICENSE
+ * @author      Ramazan APAYDIN <apaydin541@gmail.com>
+ * @link        https://github.com/appaydin/pd-admin
+ */
+
 namespace App\Listener;
 
 use App\Service\ConfigBag;
@@ -8,7 +17,7 @@ use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 
 /**
- * Change System Default Language
+ * Change System Default Language.
  *
  * @author Ramazan APAYDIN <apaydin541@gmail.com>
  */

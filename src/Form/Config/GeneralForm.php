@@ -41,7 +41,7 @@ class GeneralForm extends AbstractType
                 'constraints' => [new Length(['max' => 150])],
                 'empty_data' => 'pdAdmin',
                 'attr' => ['placeholder-nt' => 'pdAdmin'],
-                'required' => false
+                'required' => false,
             ])
             ->add('head_title_pattern', TextType::class, [
                 'label' => 'config.general.head_title_pattern',
@@ -110,8 +110,8 @@ class GeneralForm extends AbstractType
                         'mimeTypes' => [
                             'image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml',
                         ],
-                    ])
-                ]
+                    ]),
+                ],
             ])
             ->add('site_favicon', FileType::class, [
                 'label' => 'config.general.site_favicon',
@@ -125,12 +125,12 @@ class GeneralForm extends AbstractType
                         'mimeTypes' => [
                             'image/x-icon', 'image/vnd.microsoft.icon', 'image/png',
                         ],
-                    ])
-                ]
+                    ]),
+                ],
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'button.save',
-                'validate' => false
+                'validate' => false,
             ]);
     }
 

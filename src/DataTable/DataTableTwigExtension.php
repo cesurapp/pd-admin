@@ -40,12 +40,13 @@ class DataTableTwigExtension extends AbstractExtension
     }
 
     /**
-     * Return Route Format
+     * Return Route Format.
      */
     public function route($name, $referenceType = UrlGeneratorInterface::ABSOLUTE_URL): string
     {
         $route = $this->router->getRouteCollection()->get($name)->getPath();
-        return rawurlencode($referenceType === UrlGeneratorInterface::ABSOLUTE_URL ? $this->generate() . $route : $route);
+
+        return rawurlencode(UrlGeneratorInterface::ABSOLUTE_URL === $referenceType ? $this->generate().$route : $route);
     }
 
     private function generate(): string
@@ -57,14 +58,14 @@ class DataTableTwigExtension extends AbstractExtension
             $port = '';
 
             if ('http' === $scheme && 80 !== $context->getHttpPort()) {
-                $port = ':' . $context->getHttpPort();
+                $port = ':'.$context->getHttpPort();
             } elseif ('https' === $scheme && 443 !== $context->getHttpsPort()) {
-                $port = ':' . $context->getHttpsPort();
+                $port = ':'.$context->getHttpsPort();
             }
 
             $schemeAuthority = '' === $scheme ? '//' : "$scheme://";
-            $schemeAuthority .= $host . $port;
-            $this->baseUrl = $schemeAuthority . $context->getBaseUrl();
+            $schemeAuthority .= $host.$port;
+            $this->baseUrl = $schemeAuthority.$context->getBaseUrl();
         }
 
         return $this->baseUrl;

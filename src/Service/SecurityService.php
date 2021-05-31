@@ -49,7 +49,7 @@ class SecurityService
      */
     public function getRoles(): array
     {
-        if (!count($this->roles)) {
+        if (!\count($this->roles)) {
             $this->extractWidgetRoles();
             foreach ($this->getRouterList() as $class => $methods) {
                 $reflection = new \ReflectionClass($class);
@@ -65,12 +65,12 @@ class SecurityService
             $roleObject = explode('_', $role);
             if (3 === \count($roleObject)) {
                 $access = $roleObject[2];
-                $roleObject = $roleObject[0] . '_' . $roleObject[1];
+                $roleObject = $roleObject[0].'_'.$roleObject[1];
 
                 if (isset($roles[$roleObject])) {
-                    $roles[$roleObject][$access] = $roleObject . '_' . $access;
+                    $roles[$roleObject][$access] = $roleObject.'_'.$access;
                 } else {
-                    $roles[$roleObject] = [$access => $roleObject . '_' . $access];
+                    $roles[$roleObject] = [$access => $roleObject.'_'.$access];
                 }
             }
         }
@@ -94,7 +94,8 @@ class SecurityService
         // Find Attribute
         $roles = array_map(
             static function ($attribute) {
-                $roles = array_map(static fn($roles) => (array)$roles, $attribute->getArguments());
+                $roles = array_map(static fn ($roles) => (array) $roles, $attribute->getArguments());
+
                 return array_merge([], ...$roles);
             },
             $reflection->getMethod($method)->getAttributes(IsGranted::class)
@@ -103,7 +104,7 @@ class SecurityService
         // Find Annotation
         foreach ($this->reader->getMethodAnnotations($reflection->getMethod($method)) as $access) {
             if ($access instanceof IsGranted) {
-                $roles[] = (array)$access->getAttributes();
+                $roles[] = (array) $access->getAttributes();
             }
         }
 
@@ -113,7 +114,7 @@ class SecurityService
     private function extractWidgetRoles(): void
     {
         $roles = array_values(array_map(
-            static fn($widget) => $widget->getRole(),
+            static fn ($widget) => $widget->getRole(),
             $this->widget->getWidgets(false)
         ));
 
@@ -126,7 +127,7 @@ class SecurityService
         foreach ($this->router->getRouteCollection()->all() as $router) {
             if ($router->getDefault('_controller')) {
                 [$class, $method] = explode('::', $router->getDefault('_controller'));
-                if (!class_exists($class) || in_array($class, $this->excludeClass, true)) {
+                if (!class_exists($class) || \in_array($class, $this->excludeClass, true)) {
                     continue;
                 }
 
