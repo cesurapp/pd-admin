@@ -1,6 +1,6 @@
 <template>
     <div class="ajax-form full-form">
-        <off-canvas id="ajaxForm" ref="canvas" @submit.prevent="post">
+        <off-canvas id="ajaxForm" ref="canvas" @submit.prevent="post" :size="size">
             <template v-slot:title>{{ title }}</template>
             <template v-slot:content>
                 <component v-if="content" :is="{ template:content }"/>
@@ -12,7 +12,7 @@
 <script>
 export default {
     name: "AjaxForm",
-    props: ['table', 'message'],
+    props: ['table', 'message', 'size'],
     data() {
         return {
             url: null,
@@ -37,13 +37,16 @@ export default {
             this.$root.http.post(this.url, new FormData(event.target))
                 .then((resp) => {
                     if (typeof this.index === 'number') {
-                        window.Table.$data.data[this.index] = resp.data;
+                        window.Table.$data.data[this.index] = resp.data.data || resp.data;
                     }
                     if (typeof this.index === 'string') {
-                        window.Table.$data.data.push(resp.data);
+                        window.Table.$data.data.push(resp.data.data || resp.data);
                     }
 
-                    this.$root.msg.success(this.message);
+                    if (this.message) {
+                        this.$root.msg.success(this.message);
+                    }
+
                     this.$refs.canvas.instance.hide();
                 })
                 .catch((err) => {
@@ -58,6 +61,16 @@ export default {
 .ajax-form{
     .form-check{
         width: 100% !important;
+    }
+
+    .form-container {
+        & > *:nth-child(2n) {
+            margin-left: calc(var(--bs-gutter-x) / -2);
+        }
+
+        & > *:last-of-type > div {
+            padding-left: calc(var(--bs-gutter-x) / 2);
+        }
     }
 }
 </style>

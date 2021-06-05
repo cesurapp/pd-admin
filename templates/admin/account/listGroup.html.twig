@@ -1,7 +1,13 @@
 {# Template Parts #}
 {% extends "admin/layout/base.html.twig" %}
 {% block head_title %}{{ title('accounts.group.title'|trans) }}{% endblock %}
-{% block content_title %}<i class="fas fa-user-shield"></i>{{ 'accounts.group.title'|trans }}{% endblock %}
+{% block content_title %}
+    <i class="fas fa-user-shield"></i>{{ 'accounts.group.title'|trans }}
+
+    {% if is_granted('ROLE_GROUP_CREATE') %}
+        <a @click.prevent="$refs.former.get('{{ path('admin.group_create') }}', '{{ 'accounts.group.add_title'|trans }}', 'append')" class="ms-3 clear-line-height btn btn-sm btn-primary"><i class="fas fa-plus"></i>{{ 'accounts.group.add'|trans }}</a>
+    {% endif %}
+{% endblock %}
 
 {# Content Body #}
 {% block content_body %}
@@ -15,16 +21,21 @@
         ref="table"
     >
         <template v-slot:actions="{item, index, remove}">
-            <li><a class="dropdown-item" @click.prevent="$refs.former.get(route('{{ route('admin.group_edit') }}', {'{group}': item.id}), '{{ 'accounts.group.edit_title'|trans }}', index)"><i class="fas fa-user-edit"></i>{{ 'button.edit'|trans }}</a></li>
-            <li><a class="dropdown-item" @click.prevent="$refs.former.get(route('{{ route('admin.group_roles') }}', {'{group}': item.id}), '{{ 'accounts.group.roles'|trans }}', index)"><i class="fas fa-user-lock"></i>{{ 'accounts.group.roles'|trans }}</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item text-danger" v-confirm="'danger'" data-msg="{{ 'confirm.delete'|trans }}"
-                   data-yes="{{ 'button.yes'|trans }}" data-no="{{ 'button.cancel'|trans }}"
-                   @confirmed="del(item, index, remove)"><i class="fas fa-trash"></i>{{ 'button.delete'|trans }}</a>
-            </li>
-        </template>
-        <template v-slot:header-left>
-            <a @click.prevent="$refs.former.get('{{ path('admin.group_create') }}', '{{ 'accounts.group.add_title'|trans }}', 'append')" class="btn btn-sm btn-primary"><i class="fas fa-plus"></i>{{ 'accounts.group.add'|trans }}</a>
+            {% if is_granted('ROLE_GROUP_EDIT') %}
+                <li><a class="dropdown-item" @click.prevent="$refs.former.get(route('{{ route('admin.group_edit') }}', {'{group}': item.id}), '{{ 'accounts.group.edit_title'|trans }}', index)"><i class="fas fa-user-edit"></i>{{ 'button.edit'|trans }}</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_GROUP_ROLES') %}
+                <li><a class="dropdown-item" @click.prevent="$refs.former.get(route('{{ route('admin.group_roles') }}', {'{group}': item.id}), '{{ 'accounts.group.roles'|trans }}', index)"><i class="fas fa-user-lock"></i>{{ 'accounts.group.roles'|trans }}</a></li>
+            {% endif %}
+
+            {% if is_granted('ROLE_GROUP_DELETE') %}
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" v-confirm="'danger'" data-msg="{{ 'confirm.delete'|trans }}"
+                       data-yes="{{ 'button.yes'|trans }}" data-no="{{ 'button.cancel'|trans }}"
+                       @confirmed="del(item, index, remove)"><i class="fas fa-trash"></i>{{ 'button.delete'|trans }}</a>
+                </li>
+            {% endif %}
         </template>
     </datatable>
 
@@ -32,11 +43,10 @@
         window.vueApp.push({
             methods: {
                 del(item, index, remove) {
-                    this.$root.http.delete(this.route('{{ route('admin.group_delete') }}', {'{group}': item.id}))
-                        .then((resp) => {
-                            remove(index);
-                            this.$root.msg.success('{{ 'message.deleted'|trans }}')
-                        })
+                    this.$root.http.delete(this.route('{{ route('admin.group_delete') }}', {'{group}': item.id})).then((resp) => {
+                        remove(index);
+                        this.$root.msg.success('{{ 'message.deleted'|trans }}')
+                    })
                 }
             }
         })

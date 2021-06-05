@@ -352,7 +352,7 @@
             {%- endif -%}
         {#</p>#}
 
-        <a class="help-popover" v-popover="{{- h|json_encode -}}" href="#!"><i class="fas fa-question-circle"></i></a>
+        <a class="help-popover" v-popover="'{{ h|escape('js') }}'" href="#!"><i class="fas fa-question-circle"></i></a>
     {%- endif -%}
 {%- endblock form_help %}
 

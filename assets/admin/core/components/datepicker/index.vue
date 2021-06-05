@@ -8,7 +8,7 @@
                     :id="id + 'start'" :placeholder="placeholder[0] || 'Başlangıç tarihi seçin..'"
                     class="form-control"/>
         <datepicker v-model="pickedProxy.end" :input-format="format" :locale="locale"
-                    :id="id + 'end'" :placeholder="placeholder[0] || 'Başlangıç tarihi seçin..'"
+                    :id="id + 'end'" :placeholder="placeholder[0] || 'Bitiş tarihi seçin..'"
                     class="form-control"/>
     </div>
 </template>

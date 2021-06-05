@@ -431,6 +431,12 @@ $grid-gutter-width: 1.2rem;
                 padding: $grid-gutter-width / 1.3 $grid-gutter-width;
             }
         }
+
+        &:not(.active) {
+            &:hover {
+                width: 170px !important;
+            }
+        }
     }
 }
 </style>
