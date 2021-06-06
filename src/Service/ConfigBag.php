@@ -32,7 +32,8 @@ class ConfigBag
         private ConfigRepository $configRepo,
         private ParameterBagInterface $bag,
         private EntityManagerInterface $entityManager,
-    ) {
+    )
+    {
     }
 
     /**
@@ -43,13 +44,13 @@ class ConfigBag
         $this->loadConfigRepository();
 
         // Load DB
-        if (!empty($this->configs[$name])) {
+        if (array_key_exists($name, $this->configs)) {
             return $this->configs[$name];
         }
 
         // Load Default App Parameters
-        if ($this->bag->has('app.'.$name)) {
-            return $this->bag->get('app.'.$name);
+        if ($this->bag->has('app.' . $name)) {
+            return $this->bag->get('app.' . $name);
         }
 
         // Load Symfony Parameters
@@ -114,7 +115,7 @@ class ConfigBag
 
         // Load Cache|Repository
         foreach ($this->configRepo->findAll() as $config) {
-            $this->configs[$config->getName()] = $config->getConvertedValue();
+            $this->configs[$config->getName()] = $config->getConvertedValue($this->entityManager);
         }
     }
 
@@ -166,9 +167,11 @@ class ConfigBag
                     break;
                 case 'entity':
                     $data = [];
+                    $class = $form->get($itemName)->getConfig()->getOption('class');
+
                     if (\is_object($item->getData())) {
                         $choiceValue = $form->get($itemName)->getConfig()->getOption('choice_value');
-                        $entityGetter = \is_string($choiceValue) ? 'get'.ucfirst($choiceValue) : 'getId';
+                        $entityGetter = \is_string($choiceValue) ? 'get' . ucfirst($choiceValue) : 'getId';
                         if (\is_array($item->getData()) || $item->getData() instanceof ArrayCollection) {
                             foreach ($item->getData() as $itemData) {
                                 $data[] = $itemData->{$entityGetter}();
@@ -181,9 +184,9 @@ class ConfigBag
                     }
 
                     $configItems[] = (new Config())
-                        ->setType('json')
+                        ->setType($class)
                         ->setName($itemName)
-                        ->setValue(json_encode($data));
+                        ->setValue($data);
                     break;
                 case 'file':
                     if ($item->getData()) {

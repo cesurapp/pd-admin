@@ -11,6 +11,7 @@
 
 namespace App\Entity\System;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Normalizer\DateTimeNormalizer;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -47,7 +48,7 @@ class Config
     private ?string $value;
 
     /**
-     * @ORM\Column(type="string", length=15)
+     * @ORM\Column(type="string", length=150)
      * @Assert\Choice(choices=Config::TYPES)
      */
     private string $type;
@@ -74,9 +75,9 @@ class Config
         return $this->value;
     }
 
-    public function getConvertedValue()
+    public function getConvertedValue(EntityManagerInterface $entityManager)
     {
-        if (!$this->value || !$this->type) {
+        if (!$this->type) {
             return null;
         }
 
@@ -85,8 +86,9 @@ class Config
             case 'number': return (int) $this->value;
             case 'string': return (string) $this->value;
             case 'array': return unserialize($this->value);
-            case 'json': return json_decode($this->value, true);
+            case 'json': return json_decode($this->value, true, 512, JSON_THROW_ON_ERROR);
             case 'datetime': return (new DateTimeNormalizer())->denormalize($this->value, 'object');
+            case class_exists($this->type) && $this->value: return $entityManager->getReference($this->type, $this->value);
         }
 
         return null;
