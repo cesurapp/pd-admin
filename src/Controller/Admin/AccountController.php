@@ -114,7 +114,7 @@ class AccountController extends AbstractController
             $this->entityManager->flush();
 
             // Change Site Language
-            if ($this->getUser()->getId() === $user->getId()) {
+            if ($form->get('language')->getData() && $this->getUser()->getId() === $user->getId()) {
                 $request->getSession()->set('_locale', $form->get('language')->getData());
             }
 

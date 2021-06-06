@@ -53,7 +53,7 @@
 {%- endblock collection_widget -%}
 
 {%- block textarea_widget -%}
-    <textarea v-model="$root.forms.{{ id|trim }}" {{ block('widget_attributes') }} v-set-value="'{{ value|json_encode }}'"></textarea>
+    <textarea v-model="$root.forms.{{ id|trim }}" {{ block('widget_attributes') }} v-set-value="'{{ value|json_encode|escape('js') }}'"></textarea>
 {%- endblock textarea_widget -%}
 
 {%- block choice_widget -%}

@@ -62,12 +62,14 @@ export default {
                 contentNav = contentNav.getAttribute('sidebar');
                 this.activeItem = document.querySelector(`#main_menu [data-id='${contentNav}']`);
                 let parentSibling = this.activeItem
-                while (!parentSibling.classList.contains('pd-menu')) {
-                    if (parentSibling.tagName === 'LI') {
-                        parentSibling.classList.add('active');
-                    }
+                if (parentSibling) {
+                    while (!parentSibling.classList.contains('pd-menu')) {
+                        if (parentSibling.tagName === 'LI') {
+                            parentSibling.classList.add('active');
+                        }
 
-                    parentSibling = parentSibling.parentNode;
+                        parentSibling = parentSibling.parentNode;
+                    }
                 }
             }
         },
@@ -77,11 +79,12 @@ export default {
             }
         },
     },
-
-    mounted() {
+    created() {
         // Set Menu Activate
-        this.active = 'true' === localStorage.getItem('menu-active');
-        this.setSize(window.outerWidth);
+        this.active = [null, 'true'].includes(localStorage.getItem('menu-active'));
+    },
+    mounted() {
+        this.setSize(screen.availWidth);
         window.addEventListener('resize', (event) => this.setSize(event.target.outerWidth))
 
         // Set Active Item

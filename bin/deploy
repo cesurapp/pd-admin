@@ -1,7 +1,7 @@
 #!/bin/sh
 
 git reset --hard HEAD
-git pull origin master
+git pull
 composer install --no-dev --optimize-autoloader
 bin/console doctrine:schema:update --force --dump-sql
 bin/console doctrine:migrations:migrate --no-interaction

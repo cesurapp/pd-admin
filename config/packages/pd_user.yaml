@@ -1,11 +1,11 @@
 pd_user:
     user_class: App\Entity\Account\User
     group_class: App\Entity\Account\Group
-    default_group: 1
-    login_redirect: 'admin.dashboard'
-    email_confirmation: true
-    welcome_email: true
-    user_registration: true
+    default_group: '%app.default_group%'
+    login_redirect: '%app.login_redirect%'
+    email_confirmation: '%app.email_confirmation%'
+    welcome_email: '%app.welcome_email%'
+    user_registration: '%app.user_registration%'
     template_path: 'auth'
     resetting_request_time: 7200
     mail_sender_address: '%env(resolve:MAILER_FROM_EMAIL)%'

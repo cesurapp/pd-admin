@@ -31,11 +31,11 @@ security:
                 use_referer: true
                 login_path: security_login
                 check_path: security_login
-                default_target_path: "%app.user_login_redirect%"
+                default_target_path: "%app.login_redirect%"
             entry_point: form_login
             logout:
                 path: security_logout
-                target: '%app.user_logout_redirect%'
+                target: '%app.logout_redirect%'
             remember_me:
                 secret: '%env(APP_SECRET)%'
                 lifetime: 604800 # 1 Week - 1 Month -> 2592000

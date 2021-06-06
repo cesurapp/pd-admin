@@ -4,11 +4,11 @@ parameters:
     ##
     app.active_language: [ en, tr ]
     app.user_registration: true
-    app.user_default_group: null
-    app.user_login_redirect: admin.dashboard
-    app.user_logout_redirect: security_login
-    app.user_email_confirmation: true
-    app.user_welcome_email: true
+    app.default_group: null
+    app.login_redirect: admin.dashboard
+    app.logout_redirect: security_login
+    app.email_confirmation: true
+    app.welcome_email: true
 
     ##
     # General Default Config

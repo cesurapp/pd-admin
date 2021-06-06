@@ -150,7 +150,7 @@ export default {
             })
         },
         getApiUrl() {
-            let api = new URL(this.dataApi);
+            let api = new URL(this.dataApi, /\b(http:\/\/|https:\/\/)/.test(this.dataApi) ? null : window.location.origin);
 
             // Filters
             this.columns.forEach((column) => {
