@@ -57,7 +57,7 @@ class GroupController extends AbstractController
         );
 
         // Render Page
-        return $request->isXmlHttpRequest() ? $this->json($data) : $this->render('Admin/Account/listGroup.html.twig', [
+        return $request->isXmlHttpRequest() ? $this->json($data) : $this->render('admin/account/listGroup.html.twig', [
             'table' => $table,
         ]);
     }
