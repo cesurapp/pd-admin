@@ -33,13 +33,19 @@ export default {
             default: null
         },
         'opts': [Array, Object, String],
-        'current': [Array, Object, String]
+        'current': {
+            type: [Array, Object, String],
+            default: null
+        }
     },
     data() {
         return {
             options: null,
             selected: []
         }
+    },
+    beforeCreate() {
+        this.$root['select_' + this.$attrs.id] = this;
     },
     mounted() {
         if (this.opts) {
@@ -54,8 +60,8 @@ export default {
             } else if (this.opts instanceof Object) {
                 Object.keys(this.opts).forEach((key) => {
                     parsed.push({
-                        value: this.opts[key].value,
-                        label: this.opts[key].label
+                        value: this.opts[key].value ?? key,
+                        label: this.opts[key].label ?? this.opts[key]
                     })
 
                     if (this.opts[key].hasOwnProperty('attr') && this.opts[key].attr.hasOwnProperty('selected')) {
@@ -68,9 +74,12 @@ export default {
         }
 
         if (this.multiple) {
+            if (!this.selected.length && Array.isArray(this.current)) {
+                this.selected = this.current;
+            }
             this.$emit("update:modelValue", this.selected);
         } else {
-            this.$emit("update:modelValue", this.modelValue || (this.current ? JSON.parse(this.current) : null));
+            this.$emit("update:modelValue", this.modelValue || (this.current || null));
         }
     },
     computed: {

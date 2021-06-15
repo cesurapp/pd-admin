@@ -1,7 +1,7 @@
 export default {
     beforeMount(el, binding, vnode) {
         let val = null;
-        let id = el.id;
+        let id = el.tagName === 'DIV' ? el.querySelector('input').id : el.id;
         let type = el.getAttribute('data-type');
 
         if (type === 'boolean') {
@@ -9,7 +9,7 @@ export default {
         } else if (type === 'date') {
             val = new Date(binding.value)
         } else {
-            val = JSON.parse(binding.value);
+            val = binding.value;
         }
 
         setTimeout(() => {
