@@ -8,9 +8,10 @@
             :placeholder="placeholder"
             :required="required"
             v-model="modelProxied"
-            :options="options"
+            :open-direction="direction"
+            :options="option"
         />
-        <select class="d-none" v-if="current" :multiple="multiple" v-bind="$attrs" v-model="modelValue">
+        <select class="d-none" v-if="current !== null" :multiple="multiple" v-bind="$attrs" v-model="modelValue">
             <option v-for="v in getModelArray" :value="v" selected></option>
         </select>
     </div>
@@ -36,11 +37,15 @@ export default {
         'current': {
             type: [Array, Object, String],
             default: null
-        }
+        },
+        'direction': {
+            type: String,
+            default: 'bottom'
+        },
     },
     data() {
         return {
-            options: null,
+            option: null,
             selected: []
         }
     },
@@ -60,17 +65,17 @@ export default {
             } else if (this.opts instanceof Object) {
                 Object.keys(this.opts).forEach((key) => {
                     parsed.push({
-                        value: this.opts[key].value ?? key,
-                        label: this.opts[key].label ?? this.opts[key]
+                        value: this.opts[key] ? (this.opts[key].value || key) : key,
+                        label: this.opts[key] ? (this.opts[key].label || this.opts[key]) : this.opts[key]
                     })
 
-                    if (this.opts[key].hasOwnProperty('attr') && this.opts[key].attr.hasOwnProperty('selected')) {
+                    if (this.opts[key] && this.opts[key].hasOwnProperty('attr') && this.opts[key].attr.hasOwnProperty('selected')) {
                         this.selected.push(this.opts[key].value);
                     }
                 })
             }
 
-            this.options = parsed;
+            this.option = parsed;
         }
 
         if (this.multiple) {

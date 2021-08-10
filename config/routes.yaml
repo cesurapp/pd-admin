@@ -12,11 +12,19 @@ when@dev:
 
 
 #------------------------------------
+# API
+#------------------------------------
+api:
+    resource: ../src/Controller/Api
+    type: annotation
+    prefix: api
+
+
+#------------------------------------
 # Admin
 #------------------------------------
 auth:
     resource: "@PdUserBundle/Resources/config/routing.yaml"
-
 admin:
     resource: ../src/Controller/Admin
     type: annotation
@@ -24,18 +32,14 @@ admin:
 admin_widget:
     resource: "@PdWidgetBundle/Resources/config/routing.yml"
     prefix: 'admin'
+
+
+#------------------------------------
+# Redirect Home
+#------------------------------------
 redirect_home:
     path: /
     controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction
     defaults:
         route: security_login
         permanent: true
-
-
-#------------------------------------
-# API
-#------------------------------------
-api:
-    resource: ../src/Controller/Api
-    type: annotation
-    prefix: api

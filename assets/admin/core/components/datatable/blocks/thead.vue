@@ -40,7 +40,7 @@
                 </span>
 
                 <!--Column Filters-->
-                <filters v-if="options.filters && column.filters" :column="column" :options="options"></filters>
+                <filters v-if="options.filters && column.filters" :column="column" :options="options" :key="column.field"></filters>
             </div>
         </th>
 

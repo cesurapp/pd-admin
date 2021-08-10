@@ -1,6 +1,6 @@
 <template>
     <div v-if="!multiple" class="pd-datepicker">
-        <datepicker v-model="pickedProxy" :input-format="format" :locale="locale" :id="id" :name="$attrs.name"
+        <datepicker v-model="pickedProxy" :input-format="format" :locale="locale" :id="id" :name="$attrs.name" :readonly="false"
                     :placeholder="placeholder || 'Tarih Seçin..'" class="form-control"/>
     </div>
     <div v-else class="pd-datepicker multiple">
@@ -26,7 +26,6 @@ export default {
         id: String,
         format: {
             type: String,
-            //default: 'dd.MM.yyyy'
         },
         multiple: {
             type: Boolean,

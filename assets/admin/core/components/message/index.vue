@@ -52,7 +52,7 @@ export default {
                 type: 'bg-' + type,
                 message: message,
                 paused: false,
-                duration: duration || 4000
+                duration: duration || 3000
             });
         },
         remove(id) {
@@ -70,7 +70,7 @@ export default {
         showBag(flashBag) {
             if (!Array.isArray(flashBag)) {
                 for (const type in flashBag) {
-                    flashBag[type].forEach((msg) => this.show(type, msg, 5000));
+                    flashBag[type].forEach((msg) => this.show(type, msg, 4000));
                 }
             }
         }

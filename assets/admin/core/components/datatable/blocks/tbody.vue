@@ -1,12 +1,12 @@
 <template>
     <tbody>
-    <tr v-if="data.length" v-for="(item, index) in data">
+    <tr v-if="data.length" v-for="(item, index) in data" :key="index">
         <!--Actions Column-->
         <td v-if="options.actions === true" class="actions end">
             <div class="dropdown" v-if="$parent.$slots.actions">
                 <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside"><i class="fas fa-ellipsis-v"></i></a>
                 <ul class="dropdown-menu">
-                    <slot name="actions" :item="item" :index="index" :remove="remove"></slot>
+                    <slot name="actions" :item="item" :index="index" :remove="remove" :key="item.id"></slot>
                 </ul>
             </div>
         </td>
@@ -46,7 +46,7 @@
             <div class="dropdown" v-if="$parent.$slots.actions">
                 <a class="dropdown-toggle" href="#" data-bs-toggle="dropdown" data-bs-auto-close="outside"><i class="fas fa-ellipsis-v"></i></a>
                 <ul class="dropdown-menu">
-                    <slot name="actions" :item="item"></slot>
+                    <slot name="actions" :item="item" :index="index" :remove="remove" :key="item.id"></slot>
                 </ul>
             </div>
         </td>
@@ -89,7 +89,11 @@ export default {
             }
         },
         remove(index) {
-            this.data.splice(index, 1);
+            if (index instanceof Object && index.hasOwnProperty('id')) {
+                this.data.splice(this.data.findIndex(item => item.id === index.id), 1);
+            } else {
+                this.data.splice(index, 1);
+            }
             this.$parent.pager.total--;
         }
     }

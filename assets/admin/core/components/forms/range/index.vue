@@ -1,7 +1,7 @@
 <template>
-    <div class="form-range d-flex align-items-center">
-        <input class="form-range" type="range" v-model="proxyChecked" :id="id" :min="min" :max="max" :step="step">
-        <span class="range-counter ms-2">{{ proxyChecked }}</span>
+    <div className="form-range d-flex align-items-center">
+        <input className="form-range" type="range" v-model="proxyChecked" :id="id" :min="min" :max="max" :step="step">
+        <span className="range-counter ms-2">{{ proxyChecked }}</span>
     </div>
 </template>
 
