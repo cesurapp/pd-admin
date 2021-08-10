@@ -103,11 +103,11 @@
 {%- endblock choice_widget_options -%}
 
 {%- block checkbox_widget -%}
-    <input type="checkbox" v-model="$root.forms.{{ id|trim }}"  {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input type="checkbox" v-set-value="{{ checked|default(0)|json_encode }}" v-model="$root.forms.{{ id|trim }}" {{ block('widget_attributes') }} {% if value is defined %} value="{{ value }}"{% endif %}/>
 {%- endblock checkbox_widget -%}
 
 {%- block radio_widget -%}
-    <input type="radio" v-model="$root.forms.{{ id|trim }}" v-set-value="'{{ value|json_encode }}'" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
+    <input type="radio" v-model="$root.forms.{{ id|trim }}" v-set-value="{{ value|json_encode }}" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 {%- endblock radio_widget -%}
 
 {%- block datetime_widget -%}

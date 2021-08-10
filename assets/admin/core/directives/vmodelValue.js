@@ -14,9 +14,11 @@ export default {
 
         setTimeout(() => {
             if (el.getAttribute('type') === 'radio') {
-                if (el.checked){
+                if (el.checked) {
                     vnode.dirs[0].instance.$root.forms[id] = val;
                 }
+            } else if (el.getAttribute('type') === 'checkbox') {
+                vnode.dirs[0].instance.$root.forms[id] = Boolean(val);
             } else {
                 vnode.dirs[0].instance.$root.forms[id] = val;
             }

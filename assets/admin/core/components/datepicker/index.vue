@@ -26,7 +26,7 @@ export default {
         id: String,
         format: {
             type: String,
-            default: 'dd.MM.yyyy'
+            //default: 'dd.MM.yyyy'
         },
         multiple: {
             type: Boolean,

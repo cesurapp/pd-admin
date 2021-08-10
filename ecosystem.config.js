@@ -1,7 +1,7 @@
 module.exports = {
     apps: [
         {
-            name: 'queue',
+            name: 'pd-queue',
             interpreter: 'php',
             script: 'bin/console',
             args: 'messenger:consume async --memory-limit=256M --time-limit=3600',
@@ -9,9 +9,10 @@ module.exports = {
             autorestart: true,
             watch: false,
             max_memory_restart: '1G',
+            namespace: 'pdadmin'
         },
         {
-            name: 'cron',
+            name: 'pd-cron',
             interpreter: 'php',
             script: 'bin/console',
             args: 'schedule:run',
@@ -20,6 +21,7 @@ module.exports = {
             instances: 1,
             autorestart: false,
             watch: false,
+            namespace: 'pdadmin'
         }
     ]
 };

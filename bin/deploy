@@ -3,10 +3,12 @@
 git reset --hard HEAD
 git pull
 composer install --no-dev --optimize-autoloader
+bin/console cache:pool:clear cache.global_clearer
+bin/console doctrine:cache:clear-metadata
 bin/console doctrine:schema:update --force --dump-sql
 bin/console doctrine:migrations:migrate --no-interaction
 yarn install
 yarn run build
-pm2 stop all
-pm2 delete all
+pm2 stop pdadmin
+pm2 delete pdadmin
 pm2 start
